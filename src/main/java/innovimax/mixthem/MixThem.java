@@ -2,15 +2,15 @@ package innovimax.mixthem;
 
 import java.io.IOException;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 
 /*
     Created by innovimax-jim
     Mix-them : Mix files togethers
 */
 public class MixThem {
-    private final static int CHAR_BUFFER_SIZE = 1024;
+    private final static int BYTE_BUFFER_SIZE = 1024;
 
     public static void main(String[] args) { 
         run(args);  
@@ -29,7 +29,7 @@ public class MixThem {
                     file1 = args[0];
                     file2 = args[1]; 
                 }                 
-                processFiles(rule, new File(file1), new File(file2));
+                processFiles(rule, new File(file1), new File(file2), System.out);
             } else {
                 printUsage(); 
             }  
@@ -42,12 +42,12 @@ public class MixThem {
         }
     }
 
-    public static void processFiles(String rule, File file1, File file2) throws MixException {
+    public static void processFiles(String rule, File file1, File file2, OutputStream out) throws MixException {
         try {
             if (rule.equals(Constants.RULE_1)) {
-                copyChar(file1);
+                copyChar(file1, out);
             } else if (rule.equals(Constants.RULE_2)) {
-                copyChar(file2);
+                copyChar(file2, out);
             } else {
                 System.out.println("This rule has not been implemented yet.");
             }     
@@ -59,15 +59,14 @@ public class MixThem {
 
     }   
     // this one copies the files as beeing char
-    private static void copyChar(File file) throws MixException, IOException {
-        FileReader in = new FileReader(file);
-        FileWriter out = new FileWriter(file.getName() + "mix");
-        char[] buffer = new char[CHAR_BUFFER_SIZE];
+    private static void copyChar(File file, OutputStream out) throws MixException, IOException {
+        FileInputStream in = new FileInputStream(file);
+        byte[] buffer = new byte[BYTE_BUFFER_SIZE];
         int c;
         while ((c = in.read(buffer)) != -1) {
             out.write(buffer, 0, c);
             in.close();
-            out.close(); 
+            // out.close(); 
         }
     }      
 
