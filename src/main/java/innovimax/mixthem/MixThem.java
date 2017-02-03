@@ -8,21 +8,33 @@ import java.io.File;
 */
 public class MixThem {
 
-    public static void main(String[] args) {    	
-        String file1 = args[0];
-        String file2 = args[1];   
-        if (checkArguments(args)) {
-            processFiles(file1, file2);
-        } else {
-            printUsage(); 
-        }  
+    public static void main(String[] args) { 
+        run(args);  
     }
 
-    private static void processFiles(String files1, String file2) { 
+    private static void run(String[] args) {
+        try {
+            String file1 = args[0];
+            String file2 = args[1];   
+            if (checkArguments(args)) {
+                processFiles(file1, file2);
+            } else {
+                printUsage(); 
+            }  
+        } catch (MixException e) {
+            System.err.println("Files mixing has been aborted due to following reason:"); 
+            System.err.println(e.getMessage());
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurs.");
+            e.printStackTrace();
+        }
+    }
+
+    private static void processFiles(String files1, String file2) throws MixException { 
         //TODO
     }   
 
-    private static boolean checkArguments(String[] args) { 
+    public static boolean checkArguments(String[] args) { 
         String file1 = args[0];
         String file2 = args[1];
         if (file1 == null) {
