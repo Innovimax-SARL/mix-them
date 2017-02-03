@@ -44,9 +44,9 @@ public class MixThem {
     private static void processFiles(String rule, File file1, File file2) throws MixException {
         try {
             if (rule.equals("1")) {
-                copy(file1);
+                copyChar(file1);
             } else if (rule.equals("2")) {
-                copy(file2);
+                copyChar(file2);
             } else {
                 System.out.println("This rule has not been implemented yet.");
             }     
@@ -57,8 +57,8 @@ public class MixThem {
         }
 
     }   
-
-    private static void copy(File file) throws MixException, IOException {
+    // this one copies the files as beeing char
+    private static void copyChar(File file) throws MixException, IOException {
         FileReader in = new FileReader(file);
         FileWriter out = new FileWriter(file.getName() + "mix");
         char[] buffer = new char[1024]; // TODO extract constant
