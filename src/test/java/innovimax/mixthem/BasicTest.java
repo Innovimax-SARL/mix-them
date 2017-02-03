@@ -12,7 +12,7 @@ import org.junit.Test;
 public class BasicTest {
 
 	@Test
-  	public final void printUsage() {
+  	public final void failedPrintUsage() {
 		final String args1[] = {};
     	Assert.assertFalse(MixThem.checkArguments(args1));
     	final String args2[] = { "ghost1", "ghost2" };
