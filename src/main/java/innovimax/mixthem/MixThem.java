@@ -1,6 +1,9 @@
 package innovimax.mixthem;
 
+import java.io.IOException;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 /*
     Created by innovimax-jim
@@ -30,9 +33,32 @@ public class MixThem {
         }
     }
 
-    private static void processFiles(String files1, String file2) throws MixException { 
-        //TODO
+    private static void processFiles(String file1, String file2) throws MixException {
+        try {
+            String rule = "1";
+            if (rule.equals("1")) {
+                processRule1(file1, file2);
+            }            
+        } catch (IOException e) {
+            throw new MixException("Unexpected file error", e);
+        } catch (MixException e) {
+            throw e;
+        }
+
     }   
+
+    private static void processRule1(String file1, String file2) throws MixException, IOException { 
+        File file = new File(file1);
+        FileReader in = new FileReader(file);
+        FileWriter out = new FileWriter(file.getName() + "mix");
+        char[] buffer = new char[1024]; // TODO extract constant
+        int c;
+        while ((c = in.read(buffer)) != -1) {
+            out.write(buffer, 0, c);
+            in.close();
+            out.close(); 
+        }
+    }  
 
     public static boolean checkArguments(String[] args) { 
         String file1 = null;
