@@ -44,13 +44,20 @@ public class MixThem {
 
     public static void processFiles(String rule, File file1, File file2, OutputStream out) throws MixException {
         try {
-            if (rule.equals(Constants.RULE_1)) {
-                copyChar(file1, out);
-            } else if (rule.equals(Constants.RULE_2)) {
-                copyChar(file2, out);
-            } else {
-                System.out.println("This rule has not been implemented yet.");
-            }     
+            switch (rule) {
+                case Constants.RULE_1:
+                    copyChar(file1, out);
+                    break;
+                case Constants.RULE_2:
+                    copyChar(file2, out);
+                    break;
+                case Constants.RULE_ALT_LINE:
+                case Constants.RULE_ALT_BYTE:
+                case Constants.RULE_RANDOM_ALT_LINE:
+                default:
+                    System.out.println("This rule has not been implemented yet.");
+                    break;
+            }
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
         } catch (MixException e) {
