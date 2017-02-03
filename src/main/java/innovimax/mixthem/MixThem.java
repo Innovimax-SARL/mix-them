@@ -44,9 +44,9 @@ public class MixThem {
     private static void processFiles(String rule, String file1, String file2) throws MixException {
         try {
             if (rule.equals("1")) {
-                processRule1And2(file1);
+                copy(file1);
             } else if (rule.equals("2")) {
-                processRule1And2(file2);
+                copy(file2);
             } else {
                 System.out.println("This rule has not been implemented yet.");
             }     
@@ -58,7 +58,7 @@ public class MixThem {
 
     }   
 
-    private static void processRule1And2(String filename) throws MixException, IOException { 
+    private static void copy(String filename) throws MixException, IOException { 
         File file = new File(filename);
         FileReader in = new FileReader(file);
         FileWriter out = new FileWriter(file.getName() + "mix");
