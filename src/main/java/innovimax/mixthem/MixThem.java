@@ -42,7 +42,7 @@ public class MixThem {
         }
     }
 
-    private static void processFiles(String rule, File file1, File file2) throws MixException {
+    public static void processFiles(String rule, File file1, File file2) throws MixException {
         try {
             if (rule.equals("1")) {
                 copyChar(file1);
