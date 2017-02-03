@@ -17,10 +17,18 @@ public class MixThem {
 
     private static void run(String[] args) {
         try {
-            String file1 = args[0];
-            String file2 = args[1];   
             if (checkArguments(args)) {
-                processFiles(file1, file2);
+                String rule, file1, file2;
+                if (args.length >= 3) {
+                    rule = args[0];
+                    file1 = args[1];
+                    file2 = args[2];
+                } else {
+                    rule = "1";
+                    file1 = args[0];
+                    file2 = args[1]; 
+                }                 
+                processFiles(rule, file1, file2);
             } else {
                 printUsage(); 
             }  
@@ -33,12 +41,13 @@ public class MixThem {
         }
     }
 
-    private static void processFiles(String file1, String file2) throws MixException {
+    private static void processFiles(String rule, String file1, String file2) throws MixException {
         try {
-            String rule = "1";
             if (rule.equals("1")) {
                 processRule1(file1, file2);
-            }            
+            } else {
+                System.out.println("This rule has not been implemented yet.");
+            }     
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
         } catch (MixException e) {
@@ -61,37 +70,54 @@ public class MixThem {
     }  
 
     public static boolean checkArguments(String[] args) { 
+        String rule = null;
         String file1 = null;
         String file2 = null;
-        if (args.length > 0) {
-            file1 = args[0];
+        if (args.length >= 3) {
+            rule = args[0];
+            file1 = args[1];
+            file2 = args[2];
+        } else {            
+            if (args.length > 0) {
+                file1 = args[0];
+            }
+            if (args.length > 1) {
+                file2 = args[1];
+            }
         }
-        if (args.length > 1) {
-            file2 = args[1];
+        boolean ruleOk = true;
+        if (rule != null) {            
+            if (!rule.equals("1") && !rule.equals("2") && !rule.equals("alt-line") 
+                && !rule.equals("alt-byte") && !rule.equals("rand-alt-line")) {
+                System.out.println("rule argument is incorrect.");
+                ruleOk = false;
+            }
         }
-        if (file1 == null) {
-            System.out.println("file1 argument missing.");
-        } else if (file2 == null) {
-            System.out.println("file2 argument missing.");
-        } else {
-            File file = new File(file1);
-            if (file.exists()) {
-                if (file.canRead()) {
+        if (ruleOk) {
+            if (file1 == null) {
+                System.out.println("file1 argument missing.");
+            } else if (file2 == null) {
+                System.out.println("file2 argument missing.");
+            } else {
+                File file = new File(file1);
+                if (file.exists()) {
+                    if (file.canRead()) {
                     file = new File(file2); 
-                    if (file.exists()) {  
-                        if (file.canRead()) {
-                            return true;
-                        } else {
+                        if (file.exists()) {  
+                            if (file.canRead()) {
+                                return true;
+                            } else {
                             System.out.println("file2 cannot be read."); 
+                            }
+                        } else {
+                        System.out.println("file2 not found.");
                         }
                     } else {
-                        System.out.println("file2 not found.");
+                        System.out.println("file1 cannot be read.");    
                     }
                 } else {
-                    System.out.println("file1 cannot be read.");    
+                    System.out.println("file1 not found.");
                 }
-            } else {
-                System.out.println("file1 not found.");
             }
         }
         return false;
