@@ -51,7 +51,7 @@ public class MixThem {
         File file = new File(file1);
         FileReader in = new FileReader(file);
         FileWriter out = new FileWriter(file.getName() + "mix");
-        char[] buffer = new byte[1024]; // TODO extract constant
+        char[] buffer = new char[1024]; // TODO extract constant
         int c;
         while ((c = in.read(buffer)) != -1) {
             out.write(buffer, 0, c);
