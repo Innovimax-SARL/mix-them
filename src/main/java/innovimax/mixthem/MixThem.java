@@ -3,7 +3,7 @@ package innovimax.mixthem;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.PrintStream;
+import java.io.OutputStream;
 
 /*
     Created by innovimax-jim
@@ -42,7 +42,7 @@ public class MixThem {
         }
     }
 
-    public static void processFiles(String rule, File file1, File file2, PrintStream out) throws MixException {
+    public static void processFiles(String rule, File file1, File file2, OutputStream out) throws MixException {
         try {
             if (rule.equals(Constants.RULE_1)) {
                 copyChar(file1, out);
@@ -59,7 +59,7 @@ public class MixThem {
 
     }   
     // this one copies the files as beeing char
-    private static void copyChar(File file, PrintStream out) throws MixException, IOException {
+    private static void copyChar(File file, OutputStream out) throws MixException, IOException {
         FileInputStream in = new FileInputStream(file);
         byte[] buffer = new byte[BYTE_BUFFER_SIZE];
         int c;
