@@ -22,7 +22,7 @@ public class GenericTest {
       Assert.assertTrue(checkFileEquals(file1, MixThem.processFiles(Constants.RULE_1, file1, file2)));
       Assert.assertTrue(checkFileEquals(file2, MixThem.processFiles(Constants.RULE_2, file1, file2)));
   	}
-    private static boolean checkFileEquals(File fileExpected, File result) {
+    private static boolean checkFileEquals(File fileExpected, File fileResult) {
        FileInputStream fisExpected = new FileInputStream(fileExpected);
        FileInputStream fisResult = new FileInputStream(fileResult);
        int c;
