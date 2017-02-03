@@ -25,7 +25,7 @@ public class MixThem {
                     file1 = args[1];
                     file2 = args[2];
                 } else {
-                    rule = "1";
+                    rule = Constants.RULE_1;
                     file1 = args[0];
                     file2 = args[1]; 
                 }                 
@@ -44,9 +44,9 @@ public class MixThem {
 
     public static void processFiles(String rule, File file1, File file2) throws MixException {
         try {
-            if (rule.equals("1")) {
+            if (rule.equals(Constants.RULE_1)) {
                 copyChar(file1);
-            } else if (rule.equals("2")) {
+            } else if (rule.equals(Constants.RULE_2)) {
                 copyChar(file2);
             } else {
                 System.out.println("This rule has not been implemented yet.");
@@ -89,8 +89,8 @@ public class MixThem {
         }
         boolean ruleOk = true;
         if (rule != null) {            
-            if (!rule.equals("1") && !rule.equals("2") && !rule.equals("alt-line") 
-                && !rule.equals("alt-byte") && !rule.equals("rand-alt-line")) {
+            if (!rule.equals(Constants.RULE_1) && !rule.equals(Constants.RULE_2) && !rule.equals(Constants.RULE_ALT_LINE) 
+                && !rule.equals(Constants.RULE_ALT_BYTE) && !rule.equals(Constants.RULE_RANDOM_ALT_LINE)) {
                 System.out.println("rule argument is incorrect.");
                 ruleOk = false;
             }
@@ -136,11 +136,11 @@ public class MixThem {
         System.out.println("  (will generate a file based on the rule)");
         System.out.println("  ");
         System.out.println("  Here are the list of rules");
-        System.out.println("  - [ ] 1 : will output file1");
-        System.out.println("  - [ ] 2 : will output file2");
-        System.out.println("  - [ ] alt-line : will output one line of each starting with first line of file1");
-        System.out.println("  - [ ] alt-byte : will output one byte of each starting with first byte of file1");
-        System.out.println("  - [ ] rand-alt-line [seed] : will output one line of each code randomly based on a seed for reproducability");
+        System.out.println("  - "+Constants.RULE_1+": will output file1");
+        System.out.println("  - "+Constants.RULE_2+": will output file2");
+        System.out.println("  - "+Constants.RULE_ALT_LINE+": will output one line of each starting with first line of file1");
+        System.out.println("  - "+Constants.RULE_ALT_BYTE+": will output one byte of each starting with first byte of file1");
+        System.out.println("  - "+Constants.RULE_RANDOM_ALT_LINE+" [seed]: will output one line of each code randomly based on a seed for reproducability");
         System.out.println("  ");
     }
 
