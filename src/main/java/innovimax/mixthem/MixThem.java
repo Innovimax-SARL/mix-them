@@ -1,5 +1,7 @@
 package innovimax.mixthem;
 
+import java.io.File;
+
 /*
     Created by innovimax-jim
     Mix-them : Mix files togethers
@@ -7,10 +9,52 @@ package innovimax.mixthem;
 public class MixThem {
 
     public static void main(String[] args) {    	
-        printUsage(args);   
+        String file1 = args[0];
+        String file2 = args[1];   
+        if (checkArguments(args)) {
+            processFiles(file1, file2);
+        } else {
+            printUsage(); 
+        }  
     }
 
-    private static void printUsage(String[] args) {        
+    private static void processFiles(String files1, String file2) { 
+        //TODO
+    }   
+
+    private static boolean checkArguments(String[] args) { 
+        String file1 = args[0];
+        String file2 = args[1];
+        if (file1 == null) {
+            System.out.println("file1 argument missing.");
+        } else if (file2 == null) {
+            System.out.println("file2 argument missing.");
+        } else {
+            File file = new File(file1);
+            if (file.exists()) {
+                if (file.canRead()) {
+                    file = new File(file2); 
+                    if (file.exists()) {  
+                        if (file.canRead()) {
+                            return true;
+                        } else {
+                            System.out.println("file2 cannot be read."); 
+                        }
+                    } else {
+                        System.out.println("file2 not found.");
+                    }
+                } else {
+                    System.out.println("file1 cannot be read.");    
+                }
+            } else {
+                System.out.println("file1 not found.");
+            }
+        }
+        return false;
+    }    
+
+    private static void printUsage() {    
+        System.out.println("  ");    
         System.out.println("Usage:");
         System.out.println("  ");
         System.out.println("  mix-them file1 file2");
