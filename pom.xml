@@ -3,7 +3,7 @@
   	<modelVersion>4.0.0</modelVersion>
   	<groupId>innovimax.mixthem</groupId>
   	<artifactId>MixThem</artifactId>
-  	<packaging>jar<packaging>
+  	<packaging>jar</packaging>
   	<version>1.0-SNAPSHOT</version>
   	<name>Mix-them</name>
 	<description>Mix files togethers</description>
@@ -32,21 +32,15 @@
 		<junit.version>4.11</junit.version>
 	</properties>  
   	<dependencies>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${servlet.version}</version>
-			<scope>provided</scope>
-		</dependency>
     	<dependency>    	
       		<groupId>junit</groupId>
       		<artifactId>junit</artifactId>
       		<version>${junit.version}</version>
       		<scope>test</scope>
-    		</dependency>   
+    	</dependency>   
   	</dependencies>
   	<build>
-    	<finalName>mixthem</finalName>
+    	<finalName>mixthem</finalName>   	
 		<plugins>
 		  	<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -62,8 +56,16 @@
 				</configuration>
 		  	</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>				
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>3.3</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>innovimax.mixthem.MixThem</mainClass>
+						</manifest>
+					</archive>
+				</configuration>				
 			</plugin>
 		</plugins>
   </build>
