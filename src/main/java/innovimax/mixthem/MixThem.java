@@ -32,14 +32,14 @@ public class MixThem {
         }
     }
 
-    private static void processFiles(String files1, String file2) throws MixException { 
+    private static void processFiles(String file1, String file2) throws MixException { 
         String rule = "1";
         if (rule.equals("1")) {
             processRule1(file1, file2);
         }
     }   
 
-    private static void processRule1(String files1, String file2) throws MixException { 
+    private static void processRule1(String file1, String file2) throws MixException { 
         File file = new File(file1);
         FileReader in = new FileReader(file);
         FileWriter out = new FileWriter(file.getName() + "mix");
