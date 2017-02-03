@@ -16,7 +16,7 @@ import org.junit.Test;
 public class GenericTest {
 
    @Test
-   public final void check1() throws MixException {
+   public final void check1() throws MixException, FileNotFoundException, IOException {
           ClassLoader classLoader = getClass().getClassLoader();
           File file1 = new File(classLoader.getResource("file1.txt").getFile());
           File file2 = new File(classLoader.getResource("file2.txt").getFile());
@@ -28,7 +28,7 @@ public class GenericTest {
           Assert.assertTrue(checkFileEquals(file2, baos_rule_2.toByteArray()));
     }
 	
-    private static boolean checkFileEquals(File fileExpected, byte[] result) {
+    private static boolean checkFileEquals(File fileExpected, byte[] result) throws FileNotFoundException, IOException {
        FileInputStream fisExpected = new FileInputStream(fileExpected);
        int c;
        int offset = 0;
