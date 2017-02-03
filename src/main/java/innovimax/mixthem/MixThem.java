@@ -44,7 +44,9 @@ public class MixThem {
     private static void processFiles(String rule, String file1, String file2) throws MixException {
         try {
             if (rule.equals("1")) {
-                processRule1(file1, file2);
+                processRule1And2(file1);
+            } else if (rule.equals("2")) {
+                processRule1And2(file2);
             } else {
                 System.out.println("This rule has not been implemented yet.");
             }     
@@ -56,8 +58,8 @@ public class MixThem {
 
     }   
 
-    private static void processRule1(String file1, String file2) throws MixException, IOException { 
-        File file = new File(file1);
+    private static void processRule1And2(String filename) throws MixException, IOException { 
+        File file = new File(filename);
         FileReader in = new FileReader(file);
         FileWriter out = new FileWriter(file.getName() + "mix");
         char[] buffer = new char[1024]; // TODO extract constant
@@ -67,7 +69,7 @@ public class MixThem {
             in.close();
             out.close(); 
         }
-    }  
+    }      
 
     public static boolean checkArguments(String[] args) { 
         String rule = null;
