@@ -10,6 +10,7 @@ import java.io.FileWriter;
     Mix-them : Mix files togethers
 */
 public class MixThem {
+    private final static int CHAR_BUFFER_SIZE = 1024;
 
     public static void main(String[] args) { 
         run(args);  
@@ -61,7 +62,7 @@ public class MixThem {
     private static void copyChar(File file) throws MixException, IOException {
         FileReader in = new FileReader(file);
         FileWriter out = new FileWriter(file.getName() + "mix");
-        char[] buffer = new char[1024]; // TODO extract constant
+        char[] buffer = new char[CHAR_BUFFER_SIZE];
         int c;
         while ((c = in.read(buffer)) != -1) {
             out.write(buffer, 0, c);
