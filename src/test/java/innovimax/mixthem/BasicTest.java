@@ -13,9 +13,10 @@ public class BasicTest {
 
 	@Test
   	public final void printUsage() {
-    	Assert.assertFalse(MixThem.checkArguments(null));
-    	//String[] args = { "ghost1", "host2" };
-    	//Assert.assertFalse(MixThem.checkArguments(args));
+		final String args1[] = {};
+    	Assert.assertFalse(MixThem.checkArguments(args1));
+    	final String args2[] = { "ghost1", "ghost2" };
+    	Assert.assertFalse(MixThem.checkArguments(args2));
   	}
 
 }
