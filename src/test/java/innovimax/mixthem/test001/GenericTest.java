@@ -18,8 +18,8 @@ public class GenericTest {
    @Test
    public final void check1() throws MixException, FileNotFoundException, IOException {
           ClassLoader classLoader = getClass().getClassLoader();
-          File file1 = new File(classLoader.getResource("file1.txt").getFile());
-          File file2 = new File(classLoader.getResource("file2.txt").getFile());
+          File file1 = classLoader.getResource("file1.txt").getFile();
+          File file2 = classLoader.getResource("file2.txt").getFile();
           ByteArrayOutputStream baos_rule_1 = new ByteArrayOutputStream();
           MixThem.processFiles(Constants.RULE_1, file1, file2, baos_rule_1);
           Assert.assertTrue(checkFileEquals(file1, baos_rule_1.toByteArray()));
