@@ -28,7 +28,7 @@ public class MixThem {
                     file1 = args[0];
                     file2 = args[1]; 
                 }                 
-                processFiles(rule, file1, file2);
+                processFiles(rule, new File(file1), new File(file2));
             } else {
                 printUsage(); 
             }  
@@ -41,7 +41,7 @@ public class MixThem {
         }
     }
 
-    private static void processFiles(String rule, String file1, String file2) throws MixException {
+    private static void processFiles(String rule, File file1, File file2) throws MixException {
         try {
             if (rule.equals("1")) {
                 copy(file1);
@@ -58,8 +58,7 @@ public class MixThem {
 
     }   
 
-    private static void copy(String filename) throws MixException, IOException { 
-        File file = new File(filename);
+    private static void copy(File file) throws MixException, IOException {
         FileReader in = new FileReader(file);
         FileWriter out = new FileWriter(file.getName() + "mix");
         char[] buffer = new char[1024]; // TODO extract constant
