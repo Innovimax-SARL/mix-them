@@ -35,8 +35,14 @@ public class MixThem {
     }   
 
     public static boolean checkArguments(String[] args) { 
-        String file1 = args[0];
-        String file2 = args[1];
+        String file1 = null;
+        String file2 = null;
+        if (args.length > 0) {
+            file1 = args[0];
+        }
+        if (args.length > 1) {
+            file2 = args[1];
+        }
         if (file1 == null) {
             System.out.println("file1 argument missing.");
         } else if (file2 == null) {
