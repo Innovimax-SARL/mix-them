@@ -32,11 +32,11 @@ public class GenericTest {
        int offset = 0;
        while ((c = fisExpected.read()) != -1) {
 	   if (offset >= result.length) return false;
-          int d = byte[offset++];
+          int d = result[offset++];
           if (c != d) return false;
        }
 	   if (offset >= result.length) return false;
-          int e = byte[offset++];
+          int e = result[offset++];
        if (c != e) return false;
        return true;
     }
