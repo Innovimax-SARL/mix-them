@@ -74,7 +74,7 @@ public class MixThem {
         String file1 = null;
         String file2 = null;
         if (args.length >= 3) {
-            rule = arg[0];
+            rule = args[0];
             file1 = args[1];
             file2 = args[2];
         } else {            
