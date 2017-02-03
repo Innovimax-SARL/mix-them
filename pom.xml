@@ -28,7 +28,7 @@
 		<url>http://innovimax.fr</url>
 	</organization>
 	<properties>
-		<jdk.version>1.8</jdk.version>
+		<jdk.version>8</jdk.version>
 		<junit.version>4.11</junit.version>
 	</properties>  
   	<dependencies>
