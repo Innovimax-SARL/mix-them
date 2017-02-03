@@ -5,6 +5,7 @@ import innovimax.mixthem.Constants;
 import innovimax.mixthem.MixException;
 
 import java.io.*;
+import java.net.URL;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,9 +18,10 @@ public class GenericTest {
 
    @Test
    public final void check1() throws MixException, FileNotFoundException, IOException {
-          ClassLoader classLoader = getClass().getClassLoader();
-          File file1 = classLoader.getResource("file1.txt").getFile();
-          File file2 = classLoader.getResource("file2.txt").getFile();
+          URL url1 = getClass().getResource("file1.txt");
+          URL url2 = getClass().getResource("file2.txt");
+          File file1 = new File(url1.getFile());
+          File file2 = new File(url2.getFile());
           ByteArrayOutputStream baos_rule_1 = new ByteArrayOutputStream();
           MixThem.processFiles(Constants.RULE_1, file1, file2, baos_rule_1);
           Assert.assertTrue(checkFileEquals(file1, baos_rule_1.toByteArray()));
@@ -33,13 +35,11 @@ public class GenericTest {
        int c;
        int offset = 0;
        while ((c = fisExpected.read()) != -1) {
-	   if (offset >= result.length) return false;
-          int d = result[offset++];
-          if (c != d) return false;
+           if (offset >= result.length) return false;
+           int d = result[offset++];
+           if (c != d) return false;
        }
-	   if (offset >= result.length) return false;
-          int e = result[offset++];
-       if (c != e) return false;
+       if (offset > result.length) return false;
        return true;
     }
 
