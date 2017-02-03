@@ -65,9 +65,9 @@ public class MixThem {
         int c;
         while ((c = in.read(buffer)) != -1) {
             out.write(buffer, 0, c);
-            in.close();
-            // out.close(); 
         }
+        in.close();
+        // out.close();
     }      
 
     public static boolean checkArguments(String[] args) { 
