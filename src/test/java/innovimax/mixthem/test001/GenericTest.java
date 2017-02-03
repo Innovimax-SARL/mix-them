@@ -2,6 +2,7 @@ package innovimax.mixthem.test001;
 
 import innovimax.mixthem.MixThem;
 import innovimax.mixthem.Constants;
+import innovimax.mixthem.MixException;
 
 import java.io.*;
 
@@ -15,7 +16,7 @@ import org.junit.Test;
 public class GenericTest {
 
    @Test
-   public final void check1() {
+   public final void check1() throws MixException {
           ClassLoader classLoader = getClass().getClassLoader();
           File file1 = new File(classLoader.getResource("file1.txt").getFile());
           File file2 = new File(classLoader.getResource("file2.txt").getFile());
@@ -26,6 +27,7 @@ public class GenericTest {
           MixThem.processFiles(Constants.RULE_2, file1, file2, baos_rule_2);
           Assert.assertTrue(checkFileEquals(file2, baos_rule_2.toByteArray()));
     }
+	
     private static boolean checkFileEquals(File fileExpected, byte[] result) {
        FileInputStream fisExpected = new FileInputStream(fileExpected);
        int c;
