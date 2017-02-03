@@ -10,7 +10,7 @@ import java.io.PrintStream;
     Mix-them : Mix files togethers
 */
 public class MixThem {
-    private final static int CHAR_BUFFER_SIZE = 1024;
+    private final static int BYTE_BUFFER_SIZE = 1024;
 
     public static void main(String[] args) { 
         run(args);  
@@ -61,7 +61,7 @@ public class MixThem {
     // this one copies the files as beeing char
     private static void copyChar(File file, PrintStream out) throws MixException, IOException {
         FileInputStream in = new FileInputStream(file);
-        byte[] buffer = new char[CHAR_BUFFER_SIZE];
+        byte[] buffer = new byte[BYTE_BUFFER_SIZE];
         int c;
         while ((c = in.read(buffer)) != -1) {
             out.write(buffer, 0, c);
