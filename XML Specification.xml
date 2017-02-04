@@ -2,27 +2,27 @@
 <?xml-model href="http://www.w3.org/XML/1998/06/schema/xmlspec.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <spec>
     <header>
-        <title>Sample specification</title>
-        <w3c-designation>W3C Designation</w3c-designation>
-        <w3c-doctype>W3C Recomandation</w3c-doctype>
+        <title>Mix Them Specification</title>
+        <w3c-designation>Innovimax</w3c-designation>
+        <w3c-doctype>Innovimax DRAFT</w3c-doctype>
         <pubdate>
-            <month>Month</month>
-            <year>Year</year>
+            <month>February</month>
+            <year>2017</year>
         </pubdate>
         <publoc>Document location</publoc>
         <authlist>
             <author>
-                <name>Author name</name>
+                <name>Innovimax</name>
             </author>
         </authlist>
         <status>
-            <p>Status of this Document</p>
+            <p>This document is a draft describing Mix Them</p>
         </status>
         <abstract>
-            <p>Abstract</p>
+            <p>Mix Them is a tool to mix document with advanced rules</p>
         </abstract>
         <langusage>
-            <language>Language</language>
+            <language>English, Java</language>
         </langusage>
         <revisiondesc>
             <p>Revision description</p>
@@ -30,11 +30,11 @@
     </header>
     <body>
         <div1>
-            <head>First part</head>
+            <head>Mix Them</head>
             <p>First part content</p>            
         </div1>
         <div1>
-            <head>Second part</head>
+            <head>Mix Them Advanced</head>
             <p>Second part content</p> 
         </div1>
     </body>
