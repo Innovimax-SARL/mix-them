@@ -1,4 +1,4 @@
-package innovimax.mixthem.test001;
+package innovimax.mixthem;
 
 import innovimax.mixthem.MixThem;
 import innovimax.mixthem.Constants;
@@ -18,8 +18,8 @@ public class GenericTest {
 
    @Test
    public final void check1() throws MixException, FileNotFoundException, IOException {
-          URL url1 = getClass().getResource("file1.txt");
-          URL url2 = getClass().getResource("file2.txt");
+          URL url1 = getClass().getResource("test001_file1.txt");
+          URL url2 = getClass().getResource("test001_file2.txt");
           File file1 = new File(url1.getFile());
           File file2 = new File(url2.getFile());
           ByteArrayOutputStream baos_rule_1 = new ByteArrayOutputStream();
