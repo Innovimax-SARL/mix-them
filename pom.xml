@@ -29,7 +29,7 @@
 	</organization>
 	<properties>
 		<jdk.version>8</jdk.version>
-		<junit.version>4.11</junit.version>
+		<junit.version>LATEST</junit.version>
 	</properties>  
   	<dependencies>
     	<dependency>    	
