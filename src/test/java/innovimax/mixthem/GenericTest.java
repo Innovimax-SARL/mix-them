@@ -1,4 +1,4 @@
-package innovimax.mixthem.test001;
+package innovimax.mixthem;
 
 import innovimax.mixthem.MixThem;
 import innovimax.mixthem.Constants;
