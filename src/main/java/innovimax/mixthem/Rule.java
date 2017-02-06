@@ -2,6 +2,7 @@ package innovimax.mixthem;
 
 import java.util.List;
 import java.util.Collections;
+import java.util.Arrays;
 
 public enum Rule { 
     _1(              "1",               "1",               "will output file1", true, Collections.emptyList()),
