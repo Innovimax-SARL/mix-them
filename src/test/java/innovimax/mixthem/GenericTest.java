@@ -43,6 +43,25 @@ public class GenericTest {
         Assert.assertTrue(checkFileEquals(fileComp, baos_rule.toByteArray()));
     }
 
+    @Test
+    public final void dumpRuleAltLine() throws MixException, FileNotFoundException, IOException {
+        URL url1 = getClass().getResource("test001_file1.txt");
+        URL url2 = getClass().getResource("test001_file2.txt");
+        URL urlComp = getClass().getResource("test001_output-altline.txt");
+        File file1 = new File(url1.getFile());
+        File file2 = new File(url2.getFile());
+        File fileComp = new File(urlComp.getFile());
+        System.out.println("Mixed:");
+        MixThem.processFiles(Constants.RULE_ALT_LINE, file1, file2, System.out);
+        System.out.println("Expected:");
+        String line;
+        BufferedReader br = new BufferedReader(new FileReader(fileComp));
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
+        br.close();
+    }
+
     private static boolean checkFileEquals(File fileExpected, byte[] result) throws FileNotFoundException, IOException {
        FileInputStream fisExpected = new FileInputStream(fileExpected);
        int c;
