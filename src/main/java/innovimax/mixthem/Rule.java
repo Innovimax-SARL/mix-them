@@ -14,7 +14,7 @@ public enum Rule {
    
    private final String name, extension, description;
    private final boolean implemented;
-   private final params;
+   private final List<String> params;
    private Rule(String name, String extension, String description, boolean implemented, List<String> params) {
      this.name = name;
      this.extension = extension;
@@ -29,9 +29,12 @@ public enum Rule {
      return this.name;
    }
    public String getExtension() {
-     return this.name;
+     return this.extension;
    }
    public String geDescription() {
-     return this.name;
+     return this.description;
+   }
+   public Iterable<String> getParams() {
+       return this.params;
    }
 }
