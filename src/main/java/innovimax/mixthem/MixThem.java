@@ -94,22 +94,22 @@ public class MixThem {
         boolean first = true;
         while(read1 || read2) {            
             if (read1) {
-                final String line1 = br1.readLine();
-                if (line1  == null) {
+                final String line = br1.readLine();
+                if (line  == null) {
                     read1 = false;
                 } else {
                     if (first || !read2) {
-                        printLine(line1, out);    
+                        printLine(line, out);    
                     }
                 }
             }  
             if (read2) {
-                final String line2 = br2.readLine();
-                if (line2  == null) {
+                final String line = br2.readLine();
+                if (line  == null) {
                     read2 = false;
                 } else {
                     if (!first || !read1) {
-                        printLine(line2, out);    
+                        printLine(line, out);    
                     }                    
                 }
             }
@@ -132,7 +132,7 @@ public class MixThem {
     // this one copies two files alternativly line by line (FileInputStream)
     private static void copyAltLine2(File file1, File file2, OutputStream out) throws MixException, IOException {        
         Scanner scan1 = new Scanner(new FileInputStream(file1));        
-        Scanner scan2 = new Scanner(new FileInputStream(file1));
+        Scanner scan2 = new Scanner(new FileInputStream(file2));
         boolean read1 = true;
         boolean read2 = true;
         boolean first = true;
