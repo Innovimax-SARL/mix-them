@@ -89,22 +89,32 @@ public class MixThem {
         BufferedReader br2 = new BufferedReader(new FileReader(file2));
         boolean read1 = true;
         boolean read2 = true;
+        boolean first = true;
         while(read1 || read2) {
+            String line1 = null;
+            String line2 = null;
             if (read1) {
-                final String line = br1.readLine();
-                if (line != null) {
-                    printLine(line, out);
-                } else {
+                line1 = br1.readLine();
+                if (line1  == null) {
                     read1 = false;
                 }
-            }
+            }  
             if (read2) {
-                final String line = br2.readLine();
-                if (line != null) {
-                    printLine(line, out);
-                } else {
+                line2 = br2.readLine();
+                if (line2  == null) {
                     read2 = false;
                 }
+            }
+            if (first) {
+                if (line1 != null) {
+                    printLine(line1, out);
+                }
+                first = false;
+            } else {
+                if (line2 != null) {
+                    printLine(line2, out);
+                }
+                first = true;
             }
         }
         br1.close();
