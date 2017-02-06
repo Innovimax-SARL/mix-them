@@ -6,4 +6,5 @@ public class Constants {
    public final static String RULE_ALT_LINE = "alt-line";
    public final static String RULE_ALT_BYTE = "alt-byte";
    public final static String RULE_RANDOM_ALT_LINE = "random-alt-line";
+   public final static String RULE_JOIN = "join";
 }
