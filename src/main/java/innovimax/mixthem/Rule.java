@@ -37,4 +37,12 @@ public enum Rule {
    public Iterable<String> getParams() {
        return this.params;
    }
+   public static Rule findByName(String name) {
+      for(Rule rule : values()){
+        if (rule.getName().equals(name)) {
+           return rule;
+        }
+      }
+      return null;
+   }  
 }
