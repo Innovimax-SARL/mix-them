@@ -42,27 +42,24 @@ public class MixThem {
 
     public static void processFiles(String rule, File file1, File file2, OutputStream out) throws MixException {
         try {
-            switch (rule) {
-                case Constants.RULE_1:
-                    copyChar(file1, out);
-                    break;
-                case Constants.RULE_2:
-                    copyChar(file2, out);
-                    break;
-                case Constants.RULE_BOTH:
-                    copyChar(file1, out);
-                    copyChar(file2, out);
-                    break;
-                case Constants.RULE_ALT_LINE:
-                    copyAltLine(file1, file2, out);
-                    //copyAltLine2(file1, file2, out);
-                    break;                
-                case Constants.RULE_ALT_CHAR:
-                case Constants.RULE_RANDOM_ALT_LINE:
-                case Constants.RULE_JOIN:
-                default:
-                    System.out.println("This rule has not been implemented yet.");
-                    break;
+            if (rule.equals(Constants.RULE_1.getName())) {
+                copyChar(file1, out);                
+            } else if (rule.equals(Constants.RULE_2.getName())) {                
+                copyChar(file2, out);                    
+            } else if (rule.equals(Constants.RULE_BOTH.getName())) {
+                copyChar(file1, out);
+                copyChar(file2, out);
+            } else if (rule.equals(Constants.RULE_ALT_LINE.getName())) {
+                copyAltLine(file1, file2, out);
+                //copyAltLine2(file1, file2, out);
+            } else if (rule.equals(Constants.RULE_ALT_CHAR.getName())) {
+                //TODO
+            } else if (rule.equals(Constants.RULE_RANDOM_ALT_LINE.getName())) {
+                //TODO
+            } else if (rule.equals(Constants.RULE_JOIN.getName())) {                
+                //TODO
+            } else {
+                System.out.println("This rule has not been implemented yet.");                
             }
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
