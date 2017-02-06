@@ -32,7 +32,7 @@ public enum Rule {
    public String getExtension() {
      return this.extension;
    }
-   public String geDescription() {
+   public String getDescription() {
      return this.description;
    }
    public Iterable<String> getParams() {
