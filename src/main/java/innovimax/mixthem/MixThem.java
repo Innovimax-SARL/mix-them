@@ -152,7 +152,7 @@ public class MixThem {
         System.out.println("  - " + Constants.RULE_ALT_LINE + ": will output one line of each starting with first line of file1");
         System.out.println("  - " + Constants.RULE_ALT_BYTE + ": will output one byte of each starting with first byte of file1");
         System.out.println("  - " + Constants.RULE_RANDOM_ALT_LINE + " [seed]: will output one line of each code randomly based on a seed for reproducability");
-        Sysyem.out.println("  - " + Constants.RUE_JOIN + " will output merging of lines that have common occurrence");
+        Sysyem.out.println("  - " + Constants.RULE_JOIN + " will output merging of lines that have common occurrence");
         System.out.println("  ");
     }
 
