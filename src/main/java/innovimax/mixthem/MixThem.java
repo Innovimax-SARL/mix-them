@@ -150,11 +150,11 @@ public class MixThem {
             if (read2) {
                 if (scan2.hasNextLine()) {
                     final String line = scan2.nextLine();
-                    if (first || !read2) {
+                    if (!first || !read1) {
                         printLine(line, out);    
                     }                    
                 } else {                
-                    read1 = false;
+                    read2 = false;
                 }
             }
             first = !first;
