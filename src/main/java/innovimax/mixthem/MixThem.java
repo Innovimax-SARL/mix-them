@@ -182,7 +182,7 @@ public class MixThem {
         }
         Rule rule = null;
         if (ruleString != null) {            
-            Rule rule = Rule.findByName(ruleString);
+            rule = Rule.findByName(ruleString);
             if (rule == null) {
                 System.out.println("rule argument is incorrect.");
             }
@@ -199,7 +199,7 @@ public class MixThem {
                     file = new File(file2); 
                         if (file.exists()) {  
                             if (file.canRead()) {
-                                return true;
+                                return rule;
                             } else {
                             System.out.println("file2 cannot be read."); 
                             }
@@ -214,7 +214,7 @@ public class MixThem {
                 }
             }
         }
-        return rule;
+        return null;
     }    
 
     private static void printUsage() {    
