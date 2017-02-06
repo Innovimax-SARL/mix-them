@@ -57,6 +57,18 @@ public class GenericTest {
     }
 
     @Test
+    public final void dumpRule1() throws MixException, FileNotFoundException, IOException {
+        URL url1 = getClass().getResource("test001_file1.txt");
+        URL url2 = getClass().getResource("test001_file2.txt");
+        File file1 = new File(url1.getFile());
+        File file2 = new File(url2.getFile());        
+        System.out.println("File1:");
+        MixThem.processFiles(Constants.RULE_1, file1, file2, System.out);
+        System.out.println("File2:");
+        MixThem.processFiles(Constants.RULE_2, file1, file2, System.out);
+    }
+
+    @Test
     public final void dumpRuleAltLine() throws MixException, FileNotFoundException, IOException {
         URL url1 = getClass().getResource("test001_file1.txt");
         URL url2 = getClass().getResource("test001_file2.txt");
