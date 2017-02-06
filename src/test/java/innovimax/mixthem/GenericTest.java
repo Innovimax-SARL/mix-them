@@ -23,10 +23,10 @@ public class GenericTest {
           File file1 = new File(url1.getFile());
           File file2 = new File(url2.getFile());
           ByteArrayOutputStream baos_rule_1 = new ByteArrayOutputStream();
-          MixThem.processFiles(Constants.RULE_1, file1, file2, baos_rule_1);
+          MixThem.processFiles(Constants.RULE_1.getName(), file1, file2, baos_rule_1);
           Assert.assertTrue(checkFileEquals(file1, baos_rule_1.toByteArray()));
           ByteArrayOutputStream baos_rule_2 = new ByteArrayOutputStream();
-          MixThem.processFiles(Constants.RULE_2, file1, file2, baos_rule_2);
+          MixThem.processFiles(Constants.RULE_2.getName(), file1, file2, baos_rule_2);
           Assert.assertTrue(checkFileEquals(file2, baos_rule_2.toByteArray()));
     }
   
@@ -39,7 +39,7 @@ public class GenericTest {
         File file2 = new File(url2.getFile());
         File file12 = new File(url12.getFile());          
         ByteArrayOutputStream baos_rule_12 = new ByteArrayOutputStream();
-        MixThem.processFiles(Constants.RULE_BOTH, file1, file2, baos_rule_12);
+        MixThem.processFiles(Constants.RULE_BOTH.getName(), file1, file2, baos_rule_12);
         Assert.assertTrue(checkFileEquals(file12, baos_rule_12.toByteArray()));
     }
 
@@ -52,7 +52,7 @@ public class GenericTest {
         File file2 = new File(url2.getFile());
         File fileComp = new File(urlComp.getFile());
         ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
-        MixThem.processFiles(Constants.RULE_ALT_LINE, file1, file2, baos_rule);
+        MixThem.processFiles(Constants.RULE_ALT_LINE.getName(), file1, file2, baos_rule);
         Assert.assertTrue(checkFileEquals(fileComp, baos_rule.toByteArray()));
     }
 
@@ -63,9 +63,9 @@ public class GenericTest {
         File file1 = new File(url1.getFile());
         File file2 = new File(url2.getFile());        
         System.out.println("File1:");
-        MixThem.processFiles(Constants.RULE_1, file1, file2, System.out);
+        MixThem.processFiles(Constants.RULE_1.getName(), file1, file2, System.out);
         System.out.println("File2:");
-        MixThem.processFiles(Constants.RULE_2, file1, file2, System.out);
+        MixThem.processFiles(Constants.RULE_2.getName(), file1, file2, System.out);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class GenericTest {
         File file2 = new File(url2.getFile());
         File fileComp = new File(urlComp.getFile());
         System.out.println("Mixed:");
-        MixThem.processFiles(Constants.RULE_ALT_LINE, file1, file2, System.out);
+        MixThem.processFiles(Constants.RULE_ALT_LINE.getName(), file1, file2, System.out);
         System.out.println("Expected:");
         String line;
         BufferedReader br = new BufferedReader(new FileReader(fileComp));
