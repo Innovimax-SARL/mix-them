@@ -90,32 +90,28 @@ public class MixThem {
         boolean read1 = true;
         boolean read2 = true;
         boolean first = true;
-        while(read1 || read2) {
-            String line1 = null;
-            String line2 = null;
+        while(read1 || read2) {            
             if (read1) {
-                line1 = br1.readLine();
+                final String line1 = br1.readLine();
                 if (line1  == null) {
                     read1 = false;
+                } else {
+                    if (first || !read2) {
+                        printLine(line1, out);    
+                    }
                 }
             }  
             if (read2) {
-                line2 = br2.readLine();
+                final String line2 = br2.readLine();
                 if (line2  == null) {
                     read2 = false;
+                } else {
+                    if (!first || !read1) {
+                        printLine(line2, out);    
+                    }                    
                 }
             }
-            if (first) {
-                if (line1 != null) {
-                    printLine(line1, out);
-                }
-                first = false;
-            } else {
-                if (line2 != null) {
-                    printLine(line2, out);
-                }
-                first = true;
-            }
+            first = !first;
         }
         br1.close();
         br2.close();
