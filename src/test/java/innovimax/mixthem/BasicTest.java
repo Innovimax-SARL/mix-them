@@ -14,9 +14,9 @@ public class BasicTest {
 	@Test
   	public final void failedPrintUsage() {
 		final String args1[] = {};
-    	Assert.assertFalse(MixThem.checkArguments(args1));
+    	Assert.assertNull(MixThem.checkArguments(args1));
     	final String args2[] = { "ghost1", "ghost2" };
-    	Assert.assertFalse(MixThem.checkArguments(args2));
+    	Assert.assertNull(MixThem.checkArguments(args2));
   	}
 
 }
