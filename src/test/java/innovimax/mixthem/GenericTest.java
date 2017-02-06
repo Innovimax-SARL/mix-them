@@ -63,7 +63,7 @@ public class GenericTest {
         File file1 = new File(url1.getFile());
         File file2 = new File(url2.getFile());        
         System.out.println("File1:");
-        MixThem.processFiles(Rule._1., file1, file2, System.out);
+        MixThem.processFiles(Rule._1, file1, file2, System.out);
         System.out.println("File2:");
         MixThem.processFiles(Rule._2, file1, file2, System.out);
     }
