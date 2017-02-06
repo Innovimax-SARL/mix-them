@@ -1,10 +1,8 @@
 package innovimax.mixthem;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.OutputStream;
 
 /*
@@ -54,8 +52,6 @@ public class MixThem {
                     copyChar(file2, out);
                     break;
                 case Constants.RULE_ALT_LINE:
-                    copyAltLine(file1, file2, out);
-                    break;                
                 case Constants.RULE_ALT_BYTE:
                 case Constants.RULE_RANDOM_ALT_LINE:
                 case Constants.RULE_JOIN:
@@ -70,8 +66,7 @@ public class MixThem {
         }
 
     }   
-
-    // this one copies one file as beeing char
+    // this one copies the files as beeing char
     private static void copyChar(File file, OutputStream out) throws MixException, IOException {
         FileInputStream in = new FileInputStream(file);
         byte[] buffer = new byte[BYTE_BUFFER_SIZE];
@@ -204,5 +199,3 @@ public class MixThem {
         System.out.println("  - " + Constants.RULE_JOIN + " will output merging of lines that have common occurrence");
         System.out.println("  ");
     }
-
-}
