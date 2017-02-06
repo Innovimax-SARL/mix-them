@@ -1,11 +1,6 @@
 package innovimax.mixthem;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Scanner;
 
 /*
@@ -55,8 +50,8 @@ public class MixThem {
                     copyChar(file2, out);
                     break;
                 case Constants.RULE_ALT_LINE:
-                    //copyAltLine(file1, file2, out);
-                    copyAltLine2(file1, file2, out);
+                    copyAltLine(file1, file2, out);
+                    //copyAltLine2(file1, file2, out);
                     break;                
                 case Constants.RULE_ALT_BYTE:
                 case Constants.RULE_RANDOM_ALT_LINE:
@@ -85,10 +80,10 @@ public class MixThem {
         // out.close();
     }    
 
-    // this one copies two files alternativly line by line (FileReader)
+    // this one copies two files alternativly line by line (InpuStreamReader)
     private static void copyAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
-        BufferedReader br1 = new BufferedReader(new FileReader(file1));
-        BufferedReader br2 = new BufferedReader(new FileReader(file2));
+        BufferedReader br1 = new BufferedReader(new InputStreamReader(new FileInputStream(file1)));
+        BufferedReader br2 = new BufferedReader(new InputStreamReader(new FileInputStream(file2)));
         boolean read1 = true;
         boolean read2 = true;
         boolean first = true;
@@ -129,7 +124,7 @@ public class MixThem {
         //out.write(13); // CR
     }
 
-    // this one copies two files alternativly line by line (FileInputStream)
+    // this one copies two files alternativly line by line (FileInputStream+Scanner)
     private static void copyAltLine2(File file1, File file2, OutputStream out) throws MixException, IOException {        
         Scanner scan1 = new Scanner(new FileInputStream(file1));        
         Scanner scan2 = new Scanner(new FileInputStream(file2));
