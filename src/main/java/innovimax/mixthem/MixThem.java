@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.OutputStream;
+import java.util.Scanner;
 
 /*
     Created by innovimax-jim
@@ -54,7 +55,8 @@ public class MixThem {
                     copyChar(file2, out);
                     break;
                 case Constants.RULE_ALT_LINE:
-                    copyAltLine(file1, file2, out);
+                    //copyAltLine(file1, file2, out);
+                    copyAltLine2(file1, file2, out);
                     break;                
                 case Constants.RULE_ALT_BYTE:
                 case Constants.RULE_RANDOM_ALT_LINE:
@@ -83,7 +85,7 @@ public class MixThem {
         // out.close();
     }    
 
-    // this one copies two files alternativly line by line
+    // this one copies two files alternativly line by line (FileReader)
     private static void copyAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
         BufferedReader br1 = new BufferedReader(new FileReader(file1));
         BufferedReader br2 = new BufferedReader(new FileReader(file2));
@@ -125,6 +127,41 @@ public class MixThem {
         }
         out.write(10); // LF
         //out.write(13); // CR
+    }
+
+    // this one copies two files alternativly line by line (FileInputStream)
+    private static void copyAltLine2(File file1, File file2, OutputStream out) throws MixException, IOException {        
+        Scanner scan1 = new Scanner(new FileInputStream(file1));        
+        Scanner scan2 = new Scanner(new FileInputStream(file1));
+        boolean read1 = true;
+        boolean read2 = true;
+        boolean first = true;
+        while(read1 || read2) {            
+            if (read1) {
+                if (scan1.hasNextLine()) {
+                    final String line = scan1.nextLine();
+                    if (first || !read2) {
+                        printLine(line, out);    
+                    }                    
+                } else {                
+                    read1 = false;
+                }
+            }  
+            if (read2) {
+                if (scan2.hasNextLine()) {
+                    final String line = scan2.nextLine();
+                    if (first || !read2) {
+                        printLine(line, out);    
+                    }                    
+                } else {                
+                    read1 = false;
+                }
+            }
+            first = !first;
+        }
+        scan1.close();
+        scan2.close();
+        // out.close();
     }
 
     public static boolean checkArguments(String[] args) { 
