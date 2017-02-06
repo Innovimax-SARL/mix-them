@@ -1,10 +1,8 @@
 package innovimax.mixthem;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.OutputStream;
 
 /*
@@ -54,8 +52,6 @@ public class MixThem {
                     copyChar(file2, out);
                     break;
                 case Constants.RULE_ALT_LINE:
-                    copyAltLine(file1, file2, out);
-                    break;                
                 case Constants.RULE_ALT_BYTE:
                 case Constants.RULE_RANDOM_ALT_LINE:
                 case Constants.RULE_JOIN:
@@ -70,8 +66,7 @@ public class MixThem {
         }
 
     }   
-
-    // this one copies one file as beeing char
+    // this one copies the files as beeing char
     private static void copyChar(File file, OutputStream out) throws MixException, IOException {
         FileInputStream in = new FileInputStream(file);
         byte[] buffer = new byte[BYTE_BUFFER_SIZE];
@@ -81,55 +76,7 @@ public class MixThem {
         }
         in.close();
         // out.close();
-    }    
-
-    // this one copies two files alternativly line by line
-    private static void copyAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
-        BufferedReader br1 = new BufferedReader(new FileReader(file1));
-        BufferedReader br2 = new BufferedReader(new FileReader(file2));
-        boolean read1 = true;
-        boolean read2 = true;
-        boolean first = true;
-        while(read1 || read2) {
-            String line1 = null;
-            String line2 = null;
-            if (read1) {
-                line1 = br1.readLine();
-                if (line1  == null) {
-                    read1 = false;
-                }
-            }  
-            if (read2) {
-                line2 = br2.readLine();
-                if (line2  == null) {
-                    read2 = false;
-                }
-            }
-            if (first) {
-                if (line1 != null) {
-                    printLine(line1, out);
-                }
-                first = false;
-            } else {
-                if (line2 != null) {
-                    printLine(line2, out);
-                }
-                first = true;
-            }
-        }
-        br1.close();
-        br2.close();
-        // out.close();
-    }
-
-    private static void printLine(String line, OutputStream out) throws MixException, IOException {
-        byte[] array = line.getBytes("UTF-8");
-        for (byte b : array){
-            out.write(b);
-        }
-        out.write(10);
-        out.write(13);
-    }
+    }      
 
     public static boolean checkArguments(String[] args) { 
         String rule = null;
@@ -208,5 +155,3 @@ public class MixThem {
         System.out.println("  - " + Constants.RULE_JOIN + " will output merging of lines that have common occurrence");
         System.out.println("  ");
     }
-
-}
