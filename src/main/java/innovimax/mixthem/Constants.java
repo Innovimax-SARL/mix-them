@@ -1,11 +1,23 @@
 package innovimax.mixthem;
 
-public class Constants {
-   public final static String RULE_1 = "1";
-   public final static String RULE_2 = "2";
-   public final static String RULE_BOTH = "+";
-   public final static String RULE_ALT_LINE = "alt-line";
-   public final static String RULE_ALT_CHAR = "alt-byte";
-   public final static String RULE_RANDOM_ALT_LINE = "random-alt-line";
-   public final static String RULE_JOIN = "join";
+public enum Constants {
+   
+	RULE_1("1"),
+	RULE_2("2"),
+	RULE_BOTH("+"),
+	RULE_ALT_LINE("alt-line"),
+	RULE_ALT_CHAR("alt-char"),
+	RULE_RANDOM_ALT_LINE("random-alt-line"),
+	RULE_JOIN("join");
+
+	final String name;
+
+	Constants(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
 }
