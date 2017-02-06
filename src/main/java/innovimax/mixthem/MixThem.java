@@ -23,7 +23,7 @@ public class MixThem {
                     file1 = args[1];
                     file2 = args[2];
                 } else {
-                    rule = Constants.RULE_1;
+                    rule = Constants.RULE_1.getName();
                     file1 = args[0];
                     file2 = args[1]; 
                 }                 
@@ -181,13 +181,13 @@ public class MixThem {
         }
         boolean ruleOk = true;
         if (rule != null) {            
-            if (!rule.equals(Constants.RULE_1) 
-                && !rule.equals(Constants.RULE_2) 
-                && !rule.equals(Constants.RULE_BOTH) 
-                && !rule.equals(Constants.RULE_ALT_LINE) 
-                && !rule.equals(Constants.RULE_ALT_CHAR) 
-                && !rule.equals(Constants.RULE_RANDOM_ALT_LINE) 
-                && !rule.equals(Constants.RULE_JOIN)) {
+            if (!rule.equals(Constants.RULE_1.getName()) 
+                && !rule.equals(Constants.RULE_2.getName()) 
+                && !rule.equals(Constants.RULE_BOTH.getName()) 
+                && !rule.equals(Constants.RULE_ALT_LINE.getName()) 
+                && !rule.equals(Constants.RULE_ALT_CHAR.getName()) 
+                && !rule.equals(Constants.RULE_RANDOM_ALT_LINE.getName()) 
+                && !rule.equals(Constants.RULE_JOIN.getName())) {
                 System.out.println("rule argument is incorrect.");
                 ruleOk = false;
             }
@@ -233,13 +233,13 @@ public class MixThem {
         System.out.println("  (will generate a file based on the rule)");
         System.out.println("  ");
         System.out.println("  Here are the list of rules");
-        System.out.println("  - " + Constants.RULE_1 + ": will output file1");
-        System.out.println("  - " + Constants.RULE_2 + ": will output file2");
-        System.out.println("  - " + Constants.RULE_BOTH + ": will output file1+file2");
-        System.out.println("  - " + Constants.RULE_ALT_LINE + ": will output one line of each starting with first line of file1");
-        System.out.println("  - " + Constants.RULE_ALT_CHAR + ": will output one char of each starting with first char of file1");
-        System.out.println("  - " + Constants.RULE_RANDOM_ALT_LINE + " [seed]: will output one line of each code randomly based on a seed for reproducability");
-        System.out.println("  - " + Constants.RULE_JOIN + " will output merging of lines that have common occurrence");
+        System.out.println("  - " + Constants.RULE_1.getName() + ": will output file1");
+        System.out.println("  - " + Constants.RULE_2.getName() + ": will output file2");
+        System.out.println("  - " + Constants.RULE_BOTH.getName() + ": will output file1+file2");
+        System.out.println("  - " + Constants.RULE_ALT_LINE.getName() + ": will output one line of each starting with first line of file1");
+        System.out.println("  - " + Constants.RULE_ALT_CHAR.getName() + ": will output one char of each starting with first char of file1");
+        System.out.println("  - " + Constants.RULE_RANDOM_ALT_LINE.getName() + " [seed]: will output one line of each code randomly based on a seed for reproducability");
+        System.out.println("  - " + Constants.RULE_JOIN.getName() + " will output merging of lines that have common occurrence");
         System.out.println("  ");
     }
 
