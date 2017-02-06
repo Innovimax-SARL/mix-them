@@ -17,7 +17,7 @@ import org.junit.Test;
 public class GenericTest {
 
    @Test
-   public final void check1() throws MixException, FileNotFoundException, IOException {
+   public final void checkRule1() throws MixException, FileNotFoundException, IOException {
           URL url1 = getClass().getResource("test001_file1.txt");
           URL url2 = getClass().getResource("test001_file2.txt");
           File file1 = new File(url1.getFile());
@@ -29,7 +29,20 @@ public class GenericTest {
           MixThem.processFiles(Constants.RULE_2, file1, file2, baos_rule_2);
           Assert.assertTrue(checkFileEquals(file2, baos_rule_2.toByteArray()));
     }
-	
+  
+    @Test
+    public final void checkRule12() throws MixException, FileNotFoundException, IOException {
+        URL url1 = getClass().getResource("test001_file1.txt");
+        URL url2 = getClass().getResource("test001_file2.txt");
+        URL url12 = getClass().getResource("test001_output-12.txt");
+        File file1 = new File(url1.getFile());
+        File file2 = new File(url2.getFile());
+        File file12 = new File(url12.getFile());          
+        ByteArrayOutputStream baos_rule_12 = new ByteArrayOutputStream();
+        MixThem.processFiles(Constants.RULE_BOTH, file1, file2, baos_rule_12);
+        Assert.assertTrue(checkFileEquals(file12, baos_rule_12.toByteArray()));
+    }
+
     @Test
     public final void checkRuleAltLine() throws MixException, FileNotFoundException, IOException {
         URL url1 = getClass().getResource("test001_file1.txt");
