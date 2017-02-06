@@ -76,7 +76,51 @@ public class MixThem {
         }
         in.close();
         // out.close();
-    }      
+    }    
+
+    // this one copies two files alternativly line by line
+    private static void copyAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
+        BufferedReader br1 = new BufferedReader(new FileReader(file1));
+        BufferedReader br2 = new BufferedReader(new FileReader(file2));
+        boolean read1 = true;
+        boolean read2 = true;
+        boolean first = true;
+        while(read1 || read2) {            
+            if (read1) {
+                final String line1 = br1.readLine();
+                if (line1  == null) {
+                    read1 = false;
+                } else {
+                    if (first || !read2) {
+                        printLine(line1, out);    
+                    }
+                }
+            }  
+            if (read2) {
+                final String line2 = br2.readLine();
+                if (line2  == null) {
+                    read2 = false;
+                } else {
+                    if (!first || !read1) {
+                        printLine(line2, out);    
+                    }                    
+                }
+            }
+            first = !first;
+        }
+        br1.close();
+        br2.close();
+        // out.close();
+    }
+
+    private static void printLine(String line, OutputStream out) throws MixException, IOException {
+        byte[] array = line.getBytes("UTF-8");
+        for (byte b : array){
+            out.write(b);
+        }
+        out.write(10);
+        out.write(13);
+    }
 
     public static boolean checkArguments(String[] args) { 
         String rule = null;
