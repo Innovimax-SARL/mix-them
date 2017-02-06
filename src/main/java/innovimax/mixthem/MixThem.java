@@ -1,8 +1,10 @@
 package innovimax.mixthem;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.OutputStream;
 
 /*
@@ -52,6 +54,8 @@ public class MixThem {
                     copyChar(file2, out);
                     break;
                 case Constants.RULE_ALT_LINE:
+                    copyAltLine(file1, file2, out);
+                    break;                
                 case Constants.RULE_ALT_BYTE:
                 case Constants.RULE_RANDOM_ALT_LINE:
                 case Constants.RULE_JOIN:
@@ -66,7 +70,8 @@ public class MixThem {
         }
 
     }   
-    // this one copies the files as beeing char
+
+    // this one copies one file as beeing char
     private static void copyChar(File file, OutputStream out) throws MixException, IOException {
         FileInputStream in = new FileInputStream(file);
         byte[] buffer = new byte[BYTE_BUFFER_SIZE];
@@ -76,7 +81,45 @@ public class MixThem {
         }
         in.close();
         // out.close();
-    }      
+    }    
+
+    // this one copies two files alternativly line by line
+    private static void copyAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
+        BufferedReader br1 = new BufferedReader(new FileReader(file1));
+        BufferedReader br2 = new BufferedReader(new FileReader(file2));
+        boolean read1 = true;
+        boolean read2 = true;
+        while(read1 || read2) {
+            if (read1) {
+                final String line = br1.readLine();
+                if (line != null) {
+                    printLine(line, out);
+                } else {
+                    read1 = false;
+                }
+            }
+            if (read2) {
+                final String line = br2.readLine();
+                if (line != null) {
+                    printLine(line, out);
+                } else {
+                    read2 = false;
+                }
+            }
+        }
+        br1.close();
+        br2.close();
+        // out.close();
+    }
+
+    private static void printLine(String line, OutputStream out) throws MixException, IOException {
+        byte[] array = line.getBytes("UTF-8");
+        for (byte b : array){
+            out.write(b);
+        }
+        out.write(10);
+        out.write(13);
+    }
 
     public static boolean checkArguments(String[] args) { 
         String rule = null;
