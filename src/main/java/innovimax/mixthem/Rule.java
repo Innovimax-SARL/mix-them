@@ -9,7 +9,7 @@ public enum Rule {
     _ADD(            "+",               "add",             "will output file1+file2", true, Collections.emptyList()),
     _ALT_LINE(       "alt-line",        "alt-line",        "will output one line of each starting with first line of file1", true, Collections.emptyList()),
     _ALT_CHAR(       "alt-char",        "alt-char",        "will output one char of each starting with first char of file1", true, Collections.emptyList()),
-    _RANDOM_ALT_LINE("random-alt-line", "random-alt-line", "will output one line of each code randomly based on a seed for reproducability", false, Collections.singletonList("seed"),
+    _RANDOM_ALT_LINE("random-alt-line", "random-alt-line", "will output one line of each code randomly based on a seed for reproducability", false, Collections.singletonList("seed")),
     _JOIN(           "join",            "join",            "will output merging of lines that have common occurrence", false, Arrays.asList("col1", "col2"));
    
    private final String name, extension, description;
