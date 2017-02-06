@@ -16,14 +16,14 @@ public class MixThem {
 
     private static void run(String[] args) {
         try {
-            if (checkArguments(args)) {
-                String rule, file1, file2;
+            Rule rule;
+            if ((rule = checkArguments(args)) != null) {
+                String file1, file2;
                 if (args.length >= 3) {
-                    rule = args[0];
                     file1 = args[1];
                     file2 = args[2];
                 } else {
-                    rule = Constants.RULE_1.getName();
+                    rule = Rule._1;
                     file1 = args[0];
                     file2 = args[1]; 
                 }                 
@@ -40,26 +40,30 @@ public class MixThem {
         }
     }
 
-    public static void processFiles(String rule, File file1, File file2, OutputStream out) throws MixException {
+    public static void processFiles(Rule rule, File file1, File file2, OutputStream out) throws MixException {
         try {
-            if (rule.equals(Constants.RULE_1.getName())) {
-                copyChar(file1, out);                
-            } else if (rule.equals(Constants.RULE_2.getName())) {                
-                copyChar(file2, out);                    
-            } else if (rule.equals(Constants.RULE_BOTH.getName())) {
-                copyChar(file1, out);
-                copyChar(file2, out);
-            } else if (rule.equals(Constants.RULE_ALT_LINE.getName())) {
-                copyAltLine(file1, file2, out);
-                //copyAltLine2(file1, file2, out);
-            } else if (rule.equals(Constants.RULE_ALT_CHAR.getName())) {
+            switch(rule) {
+                case _1:
+                  copyChar(file1, out);
+                  break;
+                case _2:               
+                  copyChar(file2, out);  
+                  break; 
+                case _ADD:    
+                  copyChar(file1, out);
+                  copyChar(file2, out);
+                  break;
+                case _ALT_LINE:    
+                  copyAltLine(file1, file2, out);
+                  //copyAltLine2(file1, file2, out);
+                  break;
+                case _ALT_CHAR:
+                case _RANDOM_ALT_LINE:
+                case _JOIN:               
                 //TODO
-            } else if (rule.equals(Constants.RULE_RANDOM_ALT_LINE.getName())) {
-                //TODO
-            } else if (rule.equals(Constants.RULE_JOIN.getName())) {                
-                //TODO
-            } else {
-                System.out.println("This rule has not been implemented yet.");                
+                    break;
+                default:    
+                   System.out.println("This rule has not been implemented yet.");                
             }
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
@@ -160,12 +164,12 @@ public class MixThem {
         // out.close();
     }
 
-    public static boolean checkArguments(String[] args) { 
-        String rule = null;
+    public static Rule checkArguments(String[] args) { 
+        String ruleString = null;
         String file1 = null;
         String file2 = null;
         if (args.length >= 3) {
-            rule = args[0];
+            ruleString = args[0];
             file1 = args[1];
             file2 = args[2];
         } else {            
@@ -176,20 +180,14 @@ public class MixThem {
                 file2 = args[1];
             }
         }
-        boolean ruleOk = true;
-        if (rule != null) {            
-            if (!rule.equals(Constants.RULE_1.getName()) 
-                && !rule.equals(Constants.RULE_2.getName()) 
-                && !rule.equals(Constants.RULE_BOTH.getName()) 
-                && !rule.equals(Constants.RULE_ALT_LINE.getName()) 
-                && !rule.equals(Constants.RULE_ALT_CHAR.getName()) 
-                && !rule.equals(Constants.RULE_RANDOM_ALT_LINE.getName()) 
-                && !rule.equals(Constants.RULE_JOIN.getName())) {
+        Rule rule = null;
+        if (ruleString != null) {            
+            Rule rule = Rule.findByName(ruleString);
+            if (rule == null) {
                 System.out.println("rule argument is incorrect.");
-                ruleOk = false;
             }
         }
-        if (ruleOk) {
+        if (rule != null) {
             if (file1 == null) {
                 System.out.println("file1 argument missing.");
             } else if (file2 == null) {
@@ -216,7 +214,7 @@ public class MixThem {
                 }
             }
         }
-        return false;
+        return rule;
     }    
 
     private static void printUsage() {    
@@ -230,13 +228,13 @@ public class MixThem {
         System.out.println("  (will generate a file based on the rule)");
         System.out.println("  ");
         System.out.println("  Here are the list of rules");
-        System.out.println("  - " + Constants.RULE_1.getName() + ": will output file1");
-        System.out.println("  - " + Constants.RULE_2.getName() + ": will output file2");
-        System.out.println("  - " + Constants.RULE_BOTH.getName() + ": will output file1+file2");
-        System.out.println("  - " + Constants.RULE_ALT_LINE.getName() + ": will output one line of each starting with first line of file1");
-        System.out.println("  - " + Constants.RULE_ALT_CHAR.getName() + ": will output one char of each starting with first char of file1");
-        System.out.println("  - " + Constants.RULE_RANDOM_ALT_LINE.getName() + " [seed]: will output one line of each code randomly based on a seed for reproducability");
-        System.out.println("  - " + Constants.RULE_JOIN.getName() + " will output merging of lines that have common occurrence");
+        for(Rule rule : Rule.values()) {
+          System.out.print("  - " + rule.getName());
+          for(String param : rule.getParams()) {
+              System.out.print(" ["+param+"]");
+          }
+          System.out.println(rule.getDescription());
+        }
         System.out.println("  ");
     }
 
