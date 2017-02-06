@@ -17,3 +17,4 @@ Mix files togethers
   - alt-line : will output one line of each starting with first line of file1
   - alt-byte : will output one byte of each starting with first byte of file1
   - random-alt-line [seed] : will output one line of each code randomly based on a seed for reproducability
+  - join : will output merging of lines that have common occurrence
