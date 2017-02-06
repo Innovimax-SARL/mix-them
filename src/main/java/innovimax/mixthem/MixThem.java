@@ -56,7 +56,7 @@ public class MixThem {
                 case Constants.RULE_ALT_LINE:
                     copyAltLine(file1, file2, out);
                     break;                
-                case Constants.RULE_ALT_BYTE:
+                case Constants.RULE_ALT_CHAR:
                 case Constants.RULE_RANDOM_ALT_LINE:
                 case Constants.RULE_JOIN:
                 default:
@@ -148,7 +148,7 @@ public class MixThem {
             if (!rule.equals(Constants.RULE_1) 
                 && !rule.equals(Constants.RULE_2) 
                 && !rule.equals(Constants.RULE_ALT_LINE) 
-                && !rule.equals(Constants.RULE_ALT_BYTE) 
+                && !rule.equals(Constants.RULE_ALT_CHAR) 
                 && !rule.equals(Constants.RULE_RANDOM_ALT_LINE) 
                 && !rule.equals(Constants.RULE_JOIN)) {
                 System.out.println("rule argument is incorrect.");
@@ -199,7 +199,7 @@ public class MixThem {
         System.out.println("  - " + Constants.RULE_1 + ": will output file1");
         System.out.println("  - " + Constants.RULE_2 + ": will output file2");
         System.out.println("  - " + Constants.RULE_ALT_LINE + ": will output one line of each starting with first line of file1");
-        System.out.println("  - " + Constants.RULE_ALT_BYTE + ": will output one byte of each starting with first byte of file1");
+        System.out.println("  - " + Constants.RULE_ALT_CHAR + ": will output one char of each starting with first char of file1");
         System.out.println("  - " + Constants.RULE_RANDOM_ALT_LINE + " [seed]: will output one line of each code randomly based on a seed for reproducability");
         System.out.println("  - " + Constants.RULE_JOIN + " will output merging of lines that have common occurrence");
         System.out.println("  ");
