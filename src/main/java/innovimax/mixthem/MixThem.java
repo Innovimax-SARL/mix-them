@@ -123,8 +123,8 @@ public class MixThem {
         for (byte b : array){
             out.write(b);
         }
-        out.write(10);
-        out.write(13);
+        out.write(10); // LF
+        //out.write(13); // CR
     }
 
     public static boolean checkArguments(String[] args) { 
