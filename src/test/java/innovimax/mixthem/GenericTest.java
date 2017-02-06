@@ -31,10 +31,10 @@ public class GenericTest {
     }
   
     @Test
-    public final void checkRule12() throws MixException, FileNotFoundException, IOException {
+    public final void checkRuleAdd() throws MixException, FileNotFoundException, IOException {
         URL url1 = getClass().getResource("test001_file1.txt");
         URL url2 = getClass().getResource("test001_file2.txt");
-        URL url12 = getClass().getResource("test001_output-12.txt");
+        URL url12 = getClass().getResource("test001_output-add.txt");
         File file1 = new File(url1.getFile());
         File file2 = new File(url2.getFile());
         File file12 = new File(url12.getFile());          
