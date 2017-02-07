@@ -233,7 +233,7 @@ public class MixThem {
         return null;
     }    
 
-    private static void printUsage() {    
+    public static void printUsage() {    
         System.out.println("  ");    
         System.out.println("Usage:");
         System.out.println("  ");
