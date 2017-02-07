@@ -17,6 +17,7 @@ public class BasicTest {
     	Assert.assertNull(MixThem.checkArguments(args1));
     	final String args2[] = { "ghost1", "ghost2" };
     	Assert.assertNull(MixThem.checkArguments(args2));
+		MixThem.printUsage();
   	}
 
 }
