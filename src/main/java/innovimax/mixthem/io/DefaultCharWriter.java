@@ -27,6 +27,8 @@ public class DefaultCharWriter implements IOutputChar {
 
 	@Override
 	public void writeCharacters(char[] buffer, int len) throws IOException {				
+		System.out.println("wlen=" + len);
+        System.out.println("wbuffer=" + buffer.toString());
 		this.writer.write(buffer, 0, len);
 	}
 
