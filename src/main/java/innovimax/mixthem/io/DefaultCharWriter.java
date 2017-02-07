@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 
 /*
     Created by innovimax
@@ -14,7 +13,7 @@ import java.io.Writer;
 */
 public class DefaultCharWriter implements IOutputChar {
 
-	private Writer writer = null;
+	private final BufferedWriter writer;
 
 	public DefaultCharWriter(OutputStream output) throws IOException {
 		this.writer = new BufferedWriter(new OutputStreamWriter(output));
@@ -28,7 +27,7 @@ public class DefaultCharWriter implements IOutputChar {
 	@Override
 	public void writeCharacters(char[] buffer, int len) throws IOException {      
 		this.writer.write(buffer, 0, len);
-		this.writer.flush();	
+		this.writer.flush(); // WHY ?	
 	}
 
 	@Override
