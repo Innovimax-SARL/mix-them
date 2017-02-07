@@ -17,5 +17,5 @@ Mix files togethers
   - +: will output file1+file2
   - alt-line: will output one line of each starting with first line of file1
   - alt-char: will output one char of each starting with first char of file1
-  - random-alt-line [seed]: will output one line of each code randomly based on a seed for reproducability
-  - join [col1] [col2]: will output merging of lines that have common occurrence
+  - random-alt-line[#seed]: will output one line of each code randomly based on a seed for reproducability
+  - join[#col1][#col2]: will output merging of lines that have common occurrence
