@@ -84,7 +84,7 @@ public class MixThem {
         IOutputChar writer = new DefaultCharWriter(out);
         System.out.println("reader.hasCharacter()=" + reader.hasCharacter());
         while (reader.hasCharacter()) {
-            final int len = reader.nextCharacters(buffer);
+            final int len = reader.nextCharacters(buffer, CHAR_BUFFER_SIZE);
             writer.writeCharacters(buffer, len);
         }
         reader.close();
