@@ -249,7 +249,7 @@ public class MixThem {
           for(String param : rule.getParams()) {
               System.out.print(" ["+param+"]");
           }
-          System.out.println(rule.getDescription());
+          System.out.println(": "+rule.getDescription());
         }
         System.out.println("  ");
     }
