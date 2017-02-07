@@ -14,8 +14,7 @@ import java.io.IOException;
 */
 public class DefaultCharReader implements IInputChar {
 
-	private BufferedReader reader = null;
-	private boolean ended = false;
+	private BufferedReader reader = null;	
 
 	public DefaultCharReader(File input) throws IOException {		
 		this.reader = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
@@ -23,25 +22,17 @@ public class DefaultCharReader implements IInputChar {
 
 	@Override
 	public boolean hasCharacter() throws IOException {
-		return (reader.ready() && !this.ended);
+		return reader.ready();
 	}
 
 	@Override
 	public int nextCharacter() throws IOException {
-		int c = this.reader.read();
-		if (c == -1) {
-			this.ended = true;
-		}
-		return c;
+		return this.reader.read();		
 	}
 
 	@Override
 	public int nextCharacters(char[] buffer) throws IOException {
-		int len = this.reader.read(buffer, 0, buffer.length);
-		if (len == -1) {
-			this.ended = true;
-		}
-		return len;
+		return this.reader.read(buffer, 0, buffer.length);		
 	}
 
 	@Override
