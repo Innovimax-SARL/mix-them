@@ -57,6 +57,7 @@ public class MixThem {
                   copyAltLine(file1, file2, out);
                   break;
                 case _ALT_CHAR:
+                    copyAltChar(file1, file2, out);
                 case _RANDOM_ALT_LINE:
                 case _JOIN:               
                 //TODO
@@ -127,6 +128,45 @@ public class MixThem {
         out.write(10); // LF
         //out.write(13); // CR
     }
+
+    // this one copies two files alternativly char by char
+    private static void copyAltChar(File file1, File file2, OutputStream out) throws MixException, IOException {
+        FileInputStream in1 = new FileInputStream(file1);
+        FileInputStream in2 = new FileInputStream(file2);
+        boolean read1 = true;
+        boolean read2 = true;
+        boolean first = true;
+        while(read1 || read2) {            
+            if (read1) {
+                final int c = in1.read();
+                if (c == -1) {
+                    read1 = false;
+                } else {
+                    if (first || !read2) {
+                        printChar(c, out);
+                    }
+                }
+            }  
+            if (read2) {
+                final int c = in2.read();
+                if (c == -1) {
+                    read2 = false;
+                } else {
+                    if (!first || !read1) {
+                        printChar(c, out);
+                    }                    
+                }
+            }
+            first = !first;
+        }
+        in1.close();
+        in2.close();
+        // out.close();
+    }
+
+    private static void printChar(int c, OutputStream out) throws MixException, IOException {
+        //TODO
+    }    
 
     public static Rule checkArguments(String[] args) { 
         String ruleString = null;
