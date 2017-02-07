@@ -4,7 +4,6 @@ import innovimax.mixthem.interfaces.*;
 import innovimax.mixthem.io.*;
 
 import java.io.*;
-import java.util.Scanner;
 
 /*
     Created by innovimax
@@ -61,11 +60,12 @@ public class MixThem {
                   copyAltLine(file1, file2, out);
                   break;
                 case _ALT_CHAR:
-                    copyAltChar(file1, file2, out);
+                  copyAltChar(file1, file2, out);
+                  break;
                 case _RANDOM_ALT_LINE:
                 case _JOIN:               
                 //TODO
-                    break;
+                //    break;
                 default:    
                    System.out.println("This rule has not been implemented yet.");                
             }
@@ -97,14 +97,14 @@ public class MixThem {
         BufferedReader br2 = new BufferedReader(new InputStreamReader(new FileInputStream(file2)));
         boolean read1 = true;
         boolean read2 = true;
-        boolean first = true;
+        boolean odd = true;
         while(read1 || read2) {            
             if (read1) {
                 final String line = br1.readLine();
                 if (line  == null) {
                     read1 = false;
                 } else {
-                    if (first || !read2) {
+                    if (odd || !read2) {
                         printLine(line, out);    
                     }
                 }
@@ -114,12 +114,12 @@ public class MixThem {
                 if (line  == null) {
                     read2 = false;
                 } else {
-                    if (!first || !read1) {
+                    if (!odd || !read1) {
                         printLine(line, out);    
                     }                    
                 }
             }
-            first = !first;
+            odd = !odd;
         }
         br1.close();
         br2.close();
