@@ -11,7 +11,7 @@ import java.util.Scanner;
     Mix-them : Mix files togethers
 */
 public class MixThem {
-
+    private final static int BYTE_BUFFER_SIZE = 1024;
     private final static int CHAR_BUFFER_SIZE = 1024;
 
     public static void main(String[] args) { 
@@ -82,8 +82,11 @@ public class MixThem {
         char[] buffer = new char[CHAR_BUFFER_SIZE];
         IInputChar reader = new DefaultCharReader(file);
         IOutputChar writer = new DefaultCharWriter(out);
+        System.out.println("reader.hasCharacter()=" + reader.hasCharacter());
         while (reader.hasCharacter()) {
             final int len = reader.nextCharacters(buffer);
+            System.out.println("len=" + len);
+            System.out.println("buffer=" + buffer);
             writer.writeCharacters(buffer, len);
         }
         reader.close();
