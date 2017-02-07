@@ -4,8 +4,7 @@ import innovimax.mixthem.interfaces.IInputChar;
 
 import java.io.File;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 /*
@@ -14,15 +13,15 @@ import java.io.IOException;
 */
 public class DefaultCharReader implements IInputChar {
 
-	private BufferedReader reader = null;	
+	private final BufferedReader reader;	
 
 	public DefaultCharReader(File input) throws IOException {		
-		this.reader = new BufferedReader(new InputStreamReader(new FileInputStream(input)));
+		this.reader = new BufferedReader(new FileReader(input));
 	}
 
 	@Override
 	public boolean hasCharacter() throws IOException {
-		return reader.ready();
+		return this.reader.ready();
 	}
 
 	@Override
