@@ -22,6 +22,7 @@ public interface IOutputChar {
 	public void writeCharacters(char[] buffer, int len) throws IOException;	
 	/**
 	* Closes this output and releases any system resources associated with it.
+ 	* @throws IOException - If an I/O error occurs	
 	*/
 	public void close() throws IOException;		
 }
