@@ -9,10 +9,10 @@ import java.io.IOException;
 public interface IOutputChar {
 	/**
  	* Writes a single character.
- 	* @param c The character to be written
+ 	* @param c The character as an int to be written
  	* @throws IOException - If an I/O error occurs
  	*/	
-	public void writeCharacter(char c) throws IOException;
+	public void writeCharacter(int c) throws IOException;
 	/**
  	* Writes a portion of an array of characters.
  	* @param buffer Buffer of characters
@@ -20,4 +20,8 @@ public interface IOutputChar {
  	* @throws IOException - If an I/O error occurs
  	*/	
 	public void writeCharacters(char[] buffer, int len) throws IOException;	
+	/**
+	* Closes this output and releases any system resources associated with it.
+	*/
+	public void close() throws IOException;		
 }

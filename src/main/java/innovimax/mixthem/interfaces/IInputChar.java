@@ -22,10 +22,11 @@ public interface IInputChar {
 	/**
  	* Reads characters into a portion of an array.
  	* @param buffer Destination buffer
+ 	* @param len - Maximum number of characters to read
  	* @return The number of characters read, or -1 if there is no more characters
  	* @throws IOException - If an I/O error occurs
  	*/
-	public int nextCharacters(char[] buffer) throws IOException;
+	public int nextCharacters(char[] buffer, int len) throws IOException;
 	/**
 	* Closes this input and releases any system resources associated with it.
 	*/

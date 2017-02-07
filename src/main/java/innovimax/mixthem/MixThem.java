@@ -1,14 +1,18 @@
 package innovimax.mixthem;
 
+import innovimax.mixthem.interfaces.*;
+import innovimax.mixthem.io.*;
+
 import java.io.*;
 import java.util.Scanner;
 
 /*
-    Created by innovimax-jim
+    Created by innovimax
     Mix-them : Mix files togethers
 */
 public class MixThem {
-    private final static int BYTE_BUFFER_SIZE = 1024;
+
+    private final static int CHAR_BUFFER_SIZE = 1024;
 
     public static void main(String[] args) { 
         run(args);  
@@ -75,14 +79,16 @@ public class MixThem {
 
     // this one copies one file as beeing char
     private static void copyChar(File file, OutputStream out) throws MixException, IOException {
-        FileInputStream in = new FileInputStream(file);
-        byte[] buffer = new byte[BYTE_BUFFER_SIZE];
-        int c;
-        while ((c = in.read(buffer)) != -1) {
-            out.write(buffer, 0, c);
+        char[] buffer = new char[CHAR_BUFFER_SIZE];
+        IInputChar reader = new DefaultCharReader(file);
+        IOutputChar writer = new DefaultCharWriter(out);
+        System.out.println("reader.hasCharacter()=" + reader.hasCharacter());
+        while (reader.hasCharacter()) {
+            final int len = reader.nextCharacters(buffer, CHAR_BUFFER_SIZE);
+            writer.writeCharacters(buffer, len);
         }
-        in.close();
-        // out.close();
+        reader.close();
+        writer.close();
     }    
 
     // this one copies two files alternativly line by line
