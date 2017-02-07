@@ -14,6 +14,8 @@ import java.io.IOException;
 */
 public class DefaultCharReader implements IInputChar {
 
+	private final static int CHAR_BUFFER_SIZE = 1024;
+
 	private BufferedReader reader = null;	
 
 	public DefaultCharReader(File input) throws IOException {		
@@ -32,7 +34,7 @@ public class DefaultCharReader implements IInputChar {
 
 	@Override
 	public int nextCharacters(char[] buffer) throws IOException {
-		return this.reader.read(buffer, 0, buffer.length);		
+		return this.reader.read(buffer, 0, CHAR_BUFFER_SIZE);		
 	}
 
 	@Override
