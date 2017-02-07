@@ -143,7 +143,7 @@ public class MixThem {
                     read1 = false;
                 } else {
                     if (first || !read2) {
-                        printChar(c, out);
+                        printChar(c, out, !read2);
                     }
                 }
             }  
@@ -153,7 +153,7 @@ public class MixThem {
                     read2 = false;
                 } else {
                     if (!first || !read1) {
-                        printChar(c, out);
+                        printChar(c, out, true);
                     }                    
                 }
             }
@@ -164,8 +164,14 @@ public class MixThem {
         // out.close();
     }
 
-    private static void printChar(int c, OutputStream out) throws MixException, IOException {
-        //TODO
+    private static void printChar(int c, OutputStream out, boolean printLF) throws MixException, IOException {
+        if (c == 10) {
+            if (printLF) {
+                out.write(c);
+            }
+        } else {
+            out.write(c);
+        }
     }    
 
     public static Rule checkArguments(String[] args) { 
