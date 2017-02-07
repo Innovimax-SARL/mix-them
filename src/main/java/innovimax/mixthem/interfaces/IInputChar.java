@@ -8,8 +8,8 @@ import java.io.IOException;
 */
 public interface IInputChar {
 	/**
-	* Returns true if there is more elements.
-	* @return Returns true if there is more elements
+	* Returns true if there is more characters.
+	* @return Returns true if there is more characters
 	* @throws IOException - If an I/O error occurs
 	*/
 	public boolean hasCharacter() throws IOException;
@@ -29,6 +29,7 @@ public interface IInputChar {
 	public int nextCharacters(char[] buffer, int len) throws IOException;
 	/**
 	* Closes this input and releases any system resources associated with it.
+	* @throws IOException - If an I/O error occurs
 	*/
 	public void close() throws IOException;	
 }
