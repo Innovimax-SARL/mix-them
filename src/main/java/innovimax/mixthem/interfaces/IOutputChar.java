@@ -20,4 +20,8 @@ public interface IOutputChar {
  	* @throws IOException - If an I/O error occurs
  	*/	
 	public void writeCharacters(char[] buffer, int len) throws IOException;	
+	/**
+	* Closes this output and releases any system resources associated with it.
+	*/
+	public void close() throws IOException;		
 }
