@@ -185,7 +185,7 @@ public class MixThem {
                 if (reader2.hasCharacter()) {
                     final int c = reader2.nextCharacter();
                     if (!odd || !read1) {
-                        writer.writCharacter(c);
+                        writer.writeCharacter(c);
                     }                    
                 } else {
                     read2 = false;
