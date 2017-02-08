@@ -2,9 +2,10 @@ package innovimax.mixthem.interfaces;
 
 import java.io.IOException;
 
-/*
-    Created by innovimax
-    Managing a stream of lines
+/**
+* This interface provides for writing lines in an output stream.
+* @author Innovimax
+* @version 1.0
 */
 public interface IOutputLine {
 	/**
