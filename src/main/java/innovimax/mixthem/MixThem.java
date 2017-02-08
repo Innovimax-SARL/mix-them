@@ -5,14 +5,29 @@ import innovimax.mixthem.io.*;
 
 import java.io.*;
 
-/*
-    Created by innovimax
-    Mix-them : Mix files togethers
+/**
+* <p>Mix files together using variety of rules.</p>
+* <p>Here are the rules:</p>
+* <ul>
+* <li> 1: will output file1</li>
+* <li> 2: will output file2</li>
+* <li> +: will output file1+file2</li>
+* <li> alt-line: will output one line of each starting with first line of file1</li>
+* <li> alt-char: will output one char of each starting with first char of file1</li>
+* <li> random-alt-line[#seed]: will output one line of each code randomly based on a seed for reproducability</li>
+* <li> join[#col1][#col2]: will output merging of lines that have common occurrence</li>
+* </ul>
+* @author Innovimax
+* @version 1.0
 */
 public class MixThem {
 
     private final static int CHAR_BUFFER_SIZE = 1024;
 
+    /**
+    * Main entry.
+    * @param args The command line arguments
+    */
     public static void main(String[] args) { 
         run(args);  
     }
@@ -43,6 +58,15 @@ public class MixThem {
         }
     }
 
+    /**
+    * Mix files together using rules.
+    * @param rule The rule to be used for mixing
+    * @param file1 The first file to be mixed
+    * @param file2 The second file to be mixed
+    * @param out The output stream to write mixing result
+    * @throws MixException - If any error occurs during mixing
+    * @see innovimax.mixthem.Rule
+    */  
     public static void processFiles(Rule rule, File file1, File file2, OutputStream out) throws MixException {
         try {
             switch(rule) {
@@ -93,39 +117,40 @@ public class MixThem {
 
     // this one copies two files alternativly line by line
     private static void copyAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
-        BufferedReader br1 = new BufferedReader(new InputStreamReader(new FileInputStream(file1)));
-        BufferedReader br2 = new BufferedReader(new InputStreamReader(new FileInputStream(file2)));
+        IInputLine reader1 = new DefaultLineReader(file1);
+        IInputLine reader2 = new DefaultLineReader(file2);
+        IOutputLine writer = new DefaultLineWriter(out);
         boolean read1 = true;
         boolean read2 = true;
         boolean odd = true;
         while(read1 || read2) {            
             if (read1) {
-                final String line = br1.readLine();
-                if (line  == null) {
-                    read1 = false;
-                } else {
+                if (reader1.hasLine()) {
+                    final String line = reader1.nextLine();
                     if (odd || !read2) {
-                        printLine(line, out);    
-                    }
+                        writer.writeLine(line);
+                    }                    
+                } else {
+                    read1 = false;
                 }
             }  
             if (read2) {
-                final String line = br2.readLine();
-                if (line  == null) {
-                    read2 = false;
-                } else {
+                if (reader2.hasLine()) {
+                    final String line = reader2.nextLine();
                     if (!odd || !read1) {
-                        printLine(line, out);    
+                        writer.writeLine(line);
                     }                    
+                } else {
+                    read2 = false;
                 }
             }
             odd = !odd;
         }
-        br1.close();
-        br2.close();
-        // out.close();
+        reader1.close();
+        reader2.close();
+        writer.close();
     }
-
+/*
     private static void printLine(String line, OutputStream out) throws MixException, IOException {
         byte[] array = line.getBytes("UTF-8");
         for (byte b : array){
@@ -134,7 +159,7 @@ public class MixThem {
         out.write(10); // LF
         //out.write(13); // CR
     }
-
+*/
     // this one copies two files alternativly char by char
     private static void copyAltChar(File file1, File file2, OutputStream out) throws MixException, IOException {
         FileInputStream in1 = new FileInputStream(file1);
