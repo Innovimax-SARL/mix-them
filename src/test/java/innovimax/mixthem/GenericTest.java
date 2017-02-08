@@ -62,18 +62,16 @@ public class GenericTest {
 
     @Test
     public final void checkRuleAltChar() throws MixException, FileNotFoundException, IOException {
-        /*
-        URL url1 = getClass().getResource("test001_file1.txt");
-        URL url2 = getClass().getResource("test001_file2.txt");
+        URL url1 = getClass().getResource("test001_file3.txt");
+        URL url2 = getClass().getResource("test001_file4.txt");
         URL urlComp = getClass().getResource("test001_output-altchar.txt");
         File file1 = new File(url1.getFile());
         File file2 = new File(url2.getFile());
         File fileComp = new File(urlComp.getFile());
         ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
         MixThem mixThem = new MixThem(file1, file2, baos_rule);
-        mixThem.process(Rule._ALT_LINE);        
+        mixThem.process(Rule._ALT_CHAR);        
         Assert.assertTrue(checkFileEquals(fileComp, baos_rule.toByteArray()));
-        */
     }
 
     @Test
@@ -82,10 +80,10 @@ public class GenericTest {
         URL url2 = getClass().getResource("test001_file2.txt");
         File file1 = new File(url1.getFile());
         File file2 = new File(url2.getFile());        
-        System.out.println("File1:");
+        System.out.println("test001/File1:");
         MixThem mixThem = new MixThem(file1, file2, System.out);
         mixThem.process(Rule._1);        
-        System.out.println("File2:");
+        System.out.println("test001/File2:");
         mixThem = new MixThem(file1, file2, System.out);
         mixThem.process(Rule._2);  
     }
@@ -97,32 +95,12 @@ public class GenericTest {
         URL urlComp = getClass().getResource("test001_output-altline.txt");
         File file1 = new File(url1.getFile());
         File file2 = new File(url2.getFile());
-        File fileComp = new File(urlComp.getFile());
-        System.out.println("Mixed/alt-line:");
+        File fileComp = new File(urlComp.getFile());        
+        System.out.println("test001/Mixed/alt-line:");
         MixThem mixThem = new MixThem(file1, file2, System.out);
-        mixThem.process(Rule._ALT_LINE);          
-        System.out.println("Expected:");
-        String line;
-        BufferedReader br = new BufferedReader(new FileReader(fileComp));
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
-        }
-        br.close();
-    }
-
-    @Test
-    public final void dumpRuleAltChar() throws MixException, FileNotFoundException, IOException {
-        URL url1 = getClass().getResource("test001_file1.txt");
-        URL url2 = getClass().getResource("test001_file2.txt");
-        URL urlComp = getClass().getResource("test001_output-altline.txt");
-        File file1 = new File(url1.getFile());
-        File file2 = new File(url2.getFile());
-        File fileComp = new File(urlComp.getFile());
-        System.out.println("Mixed/alt-char:");
-        MixThem mixThem = new MixThem(file1, file2, System.out);
-        mixThem.process(Rule._ALT_CHAR);
-        /*
-        System.out.println("Expected:");
+        mixThem.process(Rule._ALT_LINE);  
+        /*        
+        System.out.println("test001/Expected/alt-line:");
         String line;
         BufferedReader br = new BufferedReader(new FileReader(fileComp));
         while ((line = br.readLine()) != null) {
@@ -130,6 +108,32 @@ public class GenericTest {
         }
         br.close();
         */
+    }
+
+    @Test
+    public final void dumpRuleAltChar() throws MixException, FileNotFoundException, IOException {
+        URL url1 = getClass().getResource("test002_file1.txt");
+        URL url2 = getClass().getResource("test002_file1.txt");
+        URL urlComp = getClass().getResource("test001_output-altline.txt");
+        File file1 = new File(url1.getFile());
+        File file2 = new File(url2.getFile());
+        File fileComp = new File(urlComp.getFile());
+        System.out.println("test002/File1:");
+        MixThem mixThem = new MixThem(file1, file2, System.out);
+        mixThem.process(Rule._1);        
+        System.out.println("test002/File2:");
+        mixThem = new MixThem(file1, file2, System.out);
+        mixThem.process(Rule._2);         
+        System.out.println("test002/Mixed/alt-char:");
+        mixThem = new MixThem(file1, file2, System.out);
+        mixThem.process(Rule._ALT_LINE);
+        System.out.println("test002/Expected/alt-char:");
+        String line;
+        BufferedReader br = new BufferedReader(new FileReader(fileComp));
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
+        br.close();
     }
 
     private static boolean checkFileEquals(File fileExpected, byte[] result) throws FileNotFoundException, IOException {
