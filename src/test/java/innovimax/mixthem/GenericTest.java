@@ -113,7 +113,7 @@ public class GenericTest {
     @Test
     public final void dumpRuleAltChar() throws MixException, FileNotFoundException, IOException {
         URL url1 = getClass().getResource("test002_file1.txt");
-        URL url2 = getClass().getResource("test002_file1.txt");
+        URL url2 = getClass().getResource("test002_file2.txt");
         URL urlComp = getClass().getResource("test001_output-altline.txt");
         File file1 = new File(url1.getFile());
         File file2 = new File(url2.getFile());
@@ -126,7 +126,7 @@ public class GenericTest {
         mixThem.process(Rule._2);         
         System.out.println("test002/Mixed/alt-char:");
         mixThem = new MixThem(file1, file2, System.out);
-        mixThem.process(Rule._ALT_LINE);
+        mixThem.process(Rule._ALT_CHAR);
         System.out.println("test002/Expected/alt-char:");
         String line;
         BufferedReader br = new BufferedReader(new FileReader(fileComp));
