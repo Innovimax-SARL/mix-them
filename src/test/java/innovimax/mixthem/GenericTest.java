@@ -18,16 +18,18 @@ public class GenericTest {
 
    @Test
    public final void checkRule1() throws MixException, FileNotFoundException, IOException {
-          URL url1 = getClass().getResource("test001_file1.txt");
-          URL url2 = getClass().getResource("test001_file2.txt");
-          File file1 = new File(url1.getFile());
-          File file2 = new File(url2.getFile());
-          ByteArrayOutputStream baos_rule_1 = new ByteArrayOutputStream();
-          MixThem.processFiles(Rule._1, file1, file2, baos_rule_1);
-          Assert.assertTrue(checkFileEquals(file1, baos_rule_1.toByteArray()));
-          ByteArrayOutputStream baos_rule_2 = new ByteArrayOutputStream();
-          MixThem.processFiles(Rule._2, file1, file2, baos_rule_2);
-          Assert.assertTrue(checkFileEquals(file2, baos_rule_2.toByteArray()));
+        URL url1 = getClass().getResource("test001_file1.txt");
+        URL url2 = getClass().getResource("test001_file2.txt");
+        File file1 = new File(url1.getFile());
+        File file2 = new File(url2.getFile());
+        ByteArrayOutputStream baos_rule_1 = new ByteArrayOutputStream();
+        MixThem mixThem = new MixThem(file1, file2, baos_rule_1);
+        mixThem.process(Rule._1);
+        Assert.assertTrue(checkFileEquals(file1, baos_rule_1.toByteArray()));
+        ByteArrayOutputStream baos_rule_2 = new ByteArrayOutputStream();
+        mixThem = new MixThem(file1, file2, baos_rule_2);
+        mixThem.process(Rule._2);
+        Assert.assertTrue(checkFileEquals(file2, baos_rule_2.toByteArray()));
     }
   
     @Test
@@ -39,7 +41,8 @@ public class GenericTest {
         File file2 = new File(url2.getFile());
         File file12 = new File(url12.getFile());          
         ByteArrayOutputStream baos_rule_12 = new ByteArrayOutputStream();
-        MixThem.processFiles(Rule._ADD, file1, file2, baos_rule_12);
+        MixThem mixThem = new MixThem(file1, file2, baos_rule_12);
+        mixThem.process(Rule._ADD);        
         Assert.assertTrue(checkFileEquals(file12, baos_rule_12.toByteArray()));
     }
 
@@ -52,7 +55,22 @@ public class GenericTest {
         File file2 = new File(url2.getFile());
         File fileComp = new File(urlComp.getFile());
         ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
-        MixThem.processFiles(Rule._ALT_LINE, file1, file2, baos_rule);
+        MixThem mixThem = new MixThem(file1, file2, baos_rule);
+        mixThem.process(Rule._ALT_LINE);        
+        Assert.assertTrue(checkFileEquals(fileComp, baos_rule.toByteArray()));
+    }
+
+    @Test
+    public final void checkRuleAltChar() throws MixException, FileNotFoundException, IOException {
+        URL url1 = getClass().getResource("test001_file1.txt");
+        URL url2 = getClass().getResource("test001_file2.txt");
+        URL urlComp = getClass().getResource("test001_output-altchar.txt");
+        File file1 = new File(url1.getFile());
+        File file2 = new File(url2.getFile());
+        File fileComp = new File(urlComp.getFile());
+        ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
+        MixThem mixThem = new MixThem(file1, file2, baos_rule);
+        mixThem.process(Rule._ALT_LINE);        
         Assert.assertTrue(checkFileEquals(fileComp, baos_rule.toByteArray()));
     }
 
@@ -63,9 +81,11 @@ public class GenericTest {
         File file1 = new File(url1.getFile());
         File file2 = new File(url2.getFile());        
         System.out.println("File1:");
-        MixThem.processFiles(Rule._1, file1, file2, System.out);
+        MixThem mixThem = new MixThem(file1, file2, System.out);
+        mixThem.process(Rule._1);        
         System.out.println("File2:");
-        MixThem.processFiles(Rule._2, file1, file2, System.out);
+        mixThem = new MixThem(file1, file2, System.out);
+        mixThem.process(Rule._2);  
     }
 
     @Test
@@ -77,7 +97,8 @@ public class GenericTest {
         File file2 = new File(url2.getFile());
         File fileComp = new File(urlComp.getFile());
         System.out.println("Mixed:");
-        MixThem.processFiles(Rule._ALT_LINE, file1, file2, System.out);
+        MixThem mixThem = new MixThem(file1, file2, System.out);
+        mixThem.process(Rule._ALT_LINE);          
         System.out.println("Expected:");
         String line;
         BufferedReader br = new BufferedReader(new FileReader(fileComp));
