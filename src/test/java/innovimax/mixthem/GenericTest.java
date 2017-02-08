@@ -127,6 +127,7 @@ public class GenericTest {
         System.out.println("test002/Mixed/alt-char:");
         mixThem = new MixThem(file1, file2, System.out);
         mixThem.process(Rule._ALT_CHAR);
+        /*
         System.out.println("test002/Expected/alt-char:");
         String line;
         BufferedReader br = new BufferedReader(new FileReader(fileComp));
@@ -134,6 +135,7 @@ public class GenericTest {
             System.out.println(line);
         }
         br.close();
+        */
     }
 
     private static boolean checkFileEquals(File fileExpected, byte[] result) throws FileNotFoundException, IOException {
