@@ -21,8 +21,22 @@ import java.io.*;
 * @version 1.0
 */
 public class MixThem {
-
     private final static int CHAR_BUFFER_SIZE = 1024;
+
+    private final File file1, file2;
+    private final OutputStream out;
+    /**
+     * Constructor
+     * @param file1 The first file to be mixed
+     * @param file2 The second file to be mixed
+     * @param out The output stream to write mixing result
+     */ 
+    public MixThem(File file1, File file2, OutputStream out) {
+        this.file1 = file1;
+        this.file2 = file2;
+        this.out = out;
+    }
+
 
     /**
     * Main entry.
@@ -44,8 +58,9 @@ public class MixThem {
                     rule = Rule._1;
                     file1 = args[0];
                     file2 = args[1]; 
-                }                 
-                processFiles(rule, new File(file1), new File(file2), System.out);
+                }        
+                MixThem mixThem = new MixThem(new File(file1), new File(file2), System.out);
+                mixThem.process(rule);
             } else {
                 printUsage(); 
             }  
@@ -61,30 +76,27 @@ public class MixThem {
     /**
     * Mix files together using rules.
     * @param rule The rule to be used for mixing
-    * @param file1 The first file to be mixed
-    * @param file2 The second file to be mixed
-    * @param out The output stream to write mixing result
     * @throws MixException - If any error occurs during mixing
     * @see innovimax.mixthem.Rule
     */  
-    public static void processFiles(Rule rule, File file1, File file2, OutputStream out) throws MixException {
+    public void process(Rule rule) throws MixException {
         try {
             switch(rule) {
                 case _1:
-                  copyChar(file1, out);
+                  copyChar(this.file1, this.out);
                   break;
                 case _2:               
-                  copyChar(file2, out);  
+                  copyChar(this.file2, this.out);  
                   break; 
                 case _ADD:    
-                  copyChar(file1, out);
-                  copyChar(file2, out);
+                  copyChar(this.file1, this.out);
+                  copyChar(this.file2, this.out);
                   break;
                 case _ALT_LINE:    
-                  copyAltLine(file1, file2, out);
+                  copyAltLine(this.file1, this.file2, this.out);
                   break;
                 case _ALT_CHAR:
-                  copyAltChar(file1, file2, out);
+                  copyAltChar(this.file1, this.file2, this.out);
                   break;
                 case _RANDOM_ALT_LINE:
                 case _JOIN:               
@@ -106,7 +118,6 @@ public class MixThem {
         char[] buffer = new char[CHAR_BUFFER_SIZE];
         IInputChar reader = new DefaultCharReader(file);
         IOutputChar writer = new DefaultCharWriter(out);
-        System.out.println("reader.hasCharacter()=" + reader.hasCharacter());
         while (reader.hasCharacter()) {
             final int len = reader.nextCharacters(buffer, CHAR_BUFFER_SIZE);
             writer.writeCharacters(buffer, len);
@@ -150,60 +161,42 @@ public class MixThem {
         reader2.close();
         writer.close();
     }
-/*
-    private static void printLine(String line, OutputStream out) throws MixException, IOException {
-        byte[] array = line.getBytes("UTF-8");
-        for (byte b : array){
-            out.write(b);
-        }
-        out.write(10); // LF
-        //out.write(13); // CR
-    }
-*/
+
     // this one copies two files alternativly char by char
     private static void copyAltChar(File file1, File file2, OutputStream out) throws MixException, IOException {
-        FileInputStream in1 = new FileInputStream(file1);
-        FileInputStream in2 = new FileInputStream(file2);
+        IInputChar reader1 = new DefaultCharReader(file1);
+        IInputChar reader2 = new DefaultCharReader(file2);
+        IOutputChar writer = new DefaultCharWriter(out);
         boolean read1 = true;
         boolean read2 = true;
-        boolean first = true;
+        boolean odd = true;
         while(read1 || read2) {            
             if (read1) {
-                final int c = in1.read();
-                if (c == -1) {
-                    read1 = false;
+                if (reader1.hasCharacter()) {
+                    final int c = reader1.nextCharacter();
+                    if (odd || !read2) {
+                        writer.writeCharacter(c);
+                    }                    
                 } else {
-                    if (first || !read2) {
-                        printChar(c, out, !read2);
-                    }
+                    read1 = false;
                 }
             }  
             if (read2) {
-                final int c = in2.read();
-                if (c == -1) {
-                    read2 = false;
-                } else {
-                    if (!first || !read1) {
-                        printChar(c, out, true);
+                if (reader2.hasCharacter()) {
+                    final int c = reader2.nextCharacter();
+                    if (!odd || !read1) {
+                        writer.writCharacter(c);
                     }                    
+                } else {
+                    read2 = false;
                 }
             }
-            first = !first;
+            odd = !odd;
         }
-        in1.close();
-        in2.close();
-        // out.close();
+        reader1.close();
+        reader2.close();
+        writer.close();        
     }
-
-    private static void printChar(int c, OutputStream out, boolean printLF) throws MixException, IOException {
-        if (c == 10) {
-            if (printLF) {
-                out.write(c);
-            }
-        } else {
-            out.write(c);
-        }
-    }    
 
     public static Rule checkArguments(String[] args) { 
         String ruleString = null;
