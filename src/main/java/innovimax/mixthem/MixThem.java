@@ -161,60 +161,42 @@ public class MixThem {
         reader2.close();
         writer.close();
     }
-/*
-    private static void printLine(String line, OutputStream out) throws MixException, IOException {
-        byte[] array = line.getBytes("UTF-8");
-        for (byte b : array){
-            out.write(b);
-        }
-        out.write(10); // LF
-        //out.write(13); // CR
-    }
-*/
+
     // this one copies two files alternativly char by char
     private static void copyAltChar(File file1, File file2, OutputStream out) throws MixException, IOException {
-        FileInputStream in1 = new FileInputStream(file1);
-        FileInputStream in2 = new FileInputStream(file2);
+        IInputChar reader1 = new DefaultCharReader(file1);
+        IInputChar reader2 = new DefaultCharReader(file2);
+        IOutputChar writer = new DefaultCharWriter(out);
         boolean read1 = true;
         boolean read2 = true;
-        boolean first = true;
+        boolean odd = true;
         while(read1 || read2) {            
             if (read1) {
-                final int c = in1.read();
-                if (c == -1) {
-                    read1 = false;
+                if (reader1.hasCharacter()) {
+                    final int c = reader1.nextCharacter();
+                    if (odd || !read2) {
+                        writer.writeCharacter(c);
+                    }                    
                 } else {
-                    if (first || !read2) {
-                        printChar(c, out, !read2);
-                    }
+                    read1 = false;
                 }
             }  
             if (read2) {
-                final int c = in2.read();
-                if (c == -1) {
-                    read2 = false;
-                } else {
-                    if (!first || !read1) {
-                        printChar(c, out, true);
+                if (reader2.hasCharacter()) {
+                    final int c = reader2.nextCharacter();
+                    if (!odd || !read1) {
+                        writer.writeCharacter(c);
                     }                    
+                } else {
+                    read2 = false;
                 }
             }
-            first = !first;
+            odd = !odd;
         }
-        in1.close();
-        in2.close();
-        // out.close();
+        reader1.close();
+        reader2.close();
+        writer.close();        
     }
-
-    private static void printChar(int c, OutputStream out, boolean printLF) throws MixException, IOException {
-        if (c == 10) {
-            if (printLF) {
-                out.write(c);
-            }
-        } else {
-            out.write(c);
-        }
-    }    
 
     public static Rule checkArguments(String[] args) { 
         String ruleString = null;
