@@ -1,8 +1,9 @@
 package innovimax.mixthem;
 
-/*
-    Created by innovimax-jim
-    Used for all mixing files exception
+/**
+* Signals any exception that occur during mixing.
+* @author Innovimax
+* @version 1.0
 */
 public class MixException extends Exception {
 
