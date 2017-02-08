@@ -2,9 +2,10 @@ package innovimax.mixthem.interfaces;
 
 import java.io.IOException;
 
-/*
-    Created by innovimax
-    Managing a stream of characters
+/**
+* This interface provides for reading characters from an character-input.
+* @author Innovimax
+* @version 1.0
 */
 public interface IInputChar {
 	/**

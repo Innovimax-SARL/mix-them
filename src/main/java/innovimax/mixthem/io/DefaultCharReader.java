@@ -7,14 +7,22 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-/*
-    Created by innovimax
-    Default implementation of IInputChar
+/**
+* <p>Reads characters from a character-input file.</p>
+* <p>This is the default implementation of IInputChar.</p>
+* @see IInputChar
+* @author Innovimax
+* @version 1.0
 */
 public class DefaultCharReader implements IInputChar {
 
 	private final BufferedReader reader;	
 
+	/**
+ 	* Creates a character reader.
+ 	* @param file The input file to be read
+ 	* @throws IOException - If an I/O error occurs
+ 	*/
 	public DefaultCharReader(File input) throws IOException {		
 		this.reader = new BufferedReader(new FileReader(input));
 	}

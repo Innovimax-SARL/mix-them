@@ -7,14 +7,22 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
-/*
-    Created by innovimax
-    Default implementation of IOutputChar
+/**
+* <p>Writes characters into an output stream.</p>
+* <p>This is the default implementation of IOutputChar.</p>
+* @see IOutputLine
+* @author Innovimax
+* @version 1.0
 */
 public class DefaultCharWriter implements IOutputChar {
 
 	private final BufferedWriter writer;
 
+	/**
+ 	* Creates a character writer.
+ 	* @param output The output stream for characters to be written.
+ 	* @throws IOException - If an I/O error occurs
+ 	*/
 	public DefaultCharWriter(OutputStream output) throws IOException {
 		this.writer = new BufferedWriter(new OutputStreamWriter(output));
 	}
