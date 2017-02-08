@@ -118,7 +118,6 @@ public class MixThem {
         char[] buffer = new char[CHAR_BUFFER_SIZE];
         IInputChar reader = new DefaultCharReader(file);
         IOutputChar writer = new DefaultCharWriter(out);
-        System.out.println("reader.hasCharacter()=" + reader.hasCharacter());
         while (reader.hasCharacter()) {
             final int len = reader.nextCharacters(buffer, CHAR_BUFFER_SIZE);
             writer.writeCharacters(buffer, len);
