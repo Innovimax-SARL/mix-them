@@ -62,9 +62,9 @@ public class GenericTest {
 
     @Test
     public final void checkRuleAltChar() throws MixException, FileNotFoundException, IOException {
-        URL url1 = getClass().getResource("test001_file3.txt");
-        URL url2 = getClass().getResource("test001_file4.txt");
-        URL urlComp = getClass().getResource("test001_output-altchar.txt");
+        URL url1 = getClass().getResource("test002_file1.txt");
+        URL url2 = getClass().getResource("test002_file2.txt");
+        URL urlComp = getClass().getResource("test002_output-altchar.txt");
         File file1 = new File(url1.getFile());
         File file2 = new File(url2.getFile());
         File fileComp = new File(urlComp.getFile());
@@ -114,7 +114,7 @@ public class GenericTest {
     public final void dumpRuleAltChar() throws MixException, FileNotFoundException, IOException {
         URL url1 = getClass().getResource("test002_file1.txt");
         URL url2 = getClass().getResource("test002_file2.txt");
-        URL urlComp = getClass().getResource("test001_output-altline.txt");
+        URL urlComp = getClass().getResource("test002_output-altchar.txt");
         File file1 = new File(url1.getFile());
         File file2 = new File(url2.getFile());
         File fileComp = new File(urlComp.getFile());
