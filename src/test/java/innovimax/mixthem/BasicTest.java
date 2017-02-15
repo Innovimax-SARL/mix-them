@@ -1,6 +1,7 @@
 package innovimax.mixthem;
 
 import innovimax.mixthem.MixThem;
+import innovimax.mixthem.exceptions.ArgumentException;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,10 +14,24 @@ public class BasicTest {
 
 	@Test
   	public final void failedPrintUsage() {
-		final String args1[] = {};
-    	Assert.assertNull(MixThem.checkArguments(args1));
-    	final String args2[] = { "ghost1", "ghost2" };
-    	Assert.assertNull(MixThem.checkArguments(args2));
+  		boolean check = false;
+  		try {
+  			final String args[] = {};
+  			Arguments mixArgs = Arguments.checkArguments(args);
+  			check = true;
+  		} catch (ArgumentException e) {
+  			System.out.println(e.getMessage());
+  		}
+		Assert.assertFalse(check);
+		check = false;
+  		try {
+  			final String args[] = { "ghost1", "ghost2" };
+  			Arguments mixArgs = Arguments.checkArguments(args);
+  			check = true;
+  		} catch (ArgumentException e) {
+  			System.out.println(e.getMessage());
+  		}
+		Assert.assertFalse(check);
 		MixThem.printUsage();
   	}
 
