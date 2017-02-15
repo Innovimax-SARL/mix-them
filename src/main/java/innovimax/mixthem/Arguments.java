@@ -18,7 +18,7 @@ class Arguments {
     private File file1 = null;
     private File file2 = null;
 
-    void setRule(Rule rule) {
+    private void setRule(Rule rule) {
         this.rule = rule;
     }
 
@@ -48,6 +48,25 @@ class Arguments {
 
     File getSecondFile() {
         return this.file2;
+    }
+
+    static Arguments checkArguments(String[] args) throws ArgumentException { 
+        Arguments mixArgs = new Arguments();
+        int index = 0;
+        Rule rule = getRuleArgument(args, index, "rule");
+        List<String> ruleParams = null;
+        if (rule != null) {
+            index++;
+            ruleParams = getRuleParameters(args, index, rule);
+            index += ruleParams.size();
+        }
+        File file1 = getFileArgument(args, index, "file1");
+        File file2 = getFileArgument(args, ++index, "file2");
+        mixArgs.setRule(rule);
+        mixArgs.setRuleParameters(ruleParams);
+        mixArgs.setFirstFile(file1);
+        mixArgs.setSecondFile(file2);
+        return mixArgs;
     }
 
     private static Rule getRuleArgument(String[] args, int index, String name) throws ArgumentException {        
