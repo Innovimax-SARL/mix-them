@@ -51,7 +51,7 @@
 					<linkXRef>true</linkXRef>
 					<sourceEncoding>UTF-8</sourceEncoding>
 					<minimumTokens>100</minimumTokens>
-					<targetJdk>{$jdk.version}</targetJdk>
+					<targetJdk>1.8</targetJdk>
 				</configuration>
 				<executions>
 					<execution>
