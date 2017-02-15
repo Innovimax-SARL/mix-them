@@ -52,6 +52,7 @@
 					<sourceEncoding>UTF-8</sourceEncoding>
 					<minimumTokens>100</minimumTokens>
 					<targetJdk>1.8</targetJdk>
+					<verbose>true</verbose>
 				</configuration>
 				<executions>
 					<execution>
