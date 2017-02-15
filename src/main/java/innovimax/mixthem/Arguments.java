@@ -1,10 +1,12 @@
 package innovimax.mixthem;
 
+import innovimax.mixthem.exceptions.ArgumentException;
+
 import java.io.File;
 import java.util.List;
 
 /**
-* <p>Mix-them command line arguments.</p>
+* <p>Mix-them command line arguments management.</p>
 * @author Innovimax
 * @version 1.0
 */
@@ -45,6 +47,26 @@ class Arguments {
 
     File getSecondFile() {
         return this.file2;
+    }
+
+    private static Rule getRuleArgument(String[] args, int index, String name) throws ArgumentException {        
+        Rule rule = null;
+        if (args.length >= 1) {
+            final String ruleString = args[index];
+            if (ruleString.startsWith("-")) {
+                rule = Rule.findByName(ruleString);
+                if (rule == null) {
+                    throw new ArgumentException(name + " argument is incorrect: " + ruleString);
+                }
+            }
+        }
+        return rule;
+    }
+
+    private static List<String> getRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
+        List<String> params = new ArrayList<String>();        
+        // TODO
+        return params;
     }
 
 }
