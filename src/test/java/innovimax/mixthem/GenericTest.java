@@ -2,7 +2,7 @@ package innovimax.mixthem;
 
 import innovimax.mixthem.MixThem;
 import innovimax.mixthem.Rule;
-import innovimax.mixthem.MixException;
+import innovimax.mixthem.exceptions.MixException;
 
 import java.io.*;
 import java.net.URL;
