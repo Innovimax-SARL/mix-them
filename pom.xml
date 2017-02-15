@@ -30,6 +30,7 @@
 	<properties>
 		<jdk.version>8</jdk.version>
 		<junit.version>LATEST</junit.version>
+		<pmd.version>LATEST</pmd.version>
 	</properties>  
   	<dependencies>
     	<dependency>    	
@@ -42,6 +43,26 @@
   	<build>
     	<finalName>mixthem</finalName>   	
 		<plugins>
+			<plugin>
+                        	<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${pmd.version}</version>
+				<configuration>
+					<linkXRef>true</linkXRef>
+					<sourceEncoding>UTF-8</sourceEncoding>
+					<minimumTokens>100</minimumTokens>
+					<targetJdk>{$jdk.version}</targetJdk>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+							<goal>cpd-check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		  	<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -68,5 +89,5 @@
 				</configuration>				
 			</plugin>
 		</plugins>
-  </build>
+	</build>
 </project>
