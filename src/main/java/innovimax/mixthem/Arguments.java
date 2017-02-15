@@ -70,4 +70,22 @@ class Arguments {
         return params;
     }
 
+    private static File getFileArgument(String[] args, int index, String name) throws ArgumentException {
+        File file = null;
+        if (args.length < index+1) {
+            throw new ArgumentException(name + " argument missing.");
+        } else {
+            String filepath = args[index];
+            file = new File(filepath);
+            if (file.exists()) {
+                if (!file.canRead()) {                    
+                    throw new ArgumentException(name + " cannot be read: " + filepath);    
+                }
+            } else {
+                throw new ArgumentException(name + " not found: " + filepath);
+            }
+        }
+        return file;
+    }
+
 }
