@@ -48,32 +48,6 @@ public class MixThem {
     }
 
     private static void run(String[] args) {
-/*
-        try {
-            Rule rule;
-            if ((rule = checkArguments(args)) != null) {
-                String file1, file2;
-                if (args.length >= 3) {
-                    file1 = args[1];
-                    file2 = args[2];
-                } else {
-                    rule = Rule._1;
-                    file1 = args[0];
-                    file2 = args[1]; 
-                }        
-                MixThem mixThem = new MixThem(new File(file1), new File(file2), System.out);
-                mixThem.process(rule);
-            } else {
-                printUsage(); 
-            }  
-        } catch (MixException e) {
-            System.err.println("Files mixing has been aborted due to following reason:"); 
-            System.err.println(e.getMessage());
-        } catch (Exception e) {
-            System.err.println("An unexpected error occurs.");
-            e.printStackTrace();
-        }
-*/
         try {
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getFirstFile(), mixArgs.getSecondFile(), System.out);
@@ -215,59 +189,6 @@ public class MixThem {
         reader2.close();
         writer.close();        
     }
-
-    public static Rule checkArguments(String[] args) { 
-        String ruleString = null;
-        String file1 = null;
-        String file2 = null;
-        if (args.length >= 3) {
-            ruleString = args[0];
-            file1 = args[1];
-            file2 = args[2];
-        } else {            
-            if (args.length > 0) {
-                file1 = args[0];
-            }
-            if (args.length > 1) {
-                file2 = args[1];
-            }
-        }
-        Rule rule = null;
-        if (ruleString != null) {            
-            rule = Rule.findByName(ruleString);
-            if (rule == null) {
-                System.out.println("rule argument is incorrect.");
-            }
-        }
-        if (rule != null) {
-            if (file1 == null) {
-                System.out.println("file1 argument missing.");
-            } else if (file2 == null) {
-                System.out.println("file2 argument missing.");
-            } else {
-                File file = new File(file1);
-                if (file.exists()) {
-                    if (file.canRead()) {
-                    file = new File(file2); 
-                        if (file.exists()) {  
-                            if (file.canRead()) {
-                                return rule;
-                            } else {
-                            System.out.println("file2 cannot be read."); 
-                            }
-                        } else {
-                        System.out.println("file2 not found.");
-                        }
-                    } else {
-                        System.out.println("file1 cannot be read.");    
-                    }
-                } else {
-                    System.out.println("file1 not found.");
-                }
-            }
-        }
-        return null;
-    }    
 
     public static void printUsage() {    
         System.out.println("  ");    
