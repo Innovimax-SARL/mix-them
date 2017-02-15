@@ -48,6 +48,7 @@ public class MixThem {
     }
 
     private static void run(String[] args) {
+/*
         try {
             Rule rule;
             if ((rule = checkArguments(args)) != null) {
@@ -65,6 +66,22 @@ public class MixThem {
             } else {
                 printUsage(); 
             }  
+        } catch (MixException e) {
+            System.err.println("Files mixing has been aborted due to following reason:"); 
+            System.err.println(e.getMessage());
+        } catch (Exception e) {
+            System.err.println("An unexpected error occurs.");
+            e.printStackTrace();
+        }
+*/
+        try {
+            Arguments mixArgs = Arguments.checkArguments(args);        
+            MixThem mixThem = new MixThem(mixArgs.getFirstFile(), mixArgs.getSecondFile(), System.out);
+            mixThem.process(mixArgs.getRule());
+        } catch (ArgumentException e) {
+            System.err.println("Files mixing can't be run due to following reason:"); 
+            System.err.println(e.getMessage());
+            printUsage(); 
         } catch (MixException e) {
             System.err.println("Files mixing has been aborted due to following reason:"); 
             System.err.println(e.getMessage());
