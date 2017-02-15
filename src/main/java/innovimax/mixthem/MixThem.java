@@ -194,9 +194,9 @@ public class MixThem {
 
     // this one copies two files randomly alternativly line by line
     private static void copyRandomAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
-        IInputLine2 reader1 = new DefaultLineReader2(file1);
-        IInputLine2 reader2 = new DefaultLineReader2(file2);
-        IOutputLine2 writer = new DefaultLineWriter2(out);           
+        IInputLine reader1 = new DefaultLineReader(file1);
+        IInputLine reader2 = new DefaultLineReader(file2);
+        IOutputLine writer = new DefaultLineWriter(out);           
         // TODO
         reader1.close();
         reader2.close();
