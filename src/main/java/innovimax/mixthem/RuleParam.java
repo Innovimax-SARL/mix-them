@@ -1,5 +1,7 @@
 package innovimax.mixthem;
 
+import java.io.File;
+
 /**
 * <p>Rule additional parameters management.</p>
 * @author Innovimax
@@ -48,9 +50,14 @@ public class RuleParam {
  	*/
 	boolean checkValue(String value) {
 		switch (this.type) {
-            case TYPE_STRING:
-            	return true;
-            case TYPE_INTEGER:
+        	case TYPE_STRING:
+    			File file = new File(value);
+        		if (file.exists()) {
+        			return false;
+        		} else {
+        			return true;
+        		}
+        	case TYPE_INTEGER:
             	try {
             		Integer number = new Integer(value);
             		return true;
