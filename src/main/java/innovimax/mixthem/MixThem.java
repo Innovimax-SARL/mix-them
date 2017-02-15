@@ -91,6 +91,8 @@ public class MixThem {
                   copyAltChar(this.file1, this.file2, this.out);
                   break;
                 case _RANDOM_ALT_LINE:
+                  copyRandomAltLine(this.file1, this.file2, this.out);
+                  break;
                 case _JOIN:               
                 //TODO
                 //    break;
@@ -188,6 +190,17 @@ public class MixThem {
         reader1.close();
         reader2.close();
         writer.close();        
+    }
+
+    // this one copies two files randomly alternativly line by line
+    private static void copyRandomAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
+        IInputLine2 reader1 = new DefaultLineReader2(file1);
+        IInputLine2 reader2 = new DefaultLineReader2(file2);
+        IOutputLine2 writer = new DefaultLineWriter2(out);           
+        // TODO
+        reader1.close();
+        reader2.close();
+        writer.close();
     }
 
     public static void printUsage() {    
