@@ -7,17 +7,22 @@ package innovimax.mixthem;
 */
 public class RuleParam {
 
+	private static final String TYPE_STRING = "string";
+	private static final String TYPE_INTEGER = "integer";
+
 	private final String name;	
 	private final boolean required;
+	private final String type;
 
 	/**
  	* Creates a rule parameter.
  	* @param name The name of the parameter
  	* @param required Equals true if this parameter is required
  	*/
-	RuleParam(String name, boolean required) {
+	RuleParam(String name, boolean required, String type) {
 		this.name = name;
 		this.required = required;
+		this.type = type;
 	}
 
 	/**
@@ -36,11 +41,32 @@ public class RuleParam {
 		return this.required;
 	}
 
+
+	/**
+ 	* Returns true if this parameter is required.
+ 	* @return Returns true if this parameter is required
+ 	*/
+	boolean checkValue(String value) {
+		switch (this.type) {
+            case TYPE_STRING:
+            	return true;
+            case TYPE_INTEGER:
+            	try {
+            		Integer number = new Integer(value);
+            		return true;
+            	} catch (Exception e) {
+            		return false;
+            	}
+            default:
+            	return false;
+		}
+	}
+
 	// This is the unique optional parameter of rule _RANDOM_ALT_LINE
-	static RuleParam RANDOM_ALT_LINE_SEED = new RuleParam("seed", false);
+	static RuleParam RANDOM_ALT_LINE_SEED = new RuleParam("seed", false, TYPE_INTEGER);
 	// This is the first optional parameter of rule _JOIN
-	static RuleParam JOIN_COL1 = new RuleParam("col1", false);
+	static RuleParam JOIN_COL1 = new RuleParam("col1", false, TYPE_STRING);
 	// This is the second optional parameter of rule _JOIN
-	static RuleParam JOIN_COL2 = new RuleParam("col2", false);
+	static RuleParam JOIN_COL2 = new RuleParam("col2", false, TYPE_STRING);
 
 }
