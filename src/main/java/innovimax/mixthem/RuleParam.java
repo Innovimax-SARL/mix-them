@@ -3,46 +3,48 @@ package innovimax.mixthem;
 import java.io.File;
 
 /**
-* <p>Rule additional parameters management.</p>
+* <p>This is a detailed enumeration of additional rule parameters.</p>
 * @author Innovimax
 * @version 1.0
 */
-public class RuleParam {
+public enum RuleParam { 
+	_SEED("seed", false, ParamType._INTEGER),
+	_COL1("col1", false, ParamType._STRING),
+	_COL2("col2", false, ParamType._STRING);
 
-	private static final String TYPE_STRING = "string";
-	private static final String TYPE_INTEGER = "integer";
-
-	private final String name;	
+	private final String name;
 	private final boolean required;
-	private final String type;
+	private final ParamType type;
 
-	/**
- 	* Creates a rule parameter.
- 	* @param name The name of the parameter
- 	* @param required Equals true if this parameter is required
- 	*/
-	RuleParam(String name, boolean required, String type) {
+	private RuleParam(String name, boolean required, ParamType type) {
 		this.name = name;
 		this.required = required;
 		this.type = type;
 	}
 
 	/**
-	* Returns the name of the rule parameter.
-	* @return The name of the rule parameter
-	*/	
-	String getName() {
+	* Returns the alias name of this parameter.
+	* @return The alias name of this parameter
+	*/
+	public String getName() {
 		return this.name;
 	}
 
 	/**
- 	* Returns true if this parameter is required.
- 	* @return Returns true if this parameter is required
- 	*/
-	boolean isRequired() {
+	* Returns true if the parameter is required.
+	* @return True if the parameter is required
+	*/
+	public boolean isRequired() {
 		return this.required;
 	}
 
+	/**
+	* Returns the type of this parameter.
+	* @return The type of this parameter
+	*/
+	public ParamType getType() {
+		return this.type;
+	}
 
 	/**
  	* Returns true if the parameter value is correct.
@@ -51,14 +53,14 @@ public class RuleParam {
  	*/
 	boolean checkValue(String value) {
 		switch (this.type) {
-        	case TYPE_STRING:
+        	case _STRING:
     			File file = new File(value);
         		if (file.exists()) {
         			return false;
         		} else {
         			return true;
         		}
-        	case TYPE_INTEGER:
+        	case _INTEGER:
             	try {
             		Integer number = new Integer(value);
             		return true;
@@ -69,12 +71,5 @@ public class RuleParam {
             	return false;
 		}
 	}
-
-	// This is the unique optional parameter of rule _RANDOM_ALT_LINE
-	static RuleParam RANDOM_ALT_LINE_SEED = new RuleParam("seed", false, TYPE_INTEGER);
-	// This is the first optional parameter of rule _JOIN
-	static RuleParam JOIN_COL1 = new RuleParam("col1", false, TYPE_STRING);
-	// This is the second optional parameter of rule _JOIN
-	static RuleParam JOIN_COL2 = new RuleParam("col2", false, TYPE_STRING);
 
 }
