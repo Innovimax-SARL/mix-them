@@ -7,15 +7,15 @@ package innovimax.mixthem;
 */
 public class RuleParam {
 
-	private String name;	
-	private boolean required;
+	private final String name;	
+	private final boolean required;
 
 	/**
  	* Creates a rule parameter.
  	* @param name The name of the parameter
  	* @param required Equals true if this parameter is required
  	*/
-	public RuleParam(String name, boolean required) {
+	RuleParam(String name, boolean required) {
 		this.name = name;
 		this.required = required;
 	}
@@ -24,7 +24,7 @@ public class RuleParam {
 	* Returns the name of the rule parameter.
 	* @return The name of the rule parameter
 	*/	
-	public String getName() {
+	String getName() {
 		return this.name;
 	}
 
@@ -32,15 +32,15 @@ public class RuleParam {
  	* Returns true if this parameter is required.
  	* @return Returns true if this parameter is required
  	*/
-	public boolean isRequired() {
+	boolean isRequired() {
 		return this.required;
 	}
 
 	// This is the unique optional parameter of rule _RANDOM_ALT_LINE
-	public static RuleParam RANDOM_ALT_LINE_SEED = new RuleParam("seed", false);
+	static RuleParam RANDOM_ALT_LINE_SEED = new RuleParam("seed", false);
 	// This is the first optional parameter of rule _JOIN
-	public static RuleParam JOIN_COL1 = new RuleParam("col1", false);
+	static RuleParam JOIN_COL1 = new RuleParam("col1", false);
 	// This is the second optional parameter of rule _JOIN
-	public static RuleParam JOIN_COL2 = new RuleParam("col2", false);
+	static RuleParam JOIN_COL2 = new RuleParam("col2", false);
 
 }
