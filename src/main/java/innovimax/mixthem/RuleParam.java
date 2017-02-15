@@ -45,8 +45,9 @@ public class RuleParam {
 
 
 	/**
- 	* Returns true if this parameter is required.
- 	* @return Returns true if this parameter is required
+ 	* Returns true if the parameter value is correct.
+ 	* @param value The value of the parameter on command line
+ 	* @return Returns true if the parameter value is correct
  	*/
 	boolean checkValue(String value) {
 		switch (this.type) {
