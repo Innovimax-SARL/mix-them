@@ -17,14 +17,14 @@ public enum Rule {
     _ADD(            "+",               "add",             "will output file1+file2", true, Collections.emptyList()),
     _ALT_LINE(       "alt-line",        "alt-line",        "will output one line of each starting with first line of file1", true, Collections.emptyList()),
     _ALT_CHAR(       "alt-char",        "alt-char",        "will output one char of each starting with first char of file1", true, Collections.emptyList()),
-    _RANDOM_ALT_LINE("random-alt-line", "random-alt-line", "will output one line of each code randomly based on a seed for reproducability", false, Collections.singletonList("seed")),
-    _JOIN(           "join",            "join",            "will output merging of lines that have common occurrence", false, Arrays.asList("col1", "col2"));
-   
+    _RANDOM_ALT_LINE("random-alt-line", "random-alt-line", "will output one line of each code randomly based on a seed for reproducability", false, Collections.singletonList(RuleParam.RANDOM_ALT_LINE_SEED)),
+    _JOIN(           "join",            "join",            "will output merging of lines that have common occurrence", false, Arrays.asList(RuleParam.JOIN_COL1, RuleParam.JOIN_COL2));
+
    private final String name, extension, description;
    private final boolean implemented;
-   private final List<String> params;
+   private final List<RuleParam> params;
 
-   private Rule(String name, String extension, String description, boolean implemented, List<String> params) {
+   private Rule(String name, String extension, String description, boolean implemented, List<RuleParam> params) {
      this.name = name;
      this.extension = extension;
      this.description = description;
@@ -34,7 +34,7 @@ public enum Rule {
 
    /**
    * Returns true if the rule is currently implemented.
-   * @return An iterator over the elements in this rule
+   * @return True if the rule is currently implemented
    */
    public boolean isImplemented() {
      return this.implemented;
@@ -65,11 +65,11 @@ public enum Rule {
    }
 
    /**
-   * Returns an iterator over the elements in this rule.
+   * Returns an iterator over the additional parameters in this rule.
    * @param name The name of the rule in command line
-   * @return An iterator over the elements in this rule
+   * @return An iterator over the additional parameters in this rule
    */	
-   public Iterable<String> getParams() {
+   public Iterable<RuleParam> getParams() {
        return this.params;
    }
 
