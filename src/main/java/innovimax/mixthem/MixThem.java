@@ -4,7 +4,11 @@ import innovimax.mixthem.exceptions.*;
 import innovimax.mixthem.interfaces.*;
 import innovimax.mixthem.io.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
 * <p>Mix files together using variety of rules.</p>
@@ -23,6 +27,7 @@ import java.io.*;
 */
 public class MixThem {
     private final static int CHAR_BUFFER_SIZE = 1024;
+    private final static int DEFAULT_RANDOM_SEED = 1789;
 
     private final File file1, file2;
     private final OutputStream out;
@@ -199,11 +204,31 @@ public class MixThem {
         IOutputLine writer = new DefaultLineWriter(out);           
         reader1.preload();
         reader2.preload();        
-        int count = Math.max(reader1.size(), reader2.size());        
+        int count = Math.max(reader1.size(), reader2.size());
+        int seed = DEFAULT_RANDOM_SEED; // must get from rule parameter
+        System.out.println("Sequence:");
+        Set<Integer> lineOrder = getLineOrder(count, seed);
+        System.out.println("Result:");
         // TODO
         reader1.close();
         reader2.close();
         writer.close();
+    }
+
+    private static Set<Integer> getLineOrder(int max, int seed) {        
+        Set<Integer> order = new LinkedHashSet<Integer>();
+        Random random = new Random(seed);        
+        for (int i = 0; i < max*10; i++) {
+            Integer n = new Integer(random.nextInt(max));
+            if (!order.contains(n)) {
+                System.out.println(n.toString()); 
+                order.add(n);
+                if (order.size() >= max) {
+                    break;
+                }
+            }            
+        }
+        return order;        
     }
 
     public static void printUsage() {    
