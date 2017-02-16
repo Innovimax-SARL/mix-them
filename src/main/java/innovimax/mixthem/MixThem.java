@@ -133,7 +133,7 @@ public class MixThem {
         while(read1 || read2) {            
             if (read1) {
                 if (reader1.hasLine()) {
-                    final String line = reader1.nextLine(ReadType._SIMPLE);
+                    final String line = reader1.nextLine(ReadType._SIMPLE, false);
                     if (odd || !read2) {
                         writer.writeLine(line);
                     }                    
@@ -143,7 +143,7 @@ public class MixThem {
             }  
             if (read2) {
                 if (reader2.hasLine()) {
-                    final String line = reader2.nextLine(ReadType._SIMPLE);
+                    final String line = reader2.nextLine(ReadType._SIMPLE, false);
                     if (!odd || !read1) {
                         writer.writeLine(line);
                     }                    
