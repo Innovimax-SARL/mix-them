@@ -17,14 +17,17 @@ import java.io.IOException;
 public class DefaultLineReader implements IInputLine {
 
 	private final BufferedReader reader;
+	private boolean jump;
 
 	/**
  	* Creates a line reader.
  	* @param file The input file to be read
+ 	* @param first True is this reader is the first one
  	* @throws IOException - If an I/O error occurs
  	*/
-	public DefaultLineReader(File input) throws IOException {
-		this.reader = new BufferedReader(new FileReader(input));
+	public DefaultLineReader(File input, boolean first) throws IOException {
+		this.reader = new BufferedReader(new FileReader(input));		
+		this.jump = !first;
 	}
 
 	@Override
@@ -34,7 +37,20 @@ public class DefaultLineReader implements IInputLine {
 
 	@Override
 	public String nextLine(ReadType type, boolean force) throws IOException {
-		return this.reader.readLine();
+		String line = null;
+		switch (type) {
+			case _SIMPLE:
+				if (this.jump && !force) {
+					this.reader.readLine();						
+				}
+				line = this.reader.readLine();
+				this.jump = true;
+				break;
+			case _RANDOM:
+				//TODO
+				break;
+		}
+		return line;
 	}
 
 	@Override
