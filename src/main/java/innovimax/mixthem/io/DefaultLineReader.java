@@ -74,7 +74,7 @@ public class DefaultLineReader implements IInputLine {
 	@Override
 	public String getLine(int index) {		
 		if (this.hasLine(index)) {
-			return this.line.get(index);
+			return this.lines.get(index);
 		}
 		return null;
 	}
