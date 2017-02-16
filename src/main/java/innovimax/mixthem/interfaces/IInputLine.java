@@ -42,4 +42,9 @@ public interface IInputLine {
 	* @return Returns true if this line exists
 	*/	
 	public boolean hasLine(int index);
+	/**
+ 	* Reads the line with the given index
+ 	* @return The line with the given index, or null if there is not exists.
+ 	*/	
+	public String getLine(int index);
 }
