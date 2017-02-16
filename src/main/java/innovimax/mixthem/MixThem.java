@@ -203,33 +203,10 @@ public class MixThem {
         IInputLine reader1 = new DefaultLineReader(file1);
         IInputLine reader2 = new DefaultLineReader(file2);
         IOutputLine writer = new DefaultLineWriter(out);           
-        reader1.preload();
-        reader2.preload();        
-        int count = Math.max(reader1.size(), reader2.size());
-        int seed = DEFAULT_RANDOM_SEED; // must get from rule parameter
-        System.out.println("Sequence:");
-        Set<Integer> lineOrder = getLineOrder(count, seed);
-        System.out.println("Result:");
-        // TODO
+        //TODO
         reader1.close();
         reader2.close();
         writer.close();
-    }
-
-    private static Set<Integer> getLineOrder(int max, int seed) {        
-        Set<Integer> order = new LinkedHashSet<Integer>();
-        Random random = new Random(seed);        
-        for (int i = 0; i < max*10; i++) {
-            Integer n = new Integer(random.nextInt(max));
-            if (!order.contains(n)) {
-                System.out.println(n.toString()); 
-                order.add(n);
-                if (order.size() >= max) {
-                    break;
-                }
-            }            
-        }
-        return order;        
     }
 
     public static void printUsage() {    
