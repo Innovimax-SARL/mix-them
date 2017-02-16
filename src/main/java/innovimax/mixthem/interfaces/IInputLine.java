@@ -32,4 +32,9 @@ public interface IInputLine {
 	* @throws IOException - If an I/O error occurs
 	*/
 	public void preload() throws IOException;		
+	/**
+	* Returns the number of lines preloaded.
+	* @return The number of lines preloaded, or -1 if no preloading nas been done
+	*/	
+	public int size();	
 }
