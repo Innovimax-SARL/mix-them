@@ -62,9 +62,9 @@ public enum RuleParam {
         		}
         	case _INTEGER:
             	try {
-            		Integer number = new Integer(value);
+            		Integer.parseInt(value);
             		return true;
-            	} catch (Exception e) {
+            	} catch (NumberFormatException e) {
             		return false;
             	}
             default:
