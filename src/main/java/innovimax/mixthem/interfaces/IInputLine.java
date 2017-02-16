@@ -36,5 +36,10 @@ public interface IInputLine {
 	* Returns the number of lines preloaded.
 	* @return The number of lines preloaded, or -1 if no preloading nas been done
 	*/	
-	public int size();	
+	public int size();
+	/**
+	* Returns true if there is a line with the given index.
+	* @return Returns true if this line exists
+	*/	
+	public boolean hasLine(int index);
 }
