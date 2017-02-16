@@ -64,7 +64,7 @@ public enum RuleParam {
             	try {
             		Integer.parseInt(value);
             		return true;
-            	} catch (Exception e) {
+            	} catch (NumberFormatException e) {
             		return false;
             	}
             default:

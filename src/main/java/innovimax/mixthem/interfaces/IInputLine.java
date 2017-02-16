@@ -15,36 +15,37 @@ public interface IInputLine {
 	* @return Returns true if there is more lines
 	* @throws IOException - If an I/O error occurs
 	*/	
-	public boolean hasLine() throws IOException;
+	boolean hasLine() throws IOException;
 	/**
  	* Reads a line of characters
  	* @return The line of characters read, or null if there is no more lines.
  	* @throws IOException - If an I/O error occurs
  	*/	
-	public String nextLine() throws IOException;
+	String nextLine() throws IOException;
 	/**
 	* Closes this input and releases any system resources associated with it.
 	* @throws IOException - If an I/O error occurs
 	*/
-	public void close() throws IOException;
+  void close() throws IOException;	
+
 	/**
 	* Preloads this input by reading all the lines of characters in memory.
 	* @throws IOException - If an I/O error occurs
 	*/
-	public void preload() throws IOException;		
+	void preload() throws IOException;		
 	/**
 	* Returns the number of lines preloaded.
 	* @return The number of lines preloaded, or -1 if no preloading nas been done
 	*/	
-	public int size();
+	int size();
 	/**
 	* Returns true if there is a line with the given index.
 	* @return Returns true if this line exists
 	*/	
-	public boolean hasLine(int index);
+	boolean hasLine(int index);
 	/**
  	* Reads the line with the given index
  	* @return The line with the given index, or null if there is not exists.
  	*/	
-	public String getLine(int index);
+	String getLine(int index);
 }
