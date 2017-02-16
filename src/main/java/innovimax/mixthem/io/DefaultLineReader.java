@@ -1,5 +1,6 @@
 package innovimax.mixthem;
 
+import innovimax.mixthem.ReadType;
 import innovimax.mixthem.interfaces.IInputLine;
 
 import java.io.BufferedReader;
@@ -33,7 +34,7 @@ public class DefaultLineReader implements IInputLine {
 	}
 
 	@Override
-	public String nextLine() throws IOException {
+	public String nextLine(ReadType type) throws IOException {
 		return this.reader.readLine();
 	}
 
