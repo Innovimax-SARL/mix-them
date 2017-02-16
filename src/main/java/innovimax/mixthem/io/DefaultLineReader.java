@@ -60,6 +60,7 @@ public class DefaultLineReader implements IInputLine {
 		if (this.lines != null) {
 			return this.lines.size();
 		}
+		return -1;
 	}
 
 }
