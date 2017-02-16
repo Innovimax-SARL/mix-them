@@ -1,8 +1,6 @@
 package innovimax.mixthem.interfaces;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.util.stream.Stream;
 
 /**
 * This interface provides for reading lines from an character-input.
