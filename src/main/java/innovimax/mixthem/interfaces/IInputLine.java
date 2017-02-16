@@ -1,5 +1,7 @@
 package innovimax.mixthem.interfaces;
 
+import innovimax.mixthem.ReadType;
+
 import java.io.IOException;
 
 /**
@@ -19,7 +21,7 @@ public interface IInputLine {
  	* @return The line of characters read, or null if there is no more lines.
  	* @throws IOException - If an I/O error occurs
  	*/	
-	String nextLine() throws IOException;
+	String nextLine(ReadType type) throws IOException;
 	/**
 	* Closes this input and releases any system resources associated with it.
 	* @throws IOException - If an I/O error occurs
