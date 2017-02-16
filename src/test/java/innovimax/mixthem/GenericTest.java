@@ -163,7 +163,7 @@ public class GenericTest {
 		System.out.println("test002/Mixed/random-alt-line:");
 		MixThem mixThem = new MixThem(file1, file2, System.out);
 		mixThem.process(Rule._RANDOM_ALT_LINE);  
-		        
+		/*
 		System.out.println("test001/Expected/random-alt-line:");
 		String line;
 		BufferedReader br = new BufferedReader(new FileReader(fileComp));
@@ -171,7 +171,7 @@ public class GenericTest {
 			System.out.println(line);
 		}
 		br.close();
-		
+		*/
 	}
 
 	private static boolean checkFileEquals(File fileExpected, byte[] result) throws FileNotFoundException, IOException {
