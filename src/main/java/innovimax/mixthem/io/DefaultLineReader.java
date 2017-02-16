@@ -47,8 +47,12 @@ public class DefaultLineReader implements IInputLine {
 	}
 
 	@Override
-	public void preload() throws IOException {		
-		this.lines = this.reader.lines().collect(Collectors.toList());
+	public void preload() throws IOException {
+		try {
+			this.lines = this.reader.lines().collect(Collectors.toList());	
+		} catch (UncheckedIOException e) {
+			throw e.getCause();
+		}
 	}	
 
 }
