@@ -32,6 +32,7 @@ public class DefaultLineReader implements IInputLine {
 
 	@Override
 	public boolean hasLine() throws IOException {
+		// should return True only if there is a line to write regarding the type
 		return this.reader.ready();
 	}
 
