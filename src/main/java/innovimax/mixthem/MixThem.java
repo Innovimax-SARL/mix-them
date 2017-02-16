@@ -7,9 +7,6 @@ import innovimax.mixthem.io.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.LinkedHashSet;
-import java.util.Random;
-import java.util.Set;
 
 /**
 * <p>Mix files together using variety of rules.</p>
@@ -28,7 +25,6 @@ import java.util.Set;
 */
 public class MixThem {
     private final static int CHAR_BUFFER_SIZE = 1024;
-    private final static int DEFAULT_RANDOM_SEED = 1789;
 
     private final File file1, file2;
     private final OutputStream out;
