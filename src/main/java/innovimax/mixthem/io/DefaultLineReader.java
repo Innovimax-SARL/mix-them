@@ -6,9 +6,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
 * <p>Reads lines from a character-input file.</p>
@@ -20,7 +17,6 @@ import java.util.stream.Collectors;
 public class DefaultLineReader implements IInputLine {
 
 	private final BufferedReader reader;
-	private List<String> lines;	
 
 	/**
  	* Creates a line reader.
@@ -44,39 +40,6 @@ public class DefaultLineReader implements IInputLine {
 	@Override
 	public void close() throws IOException {
 		this.reader.close();
-	}
-
-	@Override
-	public void preload() throws IOException {
-		try {
-			this.lines = this.reader.lines().collect(Collectors.toList());	
-		} catch (UncheckedIOException e) {
-			throw e.getCause();
-		}
-	}	
-
-	@Override
-	public int size() {
-		if (this.lines != null) {
-			return this.lines.size();
-		}
-		return -1;
-	}
-
-	@Override
-	public boolean hasLine(int index) {
-		if (this.lines != null) {
-			return (index < this.lines.size());
-		}
-		return false;
-	}
-
-	@Override
-	public String getLine(int index) {		
-		if (this.hasLine(index)) {
-			return this.lines.get(index);
-		}
-		return null;
 	}
 
 }
