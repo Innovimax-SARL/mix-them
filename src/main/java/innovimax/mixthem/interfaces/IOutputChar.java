@@ -13,17 +13,17 @@ public interface IOutputChar {
  	* @param c The character as an int to be written
  	* @throws IOException - If an I/O error occurs
  	*/	
-	public void writeCharacter(int c) throws IOException;
+	void writeCharacter(int c) throws IOException;
 	/**
  	* Writes a portion of an array of characters.
  	* @param buffer Buffer of characters
  	* @param len Number of characters to write
  	* @throws IOException - If an I/O error occurs
  	*/	
-	public void writeCharacters(char[] buffer, int len) throws IOException;	
+	void writeCharacters(char[] buffer, int len) throws IOException;	
 	/**
 	* Closes this output and releases any system resources associated with it.
  	* @throws IOException - If an I/O error occurs	
 	*/
-	public void close() throws IOException;		
+	void close() throws IOException;		
 }
