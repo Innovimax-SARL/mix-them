@@ -13,10 +13,10 @@ public interface IOutputLine {
  	* @param line The line of characters to be written
  	* @throws IOException - If an I/O error occurs
  	*/		
-	public void writeLine(String line) throws IOException;
+	void writeLine(String line) throws IOException;
 	/**
 	* Closes this output and releases any system resources associated with it.
 	* @throws IOException - If an I/O error occurs
 	*/
-	public void close() throws IOException;
+	void close() throws IOException;
 }
