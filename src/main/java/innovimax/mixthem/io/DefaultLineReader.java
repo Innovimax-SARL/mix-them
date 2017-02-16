@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Random;
 
 /**
 * <p>Reads lines from a character-input file.</p>
@@ -16,7 +17,11 @@ import java.io.IOException;
 */
 public class DefaultLineReader implements IInputLine {
 
+	private final static int DEFAULT_RANDOM_SEED = 1789;
+
 	private final BufferedReader reader;
+	private final boolean first;
+	private final Random random;
 	private boolean jump;
 
 	/**
@@ -26,7 +31,9 @@ public class DefaultLineReader implements IInputLine {
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultLineReader(File input, boolean first) throws IOException {
-		this.reader = new BufferedReader(new FileReader(input));		
+		this.reader = new BufferedReader(new FileReader(input));
+		this.first = first;
+		this.random = new Random(DEFAULT_RANDOM_SEED);
 		this.jump = !first;
 	}
 
@@ -42,13 +49,25 @@ public class DefaultLineReader implements IInputLine {
 		switch (type) {
 			case _SIMPLE:
 				if (this.jump && !force) {
-					this.reader.readLine();						
+					this.reader.readLine();
 				}
 				line = this.reader.readLine();
 				this.jump = true;
 				break;
 			case _RANDOM:
-				//TODO
+				if (this.first) {
+					if (random.nextBoolean() || force) {
+						line = this.reader.readLine();
+					} else {
+						this.reader.readLine();
+					}
+				} else {
+					if (!random.nextBoolean() || force) {
+						line = this.reader.readLine();
+					} else {
+						this.reader.readLine();
+					}
+				}
 				break;
 		}
 		return line;
