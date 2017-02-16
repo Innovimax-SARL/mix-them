@@ -147,29 +147,7 @@ public class GenericTest {
         File file2 = new File(url2.getFile());
         //File fileComp = new File(urlComp.getFile());        
         System.out.println("test002/Mixed/random-alt-line:");
-        innovimax.mixthem.MixThem2 mixThem = new innovimax.mixthem.MixThem2(file1, file2, System.out);
-        mixThem.process(Rule._RANDOM_ALT_LINE);  
-        /*        
-        System.out.println("test001/Expected/alt-line:");
-        String line;
-        BufferedReader br = new BufferedReader(new FileReader(fileComp));
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
-        }
-        br.close();
-        */
-    }
-
-    @Test
-    public final void dumpRuleRandomAltLine() throws MixException, FileNotFoundException, IOException {
-        URL url1 = getClass().getResource("test001_file1.txt");
-        URL url2 = getClass().getResource("test001_file2.txt");
-        //URL urlComp = getClass().getResource("test001_output-random-altline.txt");
-        File file1 = new File(url1.getFile());
-        File file2 = new File(url2.getFile());
-        //File fileComp = new File(urlComp.getFile());        
-        System.out.println("test002/Mixed/random-alt-line:");
-        MixThem2 mixThem = new MixThem2(file1, file2, System.out);
+        MixThem mixThem = new MixThem(file1, file2, System.out);
         mixThem.process(Rule._RANDOM_ALT_LINE);  
         /*        
         System.out.println("test001/Expected/random-alt-line:");
