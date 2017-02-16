@@ -13,16 +13,16 @@ public interface IInputLine {
 	* @return Returns true if there is more lines
 	* @throws IOException - If an I/O error occurs
 	*/	
-	public boolean hasLine() throws IOException;
+	boolean hasLine() throws IOException;
 	/**
  	* Reads a line of characters
  	* @return The line of characters read, or null if there is no more lines.
  	* @throws IOException - If an I/O error occurs
  	*/	
-	public String nextLine() throws IOException;
+	String nextLine() throws IOException;
 	/**
 	* Closes this input and releases any system resources associated with it.
 	* @throws IOException - If an I/O error occurs
 	*/
-	public void close() throws IOException;
+	void close() throws IOException;
 }
