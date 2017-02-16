@@ -197,6 +197,9 @@ public class MixThem {
         IInputLine reader1 = new DefaultLineReader(file1);
         IInputLine reader2 = new DefaultLineReader(file2);
         IOutputLine writer = new DefaultLineWriter(out);           
+        reader1.preload();
+        reader2.preload();        
+        int count = Math.max(reader1.size(), reader2.size());        
         // TODO
         reader1.close();
         reader2.close();
