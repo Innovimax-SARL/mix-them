@@ -33,7 +33,7 @@ public class DefaultLineReader implements IInputLine {
 	}
 
 	@Override
-	public String nextLine(ReadType type) throws IOException {
+	public String nextLine(ReadType type, boolean force) throws IOException {
 		return this.reader.readLine();
 	}
 
