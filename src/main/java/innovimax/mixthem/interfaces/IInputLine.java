@@ -1,6 +1,8 @@
 package innovimax.mixthem.interfaces;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.util.stream.Stream;
 
 /**
 * This interface provides for reading lines from an character-input.
@@ -24,5 +26,10 @@ public interface IInputLine {
 	* Closes this input and releases any system resources associated with it.
 	* @throws IOException - If an I/O error occurs
 	*/
-	public void close() throws IOException;	
+	public void close() throws IOException;
+	/**
+	* Preloads this input by reading all the lines of characters in memory.
+	* @throws IOException - If an I/O error occurs
+	*/
+	public void preload() throws IOException;		
 }
