@@ -124,34 +124,22 @@ public class MixThem {
 
     // this one copies two files alternativly line by line
     private static void copyAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
-        IInputLine reader1 = new DefaultLineReader(file1);
-        IInputLine reader2 = new DefaultLineReader(file2);
+        IInputLine reader1 = new DefaultLineReader(file1, true);
+        IInputLine reader2 = new DefaultLineReader(file2, false);
         IOutputLine writer = new DefaultLineWriter(out);
-        boolean read1 = true;
-        boolean read2 = true;
-        boolean odd = true;
-        while(read1 || read2) {            
-            if (read1) {
-                if (reader1.hasLine()) {
-                    final String line = reader1.nextLine(ReadType._SIMPLE, false);
-                    if (odd || !read2) {
-                        writer.writeLine(line);
-                    }                    
-                } else {
-                    read1 = false;
-                }
-            }  
-            if (read2) {
-                if (reader2.hasLine()) {
-                    final String line = reader2.nextLine(ReadType._SIMPLE, false);
-                    if (!odd || !read1) {
-                        writer.writeLine(line);
-                    }                    
-                } else {
-                    read2 = false;
+        while (reader1.hasLine() || reader2.hasLine()) {
+            if (reader1.hasLine()) {
+                final String line1 = reader1.nextLine(ReadType._SIMPLE, !reader2.hasLine());
+                if (line1 != null) {
+                    writer.writeLine(line1);
                 }
             }
-            odd = !odd;
+            if (reader2.hasLine()) {
+                final String line2 = reader2.nextLine(ReadType._SIMPLE, !reader1.hasLine());
+                if (line2 != null) {
+                    writer.writeLine(line2);
+                }
+            }
         }
         reader1.close();
         reader2.close();
@@ -196,8 +184,8 @@ public class MixThem {
 
     // this one copies two files randomly alternativly line by line
     private static void copyRandomAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
-        IInputLine reader1 = new DefaultLineReader(file1);
-        IInputLine reader2 = new DefaultLineReader(file2);
+        IInputLine reader1 = new DefaultLineReader(file1, true);
+        IInputLine reader2 = new DefaultLineReader(file2, false);
         IOutputLine writer = new DefaultLineWriter(out);           
         //TODO
         reader1.close();
