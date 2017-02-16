@@ -1,6 +1,5 @@
 package innovimax.mixthem;
 
-import innovimax.mixthem.ReadType;
 import innovimax.mixthem.interfaces.IInputLine;
 
 import java.io.BufferedReader;
