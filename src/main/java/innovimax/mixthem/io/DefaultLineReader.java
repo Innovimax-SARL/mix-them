@@ -63,4 +63,12 @@ public class DefaultLineReader implements IInputLine {
 		return -1;
 	}
 
+	@Override
+	public boolean hasLine(int index) {
+		if (this.lines != null) {
+			return (index < this.lines.size());
+		}
+		return false;
+	}
+
 }
