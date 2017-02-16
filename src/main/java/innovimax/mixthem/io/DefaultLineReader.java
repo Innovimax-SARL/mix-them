@@ -55,4 +55,11 @@ public class DefaultLineReader implements IInputLine {
 		}
 	}	
 
+	@Override
+	public int size() {
+		if (this.lines != null) {
+			return this.lines.size();
+		}
+	}
+
 }
