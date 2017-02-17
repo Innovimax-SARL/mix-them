@@ -29,7 +29,7 @@ public class GenericTest {
 		   if( url1 == null || url2 == null) break;
 		   for(Rule rule : Rule.values()) {
 			   String resource = prefix+ rule.getExtension()+".txt";
-			   URL url = getClass().getResource(str);
+			   URL url = getClass().getResource(resource);
 			   System.out.println(rule+" implemented = "+rule.isImplemented()+" ; resource ("+resource+") = "+url);
 		   }   
 		   i++;
