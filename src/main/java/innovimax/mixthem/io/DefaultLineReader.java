@@ -46,29 +46,24 @@ public class DefaultLineReader implements IInputLine {
 	@Override
 	public String nextLine(ReadType type, boolean force) throws IOException {
 		String line = null;
-		switch (type) {
-			case _SIMPLE:
-				if (this.jump && !force) {
-					this.reader.readLine();
-				}
-				line = this.reader.readLine();
-				this.jump = true;
-				break;
-			case _RANDOM:
-				if (this.first) {
-					if (random.nextBoolean() || force) {
+		if (hasLine()) {
+			switch (type) {
+				case _SIMPLE:
+					if (!this.jump || force) {
+						line = this.reader.readLine();						
+					} else {
+						this.reader.readLine();
+					}					
+					this.jump = !this.jump;
+					break;
+				case _RANDOM:					
+					if ((random.nextBoolean() == this.first) || force) {
 						line = this.reader.readLine();
 					} else {
 						this.reader.readLine();
-					}
-				} else {
-					if (!random.nextBoolean() || force) {
-						line = this.reader.readLine();
-					} else {
-						this.reader.readLine();
-					}
-				}
-				break;
+					}					
+					break;
+			}
 		}
 		return line;
 	}
