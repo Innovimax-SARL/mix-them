@@ -12,47 +12,34 @@ import org.junit.Test;
 */
 public class BasicTest {
 
-	@Test
-  	public final void testEmptyArgs() {
-  		boolean check = false;
-  		try {
-  			final String args[] = {};
-  			Arguments mixArgs = Arguments.checkArguments(args);
-  			check = true;
-  		} catch (ArgumentException e) {
-  			System.out.println(e.getMessage());
-  		}
-		Assert.assertFalse(check);
+	@Test(expected=ArgumentException.class)
+  	public final void testEmptyArgs() throws ArgumentException {
+  		final String args[] = {};
+  		Arguments mixArgs = Arguments.checkArguments(args);
 	}
-	@Test
-  	public final void testWrongArgs() {
-  		boolean check = false;
-		
-		check = false;
-  		try {
-  			final String args[] = { "ghost1", "ghost2" };
-  			Arguments mixArgs = Arguments.checkArguments(args);
-  			check = true;
-  		} catch (ArgumentException e) {
-  			System.out.println(e.getMessage());
-  		}
-		Assert.assertFalse(check);
-		Arguments.printUsage();
+
+	@Test(expected=ArgumentException.class)
+  	public final void testWrongArgs() throws ArgumentException {
+  		final String args[] = { "ghost1", "ghost2" };
+  		Arguments mixArgs = Arguments.checkArguments(args);
   	}
 
-		@Test
-  	public final void testNoRule() {
-  		boolean check = false;
-		
-		check = false;
-  		try {
-  			final String args[] = { getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
-  			Arguments mixArgs = Arguments.checkArguments(args);
-  			check = true;
-  		} catch (ArgumentException e) {
-  			System.out.println(e.getMessage());
-  		}
-		Assert.assertFalse(check);
-		Arguments.printUsage();
+	@Test
+  	public final void testNoRule() throws ArgumentException {
+  		final String args[] = { getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
+  		Arguments mixArgs = Arguments.checkArguments(args);
+ 		Assert.assertTrue(true);
   	}
+	@Test
+  	public final void test1Rule() throws ArgumentException {
+  		final String args[] = { "-1", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
+  		Arguments mixArgs = Arguments.checkArguments(args);
+ 		Assert.assertTrue(true);
+  	}
+	@Test(expected=ArgumentException.class)
+  	public final void testUnknownRule() throws ArgumentException {
+  		final String args[] = { "-x", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
+  		Arguments mixArgs = Arguments.checkArguments(args);
+  	}
+
 }
