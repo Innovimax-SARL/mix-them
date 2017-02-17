@@ -28,7 +28,7 @@ public class GenericTest {
 		   System.out.println("URL 1 ("+prefix + "file1.txt"+")="+url1+"; URL 2 ("+prefix + "file2.txt"+")="+url2);
 		   if( url1 == null || url2 == null) break;
 		   for(Rule rule : Rule.values()) {
-			   URL url = getClass().getResource(prefix+ rule.getExtension());
+			   URL url = getClass().getResource(prefix+ rule.getExtension()+".txt");
 			   System.out.println(rule+" implemented = "+rule.isImplemented()+" ; resource "+url);
 		   }   
 		   i++;
