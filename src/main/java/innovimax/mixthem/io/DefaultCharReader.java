@@ -23,8 +23,10 @@ public class DefaultCharReader implements IInputChar {
  	* @param file The input file to be read
  	* @throws IOException - If an I/O error occurs
  	*/
-	public DefaultCharReader(File input) throws IOException {		
+	public DefaultCharReader(File input, boolean first) throws IOException {		
 		this.reader = new BufferedReader(new FileReader(input));
+		this.first = first;
+		this.jump = !first;		
 	}
 
 	@Override
@@ -33,8 +35,21 @@ public class DefaultCharReader implements IInputChar {
 	}
 
 	@Override
-	public int nextCharacter() throws IOException {
-		return this.reader.read();		
+	public int nextCharacter(ReadType type, boolean force) throws IOException {		
+		int c = -1;
+		if (hasCharacter()) {
+			switch (type) {
+				case _ALT_SIMPLE:
+					if (!this.jump || force) {
+						c = this.reader.read();
+					} else {
+						this.reader.read();
+					}					
+					this.jump = !this.jump;
+					break;				
+			}
+		}
+		return c;
 	}
 
 	@Override
