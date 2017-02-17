@@ -27,7 +27,7 @@ public class GenericTest {
 		   System.out.println("TEST n°" + i);
 		   for(Rule rule : Rule.values()) {
 			   URL url = getClass().getResource(prefix+ rule.getExtension());
-			   System.out.println(rule+" implemented = "+rule.isImplemented()+" ; resource "+);
+			   System.out.println(rule+" implemented = "+rule.isImplemented()+" ; resource "+url);
 		   }   
 		   
 	   }
