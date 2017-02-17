@@ -4,8 +4,10 @@ import innovimax.mixthem.interfaces.IInputChar;
 
 import java.io.File;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
 * <p>Reads characters from a character-input file.</p>
@@ -16,15 +18,29 @@ import java.io.IOException;
 */
 public class DefaultCharReader implements IInputChar {
 
-	private final BufferedReader reader;	
+	private final Path path;
+	private final BufferedReader reader;
+	private boolean jump;
 
 	/**
  	* Creates a character reader.
- 	* @param file The input file to be read
+ 	* @param input The input file to be read
+ 	* @param first True is this reader is the first one
+ 	* @throws IOException - If an I/O error occurs
+ 	*/
+	public DefaultCharReader(File input, boolean first) throws IOException {		
+		this.path = input.toPath();
+		this.reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+		this.jump = !first;
+	}
+
+	/**
+ 	* Creates a character reader.
+ 	* @param input The input file to be read 	
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultCharReader(File input) throws IOException {		
-		this.reader = new BufferedReader(new FileReader(input));
+		this(input, true);
 	}
 
 	@Override
@@ -33,8 +49,21 @@ public class DefaultCharReader implements IInputChar {
 	}
 
 	@Override
-	public int nextCharacter() throws IOException {
-		return this.reader.read();		
+	public int nextCharacter(ReadType type, boolean force) throws IOException {		
+		int c = -1;
+		if (hasCharacter()) {
+			switch (type) {
+				case _ALT_SIMPLE:
+					if (!this.jump || force) {
+						c = this.reader.read();
+					} else {
+						this.reader.read();
+					}					
+					this.jump = !this.jump;
+					break;				
+			}
+		}
+		return c;
 	}
 
 	@Override
