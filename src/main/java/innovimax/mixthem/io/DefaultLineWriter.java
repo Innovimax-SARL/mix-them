@@ -1,4 +1,4 @@
-package innovimax.mixthem;
+package innovimax.mixthem.io;
 
 import innovimax.mixthem.interfaces.IOutputLine;
 
