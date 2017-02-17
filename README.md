@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/Innovimax-SARL/mix-them.svg?branch=master)](https://travis-ci.org/Innovimax-SARL/mix-them)
-
+[![codecov.io](https://codecov.io/github/Innovimax-SARL/mix-them/coverage.svg?branch=master)](https://codecov.io/github/Innovimax-SARL/mix-them?branch=master)
 # mix-them
 Mix files togethers
 
