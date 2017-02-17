@@ -113,7 +113,7 @@ public class MixThem {
     // this one copies one file as beeing char
     private static void copyChar(File file, OutputStream out) throws MixException, IOException {
         char[] buffer = new char[CHAR_BUFFER_SIZE];
-        IInputChar reader = new DefaultCharReader(file);
+        IInputChar reader = new DefaultCharReader(file, true);
         IOutputChar writer = new DefaultCharWriter(out);
         while (reader.hasCharacter()) {
             final int len = reader.nextCharacters(buffer, CHAR_BUFFER_SIZE);
