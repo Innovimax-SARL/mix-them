@@ -30,7 +30,7 @@ public class DefaultLineReader implements IInputLine {
 	/**
  	* Creates a line reader.
  	* @param input The input file to be read
- 	* @param first True is this reader is the first one
+ 	* @param first True is this reader is the first one for mixing
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultLineReader(File input, boolean first) throws IOException {
@@ -51,6 +51,9 @@ public class DefaultLineReader implements IInputLine {
 		String line = null;
 		if (hasLine()) {
 			switch (type) {
+				case _REGULAR:					
+					line = this.reader.readLine();
+					break;
 				case _ALT_SIMPLE:
 					if (!this.jump) {
 						line = this.reader.readLine();						
