@@ -1,4 +1,4 @@
-package innovimax.mixthem;
+package innovimax.mixthem.arguments;
 
 import java.io.File;
 
@@ -64,7 +64,7 @@ public enum RuleParam {
             	try {
             		Integer.parseInt(value);
             		return true;
-            	} catch (NumberFormatException e) {
+            	} catch (Exception e) {
             		return false;
             	}
             default:

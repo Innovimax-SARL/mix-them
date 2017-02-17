@@ -1,4 +1,4 @@
-package innovimax.mixthem;
+package innovimax.mixthem.arguments;
 
 import innovimax.mixthem.exceptions.ArgumentException;
 
@@ -12,7 +12,7 @@ import java.util.List;
 * @author Innovimax
 * @version 1.0
 */
-class Arguments {
+public class Arguments {
     
     private Rule rule = null;
     private List<String> ruleParams = null;
@@ -23,7 +23,7 @@ class Arguments {
         this.rule = rule;
     }
 
-    Rule getRule() {
+    public Rule getRule() {
         return this.rule;
     }
 
@@ -39,7 +39,7 @@ class Arguments {
         this.file1 = file1;
     }
 
-    File getFirstFile() {
+    public File getFirstFile() {
         return this.file1;
     }
 
@@ -47,11 +47,11 @@ class Arguments {
         this.file2 = file2;
     }
 
-    File getSecondFile() {
+    public File getSecondFile() {
         return this.file2;
     }
 
-    static Arguments checkArguments(String[] args) throws ArgumentException { 
+    public static Arguments checkArguments(String[] args) throws ArgumentException { 
         Arguments mixArgs = new Arguments();
         int index = 0;
         Rule rule = getRuleArgument(args, index, "rule");
@@ -124,6 +124,27 @@ class Arguments {
             throw new ArgumentException(name + " argument missing.");
         }
         return file;
+    }
+
+    public static void printUsage() {    
+        System.out.println("  ");    
+        System.out.println("Usage:");
+        System.out.println("  ");
+        System.out.println("  mix-them file1 file2");
+        System.out.println("  (will generate any file based on file1 and file2)");
+        System.out.println("  ");
+        System.out.println("  mix-them -[rule] file1 file2");
+        System.out.println("  (will generate a file based on the rule)");
+        System.out.println("  ");
+        System.out.println("  Here are the list of rules");
+        for(Rule rule : Rule.values()) {
+          System.out.print("  - " + rule.getName());
+          for(RuleParam param : rule.getParams()) {
+              System.out.print(" ["+param.getName()+"]");
+          }
+          System.out.println(": "+rule.getDescription());
+        }
+        System.out.println("  ");
     }
 
 }

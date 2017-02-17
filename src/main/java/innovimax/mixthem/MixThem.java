@@ -1,5 +1,6 @@
 package innovimax.mixthem;
 
+import innovimax.mixthem.arguments.*;
 import innovimax.mixthem.exceptions.*;
 import innovimax.mixthem.interfaces.*;
 import innovimax.mixthem.io.*;
@@ -57,7 +58,7 @@ public class MixThem {
         } catch (ArgumentException e) {
             System.err.println("Files mixing can't be run due to following reason:"); 
             System.err.println(e.getMessage());
-            printUsage(); 
+            Arguments.printUsage(); 
         } catch (MixException e) {
             System.err.println("Files mixing has been aborted due to following reason:"); 
             System.err.println(e.getMessage());
@@ -185,27 +186,6 @@ public class MixThem {
         reader1.close();
         reader2.close();
         writer.close();
-    }
-
-    public static void printUsage() {    
-        System.out.println("  ");    
-        System.out.println("Usage:");
-        System.out.println("  ");
-        System.out.println("  mix-them file1 file2");
-        System.out.println("  (will generate any file based on file1 and file2)");
-        System.out.println("  ");
-        System.out.println("  mix-them -[rule] file1 file2");
-        System.out.println("  (will generate a file based on the rule)");
-        System.out.println("  ");
-        System.out.println("  Here are the list of rules");
-        for(Rule rule : Rule.values()) {
-          System.out.print("  - " + rule.getName());
-          for(RuleParam param : rule.getParams()) {
-              System.out.print(" ["+param.getName()+"]");
-          }
-          System.out.println(": "+rule.getDescription());
-        }
-        System.out.println("  ");
     }
 
 }

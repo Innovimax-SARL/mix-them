@@ -1,4 +1,4 @@
-package innovimax.mixthem;
+package innovimax.mixthem.arguments;
 
 /**
 * <p>This is a enumeration of rule parameters types.</p>
