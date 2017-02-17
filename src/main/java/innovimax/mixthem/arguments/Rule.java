@@ -13,12 +13,13 @@ public enum Rule {
     _1(              "1",               "1",               "will output file1", true, EnumSet.noneOf(RuleParam.class)),
     _2(              "2",               "2",               "will output file2", true, EnumSet.noneOf(RuleParam.class)),
     _ADD(            "+",               "add",             "will output file1+file2", true, EnumSet.noneOf(RuleParam.class)),
-    _ALT_LINE(       "alt-line",        "altline",        "will output one line of each starting with first line of file1", true, EnumSet.noneOf(RuleParam.class)),
-    _ALT_CHAR(       "alt-char",        "altchar",        "will output one char of each starting with first char of file1", true, EnumSet.noneOf(RuleParam.class)),
-    _RANDOM_ALT_LINE("random-alt-line", "random-altline", "will output one line of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam._SEED)),
-    _JOIN(           "join",            "join",            "will output merging of lines that have common occurrence", false, EnumSet.of(RuleParam._COL1, RuleParam._COL2));
+    _ALT_LINE(       "alt-line",        "alt-line",        "will output one line of each starting with first line of file1", true, EnumSet.noneOf(RuleParam.class)),
+    _ALT_CHAR(       "alt-char",        "alt-char",        "will output one char of each starting with first char of file1", true, EnumSet.noneOf(RuleParam.class)),
+    _RANDOM_ALT_LINE("random-alt-line", "random-alt-line", "will output one line of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam._SEED)),
+    _JOIN(           "join",            "join",            "will output merging of lines that have common occurrence", false, EnumSet.of(RuleParam._COL1, RuleParam._COL2)),
+    _ZIP(            "zip",             "zip",             "will output zip of the file", false, EnumSet.noneOf(RuleParam.class));
 
-    private final String name, extension, description;
+  private final String name, extension, description;
     private final boolean implemented;
     private final EnumSet<RuleParam> params;
 
