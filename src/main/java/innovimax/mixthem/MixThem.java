@@ -133,11 +133,11 @@ public class MixThem {
         IInputChar reader2 = new DefaultCharReader(file2, false);
         IOutputChar writer = new DefaultCharWriter(out);
         while (reader1.hasCharacter() || reader2.hasCharacter()) {             
-            final int c1 = reader1.nextCharacter(type, !reader2.hasCharacter());
+            final int c1 = reader1.nextCharacter(reader2.hasCharacter() ? type : ReadType._REGULAR);
             if (c1 >= 0) {
                 writer.writeCharacter(c1);
             }            
-            final int c2 = reader2.nextCharacter(type, !reader1.hasCharacter());
+            final int c2 = reader2.nextCharacter(reader1.hasCharacter() ? type : ReadType._REGULAR);
             if (c2 >= 0) {
                 writer.writeCharacter(c2);
             }
