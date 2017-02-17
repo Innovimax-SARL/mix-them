@@ -60,6 +60,8 @@ public class Arguments {
             index++;
             ruleParams = getRuleParameters(args, index, rule);
             index += ruleParams.size();
+        } else {
+            rule = Rule._ADD;
         }
         File file1 = getFileArgument(args, index, "file1");
         File file2 = getFileArgument(args, ++index, "file2");
