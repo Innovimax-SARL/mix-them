@@ -16,7 +16,9 @@ import java.io.IOException;
 */
 public class DefaultCharReader implements IInputChar {
 
-	private final BufferedReader reader;	
+	private final BufferedReader reader;
+	private final boolean first;
+	private boolean jump;
 
 	/**
  	* Creates a character reader.
