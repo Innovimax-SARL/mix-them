@@ -17,10 +17,10 @@ public interface IInputLine {
 	*/	
 	boolean hasLine() throws IOException;
 	/**
- 	* Reads a line of characters
+ 	* Reads a line of characters or returns null if not eligible regarding type or no more lines.
  	* @param type The type of reading expected
  	* @param force True if reading is required whatever the type said
- 	* @return The line of characters read, or null if there is no more lines.
+ 	* @return The line of characters read, or null not eligible or no more lines
  	* @throws IOException - If an I/O error occurs
  	*/	
 	String nextLine(ReadType type, boolean force) throws IOException;
