@@ -126,4 +126,25 @@ public class Arguments {
         return file;
     }
 
+    public static void printUsage() {    
+        System.out.println("  ");    
+        System.out.println("Usage:");
+        System.out.println("  ");
+        System.out.println("  mix-them file1 file2");
+        System.out.println("  (will generate any file based on file1 and file2)");
+        System.out.println("  ");
+        System.out.println("  mix-them -[rule] file1 file2");
+        System.out.println("  (will generate a file based on the rule)");
+        System.out.println("  ");
+        System.out.println("  Here are the list of rules");
+        for(Rule rule : Rule.values()) {
+          System.out.print("  - " + rule.getName());
+          for(RuleParam param : rule.getParams()) {
+              System.out.print(" ["+param.getName()+"]");
+          }
+          System.out.println(": "+rule.getDescription());
+        }
+        System.out.println("  ");
+    }
+
 }
