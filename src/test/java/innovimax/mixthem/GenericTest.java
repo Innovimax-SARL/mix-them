@@ -18,13 +18,15 @@ import org.junit.runner.RunWith;
 public class GenericTest {
    @Test
    public final void parameter() throws MixException, FileNotFoundException, IOException {
+	   
 	   int i = 1;
 	   while (true) {
+		   System.out.println("TEST n°" + i);
 		   String prefix = "test" + String.format("%04d", i) +"_";
 		   URL url1 = getClass().getResource(prefix + "file1.txt");
 		   URL url2 = getClass().getResource(prefix + "file2.txt");
 		   if( url1 == null || url2 == null) break;
-		   System.out.println("TEST n°" + i);
+		   System.out.println("URL 1 "+url1+"; URL 2 "+url2);
 		   for(Rule rule : Rule.values()) {
 			   URL url = getClass().getResource(prefix+ rule.getExtension());
 			   System.out.println(rule+" implemented = "+rule.isImplemented()+" ; resource "+url);
