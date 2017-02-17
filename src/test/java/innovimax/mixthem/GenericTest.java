@@ -32,8 +32,8 @@ public class GenericTest {
 			   String resource = prefix+"output-"+ rule.getExtension()+".txt";
 			   URL url = getClass().getResource(resource);
 			   System.out.println(rule+" implemented = "+rule.isImplemented()+" ; resource ("+resource+") = "+url);
-			   if (rule.isImplemeted() && url != null) {
-			   	check(new File(url1), new File(url2), new File(url), rule);
+			   if (rule.isImplemented() && url != null) {
+			   	check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule);
 			   }
 		   }   
 		   i++;
