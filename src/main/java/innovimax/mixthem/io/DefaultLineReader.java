@@ -1,11 +1,14 @@
-package innovimax.mixthem;
+package innovimax.mixthem.io;
 
+import innovimax.mixthem.ReadType;
 import innovimax.mixthem.interfaces.IInputLine;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Random;
 
 /**
@@ -19,6 +22,7 @@ public class DefaultLineReader implements IInputLine {
 
 	private final static int DEFAULT_RANDOM_SEED = 1789;
 
+	private final Path path;
 	private final BufferedReader reader;
 	private final boolean first;
 	private final Random random;
@@ -26,12 +30,13 @@ public class DefaultLineReader implements IInputLine {
 
 	/**
  	* Creates a line reader.
- 	* @param file The input file to be read
+ 	* @param input The input file to be read
  	* @param first True is this reader is the first one
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultLineReader(File input, boolean first) throws IOException {
-		this.reader = new BufferedReader(new FileReader(input));
+		this.path = input.toPath();
+		this.reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 		this.first = first;
 		this.random = new Random(DEFAULT_RANDOM_SEED);
 		this.jump = !first;
@@ -39,7 +44,6 @@ public class DefaultLineReader implements IInputLine {
 
 	@Override
 	public boolean hasLine() throws IOException {
-		// should return True only if there is a line to write regarding the type
 		return this.reader.ready();
 	}
 
