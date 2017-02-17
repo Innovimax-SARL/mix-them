@@ -21,6 +21,7 @@ public class GenericTest {
    public final void parameter() throws MixException, FileNotFoundException, IOException {
 	   
 	   int i = 1;
+	   boolean result = true;
 	   while (true) {
 		   System.out.println("TEST n°" + i);
 		   String prefix = "test" + String.format("%03d", i) +"_";
@@ -33,18 +34,20 @@ public class GenericTest {
 			   URL url = getClass().getResource(resource);
 			   System.out.println(rule+" implemented = "+rule.isImplemented()+" ; resource ("+resource+") = "+url);
 			   if (rule.isImplemented() && url != null) {
-			   	check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule);
+			   	boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule);
+				System.out.println("RULE PASS : "+res);
+				result &= res;   
 			   }
 		   }   
 		   i++;
 	   }
-	   Assert.assertTrue(true);
+	   Assert.assertTrue(result);
    }	   
-   private final static void check(File file1, File file2, File expected, Rule rule)  throws MixException, FileNotFoundException, IOException  {
+   private final static boolean check(File file1, File file2, File expected, Rule rule)  throws MixException, FileNotFoundException, IOException  {
 	   ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
 	   MixThem mixThem = new MixThem(file1, file2, baos_rule);
            mixThem.process(rule);
-	   Assert.assertTrue(checkFileEquals(expected, baos_rule.toByteArray()));
+	   return checkFileEquals(expected, baos_rule.toByteArray());
    }
 	/*
    @Test
