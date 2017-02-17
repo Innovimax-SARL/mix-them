@@ -15,7 +15,7 @@ public interface IInputChar {
 	* @return Returns true if there is more characters
 	* @throws IOException - If an I/O error occurs
 	*/
-	public boolean hasCharacter() throws IOException;
+	boolean hasCharacter() throws IOException;
 	/**
  	* Reads an eligible character regarding the type, or returns null if not eligible or no more lines.
  	* @param type The type of reading expected
@@ -23,7 +23,7 @@ public interface IInputChar {
  	* @return The eligible character as an int, or -1 if not eligible or no more characters
  	* @throws IOException - If an I/O error occurs
  	*/
-	public int nextCharacter(ReadType type, boolean force) throws IOException;
+	int nextCharacter(ReadType type, boolean force) throws IOException;
 	/**
  	* Reads characters into a portion of an array.
  	* @param buffer Destination buffer
@@ -31,10 +31,10 @@ public interface IInputChar {
  	* @return The number of characters read, or -1 if there is no more characters
  	* @throws IOException - If an I/O error occurs
  	*/
-	public int nextCharacters(char[] buffer, int len) throws IOException;
+	int nextCharacters(char[] buffer, int len) throws IOException;
 	/**
 	* Closes this input and releases any system resources associated with it.
 	* @throws IOException - If an I/O error occurs
 	*/
-	public void close() throws IOException;	
+	void close() throws IOException;	
 }
