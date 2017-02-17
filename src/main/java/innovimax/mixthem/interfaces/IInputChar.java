@@ -1,5 +1,7 @@
 package innovimax.mixthem.interfaces;
 
+import innovimax.mixthem.io.ReadType;
+
 import java.io.IOException;
 
 /**
@@ -13,13 +15,15 @@ public interface IInputChar {
 	* @return Returns true if there is more characters
 	* @throws IOException - If an I/O error occurs
 	*/
-	boolean hasCharacter() throws IOException;
+	public boolean hasCharacter() throws IOException;
 	/**
- 	* Reads a single character
- 	* @return The character read as an int, or -1 if there is no more characters.
+ 	* Reads an eligible character regarding the type, or returns null if not eligible or no more lines.
+ 	* @param type The type of reading expected
+ 	* @param force True if reading is required whatever the type said
+ 	* @return The eligible character as an int, or -1 if not eligible or no more characters
  	* @throws IOException - If an I/O error occurs
  	*/
-	int nextCharacter() throws IOException;
+	public int nextCharacter(ReadType type, boolean force) throws IOException;
 	/**
  	* Reads characters into a portion of an array.
  	* @param buffer Destination buffer
@@ -27,10 +31,10 @@ public interface IInputChar {
  	* @return The number of characters read, or -1 if there is no more characters
  	* @throws IOException - If an I/O error occurs
  	*/
-	int nextCharacters(char[] buffer, int len) throws IOException;
+	public int nextCharacters(char[] buffer, int len) throws IOException;
 	/**
 	* Closes this input and releases any system resources associated with it.
 	* @throws IOException - If an I/O error occurs
 	*/
-	void close() throws IOException;	
+	public void close() throws IOException;	
 }
