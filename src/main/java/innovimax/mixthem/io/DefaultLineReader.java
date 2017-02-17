@@ -47,12 +47,12 @@ public class DefaultLineReader implements IInputLine {
 	}
 
 	@Override
-	public String nextLine(ReadType type, boolean force) throws IOException {
+	public String nextLine(ReadType type) throws IOException {
 		String line = null;
 		if (hasLine()) {
 			switch (type) {
 				case _ALT_SIMPLE:
-					if (!this.jump || force) {
+					if (!this.jump) {
 						line = this.reader.readLine();						
 					} else {
 						this.reader.readLine();
