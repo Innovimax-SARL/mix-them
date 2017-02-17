@@ -49,10 +49,13 @@ public class DefaultCharReader implements IInputChar {
 	}
 
 	@Override
-	public int nextCharacter(ReadType type, boolean force) throws IOException {		
+	public int nextCharacter(ReadType type) throws IOException {		
 		int c = -1;
 		if (hasCharacter()) {
 			switch (type) {
+				case _REGULAR:
+					c = this.reader.read();
+					break;
 				case _ALT_SIMPLE:
 					if (!this.jump || force) {
 						c = this.reader.read();
