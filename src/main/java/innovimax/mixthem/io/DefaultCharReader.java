@@ -17,7 +17,6 @@ import java.io.IOException;
 public class DefaultCharReader implements IInputChar {
 
 	private final BufferedReader reader;
-	private final boolean first;
 	private boolean jump;
 
 	/**
@@ -27,7 +26,6 @@ public class DefaultCharReader implements IInputChar {
  	*/
 	public DefaultCharReader(File input, boolean first) throws IOException {		
 		this.reader = new BufferedReader(new FileReader(input));
-		this.first = first;
 		this.jump = !first;		
 	}
 
