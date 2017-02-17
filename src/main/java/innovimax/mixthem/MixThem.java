@@ -161,12 +161,12 @@ public class MixThem {
 
     // this one copies two files alternativly line by line
     private static void copySimpleAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
-        copyAltLine(file1, file2, out, ReadType._SIMPLE);
+        copyAltLine(file1, file2, out, ReadType._ALT_SIMPLE);
     }
 
     // this one copies two files randomly alternativly line by line
     private static void copyRandomAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
-        copyAltLine(file1, file2, out, ReadType._RANDOM);
+        copyAltLine(file1, file2, out, ReadType._ALT_RANDOM);
     }
 
     private static void copyAltLine(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {

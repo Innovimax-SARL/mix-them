@@ -1,6 +1,6 @@
 package innovimax.mixthem.interfaces;
 
-import innovimax.mixthem.ReadType;
+import innovimax.mixthem.io.ReadType;
 
 import java.io.IOException;
 
