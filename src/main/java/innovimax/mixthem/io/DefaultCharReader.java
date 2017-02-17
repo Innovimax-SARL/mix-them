@@ -57,7 +57,7 @@ public class DefaultCharReader implements IInputChar {
 					c = this.reader.read();
 					break;
 				case _ALT_SIMPLE:
-					if (!this.jump || force) {
+					if (!this.jump) {
 						c = this.reader.read();
 					} else {
 						this.reader.read();
