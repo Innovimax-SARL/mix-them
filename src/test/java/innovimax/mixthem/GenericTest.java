@@ -22,7 +22,7 @@ public class GenericTest {
 	   int i = 1;
 	   while (true) {
 		   System.out.println("TEST n°" + i);
-		   String prefix = "test" + String.format("%04d", i) +"_";
+		   String prefix = "test" + String.format("%03d", i) +"_";
 		   URL url1 = getClass().getResource(prefix + "file1.txt");
 		   URL url2 = getClass().getResource(prefix + "file2.txt");
 		   System.out.println("URL 1 ("+prefix + "file1.txt"+")="+url1+"; URL 2 ("+prefix + "file2.txt"+")="+url2);
