@@ -1,6 +1,5 @@
 package innovimax.mixthem;
 
-import innovimax.mixthem.MixThem;
 import innovimax.mixthem.arguments.Arguments;
 import innovimax.mixthem.exceptions.ArgumentException;
 
@@ -33,7 +32,7 @@ public class BasicTest {
   			System.out.println(e.getMessage());
   		}
 		Assert.assertFalse(check);
-		MixThem.printUsage();
+		Arguments.printUsage();
   	}
 
 }
