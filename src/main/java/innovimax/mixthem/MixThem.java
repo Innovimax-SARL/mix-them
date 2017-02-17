@@ -172,18 +172,14 @@ public class MixThem {
         IInputLine reader1 = new DefaultLineReader(file1, true);
         IInputLine reader2 = new DefaultLineReader(file2, false);
         IOutputLine writer = new DefaultLineWriter(out);
-        while (reader1.hasLine() || reader2.hasLine()) {
-            if (reader1.hasLine()) {
-                final String line1 = reader1.nextLine(type, !reader2.hasLine());
-                if (line1 != null) {
-                    writer.writeLine(line1);
-                }
-            }
-            if (reader2.hasLine()) {
-                final String line2 = reader2.nextLine(type, !reader1.hasLine());
-                if (line2 != null) {
-                    writer.writeLine(line2);
-                }
+        while (reader1.hasLine() || reader2.hasLine()) {            
+            final String line1 = reader1.nextLine(type, !reader2.hasLine());
+            if (line1 != null) {
+                writer.writeLine(line1);
+            }            
+            final String line2 = reader2.nextLine(type, !reader1.hasLine());
+            if (line2 != null) {
+                writer.writeLine(line2);
             }
         }
         reader1.close();
