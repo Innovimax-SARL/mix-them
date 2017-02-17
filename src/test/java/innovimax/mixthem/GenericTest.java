@@ -8,13 +8,32 @@ import java.net.URL;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.theories.*;
+import org.junit.runner.RunWith;
 
 /*
 	Created by innovimax
 	Generic tests for this application
 */
 public class GenericTest {
-
+   @Test
+   public final void parameter() throws MixException, FileNotFoundException, IOException {
+	   int i = 1;
+	   while (true) {
+		   String prefix = "test" + String.format("%04d", i) +"_";
+		   URL url1 = getClass().getResource(prefix + "file1.txt");
+		   URL url2 = getClass().getResource(prefix + "file2.txt");
+		   if( url1 == null || url2 == null) break;
+		   System.out.println("TEST n°" + i);
+		   for(Rule rule : Rule.values()) {
+			   URL url = getClass().getResource(prefix+ rule.getExtension());
+			   System.out.println(rule+" implemented = "+rule.isImplemented()+" ; resource "+);
+		   }   
+		   
+	   }
+	   Assert.assertTrue(true);
+   }	   
+	
    @Test
    public final void checkRule1() throws MixException, FileNotFoundException, IOException {
 		URL url1 = getClass().getResource("test001_file1.txt");
