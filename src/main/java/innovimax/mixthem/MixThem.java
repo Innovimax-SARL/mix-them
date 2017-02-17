@@ -121,7 +121,7 @@ public class MixThem {
         }
         reader.close();
         writer.close();
-    }
+    }    
 
     // this one copies two files alternativly char by char
     private static void copySimpleAltChar(File file1, File file2, OutputStream out) throws MixException, IOException {
@@ -129,38 +129,22 @@ public class MixThem {
     }
 
     private static void copyAltChar(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
-        IInputChar reader1 = new DefaultCharReader(file1);
-        IInputChar reader2 = new DefaultCharReader(file2);
+        IInputChar reader1 = new DefaultCharReader(file1, true);
+        IInputChar reader2 = new DefaultCharReader(file2, false);
         IOutputChar writer = new DefaultCharWriter(out);
-        boolean read1 = true;
-        boolean read2 = true;
-        boolean odd = true;
-        while(read1 || read2) {            
-            if (read1) {
-                if (reader1.hasCharacter()) {
-                    final int c = reader1.nextCharacter();
-                    if (odd || !read2) {
-                        writer.writeCharacter(c);
-                    }                    
-                } else {
-                    read1 = false;
-                }
-            }  
-            if (read2) {
-                if (reader2.hasCharacter()) {
-                    final int c = reader2.nextCharacter();
-                    if (!odd || !read1) {
-                        writer.writeCharacter(c);
-                    }                    
-                } else {
-                    read2 = false;
-                }
+        while (reader1.hasCharacter() || reader2.hasCharacter()) {             
+            final int c1 = reader1.nextCharacter(type, !reader2.hasCharacter());
+            if (c1 >= 0) {
+                writer.writeCharacter(c1);
+            }            
+            final int c2 = reader2.nextCharacter(type, !reader1.hasCharacter());
+            if (c2 >= 0) {
+                writer.writeCharacter(c2);
             }
-            odd = !odd;
         }
         reader1.close();
         reader2.close();
-        writer.close();        
+        writer.close();
     }
 
     // this one copies two files alternativly line by line
