@@ -25,7 +25,7 @@ public class DefaultCharReader implements IInputChar {
 	/**
  	* Creates a character reader.
  	* @param input The input file to be read
- 	* @param first True is this reader is the first one
+ 	* @param first True is this reader is the first one for mixing
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultCharReader(File input, boolean first) throws IOException {		
