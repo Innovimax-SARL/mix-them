@@ -11,7 +11,12 @@ import org.junit.Test;
     Basic tests for this application
 */
 public class BasicTest {
-
+        @Test
+	public final void testPrintUsage() {
+		Arguments.printUsage();
+		Assert.assertTrue(true);
+	}
+	
 	@Test(expected=ArgumentException.class)
   	public final void testEmptyArgs() throws ArgumentException {
   		final String args[] = {};
