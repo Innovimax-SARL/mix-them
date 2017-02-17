@@ -60,7 +60,7 @@ public class DefaultLineReader implements IInputLine {
 					this.jump = !this.jump;
 					break;
 				case _ALT_RANDOM:					
-					if (random.nextBoolean() == this.first || force) {
+					if (random.nextBoolean() == this.first) {
 						line = this.reader.readLine();
 					} else {
 						this.reader.readLine();
