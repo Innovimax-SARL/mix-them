@@ -4,7 +4,9 @@ import innovimax.mixthem.exceptions.*;
 import innovimax.mixthem.interfaces.*;
 import innovimax.mixthem.io.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
 * <p>Mix files together using variety of rules.</p>
@@ -48,32 +50,6 @@ public class MixThem {
     }
 
     private static void run(String[] args) {
-/*
-        try {
-            Rule rule;
-            if ((rule = checkArguments(args)) != null) {
-                String file1, file2;
-                if (args.length >= 3) {
-                    file1 = args[1];
-                    file2 = args[2];
-                } else {
-                    rule = Rule._1;
-                    file1 = args[0];
-                    file2 = args[1]; 
-                }        
-                MixThem mixThem = new MixThem(new File(file1), new File(file2), System.out);
-                mixThem.process(rule);
-            } else {
-                printUsage(); 
-            }  
-        } catch (MixException e) {
-            System.err.println("Files mixing has been aborted due to following reason:"); 
-            System.err.println(e.getMessage());
-        } catch (Exception e) {
-            System.err.println("An unexpected error occurs.");
-            e.printStackTrace();
-        }
-*/
         try {
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getFirstFile(), mixArgs.getSecondFile(), System.out);
@@ -110,13 +86,15 @@ public class MixThem {
                   copyChar(this.file1, this.out);
                   copyChar(this.file2, this.out);
                   break;
-                case _ALT_LINE:    
-                  copyAltLine(this.file1, this.file2, this.out);
-                  break;
                 case _ALT_CHAR:
                   copyAltChar(this.file1, this.file2, this.out);
                   break;
+                case _ALT_LINE:    
+                  copySimpleAltLine(this.file1, this.file2, this.out);
+                  break;
                 case _RANDOM_ALT_LINE:
+                  copyRandomAltLine(this.file1, this.file2, this.out);
+                  break;
                 case _JOIN:               
                 //TODO
                 //    break;
@@ -143,42 +121,6 @@ public class MixThem {
         reader.close();
         writer.close();
     }    
-
-    // this one copies two files alternativly line by line
-    private static void copyAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
-        IInputLine reader1 = new DefaultLineReader(file1);
-        IInputLine reader2 = new DefaultLineReader(file2);
-        IOutputLine writer = new DefaultLineWriter(out);
-        boolean read1 = true;
-        boolean read2 = true;
-        boolean odd = true;
-        while(read1 || read2) {            
-            if (read1) {
-                if (reader1.hasLine()) {
-                    final String line = reader1.nextLine();
-                    if (odd || !read2) {
-                        writer.writeLine(line);
-                    }                    
-                } else {
-                    read1 = false;
-                }
-            }  
-            if (read2) {
-                if (reader2.hasLine()) {
-                    final String line = reader2.nextLine();
-                    if (!odd || !read1) {
-                        writer.writeLine(line);
-                    }                    
-                } else {
-                    read2 = false;
-                }
-            }
-            odd = !odd;
-        }
-        reader1.close();
-        reader2.close();
-        writer.close();
-    }
 
     // this one copies two files alternativly char by char
     private static void copyAltChar(File file1, File file2, OutputStream out) throws MixException, IOException {
@@ -216,58 +158,34 @@ public class MixThem {
         writer.close();        
     }
 
-    public static Rule checkArguments(String[] args) { 
-        String ruleString = null;
-        String file1 = null;
-        String file2 = null;
-        if (args.length >= 3) {
-            ruleString = args[0];
-            file1 = args[1];
-            file2 = args[2];
-        } else {            
-            if (args.length > 0) {
-                file1 = args[0];
-            }
-            if (args.length > 1) {
-                file2 = args[1];
-            }
-        }
-        Rule rule = null;
-        if (ruleString != null) {            
-            rule = Rule.findByName(ruleString);
-            if (rule == null) {
-                System.out.println("rule argument is incorrect.");
-            }
-        }
-        if (rule != null) {
-            if (file1 == null) {
-                System.out.println("file1 argument missing.");
-            } else if (file2 == null) {
-                System.out.println("file2 argument missing.");
-            } else {
-                File file = new File(file1);
-                if (file.exists()) {
-                    if (file.canRead()) {
-                    file = new File(file2); 
-                        if (file.exists()) {  
-                            if (file.canRead()) {
-                                return rule;
-                            } else {
-                            System.out.println("file2 cannot be read."); 
-                            }
-                        } else {
-                        System.out.println("file2 not found.");
-                        }
-                    } else {
-                        System.out.println("file1 cannot be read.");    
-                    }
-                } else {
-                    System.out.println("file1 not found.");
-                }
+    // this one copies two files alternativly line by line
+    private static void copySimpleAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
+        copyAltLine(file1, file2, out, ReadType._SIMPLE);
+    }
+
+    // this one copies two files randomly alternativly line by line
+    private static void copyRandomAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
+        copyAltLine(file1, file2, out, ReadType._RANDOM);
+    }
+
+    private static void copyAltLine(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
+        IInputLine reader1 = new DefaultLineReader(file1, true);
+        IInputLine reader2 = new DefaultLineReader(file2, false);
+        IOutputLine writer = new DefaultLineWriter(out);
+        while (reader1.hasLine() || reader2.hasLine()) {            
+            final String line1 = reader1.nextLine(type, !reader2.hasLine());
+            if (line1 != null) {
+                writer.writeLine(line1);
+            }            
+            final String line2 = reader2.nextLine(type, !reader1.hasLine());
+            if (line2 != null) {
+                writer.writeLine(line2);
             }
         }
-        return null;
-    }    
+        reader1.close();
+        reader2.close();
+        writer.close();
+    }
 
     public static void printUsage() {    
         System.out.println("  ");    
