@@ -52,7 +52,7 @@ public class DefaultLineReader implements IInputLine {
 		String line = null;
 		if (hasLine()) {
 			switch (type) {
-				case _SIMPLE:
+				case _ALT_SIMPLE:
 					if (!this.jump || force) {
 						line = this.reader.readLine();						
 					} else {
@@ -60,7 +60,7 @@ public class DefaultLineReader implements IInputLine {
 					}					
 					this.jump = !this.jump;
 					break;
-				case _RANDOM:					
+				case _ALT_RANDOM:					
 					if (random.nextBoolean() == this.first || force) {
 						line = this.reader.readLine();
 					} else {
