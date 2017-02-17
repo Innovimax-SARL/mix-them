@@ -31,7 +31,7 @@ public class GenericTest {
 			   URL url = getClass().getResource(prefix+ rule.getExtension());
 			   System.out.println(rule+" implemented = "+rule.isImplemented()+" ; resource "+url);
 		   }   
-		   
+		   i++;
 	   }
 	   Assert.assertTrue(true);
    }	   
