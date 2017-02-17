@@ -25,7 +25,7 @@ public class DefaultCharReader implements IInputChar {
 	/**
  	* Creates a character reader.
  	* @param input The input file to be read
- 	* @param first True is this reader is the first one
+ 	* @param first True is this reader is the first one for mixing
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultCharReader(File input, boolean first) throws IOException {		
@@ -49,12 +49,15 @@ public class DefaultCharReader implements IInputChar {
 	}
 
 	@Override
-	public int nextCharacter(ReadType type, boolean force) throws IOException {		
+	public int nextCharacter(ReadType type) throws IOException {		
 		int c = -1;
 		if (hasCharacter()) {
 			switch (type) {
+				case _REGULAR:
+					c = this.reader.read();
+					break;
 				case _ALT_SIMPLE:
-					if (!this.jump || force) {
+					if (!this.jump) {
 						c = this.reader.read();
 					} else {
 						this.reader.read();

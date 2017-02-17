@@ -19,11 +19,10 @@ public interface IInputLine {
 	/**
  	* Reads an eligible line regarding the type, or returns null if not eligible or no more lines.
  	* @param type The type of reading expected
- 	* @param force True if reading is required whatever the type said
  	* @return The eligible line, or null if not eligible or no more lines
  	* @throws IOException - If an I/O error occurs
  	*/	
-	String nextLine(ReadType type, boolean force) throws IOException;
+	String nextLine(ReadType typ) throws IOException;
 	/**
 	* Closes this input and releases any system resources associated with it.
 	* @throws IOException - If an I/O error occurs

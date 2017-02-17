@@ -19,11 +19,10 @@ public interface IInputChar {
 	/**
  	* Reads an eligible character regarding the type, or returns null if not eligible or no more lines.
  	* @param type The type of reading expected
- 	* @param force True if reading is required whatever the type said
  	* @return The eligible character as an int, or -1 if not eligible or no more characters
  	* @throws IOException - If an I/O error occurs
  	*/
-	int nextCharacter(ReadType type, boolean force) throws IOException;
+	int nextCharacter(ReadType type) throws IOException;
 	/**
  	* Reads characters into a portion of an array.
  	* @param buffer Destination buffer
