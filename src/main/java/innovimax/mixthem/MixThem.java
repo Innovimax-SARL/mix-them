@@ -96,7 +96,8 @@ public class MixThem {
                 case _RANDOM_ALT_LINE:
                   copyRandomAltLine(this.file1, this.file2, this.out);
                   break;
-                case _JOIN:               
+                case _JOIN:  
+                case _ZIP:    
                 //TODO
                 //    break;
                 default:    
