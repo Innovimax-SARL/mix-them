@@ -77,7 +77,7 @@ public class Arguments {
         if (args.length > index) {
             final String ruleString = args[index];
             if (ruleString.startsWith("-")) {
-                rule = Rule.findByName(ruleString);
+                rule = Rule.findByName(ruleString.substring(1));
                 if (rule == null) {
                     throw new ArgumentException(name + " argument is incorrect: " + ruleString);
                 }
@@ -142,7 +142,7 @@ public class Arguments {
         for(Rule rule : Rule.values()) {
           System.out.print("  - " + rule.getName());
           for(RuleParam param : rule.getParams()) {
-              System.out.print(" ["+param.getName()+"]");
+              System.out.print("#"+param.getName());
           }
           System.out.println(": "+rule.getDescription());
         }
