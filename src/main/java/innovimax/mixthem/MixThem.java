@@ -4,6 +4,7 @@ import innovimax.mixthem.arguments.*;
 import innovimax.mixthem.exceptions.*;
 import innovimax.mixthem.interfaces.*;
 import innovimax.mixthem.io.*;
+import innovimax.mixthem.join.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -171,11 +172,14 @@ public class MixThem {
         IInputLine reader1 = new DefaultLineReader(file1, true);
         IInputLine reader2 = new DefaultLineReader(file2, false);
         IOutputLine writer = new DefaultLineWriter(out);
-        //IJoinLine joiner = new DefaultLineJoiner();
-        while (reader1.hasLine() || reader2.hasLine()) {            
-            //final String line1 = reader1.nextLine(ReadType._REGULAR);
-            //final String line2 = reader2.nextLine(ReadType._REGULAR);
-            //TODO
+        IJoinLine joining = new DefaultLineJoining();
+        while (reader1.hasLine() && reader2.hasLine()) {            
+            final String line1 = reader1.nextLine(ReadType._REGULAR);
+            final String line2 = reader2.nextLine(ReadType._REGULAR);
+            String join = joining.join(line1, line2);
+            if (join != null) {
+                writer.writeLine(join);
+            }
         }
         reader1.close();
         reader2.close();
