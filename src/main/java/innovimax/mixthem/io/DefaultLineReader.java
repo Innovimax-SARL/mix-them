@@ -24,7 +24,7 @@ public class DefaultLineReader implements IInputLine {
 	private final Path path;
 	private final BufferedReader reader;
 	private final boolean first;
-	private final Random random;
+	private Random random;
 	private boolean jump;
 
 	/**
@@ -37,8 +37,13 @@ public class DefaultLineReader implements IInputLine {
 		this.path = input.toPath();
 		this.reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 		this.first = first;
-		this.random = new Random(DEFAULT_RANDOM_SEED);
+		this.random = new Random();
 		this.jump = !first;
+	}
+
+	@Override
+	public void initSeed(int seed) {
+		this.random = new Random(seed);
 	}
 
 	@Override
