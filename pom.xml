@@ -106,6 +106,14 @@
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>3.2</version>
 			</plugin>
+			<plugin>
+				<groupId>org.pitest</groupId>
+				<artifactId>pitest-maven</artifactId>
+				<version>1.1.11</version>
+				<configuration>
+					<verbose>true</verbose>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
