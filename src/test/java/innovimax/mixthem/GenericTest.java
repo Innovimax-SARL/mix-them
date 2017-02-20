@@ -5,6 +5,7 @@ import innovimax.mixthem.exceptions.MixException;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Collections;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -46,7 +47,7 @@ public class GenericTest {
    private final static boolean check(File file1, File file2, File expected, Rule rule)  throws MixException, FileNotFoundException, IOException  {
 	   ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
 	   MixThem mixThem = new MixThem(file1, file2, baos_rule);
-           mixThem.process(rule);
+           mixThem.process(rule, Collections.emptyList());
 	   return checkFileEquals(expected, baos_rule.toByteArray());
    }
 
