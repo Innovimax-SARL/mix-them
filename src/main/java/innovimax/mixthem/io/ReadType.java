@@ -14,6 +14,5 @@ package innovimax.mixthem.io;
 public enum ReadType {
 	_REGULAR,
 	_ALT_SIMPLE,
-	_ALT_RANDOM,
-	_JOIN_SIMPLE;
+	_ALT_RANDOM;
 }
