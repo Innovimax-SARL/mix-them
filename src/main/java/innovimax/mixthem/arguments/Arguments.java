@@ -3,6 +3,9 @@ package innovimax.mixthem.arguments;
 import innovimax.mixthem.exceptions.ArgumentException;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -31,7 +34,7 @@ public class Arguments {
         this.ruleParams = ruleParams;
     }
 
-    List<String> getRuleParameters() {
+    public List<String> getRuleParameters() {
         return this.ruleParams;
     }
 
@@ -54,17 +57,17 @@ public class Arguments {
     public static Arguments checkArguments(String[] args) throws ArgumentException { 
         Arguments mixArgs = new Arguments();
         int index = 0;
-        Rule rule = getRuleArgument(args, index, "rule");
+        Rule rule = findRuleArgument(args, index, "rule");
         List<String> ruleParams = null;
         if (rule != null) {
             index++;
-            ruleParams = getRuleParameters(args, index, rule);
+            ruleParams = findRuleParameters(args, index, rule);
             index += ruleParams.size();
         } else {
             rule = Rule._ADD;
         }
-        File file1 = getFileArgument(args, index, "file1");
-        File file2 = getFileArgument(args, ++index, "file2");
+        File file1 = findFileArgument(args, index, "file1");
+        File file2 = findFileArgument(args, ++index, "file2");
         mixArgs.setRule(rule);
         mixArgs.setRuleParameters(ruleParams);
         mixArgs.setFirstFile(file1);
@@ -72,12 +75,12 @@ public class Arguments {
         return mixArgs;
     }
 
-    private static Rule getRuleArgument(String[] args, int index, String name) throws ArgumentException {        
+    private static Rule findRuleArgument(String[] args, int index, String name) throws ArgumentException {        
         Rule rule = null;
         if (args.length > index) {
             final String ruleString = args[index];
             if (ruleString.startsWith("-")) {
-                rule = Rule.findByName(ruleString.substring(1));
+                rule = Rule.findByName(ruleString);
                 if (rule == null) {
                     throw new ArgumentException(name + " argument is incorrect: " + ruleString);
                 }
@@ -86,7 +89,7 @@ public class Arguments {
         return rule;
     }
 
-    private static List<String> getRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
+    private static List<String> findRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
         List<String> params = new ArrayList<String>();
         Iterator<RuleParam> iterator = rule.getParams().iterator();
         if (iterator.hasNext()) {
@@ -110,13 +113,14 @@ public class Arguments {
         return params;
     }
 
-    private static File getFileArgument(String[] args, int index, String name) throws ArgumentException {
+    private static File findFileArgument(String[] args, int index, String name) throws ArgumentException {
         File file = null;
         if (args.length > index) {
             String filepath = args[index];
             file = new File(filepath);
-            if (file.exists()) {
-                if (!file.canRead()) {                    
+            final Path path = file.toPath();
+            if (Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
+                if (!Files.isReadable(path)) {                    
                     throw new ArgumentException(name + " cannot be read: " + filepath);    
                 }
             } else {
@@ -142,7 +146,7 @@ public class Arguments {
         for(Rule rule : Rule.values()) {
           System.out.print("  - " + rule.getName());
           for(RuleParam param : rule.getParams()) {
-              System.out.print("#"+param.getName());
+              System.out.print(" ["+param.getName()+"]");
           }
           System.out.println(": "+rule.getDescription());
         }
