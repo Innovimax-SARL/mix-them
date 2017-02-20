@@ -88,17 +88,17 @@ public class MixThem {
                   copyChar(this.file2, this.out);
                   break;
                 case _ALT_CHAR:
-                  copySimpleAltChar(this.file1, this.file2, this.out);
+                  alternateChar(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE);
                   break;
                 case _ALT_LINE:    
-                  copySimpleAltLine(this.file1, this.file2, this.out);
+                  alternateLine(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE);
                   break;
                 case _RANDOM_ALT_LINE:
-                  copyRandomAltLine(this.file1, this.file2, this.out);
+                  alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM);
                   break;
                 case _JOIN:               
-                //TODO
-                //    break;
+                  //TODO
+                  //break;
                 default:    
                    System.out.println("This rule has not been implemented yet.");                
             }
@@ -124,11 +124,7 @@ public class MixThem {
     }    
 
     // this one copies two files alternativly char by char
-    private static void copySimpleAltChar(File file1, File file2, OutputStream out) throws MixException, IOException {
-        copyAltChar(file1, file2, out, ReadType._ALT_SIMPLE);
-    }
-
-    private static void copyAltChar(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
+    private static void alternateChar(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
         IInputChar reader1 = new DefaultCharReader(file1, true);
         IInputChar reader2 = new DefaultCharReader(file2, false);
         IOutputChar writer = new DefaultCharWriter(out);
@@ -148,16 +144,7 @@ public class MixThem {
     }
 
     // this one copies two files alternativly line by line
-    private static void copySimpleAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
-        copyAltLine(file1, file2, out, ReadType._ALT_SIMPLE);
-    }
-
-    // this one copies two files randomly alternativly line by line
-    private static void copyRandomAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
-        copyAltLine(file1, file2, out, ReadType._ALT_RANDOM);
-    }
-
-    private static void copyAltLine(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
+    private static void alternateLine(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
         IInputLine reader1 = new DefaultLineReader(file1, true);
         IInputLine reader2 = new DefaultLineReader(file2, false);
         IOutputLine writer = new DefaultLineWriter(out);
