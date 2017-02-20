@@ -97,6 +97,8 @@ public class MixThem {
                   alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM);
                   break;
                 case _JOIN:  
+                  joinLine(this.file1, this.file2, this.out, ReadType._JOIN_SIMPLE);
+                  break;
                 case _ZIP:    
                 //TODO
                 //    break;
@@ -159,6 +161,17 @@ public class MixThem {
                 writer.writeLine(line2);
             }
         }
+        reader1.close();
+        reader2.close();
+        writer.close();
+    }
+
+    // this one join lines of two files on a common field
+    private static void joinLine(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
+        IInputLine reader1 = new DefaultLineReader(file1, true);
+        IInputLine reader2 = new DefaultLineReader(file2, false);
+        IOutputLine writer = new DefaultLineWriter(out);
+        //TODO
         reader1.close();
         reader2.close();
         writer.close();
