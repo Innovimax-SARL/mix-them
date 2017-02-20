@@ -19,6 +19,8 @@ import java.util.Random;
 */
 public class DefaultLineReader implements IInputLine {
 
+	private final static int DEFAULT_RANDOM_SEED = 1789;
+
 	private final Path path;
 	private final BufferedReader reader;
 	private final boolean first;
@@ -35,7 +37,7 @@ public class DefaultLineReader implements IInputLine {
 		this.path = input.toPath();
 		this.reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 		this.first = first;
-		this.random = new Random();
+		this.random = new Random(DEFAULT_RANDOM_SEED);
 		this.jump = !first;
 	}
 
