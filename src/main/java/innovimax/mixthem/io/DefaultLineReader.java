@@ -19,8 +19,6 @@ import java.util.Random;
 */
 public class DefaultLineReader implements IInputLine {
 
-	private final static int DEFAULT_RANDOM_SEED = 1789;
-
 	private final Path path;
 	private final BufferedReader reader;
 	private final boolean first;
