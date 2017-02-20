@@ -4,7 +4,6 @@ import innovimax.mixthem.arguments.*;
 import innovimax.mixthem.exceptions.*;
 import innovimax.mixthem.interfaces.*;
 import innovimax.mixthem.io.*;
-import innovimax.mixthem.join.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -89,17 +88,15 @@ public class MixThem {
                   copyChar(this.file2, this.out);
                   break;
                 case _ALT_CHAR:
-                  alternateChar(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE);
+                  copySimpleAltChar(this.file1, this.file2, this.out);
                   break;
                 case _ALT_LINE:    
-                  alternateLine(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE);
+                  copySimpleAltLine(this.file1, this.file2, this.out);
                   break;
                 case _RANDOM_ALT_LINE:
-                  alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM);
+                  copyRandomAltLine(this.file1, this.file2, this.out);
                   break;
                 case _JOIN:  
-                  joinLine(this.file1, this.file2, this.out);
-                  break;
                 case _ZIP:    
                 //TODO
                 //    break;
@@ -128,7 +125,11 @@ public class MixThem {
     }    
 
     // this one copies two files alternativly char by char
-    private static void alternateChar(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
+    private static void copySimpleAltChar(File file1, File file2, OutputStream out) throws MixException, IOException {
+        copyAltChar(file1, file2, out, ReadType._ALT_SIMPLE);
+    }
+
+    private static void copyAltChar(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
         IInputChar reader1 = new DefaultCharReader(file1, true);
         IInputChar reader2 = new DefaultCharReader(file2, false);
         IOutputChar writer = new DefaultCharWriter(out);
@@ -148,7 +149,16 @@ public class MixThem {
     }
 
     // this one copies two files alternativly line by line
-    private static void alternateLine(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
+    private static void copySimpleAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
+        copyAltLine(file1, file2, out, ReadType._ALT_SIMPLE);
+    }
+
+    // this one copies two files randomly alternativly line by line
+    private static void copyRandomAltLine(File file1, File file2, OutputStream out) throws MixException, IOException {
+        copyAltLine(file1, file2, out, ReadType._ALT_RANDOM);
+    }
+
+    private static void copyAltLine(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
         IInputLine reader1 = new DefaultLineReader(file1, true);
         IInputLine reader2 = new DefaultLineReader(file2, false);
         IOutputLine writer = new DefaultLineWriter(out);
@@ -160,25 +170,6 @@ public class MixThem {
             final String line2 = reader2.nextLine(reader1.hasLine() ? type : ReadType._REGULAR);
             if (line2 != null) {
                 writer.writeLine(line2);
-            }
-        }
-        reader1.close();
-        reader2.close();
-        writer.close();
-    }
-
-    // this one join lines of two files on a common field
-    private static void joinLine(File file1, File file2, OutputStream out) throws MixException, IOException {
-        IInputLine reader1 = new DefaultLineReader(file1, true);
-        IInputLine reader2 = new DefaultLineReader(file2, false);
-        IOutputLine writer = new DefaultLineWriter(out);
-        IJoinLine joining = new DefaultLineJoining();
-        while (reader1.hasLine() && reader2.hasLine()) {            
-            final String line1 = reader1.nextLine(ReadType._REGULAR);
-            final String line2 = reader2.nextLine(ReadType._REGULAR);
-            String join = joining.join(line1, line2);
-            if (join != null) {
-                writer.writeLine(join);
             }
         }
         reader1.close();
