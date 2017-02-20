@@ -96,9 +96,10 @@ public class MixThem {
                 case _RANDOM_ALT_LINE:
                   alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM);
                   break;
-                case _JOIN:               
-                  //TODO
-                  //break;
+                case _JOIN:  
+                case _ZIP:    
+                //TODO
+                //    break;
                 default:    
                    System.out.println("This rule has not been implemented yet.");                
             }
