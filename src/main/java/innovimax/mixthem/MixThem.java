@@ -155,7 +155,7 @@ public class MixThem {
         IInputLine reader2 = new DefaultLineReader(file2, false);
         IOutputLine writer = new DefaultLineWriter(out);
         if (type == ReadType._ALT_RANDOM && params.size() > 0) {
-            int seed = (new Integer(params.get(0))).intValue();
+            int seed = new Integer(params.get(0)).intValue();
             reader1.initSeed(seed);
             reader2.initSeed(seed);
         }
@@ -183,8 +183,6 @@ public class MixThem {
         while (reader1.hasLine() && reader2.hasLine()) {            
             final String line1 = reader1.nextLine(ReadType._REGULAR);
             final String line2 = reader2.nextLine(ReadType._REGULAR);
-            System.out.println("LINE1=" + line1);
-            System.out.println("LINE2=" + line2);
             String join = joining.join(line1, line2);
             if (join != null) {
                 writer.writeLine(join);
