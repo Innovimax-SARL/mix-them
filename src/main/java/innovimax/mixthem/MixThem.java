@@ -9,6 +9,7 @@ import innovimax.mixthem.join.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 /**
 * <p>Mix files together using variety of rules.</p>
@@ -55,7 +56,7 @@ public class MixThem {
         try {
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getFirstFile(), mixArgs.getSecondFile(), System.out);
-            mixThem.process(mixArgs.getRule());
+            mixThem.process(mixArgs.getRule(), mixArgs.getRuleParameters());
         } catch (ArgumentException e) {
             System.err.println("Files mixing can't be run due to following reason:"); 
             System.err.println(e.getMessage());
@@ -72,10 +73,11 @@ public class MixThem {
     /**
     * Mix files together using rules.
     * @param rule The rule to be used for mixing
+    * @param params The rule parameters to be used for mixing
     * @throws MixException - If any error occurs during mixing
     * @see innovimax.mixthem.Rule
     */  
-    public void process(Rule rule) throws MixException {
+    public void process(Rule rule, List<String> params) throws MixException {
         try {
             switch(rule) {
                 case _1:
@@ -92,10 +94,10 @@ public class MixThem {
                   alternateChar(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE);
                   break;
                 case _ALT_LINE:    
-                  alternateLine(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE);
+                  alternateLine(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE, params);
                   break;
                 case _RANDOM_ALT_LINE:
-                  alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM);
+                  alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM, params);
                   break;
                 case _JOIN:  
                   joinLine(this.file1, this.file2, this.out);
@@ -148,10 +150,15 @@ public class MixThem {
     }
 
     // this one copies two files alternativly line by line
-    private static void alternateLine(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
+    private static void alternateLine(File file1, File file2, OutputStream out, ReadType type, List<String> params) throws MixException, IOException {
         IInputLine reader1 = new DefaultLineReader(file1, true);
         IInputLine reader2 = new DefaultLineReader(file2, false);
         IOutputLine writer = new DefaultLineWriter(out);
+        if (type == ReadType._ALT_RANDOM && params.size() > 0) {
+            int seed = (new Integer(params.get(0))).intValue();
+            reader1.initSeed(seed);
+            reader2.initSeed(seed);
+        }
         while (reader1.hasLine() || reader2.hasLine()) {            
             final String line1 = reader1.nextLine(reader2.hasLine() ? type : ReadType._REGULAR);
             if (line1 != null) {
