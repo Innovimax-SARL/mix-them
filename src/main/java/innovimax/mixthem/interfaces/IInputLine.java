@@ -11,6 +11,11 @@ import java.io.IOException;
 */
 public interface IInputLine {
 	/**
+	* Initialize seed value for random reading only.
+	* @param The seed value	
+	*/	
+	void initSeed(int seed);
+	/**
 	* Returns true if there is more lines.
 	* @return Returns true if there is more lines
 	* @throws IOException - If an I/O error occurs
@@ -22,7 +27,7 @@ public interface IInputLine {
  	* @return The eligible line, or null if not eligible or no more lines
  	* @throws IOException - If an I/O error occurs
  	*/	
-	String nextLine(ReadType typ) throws IOException;
+	String nextLine(ReadType type) throws IOException;
 	/**
 	* Closes this input and releases any system resources associated with it.
 	* @throws IOException - If an I/O error occurs
