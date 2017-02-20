@@ -19,12 +19,12 @@ public class DefaultLineJoining implements IJoinLine {
 	@Override
 	public String join(String line1, String line2) throws MixException {
 		LinkedList<String> list1 = new LinkedList<String>();
-		StringTokenizer st1 = new StringTokenizer(" ");
+		StringTokenizer st1 = new StringTokenizer(line1, " ");
 		while (st1.hasMoreTokens()) {
 			list1.add(st1.nextToken());
 		}
 		LinkedList<String> list2 = new LinkedList<String>();
-		StringTokenizer st2 = new StringTokenizer(" ");
+		StringTokenizer st2 = new StringTokenizer(line2, " ");
 		while (st2.hasMoreTokens()) {
 			list2.add(st2.nextToken());
 		}
