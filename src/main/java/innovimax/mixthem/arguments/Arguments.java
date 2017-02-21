@@ -151,11 +151,15 @@ public class Arguments {
         System.out.println("  ");
         System.out.println("  Here are the list of rules");
         for(Rule rule : Rule.values()) {
-          System.out.print("  - " + rule.getName());
-          for(RuleParam param : rule.getParams()) {
-              System.out.print(" [#"+param.getName()+"]");
-          }
-          System.out.println(": "+rule.getDescription());
+            System.out.print("  - " + rule.getName());
+            for(RuleParam param : rule.getParams()) {                
+                if (param.isRequired()) {
+                    System.out.print(" #" + param.getName());
+                } else {
+                    System.out.print(" [#" +  param.getName() + "]");
+                }
+            }
+            System.out.println(": " + rule.getDescription());
         }
         System.out.println("  ");
     }
