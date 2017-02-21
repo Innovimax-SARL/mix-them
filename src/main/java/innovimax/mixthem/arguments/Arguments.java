@@ -103,7 +103,7 @@ public class Arguments {
                         index++;
                     } else {
                         if (param.isRequired()) {
-                            throw new ArgumentException("[" + param.getName() + "] parameter is incorrect: " + value);
+                            throw new ArgumentException("[" + param.getName() + "] parameter is incorrect: " + paramString);
                         }
                     }
                 } else {
