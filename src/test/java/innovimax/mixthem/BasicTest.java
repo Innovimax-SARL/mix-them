@@ -58,4 +58,12 @@ public class BasicTest {
         final String args[] = { "-random-alt-line", "#val", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
         Arguments mixArgs = Arguments.checkArguments(args);
     }
+
+    @Test
+    public final void testValidSeedParam() throws ArgumentException {
+        final String args[] = { "-random-alt-line", "1789", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
+        Arguments mixArgs = Arguments.checkArguments(args);
+        Assert.assertTrue(true);        
+    }
+
 }
