@@ -53,7 +53,7 @@ public class BasicTest {
         Arguments mixArgs = Arguments.checkArguments(args);
     }
 
-    @Test
+    @Test(expected=ArgumentException.class)
     public final void testWrongSeedParam() throws ArgumentException {
         final String args[] = { "-random-alt-line", "#val", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
         Arguments mixArgs = Arguments.checkArguments(args);
