@@ -153,13 +153,12 @@ public class MixThem {
     private static void alternateLine(File file1, File file2, OutputStream out, ReadType type, List<String> params) throws MixException, IOException {
         IInputLine reader1 = new DefaultLineReader(file1, true);
         IInputLine reader2 = new DefaultLineReader(file2, false);
-        IOutputLine writer = new DefaultLineWriter(out);
-        System.out.println("alt-random params="+params.size());
+        IOutputLine writer = new DefaultLineWriter(out);        
         if (type == ReadType._ALT_RANDOM && params.size() > 0) {
             int seed = new Integer(params.get(0)).intValue();
             System.out.println("alt-random seed="+seed);
-            reader1.initSeed(seed);
-            reader2.initSeed(seed);
+            reader1.setSeed(seed);
+            reader2.setSeed(seed);
         }
         while (reader1.hasLine() || reader2.hasLine()) {            
             final String line1 = reader1.nextLine(reader2.hasLine() ? type : ReadType._REGULAR);
