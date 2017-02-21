@@ -11,10 +11,10 @@ import java.io.IOException;
 */
 public interface IInputLine {
 	/**
-	* Initialize seed value for random reading only.
+	* Sets seed value for random reading only.
 	* @param The seed value	
 	*/	
-	void initSeed(int seed);
+	void setSeed(int seed);
 	/**
 	* Returns true if there is more lines.
 	* @return Returns true if there is more lines
