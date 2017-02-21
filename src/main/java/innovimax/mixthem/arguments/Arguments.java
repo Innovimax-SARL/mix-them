@@ -146,7 +146,7 @@ public class Arguments {
         for(Rule rule : Rule.values()) {
           System.out.print("  - " + rule.getName());
           for(RuleParam param : rule.getParams()) {
-              System.out.print(" ["+param.getName()+"]");
+              System.out.print(" [#"+param.getName()+"]");
           }
           System.out.println(": "+rule.getDescription());
         }
