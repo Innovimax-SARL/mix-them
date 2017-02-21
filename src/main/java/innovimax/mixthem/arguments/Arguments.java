@@ -80,7 +80,7 @@ public class Arguments {
         if (args.length > index) {
             final String ruleString = args[index];
             if (ruleString.startsWith("-")) {
-                rule = Rule.findByName(ruleString);
+                rule = Rule.findByName(ruleString.substring(1));
                 if (rule == null) {
                     throw new ArgumentException(name + " argument is incorrect: " + ruleString);
                 }
