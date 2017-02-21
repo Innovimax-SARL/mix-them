@@ -95,15 +95,22 @@ public class Arguments {
         if (iterator.hasNext()) {
             RuleParam param = iterator.next();
             if (args.length > index) {
-                String value = args[index];
-                if (param.checkValue(value)) {
-                    params.add(value);
-                    index++;
+                String arg = args[index];
+                if (arg.startsWith("#")) {
+                    final String paramString = arg.substring(1);
+                    if (param.checkValue(paramString)) {
+                        params.add(paramString);
+                        index++;
+                    } else {
+                        if (param.isRequired()) {
+                            throw new ArgumentException("[" + param.getName() + "] parameter is incorrect: " + value);
+                        }
+                    }
                 } else {
                     if (param.isRequired()) {
-                        throw new ArgumentException("[" + param.getName() + "] parameter is incorrect: " + value);    
-                    }
-                }
+                        throw new ArgumentException("[" + param.getName() + "] parameter is required.");    
+                    }                    
+                }                
             } else {
                 if (param.isRequired()) {
                     throw new ArgumentException("[" + param.getName() + "] parameter is required.");    
