@@ -154,8 +154,10 @@ public class MixThem {
         IInputLine reader1 = new DefaultLineReader(file1, true);
         IInputLine reader2 = new DefaultLineReader(file2, false);
         IOutputLine writer = new DefaultLineWriter(out);
+        System.out.printl("alt-random params="+params.size());
         if (type == ReadType._ALT_RANDOM && params.size() > 0) {
             int seed = new Integer(params.get(0)).intValue();
+            System.out.printl("alt-random seed="+seed);
             reader1.initSeed(seed);
             reader2.initSeed(seed);
         }
