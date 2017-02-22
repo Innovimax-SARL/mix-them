@@ -42,6 +42,11 @@ public class DefaultLineReader implements IInputLine {
 	}
 
 	@Override
+	public void setSeed(int seed) {
+		this.random.setSeed(seed);
+	}
+
+	@Override
 	public boolean hasLine() throws IOException {
 		return this.reader.ready();
 	}
