@@ -1,6 +1,9 @@
 package innovimax.mixthem.arguments;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 
 /**
 * <p>This is a detailed enumeration of rules used to mix files.</p>
@@ -13,13 +16,13 @@ public enum Rule {
     _1(              "1",               "1",               "will output file1", true, EnumSet.noneOf(RuleParam.class)),
     _2(              "2",               "2",               "will output file2", true, EnumSet.noneOf(RuleParam.class)),
     _ADD(            "+",               "add",             "will output file1+file2", true, EnumSet.noneOf(RuleParam.class)),
-    _ALT_LINE(       "alt-line",        "altline",        "will output one line of each starting with first line of file1", true, EnumSet.noneOf(RuleParam.class)),
-    _ALT_CHAR(       "alt-char",        "altchar",        "will output one char of each starting with first char of file1", true, EnumSet.noneOf(RuleParam.class)),
-    _RANDOM_ALT_LINE("random-alt-line", "random-altline", "will output one line of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam._SEED)),
+    _ALT_LINE(       "alt-line",        "altline",         "will output one line of each starting with first line of file1", true, EnumSet.noneOf(RuleParam.class)), 
+    _ALT_CHAR(       "alt-char",        "altchar",         "will output one char of each starting with first char of file1", true, EnumSet.noneOf(RuleParam.class)),
+    _RANDOM_ALT_LINE("random-alt-line", "random-altline",  "will output one line of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam._SEED)),
     _JOIN(           "join",            "join",            "will output merging of lines that have common occurrence", true, EnumSet.of(RuleParam._COL1, RuleParam._COL2)),
     _ZIP(            "zip",             "zip",             "will output zip of the file", false, EnumSet.noneOf(RuleParam.class));
 
-  private final String name, extension, description;
+    private final String name, extension, description;
     private final boolean implemented;
     private final EnumSet<RuleParam> params;
 
@@ -65,7 +68,6 @@ public enum Rule {
 
     /**
     * Returns an iterator over the additional parameters in this rule.
-    * @param name The name of the rule in command line
     * @return An iterator over the additional parameters in this rule
     */ 
     public Iterable<RuleParam> getParams() {
