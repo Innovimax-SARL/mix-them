@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+* Provides different runs for testing a rule according ths additional parameters
 * @author Innovimax
 * @version 1.0
 */
@@ -17,6 +18,9 @@ public class RuleRuns {
 
   final private Map<Rule, List<RuleRun>> runMap;
 
+  /*
+  * Creates the rule run maker.
+  */
   public RuleRuns() {
     runMap = new HashMap<Rule, List<RuleRun>>();
     for (Rule rule : Rule.values()) {
@@ -40,6 +44,11 @@ public class RuleRuns {
     }
   }
 
+  /**
+  * Returns a list of test runs for the rule.
+  * @param The rule to test
+  * @return Returns a list of test runs for the rule
+    */	
   public List<RuleRun> getRuns(Rule rule) {
     return runMap.get(rule);
   }
