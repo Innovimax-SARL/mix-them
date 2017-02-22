@@ -39,7 +39,7 @@ public class GenericTest {
 			   if (rule.isImplemented() && url != null) {			   	
 				List<List<String>> runs = ruleRuns.getRuns(rule);
 				for (List<String> params : runs) {
-					boolean res2 = check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule, params);
+					boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule, params);
 					System.out.println("RULE PASS : "+res + " / PARAMS" + params.toString());
 					result &= res;   
 				}
