@@ -72,6 +72,14 @@ public enum Rule {
     }
 
     /**
+    * Returns true if the rule has additional parameters.
+    * @return True if the rule has additional parameters
+    */ 
+    public boolean hasParams() {
+        return !this.params.isEmpty();
+    }
+
+    /**
     * Finds the Rule object correponding to a name
     * @param name The name of the rule in command line
     * @return The {@link Rule} object
