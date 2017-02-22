@@ -18,8 +18,8 @@ public enum Rule {
     _ADD(            "+",               "add",             "will output file1+file2", true, EnumSet.noneOf(RuleParam.class), Collections.emptyList()),
     _ALT_LINE(       "alt-line",        "altline",         "will output one line of each starting with first line of file1", true, EnumSet.noneOf(RuleParam.class), Collections.emptyList()), 
     _ALT_CHAR(       "alt-char",        "altchar",         "will output one char of each starting with first char of file1", true, EnumSet.noneOf(RuleParam.class), Collections.emptyList()),
-    _RANDOM_ALT_LINE("random-alt-line", "random-altline",  "will output one line of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam._SEED), Collections.singletonList("1789")),
-    _JOIN(           "join",            "join",            "will output merging of lines that have common occurrence", true, EnumSet.of(RuleParam._COL1, RuleParam._COL2), Arrays.asList("1", "2 1")),
+    _RANDOM_ALT_LINE("random-alt-line", "random-altline",  "will output one line of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam._SEED), Arrays.asList("", "1789")),
+    _JOIN(           "join",            "join",            "will output merging of lines that have common occurrence", true, EnumSet.of(RuleParam._COL1, RuleParam._COL2), Arrays.asList("", "1", "2 1")),
     _ZIP(            "zip",             "zip",             "will output zip of the file", false, EnumSet.noneOf(RuleParam.class), Collections.emptyList());
 
     private final String name, extension, description;
