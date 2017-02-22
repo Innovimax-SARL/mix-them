@@ -30,7 +30,7 @@ public class RuleRun {
     }
   }
   
-  public List<String> getParams {
+  public List<String> getParams() {
     return this.params;
   }
 
