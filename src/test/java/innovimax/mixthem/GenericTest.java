@@ -36,14 +36,12 @@ public class GenericTest {
 			   String resource = prefix+"output-"+ rule.getExtension()+".txt";
 			   URL url = getClass().getResource(resource);
 			   System.out.println(rule+" implemented = "+rule.isImplemented()+" ; resource ("+resource+") = "+url);
-			   if (rule.isImplemented() && url != null) {
-			   	boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule, Collections.emptyList());
-				System.out.println("RULE PASS : "+res);
-				result &= res;   
+			   if (rule.isImplemented() && url != null) {			   	
 				List<List<String>> runs = ruleRuns.getRuns(rule);
 				for (List<String> params : runs) {
 					boolean res2 = check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule, params);
-					System.out.println("RULE PASS : "+res + " " + params.toArray().toString());
+					System.out.println("RULE PASS : "+res + " / PARAMS" + params.toString());
+					result &= res;   
 				}
 			   }
 		   }   
