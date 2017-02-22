@@ -1,9 +1,6 @@
 package innovimax.mixthem.arguments;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.EnumSet;
-import java.util.List;
 
 /**
 * <p>This is a detailed enumeration of rules used to mix files.</p>
