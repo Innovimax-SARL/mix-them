@@ -22,7 +22,7 @@ public class RuleRun {
     this.params = params;
   }
   
-  public boolean accepted(int testId) {
+  public boolean accept(int testId) {
     if (this.testId == -1) {
       return true;
     } else {
