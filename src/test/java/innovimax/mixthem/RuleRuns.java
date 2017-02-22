@@ -15,26 +15,26 @@ import java.util.Map;
 */
 public class RuleRuns {
 
-  final private Map<Rule, List<List<String>>> runMap;
+  final private Map<Rule, List<RuleRun>> runMap;
 
   public RuleRuns() {
-    runMap = new HashMap<Rule, List<List<String>>>();
+    runMap = new HashMap<Rule, List<RuleRun>>();
     for (Rule rule : Rule.values()) {
-      List<List<String>> runs = new ArrayList<List<String>>();
+      List<RuleRun> runs = new ArrayList<RuleRun>();
       if (rule.hasParams()) {
         switch (rule) {
           case _RANDOM_ALT_LINE:
-            runs.add(Collections.emptyList());
-            runs.add(Collections.singletonList("1789"));
+            runs.add(new RuleRun(1, Collections.emptyList()));
+            runs.add(new RuleRun(1, Collections.singletonList("1789")));
             break;
           case _JOIN:
-            runs.add(Collections.emptyList());
-            runs.add(Collections.singletonList("1"));
-            runs.add(Arrays.asList("2", "1"));
+            runs.add(new RuleRun(3, Collections.emptyList()));            
+            runs.add(new RuleRun(4, Arrays.asList("2", "1")));
+            runs.add(new RuleRun(5, Collections.singletonList("1")));
             break;
 	}
       } else {
-        runs.add(Collections.emptyList());
+        runs.add(new RulRun(Collections.emptyList()));
       }
       runMap.put(rule, runs);
     }
