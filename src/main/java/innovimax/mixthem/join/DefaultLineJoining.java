@@ -32,12 +32,14 @@ public class DefaultLineJoining implements IJoinLine {
 
 	@Override
 	public String join(String line1, String line2, int index) throws MixException {
-		System.out.println("join todo");
+		System.out.println("join col1 todo");
+		return null;
 	}
 
 	@Override
 	public String join(String line1, String line2, int index1, int index2) throws MixException {
-		System.out.println("join todo");
+		System.out.println("join col1 col2 todo");
+		return null;
 	}
 
 }
