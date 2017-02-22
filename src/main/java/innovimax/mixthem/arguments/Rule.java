@@ -1,9 +1,6 @@
 package innovimax.mixthem.arguments;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.EnumSet;
-import java.util.List;
 
 /**
 * <p>This is a detailed enumeration of rules used to mix files.</p>
@@ -25,15 +22,13 @@ public enum Rule {
     private final String name, extension, description;
     private final boolean implemented;
     private final EnumSet<RuleParam> params;
-    private final List<String> testValues;
 
-    private Rule(String name, String extension, String description, boolean implemented, EnumSet<RuleParam> params, List<String> testValues) {
+    private Rule(String name, String extension, String description, boolean implemented, EnumSet<RuleParam> params) {
         this.name = name;
         this.extension = extension;
         this.description = description;
         this.implemented = implemented;
         this.params = params;
-        this.testValues = testValues;
     }
 
     /**
