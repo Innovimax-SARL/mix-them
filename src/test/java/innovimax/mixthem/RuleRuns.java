@@ -34,8 +34,7 @@ public class RuleRuns {
                 		break;
                 }
             } else {
-            	runs.add(Collections.emptyList());
-            	
+            	runs.add(Collections.emptyList());            	
 			}
 			runMap.put(rule, runs);
 		}
