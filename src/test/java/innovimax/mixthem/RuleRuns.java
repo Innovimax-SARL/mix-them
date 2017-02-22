@@ -34,13 +34,13 @@ public class RuleRuns {
             break;
 	}
       } else {
-        runs.add(new RulRun(Collections.emptyList()));
+        runs.add(new RuleRun(Collections.emptyList()));
       }
       runMap.put(rule, runs);
     }
   }
 
-  public List<List<String>> getRuns(Rule rule) {
+  public List<RuleRun> getRuns(Rule rule) {
     return runMap.get(rule);
   }
 
