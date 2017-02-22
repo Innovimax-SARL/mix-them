@@ -22,12 +22,12 @@ public class GenericTest {
    @Test
    public final void parameter() throws MixException, FileNotFoundException, IOException {
 	   
-	   int i = 1;
+	   int testId = 1;
 	   boolean result = true;
 	   RuleRuns ruleRuns = new RuleRuns();
 	   while (true) {
-		   System.out.println("TEST n°" + i);
-		   String prefix = "test" + String.format("%03d", i) +"_";
+		   System.out.println("TEST n°" + testId);
+		   String prefix = "test" + String.format("%03d", testId) +"_";
 		   URL url1 = getClass().getResource(prefix + "file1.txt");
 		   URL url2 = getClass().getResource(prefix + "file2.txt");
 		   System.out.println("URL 1 ("+prefix + "file1.txt"+")="+url1+"; URL 2 ("+prefix + "file2.txt"+")="+url2);
@@ -39,7 +39,7 @@ public class GenericTest {
 			   if (rule.isImplemented() && url != null) {			   	
 				List<RuleRun> runs = ruleRuns.getRuns(rule);
 				for (RuleRun run : runs) {
-					if (run.accept(i)) {
+					if (run.accept(testId)) {
 						boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule, run.getParams());
 						System.out.println("RULE PASS : "+res + " / PARAMS" + run.getParams().toString());
 						result &= res;   
@@ -47,7 +47,7 @@ public class GenericTest {
 				}
 			   }
 		   }   
-		   i++;
+		   testId++;
 	   }
 	   Assert.assertTrue(result);
    }	   
