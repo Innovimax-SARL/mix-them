@@ -32,9 +32,6 @@ public class DefaultLineJoining implements IJoinLine {
 
 	@Override
 	public String join(String line1, String line2, int index) throws MixException {
-		System.out.println("trace> join on same column : " + index);
-		System.out.println("trace> first line : " + line1);
-		System.out.println("trace> first line : " + line2);
 		if (line1 != null && line2 != null) {
 			List<String> list1 = Arrays.asList(line1.split("\\s"));
 			List<String> list2 = Arrays.asList(line2.split("\\s"));
