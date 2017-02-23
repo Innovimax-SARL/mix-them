@@ -33,7 +33,7 @@ public class DefaultLineJoining implements IJoinLine {
 				case _SAME_COL:		
 					int index;
 					try {
-						index = Integer.parseInt(params.get(0);
+						index = Integer.parseInt(params.get(0));
 					} catch (Exception NumberFormatException e) {
 						throw new MixException(e);
 					}
