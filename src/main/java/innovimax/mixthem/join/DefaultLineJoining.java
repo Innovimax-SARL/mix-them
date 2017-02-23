@@ -80,6 +80,7 @@ public class DefaultLineJoining implements IJoinLine {
 	
 	@Override
 	public List<Integer> getColumns(List<String> params) throws MixException {
+		/*
 		List<Integer> columns = new ArrayList<Integer>();
 		for (String param : params) {
 			try {
@@ -89,6 +90,12 @@ public class DefaultLineJoining implements IJoinLine {
 			}
 		}
 		return columns;
+		*/
+		try {
+			return params.stream().map(s -> new Integer(s)).collect(Collectors.toList());
+		} catch (NumberFormatException e) {
+			throw new MixException("Unexpected join parameter values " + params.toString(), e);
+		}
 	}
 
 }
