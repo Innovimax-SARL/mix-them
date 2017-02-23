@@ -45,13 +45,6 @@ public enum RuleParam {
  	*/
 	boolean checkValue(String value) {
 		switch (this.type) {
-        	case _STRING:
-    			File file = new File(value);
-        		if (file.exists()) {
-        			return false;
-        		} else {
-        			return true;
-        		}
         	case _INTEGER:
             	try {
             		Integer.parseInt(value);
@@ -60,7 +53,7 @@ public enum RuleParam {
             		return false;
             	}
             default:
-            	return false;
+            	return true;
 		}
 	}
 
