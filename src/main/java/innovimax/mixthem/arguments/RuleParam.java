@@ -9,8 +9,8 @@ import java.io.File;
 */
 public enum RuleParam { 
 	_SEED("seed", false, ParamType._INTEGER),
-	_COL1("col1", false, ParamType._STRING),
-	_COL2("col2", false, ParamType._STRING);
+	_COL1("col1", false, ParamType._INTEGER),
+	_COL2("col2", false, ParamType._INTEGER);
 
 	private final String name;
 	private final boolean required;
