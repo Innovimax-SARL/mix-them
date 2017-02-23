@@ -37,7 +37,10 @@ public class DefaultLineJoining implements IJoinLine {
 			List<String> list2 = Arrays.asList(line2.split("\\s"));
 			if (list1.size() <= index && list2.size() <= index) {
 				if (list1.get(index).equals(list2.get(index))) {
-					//merge lines
+					String part1 = list1.get(index);					
+					String part2 = list1.stream().filter(s -> !s.equals(col).collect(Collectors.joining(" "));
+					String part3 = list2.stream().filter(s -> !list1.contains(s)).collect(Collectors.joining(" "));
+					return part1 + " " + part2 + " " + part3;	
 				}
 			}
 		}
