@@ -65,7 +65,8 @@ public class DefaultLineJoining implements IJoinLine {
 						join = part1 + " " + part2;
 					}				
 					break;
-				case _SAME_COL:			
+				case _SAME_COL:		
+					int index = new Integer(params.get(0)).intValue();
 					if (list1.size() >= index && list2.size() >= index && list1.get(index - 1).equals(list2.get(index - 1))) {
 						String part1 = list1.get(index - 1);
 						String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
