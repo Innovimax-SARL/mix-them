@@ -52,7 +52,7 @@ public class DefaultLineJoining implements IJoinLine {
 					} catch (NumberFormatException e) {
 						throw new MixException("Unexpected join parameter value: " + params.toString(), e);
 					}
-					if (list1.size() >= index && list2.size() >= index && list1.get(col1 - 1).equals(list2.get(col2 - 1))) {
+					if (list1.size() >= col1 && list2.size() >= col2 && list1.get(col1 - 1).equals(list2.get(col2 - 1))) {
 						String part1 = list1.get(col1 - 1);
 						String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
 						String part3 = list2.stream().filter(s -> !list1.contains(s)).collect(Collectors.joining(" "));
