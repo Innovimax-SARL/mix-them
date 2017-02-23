@@ -1,7 +1,5 @@
 package innovimax.mixthem.arguments;
 
-import java.io.File;
-
 /**
 * <p>This is a detailed enumeration of additional rule parameters.</p>
 * @author Innovimax
