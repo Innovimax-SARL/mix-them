@@ -64,8 +64,17 @@ public class DefaultLineJoining implements IJoinLine {
 		return join;
 	}
 
+	@Override
 	public JoinType getType(List<String> params) {
-		return null;
+		JoinType type;
+		if (params.size() == 0) {
+			type = JoinType._DEFAULT;
+		} else if (params.size() == 1) {
+			type = JoinType._SAME_COL;
+		} else {
+			type = JoinType._DIFF_COL;
+		}
+		return type;
 	}
 
 }
