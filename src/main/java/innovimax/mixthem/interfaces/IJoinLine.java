@@ -12,4 +12,5 @@ import java.util.List;
 */
 public interface IJoinLine {	
 	String join(String line1, String line2, JoinType type, List<String> params) throws MixException;	
+	JoinType getType(List<String> params) throws MixException;
 }
