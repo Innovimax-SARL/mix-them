@@ -18,7 +18,7 @@ public interface IJoinLine {
  	* @return The result of joining lines, or null if no join possible
  	* @throws MixException - If an joining error occurs
  	*/	
-	String join(String line1, String line2) throws MixException;
+	//String join(String line1, String line2) throws MixException;
 	/**
  	* Joins two lines on a common field
  	* @param line1 The first line to be joined
@@ -27,7 +27,7 @@ public interface IJoinLine {
  	* @return The result of joining lines, or null if no join possible
  	* @throws MixException - If an joining error occurs
  	*/	
-	String join(String line1, String line2, int index) throws MixException;
+	//String join(String line1, String line2, int index) throws MixException;
 	/**
  	* Joins two lines on a common field that has a different index.
  	* @param line1 The first line to be joined
@@ -37,7 +37,7 @@ public interface IJoinLine {
  	* @return The result of joining lines, or null if no join possible
  	* @throws MixException - If an joining error occurs
  	*/	
-	String join(String line1, String line2, int index1, int index2) throws MixException;
+	//String join(String line1, String line2, int index1, int index2) throws MixException;
 	/**
  	* Joins two lines on a common field regarding the type.
  	* @param line1 The first line to be joined
