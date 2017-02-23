@@ -8,7 +8,7 @@ Mix files togethers
   will generate on standard out any file based on file1 and file2.
   by default it assumes file1 and file2 are character based (not binary)
   
-    mix-them -[rule] file1 file2
+    mix-them [-rule] file1 file2
   will generate on standard out a file based on the rule
   
   Here are the list of rules
