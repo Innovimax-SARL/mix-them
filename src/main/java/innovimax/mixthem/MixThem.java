@@ -156,7 +156,6 @@ public class MixThem {
         IOutputLine writer = new DefaultLineWriter(out);        
         if (type == ReadType._ALT_RANDOM && params.size() > 0) {
             int seed = new Integer(params.get(0)).intValue();
-            System.out.println("alt-random seed="+seed);
             reader1.setSeed(seed);
             reader2.setSeed(seed);
         }
