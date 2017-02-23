@@ -1,6 +1,7 @@
 package innovimax.mixthem.interfaces;
 
 import innovimax.mixthem.exceptions.MixException;
+import innovimax.mixthem.join.JoinType;
 
 import java.util.List;
 
