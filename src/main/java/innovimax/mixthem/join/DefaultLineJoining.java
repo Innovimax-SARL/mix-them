@@ -78,8 +78,16 @@ public class DefaultLineJoining implements IJoinLine {
 	}
 	
 	@Override
-	public List<Integer> getColumns(List<String> params) {
-		//TODO
+	public List<Integer> getColumns(List<String> params) throws MixException {
+		List<Integer> columns = new ArrayList<Integer>();
+		for (String param : params) {
+			try {
+				columns.add(Integer.parseInt(param));
+			} catch (NumberFormatException e) {
+				throw new MixException("Unexpected join parameter values " + params.toString(), e);
+			}
+		}
+		return columns;
 	}
 
 }
