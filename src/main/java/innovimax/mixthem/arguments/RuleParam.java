@@ -1,7 +1,5 @@
 package innovimax.mixthem.arguments;
 
-import java.io.File;
-
 /**
 * <p>This is a detailed enumeration of additional rule parameters.</p>
 * @author Innovimax
@@ -9,8 +7,8 @@ import java.io.File;
 */
 public enum RuleParam { 
 	_SEED("seed", false, ParamType._INTEGER),
-	_COL1("col1", false, ParamType._STRING),
-	_COL2("col2", false, ParamType._STRING);
+	_COL1("col1", false, ParamType._INTEGER),
+	_COL2("col2", false, ParamType._INTEGER);
 
 	private final String name;
 	private final boolean required;
@@ -39,27 +37,12 @@ public enum RuleParam {
 	}
 
 	/**
-	* Returns the type of this parameter.
-	* @return The type of this parameter
-	*/
-	public ParamType getType() {
-		return this.type;
-	}
-
-	/**
  	* Returns true if the parameter value is correct.
  	* @param value The value of the parameter on command line
  	* @return Returns true if the parameter value is correct
  	*/
 	boolean checkValue(String value) {
 		switch (this.type) {
-        	case _STRING:
-    			File file = new File(value);
-        		if (file.exists()) {
-        			return false;
-        		} else {
-        			return true;
-        		}
         	case _INTEGER:
             	try {
             		Integer.parseInt(value);
@@ -68,7 +51,7 @@ public enum RuleParam {
             		return false;
             	}
             default:
-            	return false;
+            	return true;
 		}
 	}
 
