@@ -27,4 +27,10 @@ public interface IJoinLine {
  	* @return The joining type regarding the additional parameters
  	*/
 	JoinType getType(List<String> params);
+	/**
+ 	* Returns the list of column parameters as integer.
+ 	* @param params The list of additional parameters (from command line)
+ 	* @return The list of column parameters as integer
+ 	*/
+	List<Integer> getColumns(List<String> params);
 }
