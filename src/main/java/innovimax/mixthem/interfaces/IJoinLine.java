@@ -32,5 +32,5 @@ public interface IJoinLine {
  	* @param params The list of additional parameters (from command line)
  	* @return The list of column parameters as integer
  	*/
-	List<Integer> getColumns(List<String> params);
+	List<Integer> getColumns(List<String> params) throws MixException;
 }
