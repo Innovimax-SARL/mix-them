@@ -76,5 +76,10 @@ public class DefaultLineJoining implements IJoinLine {
 		}
 		return type;
 	}
+	
+	@Override
+	public List<Integer> getColumns(List<String> params) {
+		//TODO
+	}
 
 }
