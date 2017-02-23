@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 * @version 1.0
 */
 public class DefaultLineJoining implements IJoinLine {
-
+/*
 	@Override
 	public String join(String line1, String line2) throws MixException {
 		if (line1 != null && line2 != null) {
@@ -50,7 +50,7 @@ public class DefaultLineJoining implements IJoinLine {
 		System.out.println("join col1 col2 todo");
 		return null;
 	}
-	
+*/	
 	@Override
 	public String join(String line1, String line2, JoinType type, List<String> params) throws MixException {
 		String join = null;
