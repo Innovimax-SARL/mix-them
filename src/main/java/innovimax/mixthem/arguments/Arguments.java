@@ -26,32 +26,16 @@ public class Arguments {
         this.rule = rule;
     }
 
-    public Rule getRule() {
-        return this.rule;
-    }
-
     void setRuleParameters(List<String> ruleParams) {
         this.ruleParams = ruleParams;
-    }
-
-    public List<String> getRuleParameters() {
-        return this.ruleParams;
     }
 
     void setFirstFile(File file1) {
         this.file1 = file1;
     }
 
-    public File getFirstFile() {
-        return this.file1;
-    }
-
     void setSecondFile(File file2) {
         this.file2 = file2;
-    }
-
-    public File getSecondFile() {
-        return this.file2;
     }
 
     public static Arguments checkArguments(String[] args) throws ArgumentException { 
