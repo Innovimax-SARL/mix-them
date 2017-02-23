@@ -32,7 +32,15 @@ public class DefaultLineJoining implements IJoinLine {
 
 	@Override
 	public String join(String line1, String line2, int index) throws MixException {
-		System.out.println("join col1 todo");
+		if (line1 != null && line2 != null) {
+			List<String> list1 = Arrays.asList(line1.split("\\s"));
+			List<String> list2 = Arrays.asList(line2.split("\\s"));
+			if (list1.size() <= index && list2.size() <= index) {
+				if (list1.get(index).equals(list2.get(index))) {
+					//merge lines
+				}
+			}
+		}
 		return null;
 	}
 
