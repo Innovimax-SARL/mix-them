@@ -182,15 +182,16 @@ public class MixThem {
         IJoinLine joining = new DefaultLineJoining();   
         while (reader1.hasLine() && reader2.hasLine()) {            
             final String line1 = reader1.nextLine(ReadType._REGULAR);
-            final String line2 = reader2.nextLine(ReadType._REGULAR);
-            String join;
+            final String line2 = reader2.nextLine(ReadType._REGULAR);            
+            JoinType type;
             if (params.size() == 0) {
-                join = joining.join(line1, line2);
+                type = JoinType._DEFAULT;
             } else if (params.size() == 1) {
-                join = joining.join(line1, line2, new Integer(params.get(0)).intValue());
+                type = JoinType._SAME_COL;
             } else {
-                join = joining.join(line1, line2, new Integer(params.get(0)).intValue(), new Integer(params.get(1)).intValue());
+                type = JoinType._DIFF_COL;
             }
+            String join = joining.join(line1, line2, type, params);
             if (join != null) {
                 writer.writeLine(join);
             }
