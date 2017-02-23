@@ -34,7 +34,7 @@ public class DefaultLineJoining implements IJoinLine {
 					int index;
 					try {
 						index = Integer.parseInt(params.get(0));
-					} catch (Exception NumberFormatException e) {
+					} catch (NumberFormatException e) {
 						throw new MixException(e);
 					}
 					if (list1.size() >= index && list2.size() >= index && list1.get(index - 1).equals(list2.get(index - 1))) {
