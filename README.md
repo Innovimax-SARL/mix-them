@@ -19,4 +19,4 @@ Mix files togethers
   - alt-char: will output one char of each starting with first char of file1
   - random-alt-line[#seed]: will output one line of each code randomly based on a seed for reproducability
   - join[#col1][#col2]: will output merging of lines that have common occurrence
-  - zip: will output zip of the file
+  - zip: will output zip of the file 
