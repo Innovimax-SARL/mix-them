@@ -184,7 +184,14 @@ public class MixThem {
         while (reader1.hasLine() && reader2.hasLine()) {            
             final String line1 = reader1.nextLine(ReadType._REGULAR);
             final String line2 = reader2.nextLine(ReadType._REGULAR);
-            String join = joining.join(line1, line2, params);
+            String join;
+            if (params.size() == 0) {
+                join = joining.join(line1, line2);
+            } else if (params.size() == 1) {
+                join = joining.join(line1, line2, new Integer(params.get(0)).intValue());
+            } else {
+                join = joining.join(line1, line2, new Integer(params.get(0)).intValue(), new Integer(params.get(1)).intValue());
+            }
             if (join != null) {
                 writer.writeLine(join);
             }
