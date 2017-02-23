@@ -50,5 +50,11 @@ public class DefaultLineJoining implements IJoinLine {
 		System.out.println("join col1 col2 todo");
 		return null;
 	}
-
+	
+	@Override
+	public String join(String line1, String line2, JoinType type, List<String> params) throws MixException {
+		System.out.println("join with enum todo");
+		return null;
+	}
+	
 }
