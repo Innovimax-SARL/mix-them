@@ -63,5 +63,9 @@ public class DefaultLineJoining implements IJoinLine {
 		}
 		return join;
 	}
-	
+
+	public JoinType getType(List<String> params) {
+		return null;
+	}
+
 }
