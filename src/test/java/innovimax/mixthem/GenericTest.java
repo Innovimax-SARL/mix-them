@@ -22,29 +22,29 @@ public class GenericTest {
 	
    @Test
    public final void parameter() throws MixException, FileNotFoundException, IOException {
-	   Mixthem.setLogging(LEVEL.FINE);
+	   MixThem.setLogging(Level.FINE);
 	   int testId = 1;
 	   boolean result = true;
 	   RuleRuns ruleRuns = new RuleRuns();
 	   while (true) {
-		   Mixthem.LOGGER.info("TEST N° " + testId);
+		   MixThem.LOGGER.info("TEST N° " + testId);
 		   String prefix = "test" + String.format("%03d", testId) +"_";
 		   URL url1 = getClass().getResource(prefix + "file1.txt");
 		   URL url2 = getClass().getResource(prefix + "file2.txt");
-		   Mixthem.LOGGER.fine("--> URL 1 (" + prefix + "file1.txt"+") : " + url1);
-		   Mixthem.LOGGER.fine("--> URL 2 (" + prefix + "file2.txt"+") : " + url2);
+		   MixThem.LOGGER.fine("--> URL 1 (" + prefix + "file1.txt"+") : " + url1);
+		   MixThem.LOGGER.fine("--> URL 2 (" + prefix + "file2.txt"+") : " + url2);
 		   if( url1 == null || url2 == null) break;
 		   for(Rule rule : Rule.values()) {
 			   String resource = prefix+"output-"+ rule.getExtension()+".txt";
 			   URL url = getClass().getResource(resource);
-			   Mixthem.LOGGER.info("  RULE " + rule + " (" + (rule.isImplemented() ? "" : "NOT ") + "IMPLEMENTED)");
-			   Mixthem.LOGGER.fine("  --> Resource (" + resource + ") : " + url);
+			   MixThem.LOGGER.info("  RULE " + rule + " (" + (rule.isImplemented() ? "" : "NOT ") + "IMPLEMENTED)");
+			   MixThem.LOGGER.fine("  --> Resource (" + resource + ") : " + url);
 			   if (rule.isImplemented() && url != null) {			   	
 				List<RuleRun> runs = ruleRuns.getRuns(rule);
 				for (RuleRun run : runs) {
 					if (run.accept(testId)) {						
 						boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule, run.getParams());
-						Mixthem.LOGGER.info("    RUN " + (res ? "PASS" : "FAIL") + " WITH PARAMS " + run.getParams().toString());
+						MixThem.LOGGER.info("    RUN " + (res ? "PASS" : "FAIL") + " WITH PARAMS " + run.getParams().toString());
 						result &= res;   
 					}
 				}
