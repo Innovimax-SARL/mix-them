@@ -24,6 +24,7 @@ public class GenericTest {
    @Test
    public final void parameter() throws MixException, FileNotFoundException, IOException {
 	   MixThem.setLogging(Level.FINE);
+	   System.out.println("LOGGER LEVEL="+MixThem.LOGGER.getLevel().toString());
 	   Handler[] handlers = MixThem.LOGGER.getHandlers();
 	   for (int i=0; i<handlers.length; i++) {
 		   Handler handler = handlers[i];
