@@ -49,31 +49,29 @@ public class MixThem {
         setLogging();
     }
     
-    private static void setLogging() {
+    static void setLogging(Level level) {
         System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
         String prop = System.getProperty("mixthem.logging");
         if (prop == null || prop.equals("true")) {
-            LOGGER.setLevel(Level.INFO);
+            LOGGER.setLevel(level);
         } else {
             LOGGER.setLevel(Level.OFF);
         }
-        LOGGER.addHandler(new ConsoleHandler());
-        LOGGER.info("Started application");
-	    System.out.println("LOGGER NAME = "+LOGGER.getName());
-	    System.out.println("LOGGER PARENT = "+LOGGER.getParent().getName());        
+        LOGGER.addHandler(new ConsoleHandler());     
     }
-
 
     /**
     * Main entry.
     * @param args The command line arguments
     */
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         run(args);  
     }
 
     private static void run(String[] args) {
         try {
+	    setLogging(LEVEL.INFO);
+	    LOGGER.info("Started application");		
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getFirstFile(), mixArgs.getSecondFile(), System.out);
             mixThem.process(mixArgs.getRule(), mixArgs.getRuleParameters());
