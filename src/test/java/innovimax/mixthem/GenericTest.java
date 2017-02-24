@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Handler;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,6 +24,11 @@ public class GenericTest {
    @Test
    public final void parameter() throws MixException, FileNotFoundException, IOException {
 	   MixThem.setLogging(Level.FINE);
+	   Handler[] handlers = MixThem.LOGGER.getHandlers();
+	   for (int i=0; i<handlers.length; i++) {
+		   Handler handler = handlers[i];
+		   System.out.println("HANDLER LEVEL="+handler.getLevel().toString());
+	   }
 	   int testId = 1;
 	   boolean result = true;
 	   RuleRuns ruleRuns = new RuleRuns();
