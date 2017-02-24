@@ -196,7 +196,7 @@ public class MixThem {
             */
             JoinType type = joining.getType(params);
             List<Integer> columns = joining.getColumns(params);
-            String join = joining(line1, line2, type, columns);
+            String join = joining.join(line1, line2, type, columns);
             if (join != null) {
                 writer.writeLine(join);
             }
