@@ -77,6 +77,7 @@ public class MixThem {
             //LOGGER.info("Exited application with errors...");
             //LOGGER.info("Files mixing has been aborted due to following reason:"); 
             //LOGGER.info(e.getMessage());
+            System.out.println(e.getMessage);
         } catch (Exception e) {
             //LOGGER.info("Exited application with errors...");
             //LOGGER.info("An unexpected error occurs:");
