@@ -12,8 +12,8 @@ import java.io.OutputStream;
 import java.util.List;
 //import java.util.logging.ConsoleHandler;
 //import java.util.logging.Handler;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
 * <p>Mix files together using variety of rules.</p>
@@ -32,7 +32,7 @@ import java.util.List;
 */
 public class MixThem {
     
-    //private static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
+    private static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
     private final static int CHAR_BUFFER_SIZE = 1024;
 
     private final File file1, file2;
@@ -48,9 +48,9 @@ public class MixThem {
         this.file2 = file2;
         this.out = out;        
         //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
-        //LOGGER.setLevel(Level.INFO);                
+        LOGGER.setLevel(Level.INFO);                
         //LOGGER.addHandler(new ConsoleHandler());
-        //LOGGER.info("Started application");
+        LOGGER.info("Started application");
     }
 
 
