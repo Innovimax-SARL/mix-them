@@ -32,7 +32,9 @@ public class GenericTest {
         } else {
             LOGGER.setLevel(Level.OFF);
         }
-        LOGGER.addHandler(new ConsoleHandler());        
+        LOGGER.addHandler(new ConsoleHandler());
+	System.out.println("UT LOGGER NAME = "+LOGGER.getName());
+	System.out.println("UT LOGGER PARENT = "+LOGGER.getParent().getName());
    }
 	
    @Test
