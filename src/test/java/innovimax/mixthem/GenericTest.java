@@ -7,6 +7,9 @@ import java.io.*;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,10 +21,23 @@ import org.junit.runner.RunWith;
 	Generic tests for this application
 */
 public class GenericTest {
-   
+	
+   private static Logger LOGGER = Logger.getLogger(GenericTest.class.getName());
+
+   private static void setLogging() {
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
+        String prop = System.getProperty("mixthem.logging");
+        if (prop == null || prop.equals("true")) {
+            LOGGER.setLevel(Level.INFO);
+        } else {
+            LOGGER.setLevel(Level.OFF);
+        }
+        LOGGER.addHandler(new ConsoleHandler());        
+   }
+	
    @Test
    public final void parameter() throws MixException, FileNotFoundException, IOException {
-	   
+	   setLogging();
 	   int testId = 1;
 	   boolean result = true;
 	   RuleRuns ruleRuns = new RuleRuns();
