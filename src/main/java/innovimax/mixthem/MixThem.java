@@ -51,12 +51,13 @@ public class MixThem {
     static void setLogging(Level level) {
         System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
         String prop = System.getProperty("mixthem.logging");
+	LOGGER.addHandler(new ConsoleHandler());     
+	LOGGER.setUseParentHandlers(false);    
         if (prop == null || prop.equals("true")) {
             LOGGER.setLevel(level);
         } else {
             LOGGER.setLevel(Level.OFF);
-        }
-        LOGGER.addHandler(new ConsoleHandler());     
+        }        
     }
 
     /**
