@@ -25,7 +25,7 @@ public class GenericTest {
    private static Logger LOGGER = Logger.getLogger(GenericTest.class.getName());
 
    private static void setLogging() {
-        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThemUT: %5$s [%1$tc]%n");
         String prop = System.getProperty("mixthem.logging");
         if (prop == null || prop.equals("true")) {
             LOGGER.setLevel(Level.FINE);
