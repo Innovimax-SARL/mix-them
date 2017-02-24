@@ -113,6 +113,7 @@
 				<configuration>
 					<verbose>true</verbose>
                 			<avoidCallsTo>
+						<avoidCallsTo>java.util.logging</avoidCallsTo> 
                     				<avoidCallsTo>org.apache.log4j</avoidCallsTo>
                     				<avoidCallsTo>org.slf4j</avoidCallsTo>
                     				<avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
