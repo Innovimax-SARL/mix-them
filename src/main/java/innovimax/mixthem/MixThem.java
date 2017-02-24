@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 */
 public class MixThem {
     
-    private static Logger log = Logger.getLogger(MixThem.class.getName());
+    private static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
     private final static int CHAR_BUFFER_SIZE = 1024;
 
     private final File file1, file2;
@@ -44,6 +44,7 @@ public class MixThem {
         this.file1 = file1;
         this.file2 = file2;
         this.out = out;
+        LOGGER.setLevel(Level.INFO);
     }
 
 
