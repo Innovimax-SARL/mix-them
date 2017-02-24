@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
 * <p>Mix files together using variety of rules.</p>
@@ -27,6 +28,8 @@ import java.util.List;
 * @version 1.0
 */
 public class MixThem {
+    
+    private static Logger log = Logger.getLogger(MixThem.class.getName());
     private final static int CHAR_BUFFER_SIZE = 1024;
 
     private final File file1, file2;
