@@ -33,4 +33,14 @@ public interface IJoinLine {
  	* @return The list of column parameters as integer
  	*/
 	List<Integer> getColumns(List<String> params) throws MixException;
+	/**
+ 	* Returns the result of joining two lines regarding the type of join.
+	* @param line1 The first line to join
+ 	* @param line2 The second line to join
+	* @param type The type of join required
+	* @param columns The list of column indexes depends on type (maybe empty)
+ 	* @return The result of joining two lines regarding the type of join
+ 	* @throws MixException - If an mixing error occurs
+ 	*/
+	String join(String line1, String line2, JoinType type, List<Integer> columns) throws MixException;	
 }
