@@ -48,6 +48,7 @@ public class MixThem {
         this.out = out;
         LOGGER.setLevel(Level.INFO);
         LOGGER.addHandler(new ConsoleHandler());
+        LOGGER.info("Started application");
     }
 
 
@@ -64,15 +65,19 @@ public class MixThem {
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getFirstFile(), mixArgs.getSecondFile(), System.out);
             mixThem.process(mixArgs.getRule(), mixArgs.getRuleParameters());
+            LOGGER.info("Exited application with no errors");
         } catch (ArgumentException e) {
-            System.err.println("Files mixing can't be run due to following reason:"); 
+            LOGGER.info("Exited application with errors...");
+            LOGGER.info("Files mixing can't be run due to following reason:"); 
             System.err.println(e.getMessage());
             Arguments.printUsage(); 
         } catch (MixException e) {
-            System.err.println("Files mixing has been aborted due to following reason:"); 
-            System.err.println(e.getMessage());
+            LOGGER.info("Exited application with errors...");
+            LOGGER.info("Files mixing has been aborted due to following reason:"); 
+            LOGGER.info(e.getMessage());
         } catch (Exception e) {
-            System.err.println("An unexpected error occurs.");
+            LOGGER.info("Exited application with errors...");
+            LOGGER.info("An unexpected error occurs:");
             e.printStackTrace();
         }
     }
