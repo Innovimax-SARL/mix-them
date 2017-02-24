@@ -183,6 +183,7 @@ public class MixThem {
         while (reader1.hasLine() && reader2.hasLine()) {            
             final String line1 = reader1.nextLine(ReadType._REGULAR);
             final String line2 = reader2.nextLine(ReadType._REGULAR);            
+            /*
             JoinType type;
             if (params.size() == 0) {
                 type = JoinType._DEFAULT;
@@ -192,6 +193,10 @@ public class MixThem {
                 type = JoinType._DIFF_COL;
             }
             String join = joining.join(line1, line2, type, params);
+            */
+            JointType type = joining.getType(params);
+            List<Integer> columns = joining.getColumns(params);
+            String join = joining(line1, line2, type, columns);
             if (join != null) {
                 writer.writeLine(join);
             }
