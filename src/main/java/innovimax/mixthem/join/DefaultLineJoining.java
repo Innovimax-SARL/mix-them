@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 * @version 1.0
 */
 public class DefaultLineJoining implements IJoinLine {
-	
+/*	
 	@Override
 	public String join(String line1, String line2, JoinType type, List<String> params) throws MixException {
 		String join = null;
@@ -64,7 +64,7 @@ public class DefaultLineJoining implements IJoinLine {
 		}
 		return join;
 	}
-
+*/
 	@Override
 	public JoinType getType(List<String> params) {
 		JoinType type;
