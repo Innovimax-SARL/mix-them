@@ -49,7 +49,7 @@ public class MixThem {
         this.out = out;        
         //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
         LOGGER.setLevel(Level.INFO);                
-        //LOGGER.addHandler(new ConsoleHandler());
+        LOGGER.addHandler(new ConsoleHandler());
         LOGGER.info("Started application");
     }
 
@@ -67,20 +67,20 @@ public class MixThem {
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getFirstFile(), mixArgs.getSecondFile(), System.out);
             mixThem.process(mixArgs.getRule(), mixArgs.getRuleParameters());
-            //LOGGER.info("Exited application with no errors");
+            LOGGER.info("Exited application with no errors");
         } catch (ArgumentException e) {
-            //LOGGER.info("Exited application with errors...");
-            //LOGGER.info("Files mixing can't be run due to following reason:"); 
+            LOGGER.info("Exited application with errors...");
+            LOGGER.info("Files mixing can't be run due to following reason:"); 
             System.err.println(e.getMessage());
             Arguments.printUsage(); 
         } catch (MixException e) {
-            //LOGGER.info("Exited application with errors...");
-            //LOGGER.info("Files mixing has been aborted due to following reason:"); 
-            //LOGGER.info(e.getMessage());
-            System.out.println(e.getMessage());
+            LOGGER.info("Exited application with errors...");
+            LOGGER.info("Files mixing has been aborted due to following reason:"); 
+            LOGGER.info(e.getMessage());
+            //System.out.println(e.getMessage());
         } catch (Exception e) {
-            //LOGGER.info("Exited application with errors...");
-            //LOGGER.info("An unexpected error occurs:");
+            LOGGER.info("Exited application with errors...");
+            LOGGER.info("An unexpected error occurs:");
             e.printStackTrace();
         }
     }
