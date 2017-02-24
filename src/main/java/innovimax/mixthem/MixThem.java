@@ -77,18 +77,17 @@ public class MixThem {
             mixThem.process(mixArgs.getRule(), mixArgs.getRuleParameters());
             LOGGER.info("Exited application with no errors");
         } catch (ArgumentException e) {
-            LOGGER.info("Exited application with errors...");
-            LOGGER.info("Files mixing can't be run due to following reason:"); 
-            System.err.println(e.getMessage());
+            LOGGER.severe("Exited application with errors...");
+            LOGGER.severe("Files mixing can't be run due to following reason:"); 
+            LOGGER.severe(e.getMessage());
             Arguments.printUsage(); 
         } catch (MixException e) {
-            LOGGER.info("Exited application with errors...");
-            LOGGER.info("Files mixing has been aborted due to following reason:"); 
-            LOGGER.info(e.getMessage());
-            //System.out.println(e.getMessage());
+            LOGGER.severe("Exited application with errors...");
+            LOGGER.severe("Files mixing has been aborted due to following reason:"); 
+            LOGGER.severe(e.getMessage());
         } catch (Exception e) {
-            LOGGER.info("Exited application with errors...");
-            LOGGER.info("An unexpected error occurs:");
+            LOGGER.severe("Exited application with errors...");
+            LOGGER.severe("An unexpected error occurs:");
             e.printStackTrace();
         }
     }
