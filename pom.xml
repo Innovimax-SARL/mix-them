@@ -117,7 +117,10 @@
                     				<avoidCallsTo>org.apache.log4j</avoidCallsTo>
                     				<avoidCallsTo>org.slf4j</avoidCallsTo>
                     				<avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
-                			</avoidCallsTo>				
+                			</avoidCallsTo>
+					<jvmArgs>
+    						<value>-Dmixthem.logging=false</value>
+					</jvmArgs>					
 				</configuration>
 			</plugin>
 		</plugins>
