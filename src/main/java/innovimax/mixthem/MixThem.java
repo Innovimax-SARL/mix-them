@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-//import java.util.logging.ConsoleHandler;
+import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,7 +51,7 @@ public class MixThem {
     static void setLogging(Level level) {
         System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
         String prop = System.getProperty("mixthem.logging");
-	//LOGGER.addHandler(new ConsoleHandler());     
+	LOGGER.addHandler(new ConsoleHandler());     
 	LOGGER.setUseParentHandlers(false);    
         if (prop == null || prop.equals("true")) {
             LOGGER.setLevel(level);
