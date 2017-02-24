@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 */
 public class MixThem {
     
-    private static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
+    //private static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
     private final static int CHAR_BUFFER_SIZE = 1024;
 
     private final File file1, file2;
@@ -47,11 +47,10 @@ public class MixThem {
         this.file1 = file1;
         this.file2 = file2;
         this.out = out;        
-        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
-        LOGGER.setLevel(Level.INFO);        
-        Handler handler = new ConsoleHandler();
-        LOGGER.addHandler(handler);        
-        LOGGER.info("Started application");
+        //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
+        //LOGGER.setLevel(Level.INFO);                
+        //LOGGER.addHandler(new ConsoleHandler());
+        //LOGGER.info("Started application");
     }
 
 
@@ -68,19 +67,19 @@ public class MixThem {
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getFirstFile(), mixArgs.getSecondFile(), System.out);
             mixThem.process(mixArgs.getRule(), mixArgs.getRuleParameters());
-            LOGGER.info("Exited application with no errors");
+            //LOGGER.info("Exited application with no errors");
         } catch (ArgumentException e) {
-            LOGGER.info("Exited application with errors...");
-            LOGGER.info("Files mixing can't be run due to following reason:"); 
+            //LOGGER.info("Exited application with errors...");
+            //LOGGER.info("Files mixing can't be run due to following reason:"); 
             System.err.println(e.getMessage());
             Arguments.printUsage(); 
         } catch (MixException e) {
-            LOGGER.info("Exited application with errors...");
-            LOGGER.info("Files mixing has been aborted due to following reason:"); 
-            LOGGER.info(e.getMessage());
+            //LOGGER.info("Exited application with errors...");
+            //LOGGER.info("Files mixing has been aborted due to following reason:"); 
+            //LOGGER.info(e.getMessage());
         } catch (Exception e) {
-            LOGGER.info("Exited application with errors...");
-            LOGGER.info("An unexpected error occurs:");
+            //LOGGER.info("Exited application with errors...");
+            //LOGGER.info("An unexpected error occurs:");
             e.printStackTrace();
         }
     }
