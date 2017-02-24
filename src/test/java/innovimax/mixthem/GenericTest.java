@@ -52,14 +52,14 @@ public class GenericTest {
 		   for(Rule rule : Rule.values()) {
 			   String resource = prefix+"output-"+ rule.getExtension()+".txt";
 			   URL url = getClass().getResource(resource);
-			   LOGGER.info("  RULE " + rule + " (" + rule.isImplemented() ? "" : "NOT " + "IMPLEMENTED)");
+			   LOGGER.info("  RULE " + rule + " (" + (rule.isImplemented() ? "" : "NOT ") + "IMPLEMENTED)");
 			   LOGGER.fine("  --> Resource (" + resource + ") : " + url);
 			   if (rule.isImplemented() && url != null) {			   	
 				List<RuleRun> runs = ruleRuns.getRuns(rule);
 				for (RuleRun run : runs) {
 					if (run.accept(testId)) {						
 						boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule, run.getParams());
-						LOGGER.info("    RUN " + res ? "PASS" : "FAIL" + " WITH PARAMS " + run.getParams().toString());
+						LOGGER.info("    RUN " + (res ? "PASS" : "FAIL") + " WITH PARAMS " + run.getParams().toString());
 						result &= res;   
 					}
 				}
