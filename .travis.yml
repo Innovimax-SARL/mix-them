@@ -5,7 +5,7 @@ jdk:
 script: 
   - "mvn cobertura:cobertura"
   - "mvn sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=c4394ad3c81d462380472c50c03f805c7eca9f0b"
-  - "mvn org.pitest:pitest-maven:mutationCoverage -Dmixthem.logging=false"
+  - "mvn org.pitest:pitest-maven:mutationCoverage"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
