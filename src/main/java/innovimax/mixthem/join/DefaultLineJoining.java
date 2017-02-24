@@ -114,8 +114,8 @@ public class DefaultLineJoining implements IJoinLine {
 					break;
 				case _SAME_COL:		
 					int col = columns.get(0).intValue();
-					if (list1.size() >= index && list2.size() >= index && list1.get(index - 1).equals(list2.get(index - 1))) {
-						String part1 = list1.get(index - 1);
+					if (list1.size() >= col && list2.size() >= col && list1.get(col - 1).equals(list2.get(col - 1))) {
+						String part1 = list1.get(col - 1);
 						String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
 						String part3 = list2.stream().filter(s -> !list1.contains(s)).collect(Collectors.joining(" "));
 						join = part1 + " " + part2 + " " + part3;				
