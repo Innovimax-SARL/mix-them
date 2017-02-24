@@ -59,6 +59,8 @@ public class MixThem {
         }
         LOGGER.addHandler(new ConsoleHandler());
         LOGGER.info("Started application");
+	    System.out.println("LOGGER NAME = "+LOGGER.getName());
+	    System.out.println("LOGGER PARENT = "+LOGGER.getParent().getName());        
     }
 
 
