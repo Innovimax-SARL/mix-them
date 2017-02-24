@@ -46,7 +46,6 @@ public class MixThem {
         this.file1 = file1;
         this.file2 = file2;
         this.out = out;        
-        setLogging();
     }
     
     static void setLogging(Level level) {
@@ -70,7 +69,7 @@ public class MixThem {
 
     private static void run(String[] args) {
         try {
-	    setLogging(LEVEL.INFO);
+	    setLogging(Level.INFO);
 	    LOGGER.info("Started application");		
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getFirstFile(), mixArgs.getSecondFile(), System.out);
