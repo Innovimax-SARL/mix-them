@@ -46,8 +46,17 @@ public class MixThem {
         this.file1 = file1;
         this.file2 = file2;
         this.out = out;        
+        setLogging();
+    }
+    
+    private static void setLogging() {
         System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
-        LOGGER.setLevel(Level.INFO);                
+        String prop = System.getProperty("mixthem.logging");
+        if (prop == null || prop.equals("true")) {
+            LOGGER.setLevel(Level.INFO);
+        } else {
+            LOGGER.setLevel(Level.OFF);
+        }
         LOGGER.addHandler(new ConsoleHandler());
         LOGGER.info("Started application");
     }
