@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
-//import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,7 +46,7 @@ public class MixThem {
         this.file1 = file1;
         this.file2 = file2;
         this.out = out;        
-        //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
         LOGGER.setLevel(Level.INFO);                
         LOGGER.addHandler(new ConsoleHandler());
         LOGGER.info("Started application");
