@@ -25,7 +25,6 @@ public class GenericTest {
 	   MixThem.setLogging(Level.FINE);
 	   int testId = 1;
 	   boolean result = true;
-	   RuleRuns ruleRuns = new RuleRuns();
 	   while (true) {
 		   MixThem.LOGGER.info("TEST N° " + testId);
 		   String prefix = "test" + String.format("%03d", testId) +"_";
@@ -42,7 +41,7 @@ public class GenericTest {
 				   if (urlP != null) {
 					   MixThem.LOGGER.fine("--> Params (" + paramsFile + ") : " + urlP);
 				   }
-				   List<RuleRun> runs = ruleRuns.getRuns(urlP);
+				   List<RuleRun> runs = RuleRuns.getRuns(urlP);
 				   for (RuleRun run : runs) {
 					   String resultFile = prefix + "output-" + rule.getExtension();
 					   if (run.hasSuffix()) {
