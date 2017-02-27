@@ -3,9 +3,11 @@ package innovimax.mixthem;
 import innovimax.mixthem.arguments.Rule;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,7 +67,7 @@ public class RuleRuns {
   	* @param params The URL of rule additional parameters file
   	* @return Returns a list of test runs for the rule
     	*/	
-	public List<RuleRun> getRuns(URL params) throws FileNotFoundException, IOExeption {
+	public List<RuleRun> getRuns(URL params) throws FileNotFoundException, IOException {
     		List<RuleRun> runs = new LinkedList<RuleRun>();
     		runs.add(new RuleRun(Collections.emptyList()));
 		if (params != null) {
