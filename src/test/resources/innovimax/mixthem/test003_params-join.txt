@@ -1,0 +1,2 @@
+same 2
+diff 4 3
