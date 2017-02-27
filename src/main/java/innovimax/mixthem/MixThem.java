@@ -50,7 +50,8 @@ public class MixThem {
     }
     
     static void setLogging(Level level) {	
-        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");            
+        //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");            
+	System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s");
 	LOGGER.setUseParentHandlers(false);	 
 	LOGGER.setLevel(Level.ALL);
 	Handler handler = new ConsoleHandler();
