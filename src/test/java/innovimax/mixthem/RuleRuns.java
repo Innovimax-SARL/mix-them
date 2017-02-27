@@ -32,10 +32,9 @@ public class RuleRuns {
             runs.add(new RuleRun(1, Collections.singletonList("1789")));
             break;
           case _JOIN:
-            runs.add(new RuleRun(3, Collections.emptyList()));            
-	    runs.add(new RuleRun(4, Collections.singletonList("2")));
-            runs.add(new RuleRun(5, Arrays.asList("2", "1")));
-            
+	    runs.add(new RuleRun(3, "first", Collections.emptyList()));
+	    runs.add(new RuleRun(3, "same", Collections.singletonList("2")));
+            runs.add(new RuleRun(3, "diff", Arrays.asList("4", "3")));			
             break;
 	}
       } else {

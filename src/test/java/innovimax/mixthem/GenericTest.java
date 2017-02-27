@@ -35,17 +35,23 @@ public class GenericTest {
 		   MixThem.LOGGER.fine("--> URL 2 (" + prefix + "file2.txt"+") : " + url2);
 		   if( url1 == null || url2 == null) break;
 		   for(Rule rule : Rule.values()) {
-			   String resource = prefix+"output-"+ rule.getExtension()+".txt";
-			   URL url = getClass().getResource(resource);
-			   MixThem.LOGGER.info("  RULE " + rule + " (" + (rule.isImplemented() ? "" : "NOT ") + "IMPLEMENTED)");
-			   MixThem.LOGGER.fine("  --> Resource (" + resource + ") : " + url);
-			   if (rule.isImplemented() && url != null) {			   	
+			   MixThem.LOGGER.info("RULE " + rule + " (" + (rule.isImplemented() ? "" : "NOT ") + "IMPLEMENTED)");
+			   if (rule.isImplemented()) {
 				List<RuleRun> runs = ruleRuns.getRuns(rule);
 				for (RuleRun run : runs) {
-					if (run.accept(testId)) {						
-						boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule, run.getParams());
-						MixThem.LOGGER.info("    RUN " + (res ? "PASS" : "FAIL") + " WITH PARAMS " + run.getParams().toString());
-						result &= res;   
+					if (run.accept(testId)) {
+						String resource = prefix + "output-" + rule.getExtension();
+						if (run.hasSuffix()) {
+							resource += "-" + run.getSuffix();
+						}
+						resource += ".txt";
+						URL url = getClass().getResource(resource);
+			   			MixThem.LOGGER.fine("--> Resource (" + resource + ") : " + url);
+						if (url != null) {							
+							boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule, run.getParams());
+							MixThem.LOGGER.info("RUN " + (res ? "PASS" : "FAIL") + " WITH PARAMS " + run.getParams().toString());
+							result &= res;   
+						}
 					}
 				}
 			   }
