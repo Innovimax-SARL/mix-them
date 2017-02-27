@@ -37,25 +37,28 @@ public class GenericTest {
 		   for(Rule rule : Rule.values()) {
 			   MixThem.LOGGER.info("RULE " + rule + " (" + (rule.isImplemented() ? "" : "NOT ") + "IMPLEMENTED)");
 			   if (rule.isImplemented()) {
-				List<RuleRun> runs = ruleRuns.getRuns(rule);
-				for (RuleRun run : runs) {
-					if (run.accept(testId)) {
-						String resource = prefix + "output-" + rule.getExtension();
-						if (run.hasSuffix()) {
-							resource += "-" + run.getSuffix();
-						}
-						resource += ".txt";
-						URL url = getClass().getResource(resource);
-			   			MixThem.LOGGER.fine("--> Resource (" + resource + ") : " + url);
-						if (url != null) {							
-							boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule, run.getParams());
-							MixThem.LOGGER.info("RUN " + (res ? "PASS" : "FAIL") + " WITH PARAMS " + run.getParams().toString());
-							result &= res;   
-						}
-					}
-				}
+				   String params = prefix + "params-" + rule.getExtension();
+				   URL urlP = getClass().getResource(resource);
+				   if (urlP != null) {
+					   MixThem.LOGGER.fine("--> Params (" + params + ") : " + urlP);
+				   }
+				   List<RuleRun> runs = ruleRuns.getRuns(urlP);
+				   for (RuleRun run : runs) {
+					   String resource = prefix + "output-" + rule.getExtension();
+					   if (run.hasSuffix()) {
+						   resource += "-" + run.getSuffix();
+					   }
+					   resource += ".txt";
+					   URL url = getClass().getResource(resource);
+					   MixThem.LOGGER.fine("--> Resource (" + resource + ") : " + url);
+					   if (url != null) {
+						   boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(url.getFile()), rule, run.getParams());
+						   MixThem.LOGGER.info("RUN " + (res ? "PASS" : "FAIL") + " WITH PARAMS " + run.getParams().toString());
+						   result &= res;
+					   }
+				   }
 			   }
-		   }   
+		   }
 		   testId++;
 	   }
 	   Assert.assertTrue(result);
