@@ -10,6 +10,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
 * <p>Mix files together using variety of rules.</p>
@@ -27,6 +31,8 @@ import java.util.List;
 * @version 1.0
 */
 public class MixThem {
+    
+    static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
     private final static int CHAR_BUFFER_SIZE = 1024;
 
     private final File file1, file2;
@@ -40,32 +46,51 @@ public class MixThem {
     public MixThem(File file1, File file2, OutputStream out) {
         this.file1 = file1;
         this.file2 = file2;
-        this.out = out;
+        this.out = out;        
     }
-
+    
+    static void setLogging(Level level) {	
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");            
+	LOGGER.setUseParentHandlers(false);	 
+	LOGGER.setLevel(Level.ALL);
+	Handler handler = new ConsoleHandler();
+	LOGGER.addHandler(handler);        
+	String prop = System.getProperty("mixthem.logging");
+        if (prop == null || prop.equals("true")) {
+            handler.setLevel(level);
+        } else {
+            handler.setLevel(Level.OFF);
+        }        
+    }
 
     /**
     * Main entry.
     * @param args The command line arguments
     */
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         run(args);  
     }
 
     private static void run(String[] args) {
         try {
+	    setLogging(Level.INFO);
+	    LOGGER.info("Started application");		
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getFirstFile(), mixArgs.getSecondFile(), System.out);
             mixThem.process(mixArgs.getRule(), mixArgs.getRuleParameters());
+            LOGGER.info("Exited application with no errors");
         } catch (ArgumentException e) {
-            System.err.println("Files mixing can't be run due to following reason:"); 
-            System.err.println(e.getMessage());
+            LOGGER.severe("Exited application with errors...");
+            LOGGER.severe("Files mixing can't be run due to following reason:"); 
+            LOGGER.severe(e.getMessage());
             Arguments.printUsage(); 
         } catch (MixException e) {
-            System.err.println("Files mixing has been aborted due to following reason:"); 
-            System.err.println(e.getMessage());
+            LOGGER.severe("Exited application with errors...");
+            LOGGER.severe("Files mixing has been aborted due to following reason:"); 
+            LOGGER.severe(e.getMessage());
         } catch (Exception e) {
-            System.err.println("An unexpected error occurs.");
+            LOGGER.severe("Exited application with errors...");
+            LOGGER.severe("An unexpected error occurs:");
             e.printStackTrace();
         }
     }
@@ -79,6 +104,7 @@ public class MixThem {
     */  
     public void process(Rule rule, List<String> params) throws MixException {
         try {
+	    LOGGER.info("Started mixing for rule '" + rule.getName() + "'...");
             switch(rule) {
                 case _1:
                   copyChar(this.file1, this.out);
@@ -108,6 +134,7 @@ public class MixThem {
                 default:    
                    System.out.println("This rule has not been implemented yet.");                
             }
+	    LOGGER.info("Ended mixing for rule '" + rule.getName() + "'.");
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
         } catch (MixException e) {
@@ -117,7 +144,7 @@ public class MixThem {
     }   
 
     // this one copies one file as beeing char
-    private static void copyChar(File file, OutputStream out) throws MixException, IOException {
+    private static void copyChar(File file, OutputStream out) throws MixException, IOException {	
         char[] buffer = new char[CHAR_BUFFER_SIZE];
         IInputChar reader = new DefaultCharReader(file);
         IOutputChar writer = new DefaultCharWriter(out);
