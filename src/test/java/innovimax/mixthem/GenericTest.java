@@ -37,11 +37,11 @@ public class GenericTest {
 		   for(Rule rule : Rule.values()) {
 			   MixThem.LOGGER.info("RULE " + rule + " (" + (rule.isImplemented() ? "" : "NOT ") + "IMPLEMENTED)");
 			   if (rule.isImplemented()) {
-				   String paramsFile = prefix + "params-" + rule.getExtension();
+				   String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
 				   URL urlP = getClass().getResource(paramsFile);
-				   //if (urlP != null) {
+				   if (urlP != null) {
 					   MixThem.LOGGER.fine("--> Params (" + paramsFile + ") : " + urlP);
-				   //}
+				   }
 				   List<RuleRun> runs = ruleRuns.getRuns(urlP);
 				   for (RuleRun run : runs) {
 					   String resultFile = prefix + "output-" + rule.getExtension();
