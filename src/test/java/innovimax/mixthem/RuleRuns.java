@@ -74,7 +74,7 @@ public class RuleRuns {
 			File file = new File(params.getFile());			
 			BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
 			Stream<String> entries = reader.lines();
-			
+			entries.forEach(e -> System.out.println("LINE=" + e));
 		}
     		return runs;
   	}
