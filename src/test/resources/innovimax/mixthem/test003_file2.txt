@@ -1,3 +1,3 @@
-1 Cheese 
-2 Potato
-3 Butter
+1 25.00 Beaunes Great!
+2 15.50 Reisling Terrible!
+3 8.90 Riocha Meh
