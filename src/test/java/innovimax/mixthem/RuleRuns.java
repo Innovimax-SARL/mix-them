@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 */
 public class RuleRuns {
 	
-	final private static DEFAULT_OUTPUT_FILE = "default";
+	final private static String DEFAULT_OUTPUT_FILE = "default";
 
   final private Map<Rule, List<RuleRun>> runMap;
 
