@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,15 +49,25 @@ public class MixThem {
         this.out = out;        
     }
     
-    static void setLogging(Level level) {
-        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
-        String prop = System.getProperty("mixthem.logging");
-	LOGGER.addHandler(new ConsoleHandler());     
-	LOGGER.setUseParentHandlers(false);    
+    static void setLogging(Level level) {	
+        System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");        
+        Handler[] list = LOGGER.getParent().getHandlers();
+        for (int i=0; i<list.length; i++) {
+            System.out.println("P HANDLER "+list[i]+" LEVEL="+list[i].getLevel());
+        } 	    
+	LOGGER.setUseParentHandlers(false);	 
+	LOGGER.setLevel(Level.ALL);
+	Handler handler = new ConsoleHandler();
+	LOGGER.addHandler(handler);
+        list = LOGGER.getHandlers();
+        for (int i=0; i<list.length; i++) {
+            System.out.println("HANDLER "+list[i]+" LEVEL="+list[i].getLevel());
+        } 	    
+	String prop = System.getProperty("mixthem.logging");
         if (prop == null || prop.equals("true")) {
-            LOGGER.setLevel(level);
+            handler.setLevel(level);
         } else {
-            LOGGER.setLevel(Level.OFF);
+            handler.setLevel(Level.OFF);
         }        
     }
 
