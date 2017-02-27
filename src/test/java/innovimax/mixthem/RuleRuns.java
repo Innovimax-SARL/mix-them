@@ -2,7 +2,11 @@ package innovimax.mixthem;
 
 import innovimax.mixthem.arguments.Rule;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,6 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
 * Provides different runs for testing a rule according to the additional parameters
@@ -60,11 +65,14 @@ public class RuleRuns {
   	* @param params The URL of rule additional parameters file
   	* @return Returns a list of test runs for the rule
     	*/	
-	public List<RuleRun> getRuns(URL params) {
+	public List<RuleRun> getRuns(URL params) throws FileNotFoundException, IOExeption {
     		List<RuleRun> runs = new LinkedList<RuleRun>();
     		runs.add(new RuleRun(Collections.emptyList()));
 		if (params != null) {
-			//TODO
+			File file = new File(params.getFile());			
+			BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
+			Stream<String> entries = reader.lines();
+			
 		}
     		return runs;
   	}
