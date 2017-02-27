@@ -104,6 +104,7 @@ public class MixThem {
     */  
     public void process(Rule rule, List<String> params) throws MixException {
         try {
+	    LOGGER.info("Started mixing for rule '" + rule.getName() + "'...");
             switch(rule) {
                 case _1:
                   copyChar(this.file1, this.out);
@@ -133,6 +134,7 @@ public class MixThem {
                 default:    
                    System.out.println("This rule has not been implemented yet.");                
             }
+	    LOGGER.info("Ended mixing for rule '" + rule.getName() + "'.");
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
         } catch (MixException e) {
@@ -142,7 +144,7 @@ public class MixThem {
     }   
 
     // this one copies one file as beeing char
-    private static void copyChar(File file, OutputStream out) throws MixException, IOException {
+    private static void copyChar(File file, OutputStream out) throws MixException, IOException {	
         char[] buffer = new char[CHAR_BUFFER_SIZE];
         IInputChar reader = new DefaultCharReader(file);
         IOutputChar writer = new DefaultCharWriter(out);
