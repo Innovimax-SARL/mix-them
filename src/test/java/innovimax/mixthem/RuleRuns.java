@@ -66,14 +66,14 @@ public class RuleRuns {
 
   	/**
   	* Returns a list of test runs for the rule.
-  	* @param params The URL of rule additional parameters file
+  	* @param url The URL of rule additional parameters file
   	* @return Returns a list of test runs for the rule
     	*/	
-	public List<RuleRun> getRuns(URL params) throws FileNotFoundException, IOException {
+	public List<RuleRun> getRuns(URL url) throws FileNotFoundException, IOException {
     		List<RuleRun> runs = new LinkedList<RuleRun>();
     		runs.add(new RuleRun(Collections.emptyList()));
-		if (params != null) {
-			File file = new File(params.getFile());			
+		if (url != null) {
+			File file = new File(url.getFile());			
 			BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
 			Stream<String> entries = reader.lines();
 			entries.forEach(entry -> {
