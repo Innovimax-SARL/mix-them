@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,11 +47,25 @@ public class RuleRuns {
 
   /**
   * Returns a list of test runs for the rule.
-  * @param The rule to test
+  * @param rule The rule to test
   * @return Returns a list of test runs for the rule
     */	
   public List<RuleRun> getRuns(Rule rule) {
     return runMap.get(rule);
   }
+
+  	/**
+  	* Returns a list of test runs for the rule.
+  	* @param params The URL of rule additional parameters file
+  	* @return Returns a list of test runs for the rule
+    	*/	
+	public List<RuleRun> getRuns(URL params) {
+    		List<RuleRun> runs = new LinkedList<RuleRun>();
+    		runs.add(new RuleRun(Collections.emptyList()));
+		if (params != null) {
+			//TODO
+		}
+    		return runs;
+  	}
 
 }
