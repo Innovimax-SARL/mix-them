@@ -2,6 +2,7 @@ package innovimax.mixthem;
 
 import innovimax.mixthem.arguments.Rule;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* Provides different runs for testing a rule according ths additional parameters
+* Provides different runs for testing a rule according to the additional parameters
 * @author Innovimax
 * @version 1.0
 */
