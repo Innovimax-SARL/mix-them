@@ -24,6 +24,8 @@ import java.util.stream.Stream;
 * @version 1.0
 */
 public class RuleRuns {
+	
+	final private static DEFAULT_OUTPUT_FILE = "default";
 
   final private Map<Rule, List<RuleRun>> runMap;
 
@@ -74,7 +76,18 @@ public class RuleRuns {
 			File file = new File(params.getFile());			
 			BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
 			Stream<String> entries = reader.lines();
-			entries.forEach(e -> System.out.println("LINE=" + e));
+			entries.forEach(entry -> {
+				String[] parts = entry.split("\\s");
+				if (parts.length > 1) {
+					String suffix = parts[0];
+					List<String> params = Arrays.asList(Arrays.copyOfRange(parts, 1, parts.length));
+					if (suffix.equals(DEFAULT_OUTPUT_FILE)) {
+						runs.add(new RuleRun(-1, null, params));
+					} else {
+						runs.add(new RuleRun(-1, suffix, params));
+					}
+				}
+			});
 		}
     		return runs;
   	}
