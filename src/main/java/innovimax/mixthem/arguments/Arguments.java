@@ -88,6 +88,7 @@ public class Arguments {
     }
 
     private static List<String> findRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
+        //TODO need to simplify params type management
         List<String> params = new ArrayList<String>();
         Iterator<RuleParam> iterator = rule.getParams().iterator();
         if (iterator.hasNext()) {
