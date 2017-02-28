@@ -6,9 +6,9 @@ import innovimax.mixthem.MixThem;
 import java.util.logging.Level;
 
 /**
-* <p>Joins two lines on a common field.</p>
-* <p>This is the default implementation of IJoinLine.</p>
-* @see IJoinLine
+* <p>Zips two lines on a common field.</p>
+* <p>This is the default implementation of IZipLine.</p>
+* @see IZipLine
 * @author Innovimax
 * @version 1.0
 */
