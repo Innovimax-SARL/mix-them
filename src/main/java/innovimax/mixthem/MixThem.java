@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 */
 public class MixThem {
     
-    static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
+    public final static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
     private final static int CHAR_BUFFER_SIZE = 1024;
 
     private final File file1, file2;
