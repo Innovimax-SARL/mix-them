@@ -1,7 +1,6 @@
 package innovimax.mixthem.operation;
 
 import innovimax.mixthem.MixException;
-import innovimax.mixthem.operation.IZipLine;
 
 import java.util.logging.Level;
 
