@@ -1,7 +1,7 @@
 package innovimax.mixthem;
 
 import innovimax.mixthem.arguments.Arguments;
-import innovimax.mixthem.exceptions.ArgumentException;
+import innovimax.mixthem.arguments.ArgumentException;
 
 import org.junit.Assert;
 import org.junit.Test;

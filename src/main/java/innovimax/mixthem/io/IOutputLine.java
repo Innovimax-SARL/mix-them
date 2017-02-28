@@ -1,4 +1,4 @@
-package innovimax.mixthem.interfaces;
+package innovimax.mixthem.io;
 
 import java.io.IOException;
 
