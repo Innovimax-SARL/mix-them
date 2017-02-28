@@ -66,4 +66,10 @@ public class BasicTest {
         Assert.assertTrue(true);        
     }
 
+    @Test(expected=ArgumentException.class)
+    public final void testMain() throws ArgumentException {
+        final String args[] = {};
+        MixThem.main(args);
+    }
+
 }
