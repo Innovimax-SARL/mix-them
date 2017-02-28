@@ -1,4 +1,4 @@
-package innovimax.mixthem.interfaces;
+package innovimax.mixthem.operation;
 
 import innovimax.mixthem.exceptions.MixException;
 
