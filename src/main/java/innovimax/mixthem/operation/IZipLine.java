@@ -15,5 +15,5 @@ public interface IZipLine {
  	* @return The result of zipping two lines
  	* @throws MixException - If an mixing error occurs
  	*/
-	String join(String line1, String line2) throws MixException;	
+	String zip(String line1, String line2) throws MixException;	
 }
