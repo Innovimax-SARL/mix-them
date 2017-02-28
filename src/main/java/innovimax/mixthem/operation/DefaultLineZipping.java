@@ -16,7 +16,7 @@ public class DefaultLineZipping implements IZipLine {
 	public String zip(String line1, String line2) throws MixException {
 		String zippedLine = null;
 		if (line1 != null && line2 != null) {
-      //TODO
+      			MixThem.LOGGER.logp(Level.INFO, "DefaultLineZipping", "zip", "TO IMPLEMENT");
 		}
 		return zippedLine;
 	}
