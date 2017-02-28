@@ -1,7 +1,5 @@
 package innovimax.mixthem.io;
 
-import innovimax.mixthem.io.ReadType;
-
 import java.io.IOException;
 
 /**
