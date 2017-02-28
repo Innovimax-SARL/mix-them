@@ -119,7 +119,7 @@
                     				<avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
                 			</avoidCallsTo>
 					<excludedMethods>
-						<excludedMethods>testMain</excludedMethods>
+						<method>testMain()</method>						
 					</excludedMethods>
 					<jvmArgs>
     						<value>-Dmixthem.logging=false</value>
