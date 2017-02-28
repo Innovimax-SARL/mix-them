@@ -1,7 +1,6 @@
 package innovimax.mixthem;
 
 import innovimax.mixthem.arguments.Rule;
-import innovimax.mixthem.exceptions.MixException;
 
 import java.io.*;
 import java.net.URL;

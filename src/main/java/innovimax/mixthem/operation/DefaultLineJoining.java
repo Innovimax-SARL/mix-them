@@ -1,7 +1,6 @@
 package innovimax.mixthem.operation;
 
-import innovimax.mixthem.exceptions.MixException;
-import innovimax.mixthem.interfaces.IJoinLine;
+import innovimax.mixthem.MixException;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package innovimax.mixthem.exceptions;
+package innovimax.mixthem.arguments;
 
 /**
 * Signals any exception that occur during arguments checking.
