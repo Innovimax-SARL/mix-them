@@ -1,6 +1,6 @@
 package innovimax.mixthem.operation;
 
-import innovimax.mixthem.exceptions.MixException;
+import innovimax.mixthem.MixException;
 
 /**
 * This interface provides for zipping two lines
