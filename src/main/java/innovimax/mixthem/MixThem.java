@@ -4,7 +4,7 @@ import innovimax.mixthem.arguments.*;
 import innovimax.mixthem.exceptions.*;
 import innovimax.mixthem.interfaces.*;
 import innovimax.mixthem.io.*;
-import innovimax.mixthem.join.*;
+import innovimax.mixthem.operation.*;
 
 import java.io.File;
 import java.io.IOException;

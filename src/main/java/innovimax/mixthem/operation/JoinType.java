@@ -1,4 +1,4 @@
-package innovimax.mixthem.join;
+package innovimax.mixthem.operation;
 
 /**
 * <p>This is a enumeration of joining type.</p>
