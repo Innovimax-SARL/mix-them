@@ -3,6 +3,8 @@ package innovimax.mixthem.operation;
 import innovimax.mixthem.exceptions.MixException;
 import innovimax.mixthem.interfaces.IZipLine;
 
+import java.util.logging.Level;
+
 /**
 * <p>Joins two lines on a common field.</p>
 * <p>This is the default implementation of IJoinLine.</p>
