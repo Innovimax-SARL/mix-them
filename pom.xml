@@ -118,8 +118,11 @@
                     				<avoidCallsTo>org.slf4j</avoidCallsTo>
                     				<avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
                 			</avoidCallsTo>
-					<excludedMethods>
-						<param>testMain()</param>						
+					<targetTests>
+						<param>innovimax.mixthem.BasicTest</param>
+						<param>innovimax.mixthem.GenericTest</param>
+					</targetTests>
+					<excludedMethods>						
 						<param>testMain</param>
 					</excludedMethods>
 					<jvmArgs>
