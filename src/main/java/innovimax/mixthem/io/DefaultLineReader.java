@@ -1,7 +1,5 @@
 package innovimax.mixthem.io;
 
-import innovimax.mixthem.interfaces.IInputLine;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
