@@ -31,7 +31,7 @@ public class RuleRuns {
   	* @param url The URL of rule additional parameters file
   	* @return Returns a list of test runs for the rule
     	*/	
-	public static List<RuleRun> getRuns(Rule rule, URL url) throws FileNotFoundException, IOException {
+	public static List<RuleRun> getRuns(Rule rule, URL url) throws FileNotFoundException, IOException, NumberFormatException {
     		List<RuleRun> runs = new LinkedList<RuleRun>();
 		Map<RuleParam, ParamValue> params = new HashMap<RuleParam, ParamValue>();
     		runs.add(new RuleRun(params));
