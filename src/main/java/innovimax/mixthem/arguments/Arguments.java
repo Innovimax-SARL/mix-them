@@ -4,7 +4,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -88,7 +88,7 @@ public class Arguments {
     }
    
     private static Map<RuleParam, ParamValue> findRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
-        Map<RuleParam, ParamValue> map = new HashMap<RuleParam, ParamValue>();
+        Map<RuleParam, ParamValue> map = new EnumMap<RuleParam, ParamValue>();
         Iterator<RuleParam> iterator = rule.getParams().iterator();
         if (iterator.hasNext()) {
             RuleParam param = iterator.next();
