@@ -18,7 +18,7 @@ import java.util.Map;
 public class Arguments {
     
     private Rule rule = null;
-    private List<String> ruleParams = null;
+    private Map<RuleParam, ParamValue> ruleParams = null;
     private File file1 = null;
     private File file2 = null;
 
@@ -30,11 +30,11 @@ public class Arguments {
         return this.rule;
     }
 
-    void setRuleParameters(List<String> ruleParams) {
+    void setRuleParametersMap<RuleParam, ParamValue> ruleParams) {
         this.ruleParams = ruleParams;
     }
 
-    public List<String> getRuleParameters() {
+    public Map<RuleParam, ParamValue> getRuleParameters() {
         return this.ruleParams;
     }
 
@@ -58,7 +58,7 @@ public class Arguments {
         Arguments mixArgs = new Arguments();
         int index = 0;
         Rule rule = findRuleArgument(args, index, "rule");
-        List<String> ruleParams = null;
+        Map<RuleParam, ParamValue> ruleParams = null;
         if (rule != null) {
             index++;
             ruleParams = findRuleParameters(args, index, rule);
@@ -88,39 +88,8 @@ public class Arguments {
         }
         return rule;
     }
-
-    private static List<String> findRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
-        List<String> params = new ArrayList<String>();
-        Iterator<RuleParam> iterator = rule.getParams().iterator();
-        if (iterator.hasNext()) {
-            RuleParam param = iterator.next();
-            if (args.length > index) {
-                String arg = args[index];
-                if (arg.startsWith("#")) {
-                    final String paramString = arg.substring(1);
-                    if (param.checkValue(paramString)) {
-                        params.add(paramString);
-                        index++;
-                    } else {
-                        if (param.isRequired()) {
-                            throw new ArgumentException("[" + param.getName() + "] parameter is incorrect: " + paramString);
-                        }
-                    }
-                } else {
-                    if (param.isRequired()) {
-                        throw new ArgumentException("[" + param.getName() + "] parameter is required.");    
-                    }                    
-                }                
-            } else {
-                if (param.isRequired()) {
-                    throw new ArgumentException("[" + param.getName() + "] parameter is required.");    
-                }
-            }            
-        }     
-        return params;
-    }
-    
-    private static Map<RuleParam, ParamValue> getRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
+   
+    private static Map<RuleParam, ParamValue> findRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
         Map<RuleParam, ParamValue> map = new HashMap<RuleParam, ParamValue>();
         Iterator<RuleParam> iterator = rule.getParams().iterator();
         if (iterator.hasNext()) {
