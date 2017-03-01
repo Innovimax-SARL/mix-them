@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -42,7 +42,7 @@ public class RuleRuns {
 				String[] parts = entry.split("\\s");
 				if (parts.length > 1) {
 					String suffix = parts[0];
-					Map<RuleParam, ParamValue> params = new HashMap<RuleParam, ParamValue>();
+					Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>();
 					switch (rule) {
 						case _RANDOM_ALT_LINE:
 							int seed = Integer.parseInt(parts[1]);
