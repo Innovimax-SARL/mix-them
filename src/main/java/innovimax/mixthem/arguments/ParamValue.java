@@ -8,7 +8,7 @@ package innovimax.mixthem.arguments;
 */
 public class ParamValue { 
 	
-	private final String text;
+	//private final String text;
 	private final int number;
 	
 	/**
@@ -25,7 +25,7 @@ public class ParamValue {
 	* @param number The Integer value of the parameter.	
 	*/ 	
 	public ParamValue(int number) {
-		this.text = null;
+		//this.text = null;
 		this.number = number;
 	}
 	
