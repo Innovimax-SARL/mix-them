@@ -182,9 +182,9 @@ public class MixThem {
     private static void alternateLine(File file1, File file2, OutputStream out, ReadType type,  Map<RuleParam, ParamValue> params) throws MixException, IOException {
         IInputLine reader1 = new DefaultLineReader(file1, true);
         IInputLine reader2 = new DefaultLineReader(file2, false);
-        IOutputLine writer = new DefaultLineWriter(out);        
-        if (type == ReadType._ALT_RANDOM && params.size() > 0) {
-            int seed = new Integer(params.get(0)).intValue();
+        IOutputLine writer = new DefaultLineWriter(out);
+        if (type == ReadType._ALT_RANDOM && params.containsKey(RuleParam._RANDOM_SEED)) {
+            int seed = params.get(RuleParam._RANDOM_SEED).intValue();
             reader1.setSeed(seed);
             reader2.setSeed(seed);
         }
