@@ -32,7 +32,7 @@ public class DefaultLineJoining implements IJoinLine {
 				}				
 				break;
 			case 1:		
-				int col = params.get(RuleParam._JOIN_COL1).intValue();
+				int col = params.get(RuleParam._JOIN_COL1).asInt();
 				if (list1.size() >= col && list2.size() >= col && list1.get(col - 1).equals(list2.get(col - 1))) {
 					String part1 = list1.get(col - 1);
 					String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
@@ -41,8 +41,8 @@ public class DefaultLineJoining implements IJoinLine {
 				}
 				break;
 			case 2:
-				int col1 = params.get(RuleParam._JOIN_COL1).intValue();
-				int col2 = params.get(RuleParam._JOIN_COL2).intValue();
+				int col1 = params.get(RuleParam._JOIN_COL1).asInt();
+				int col2 = params.get(RuleParam._JOIN_COL2).asInt();
 				if (list1.size() >= col1 && list2.size() >= col2 && list1.get(col1 - 1).equals(list2.get(col2 - 1))) {
 					String part1 = list1.get(col1 - 1);
 					String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));

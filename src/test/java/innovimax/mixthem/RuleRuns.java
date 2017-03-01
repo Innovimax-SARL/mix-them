@@ -48,14 +48,14 @@ public class RuleRuns {
 					switch (rule) {
 						case _RANDOM_ALT_LINE:
 							int seed = Integer.parseInt(parts[1]);
-							params.put(RuleParam._RANDOM_SEED, new ParamValue(seed));
+							params.put(RuleParam._RANDOM_SEED, ParamValue.createInt(seed));
 							break;
 						case _JOIN:
 							int col = Integer.parseInt(parts[1]);
-							params.put(RuleParam._JOIN_COL1, new ParamValue(col));
+							params.put(RuleParam._JOIN_COL1, ParamValue.createInt(col));
 							if (parts.length > 2) {
 								col = Integer.parseInt(parts[2]);
-								params.put(RuleParam._JOIN_COL2, new ParamValue(col));
+								params.put(RuleParam._JOIN_COL2, ParamValue.createInt(col));
 							}					
 					}
 					if (suffix.equals(DEFAULT_OUTPUT_FILE)) {
