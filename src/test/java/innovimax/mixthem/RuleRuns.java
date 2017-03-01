@@ -32,9 +32,8 @@ public class RuleRuns {
   	* @return Returns a list of test runs for the rule
     	*/	
 	public static List<RuleRun> getRuns(Rule rule, URL url) throws FileNotFoundException, IOException, NumberFormatException {
-    		List<RuleRun> runs = new LinkedList<RuleRun>();
-		Map<RuleParam, ParamValue> params = new HashMap<RuleParam, ParamValue>();
-    		runs.add(new RuleRun(params));
+    		List<RuleRun> runs = new LinkedList<RuleRun>();		
+    		runs.add(new RuleRun(Collections.emptyMap()));
 		if (url != null) {
 			File file = new File(url.getFile());			
 			BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
@@ -43,18 +42,18 @@ public class RuleRuns {
 				String[] parts = entry.split("\\s");
 				if (parts.length > 1) {
 					String suffix = parts[0];
-					map.clear();
+					Map<RuleParam, ParamValue> params = new HashMap<RuleParam, ParamValue>();
 					switch (rule) {
 						case _RANDOM_ALT_LINE:
 							int seed = Integer.parseInt(parts[1]);
-							map.put(RuleParam._RANDOM_SEED, new ParamValue(seed));
+							params.put(RuleParam._RANDOM_SEED, new ParamValue(seed));
 							break;
 						case _JOIN:
 							int col = Integer.parseInt(parts[1]);
-							map.put(RuleParam._JOIN_COL1, new ParamValue(col));
+							params.put(RuleParam._JOIN_COL1, new ParamValue(col));
 							if (parts.length > 2) {
 								col = Integer.parseInt(parts[2]);
-								map.put(RuleParam._JOIN_COL2, new ParamValue(col));
+								params.put(RuleParam._JOIN_COL2, new ParamValue(col));
 							}					
 					}
 					if (suffix.equals(DEFAULT_OUTPUT_FILE)) {
