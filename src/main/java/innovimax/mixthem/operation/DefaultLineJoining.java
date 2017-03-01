@@ -34,7 +34,7 @@ public class DefaultLineJoining implements ILineOperation {
  	* @throws MixException - If an mixing error occurs
  	*/
 	@Override
-	public String join(String line1, String line2) throws MixException {
+	public String process(String line1, String line2) throws MixException {
 		String join = null;
 		List<String> list1 = Arrays.asList(line1.split("\\s"));
 		List<String> list2 = Arrays.asList(line2.split("\\s"));
