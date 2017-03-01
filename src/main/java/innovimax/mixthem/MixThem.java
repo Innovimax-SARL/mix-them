@@ -211,10 +211,8 @@ public class MixThem {
         IJoinLine joining = new DefaultLineJoining();   
         while (reader1.hasLine() && reader2.hasLine()) {            
             final String line1 = reader1.nextLine(ReadType._REGULAR);
-            final String line2 = reader2.nextLine(ReadType._REGULAR);            
-            JoinType type = joining.getType(params);
-            List<Integer> columns = joining.getColumns(params);
-            String join = joining.join(line1, line2, type, columns);
+            final String line2 = reader2.nextLine(ReadType._REGULAR);                        
+            String join = joining.join(line1, line2, params);
             if (join != null) {
                 writer.writeLine(join);
             }
