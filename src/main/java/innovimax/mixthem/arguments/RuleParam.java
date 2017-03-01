@@ -55,4 +55,19 @@ public enum RuleParam {
 		}
 	}
 
+	/**
+ 	* Returns the {@link ParamValue} representation of the parameter value.
+ 	* @param value The value of the parameter on command line
+ 	* @return The {@link ParamValue} representation of the parameter value
+ 	*/
+	ParamValue createValue(String value) throws NumberFormatException {
+		switch (this.type) {
+			case _INTEGER:				
+            			return new ParamValue(Integer.parseInt(value));
+            			break;
+            		default:
+            			return new ParamValue(value);
+		}
+	}
+
 }
