@@ -103,14 +103,6 @@ public class Arguments {
                     } catch (NumberFormatException e) {                    
                             throw new ArgumentException("[" + param.getName() + "] parameter is incorrect: " + paramString);                        
                     }
-                } else {
-                    if (param.isRequired()) {
-                        throw new ArgumentException("[" + param.getName() + "] parameter is required.");    
-                    }                    
-                }                
-            } else {
-                if (param.isRequired()) {
-                    throw new ArgumentException("[" + param.getName() + "] parameter is required.");    
                 }
             }            
         }     
@@ -149,12 +141,8 @@ public class Arguments {
         System.out.println("  Here are the list of rules");
         for(Rule rule : Rule.values()) {
             System.out.print("  - " + rule.getName());
-            for(RuleParam param : rule.getParams()) {                
-                if (param.isRequired()) {
-                    System.out.print(" #" + param.getName());
-                } else {
-                    System.out.print(" [#" +  param.getName() + "]");
-                }
+            for(RuleParam param : rule.getParams()) {                                
+                System.out.print(" [#" +  param.getName() + "]");
             }
             System.out.println(": " + rule.getDescription());
         }

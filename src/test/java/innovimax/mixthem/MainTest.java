@@ -11,10 +11,18 @@ import org.junit.Test;
 */
 public class MainTest {
 
-    @Test(expected=ArgumentException.class)
-    public final void testMain() throws ArgumentException {
+    @Test
+    public final void testMainEmptyArgs() throws ArgumentException {
         final String args[] = {};
         MixThem.main(args);
+        Assert.assertTrue(true);
+    }
+    
+    @Test
+    public final void testMainRule1() throws ArgumentException {
+        final String args[] = { "-1", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
+        MixThem.main(args);
+        Assert.assertTrue(true);
     }
 
 }

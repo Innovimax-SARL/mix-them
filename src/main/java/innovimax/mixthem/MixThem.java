@@ -48,18 +48,20 @@ public class MixThem {
     }
     
     static void setLogging(Level level) {	
-        //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");            
-	System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s%n");
-	LOGGER.setUseParentHandlers(false);	 
-	LOGGER.setLevel(Level.ALL);
-	Handler handler = new ConsoleHandler();
-	LOGGER.addHandler(handler);        
-	String prop = System.getProperty("mixthem.logging");
-        if (prop == null || prop.equals("true")) {
-            handler.setLevel(level);
-        } else {
-            handler.setLevel(Level.OFF);
-        }        
+	if (LOGGER.getHandlers().length == 0) {
+            //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");            
+	    System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s%n");
+	    LOGGER.setUseParentHandlers(false);	 
+	    LOGGER.setLevel(Level.ALL);
+	    Handler handler = new ConsoleHandler();
+	    LOGGER.addHandler(handler);        
+	    String prop = System.getProperty("mixthem.logging");
+            if (prop == null || prop.equals("true")) {
+                handler.setLevel(level);
+            } else {
+                handler.setLevel(Level.OFF);
+            }
+	}
     }
 
     /**
@@ -130,8 +132,6 @@ public class MixThem {
                   joinLine(this.file1, this.file2, this.out, params);
                   break;
                 case _ZIP:    
-                //TODO
-                //    break;
                 default:    
                    System.out.println("This rule has not been implemented yet.");                
             }

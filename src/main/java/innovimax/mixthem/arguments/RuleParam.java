@@ -6,17 +6,16 @@ package innovimax.mixthem.arguments;
 * @version 1.0
 */
 public enum RuleParam { 
-	_RANDOM_SEED("seed", false, ParamType._INTEGER),
-	_JOIN_COL1("col1", false, ParamType._INTEGER),
-	_JOIN_COL2("col2", false, ParamType._INTEGER);
+	_RANDOM_SEED("seed", ParamType._INTEGER),
+	_JOIN_COL1("col1", ParamType._INTEGER),
+	_JOIN_COL2("col2", ParamType._INTEGER),
+	_ZIP_SEP("sep", ParamType._STRING);
 
 	private final String name;
-	private final boolean required;
 	private final ParamType type;
 
-	private RuleParam(String name, boolean required, ParamType type) {
+	private RuleParam(String name, ParamType type) {
 		this.name = name;
-		this.required = required;
 		this.type = type;
 	}
 
@@ -26,14 +25,6 @@ public enum RuleParam {
 	*/
 	public String getName() {
 		return this.name;
-	}
-
-	/**
-	* Returns true if the parameter is required.
-	* @return True if the parameter is required
-	*/
-	public boolean isRequired() {
-		return this.required;
 	}
 
 	/**
