@@ -36,10 +36,10 @@ public enum RuleParam {
 		ParamValue pv = null;
 		switch (this.type) {
 			case _INTEGER:				
-            			pv = new ParamValue(Integer.parseInt(value));
+            			pv = ParamValue.createInt(Integer.parseInt(value));
             			break;
             		default:
-            			pv = new ParamValue(value);
+            			pv = ParamValue.createString(value);
 		}
 		return pv;
 	}
