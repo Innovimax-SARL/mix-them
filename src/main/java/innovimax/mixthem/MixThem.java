@@ -183,7 +183,7 @@ public class MixThem {
         IInputLine reader2 = new DefaultLineReader(file2, false);
         IOutputLine writer = new DefaultLineWriter(out);
         if (type == ReadType._ALT_RANDOM && params.containsKey(RuleParam._RANDOM_SEED)) {
-            int seed = params.get(RuleParam._RANDOM_SEED).intValue();
+            int seed = params.get(RuleParam._RANDOM_SEED).asInt();
             reader1.setSeed(seed);
             reader2.setSeed(seed);
         }
