@@ -9,7 +9,7 @@ package innovimax.mixthem.arguments;
 public class ParamValue { 
 	
 	private final String text;
-	private final Integer number;
+	private final int number;
 	
 	/**
 	* Constructor
@@ -17,14 +17,14 @@ public class ParamValue {
 	*/ 	
 	public ParamValue(String text) {
 		this.text = test;
-		this.number = new Integer(-1);
+		this.number = -1;
 	}
 
 	/**
 	* Constructor
 	* @param number The Integer value of the parameter.	
 	*/ 	
-	public ParamValue(Integer number) {
+	public ParamValue(int number) {
 		this.text = null;
 		this.number = number;
 	}
@@ -42,7 +42,7 @@ public class ParamValue {
 	* @return The parameter value as an Integer
 	*/
 	public int intValue() {
-		return this.number.intValue();
+		return this.number;
 	}
 
 }
