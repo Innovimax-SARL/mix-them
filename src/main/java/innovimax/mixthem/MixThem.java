@@ -130,8 +130,6 @@ public class MixThem {
                   joinLine(this.file1, this.file2, this.out, params);
                   break;
                 case _ZIP:    
-                //TODO
-                //    break;
                 default:    
                    System.out.println("This rule has not been implemented yet.");                
             }
