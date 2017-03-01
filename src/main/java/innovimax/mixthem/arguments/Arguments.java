@@ -88,7 +88,6 @@ public class Arguments {
     }
 
     private static List<String> findRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
-        //TODO need to simplify params type management
         List<String> params = new ArrayList<String>();
         Iterator<RuleParam> iterator = rule.getParams().iterator();
         if (iterator.hasNext()) {
@@ -117,6 +116,36 @@ public class Arguments {
             }            
         }     
         return params;
+    }
+    
+    private static Map<RuleParam, ParamValue> getRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
+        Map<RuleParam, ParamValue> map = new HashMap<RuleParam, ParamValue>();
+        Iterator<RuleParam> iterator = rule.getParams().iterator();
+        if (iterator.hasNext()) {
+            RuleParam param = iterator.next();
+            if (args.length > index) {
+                String arg = args[index];
+                if (arg.startsWith("#")) {
+                    final String paramString = arg.substring(1);
+                    try {
+                        ParamValue value = param.createValue(paramString);
+                        map.put(param, value);
+                        index++;
+                    } catch (NumberFormatException e) {                    
+                            throw new ArgumentException("[" + param.getName() + "] parameter is incorrect: " + paramString);                        
+                    }
+                } else {
+                    if (param.isRequired()) {
+                        throw new ArgumentException("[" + param.getName() + "] parameter is required.");    
+                    }                    
+                }                
+            } else {
+                if (param.isRequired()) {
+                    throw new ArgumentException("[" + param.getName() + "] parameter is required.");    
+                }
+            }            
+        }     
+        return map;
     }
 
     private static File findFileArgument(String[] args, int index, String name) throws ArgumentException {
