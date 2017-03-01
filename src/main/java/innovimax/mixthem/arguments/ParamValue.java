@@ -44,5 +44,10 @@ public class ParamValue {
 	public int intValue() {
 		return this.number;
 	}
+	
+	@Override
+	public String toString() {
+		return text != null ? text : Integer.toString(number);
+	}
 
 }
