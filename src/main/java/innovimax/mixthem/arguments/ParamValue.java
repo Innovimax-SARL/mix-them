@@ -6,48 +6,71 @@ package innovimax.mixthem.arguments;
 * @author Innovimax
 * @version 1.0
 */
-public class ParamValue { 
-	
-	private final String text;
-	private final int number;
-	
-	/**
-	* Constructor
-	* @param text The String value of the parameter.	
-	*/ 	
-	public ParamValue(String text) {
-		this.text = text;
-		this.number = -1;
+public abstract class ParamValue {
+	private static class ParamStringValue() {
+		private final String text;
+		private ParamStringValue(String text) {
+			this.text = text;
+		}
+		
+		@Override
+		public String asString() {
+			return this.text;
+		}
+		@Override
+		public int asInt() {
+			throw new UnsupportedOperationException("ParamStringValue does not have an int representation");
+		}
+		@Override
+		public String toString() {
+			return this.text;
+		}
 	}
+	private static class ParamIntValue() {
+		private final int i;
+		private ParamIntValue(int i) {
+			this.i = i;
+		}			
+		
+		@Override
+		public String asString() {
+			throw new UnsupportedOperationException("ParamIntValue does not have a String representation");
+		}
 
+		@Override
+		public int asInt() {
+			return this.i;
+		}
+		
+		@Override
+		public String toString() {
+			return Integer.toString(i);
+		}
+	}
+	
 	/**
-	* Constructor
-	* @param number The Integer value of the parameter.	
+	* private Constructor
 	*/ 	
-	public ParamValue(int number) {
-		this.text = null;
-		this.number = number;
+	public ParamValue() {}
+	
+	public static ParamValue createString(String str) {
+		return new ParamStringValue(str);
+	}
+	
+	public static ParamValue createInt(int i) {
+		return new ParamIntValue(i);
 	}
 	
 	/**
 	* Returns the parameter value as a String.
 	* @return The parameter value as a String
 	*/
-	public String stringValue() {
-		return this.text;
-	}
+	public abstract String asString();
 
 	/**
 	* Returns the parameter value as an Integer.
 	* @return The parameter value as an Integer
 	*/
-	public int intValue() {
-		return this.number;
-	}
+	public abstract int asInt();
 	
-	@Override
-	public String toString() {
-		return text != null ? text : Integer.toString(number);
-	}
-
 }
