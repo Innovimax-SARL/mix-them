@@ -7,7 +7,7 @@ package innovimax.mixthem.arguments;
 * @version 1.0
 */
 public abstract class ParamValue {
-	private static class ParamStringValue() {
+	private static class ParamStringValue extends ParamValue {
 		private final String text;
 		private ParamStringValue(String text) {
 			this.text = text;
@@ -26,7 +26,7 @@ public abstract class ParamValue {
 			return this.text;
 		}
 	}
-	private static class ParamIntValue() {
+	private static class ParamIntValue extends ParamValue {
 		private final int i;
 		private ParamIntValue(int i) {
 			this.i = i;
