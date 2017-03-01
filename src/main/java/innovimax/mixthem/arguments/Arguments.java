@@ -88,7 +88,7 @@ public class Arguments {
     }
    
     private static Map<RuleParam, ParamValue> findRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
-        Map<RuleParam, ParamValue> map = new EnumMap<RuleParam, ParamValue>();
+        Map<RuleParam, ParamValue> map = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
         Iterator<RuleParam> iterator = rule.getParams().iterator();
         if (iterator.hasNext()) {
             RuleParam param = iterator.next();
