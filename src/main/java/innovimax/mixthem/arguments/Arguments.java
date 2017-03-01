@@ -103,14 +103,6 @@ public class Arguments {
                     } catch (NumberFormatException e) {                    
                             throw new ArgumentException("[" + param.getName() + "] parameter is incorrect: " + paramString);                        
                     }
-                } else {
-                    if (param.isRequired()) {
-                        throw new ArgumentException("[" + param.getName() + "] parameter is required.");    
-                    }                    
-                }                
-            } else {
-                if (param.isRequired()) {
-                    throw new ArgumentException("[" + param.getName() + "] parameter is required.");    
                 }
             }            
         }     
