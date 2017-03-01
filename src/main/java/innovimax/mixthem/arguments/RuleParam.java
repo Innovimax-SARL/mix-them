@@ -42,13 +42,15 @@ public enum RuleParam {
  	* @return The {@link ParamValue} representation of the parameter value
  	*/
 	ParamValue createValue(String value) throws NumberFormatException {
+		ParamValue pv = null;
 		switch (this.type) {
 			case _INTEGER:				
-            			return new ParamValue(Integer.parseInt(value));
+            			pv = new ParamValue(Integer.parseInt(value));
             			break;
             		default:
-            			return new ParamValue(value);
+            			pv = new ParamValue(value);
 		}
+		return pv;
 	}
 
 }
