@@ -16,7 +16,7 @@ public class ParamValue {
 	* @param text The String value of the parameter.	
 	*/ 	
 	public ParamValue(String text) {
-		this.text = test;
+		this.text = text;
 		this.number = -1;
 	}
 
