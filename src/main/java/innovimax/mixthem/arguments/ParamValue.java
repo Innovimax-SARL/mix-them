@@ -14,7 +14,7 @@ public abstract class ParamValue {
 		}
 		
 		@Override
-		public String asString() {
+		public String asString() {
 			return this.text;
 		}
 		@Override
