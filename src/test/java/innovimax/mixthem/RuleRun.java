@@ -1,8 +1,10 @@
 package innovimax.mixthem;
 
+import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.Rule;
+import innovimax.mixthem.arguments.RuleParam;
 
-import java.util.List;
+import java.util.Map;
 
 /**
 * <p>Describes a specific test run for a rule.</p>
@@ -12,52 +14,27 @@ import java.util.List;
 */
 public class RuleRun {
 
-  final private int testId;
-  final private List<String> params;
+  final private Map<RuleParam, ParamValue> params;
   final private String suffix;
 
   /*
-  * Creates a rule run for all tests.
+  * Creates a rule run for a specific test.  
+  * @param params The list of parameter values for this run
   */
-  public RuleRun(List<String> params) {
-    this(-1, null, params);
-  }
- 
-  /*
-  * Creates a rule run for a specific test.
-  * @param testId The test identifier attached
-  * @param params The list if parameter values for this run
-  */
-  public RuleRun(int testId, List<String> params) {
-    this(testId, null, params);
+  public RuleRun(Map<RuleParam, ParamValue> params) {
+    this(null, params);
   }
 
   /*
   * Creates a rule run for a specific test.
-  * @param testId The test identifier attached
   * @param suffix The specific suffix attached to the run (maybe null)
-  * @param params The list if parameter values for this run
+  * @param params The list of parameter values for this run
   */
-  public RuleRun(int testId, String suffix, List<String> params) {
-    this.testId = testId;
+  public RuleRun(String suffix, Map<RuleParam, ParamValue> params) {    
     this.suffix = suffix;
     this.params = params;    
   }
   
-  /*
-  * Returns true if the test is authorized for the run.
-  * @param testId The test identifier attached
-  * @param params The list if parameter values for this run
-  * @return Returns true if the test is authorized for the run
-  */
-  public boolean accept(int testId) {
-    if (this.testId == -1) {
-      return true;
-    } else {
-      return this.testId == testId;
-    }
-  }
-
   /*
   * Returns true if the run has a specific suffix.  
   * @return Returns true if the run has a specific suffix
@@ -76,9 +53,9 @@ public class RuleRun {
   
   /*
   * Returns the list of parameter values for this run.
-  * @return Returns the list of parameter values for this run.
+  * @return Returns the list of parameter values for this run
   */
-  public List<String> getParams() {
+  public Map<RuleParam, ParamValue> getParams() {
     return this.params;
   }
 

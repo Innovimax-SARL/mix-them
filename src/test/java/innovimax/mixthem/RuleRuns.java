@@ -1,6 +1,8 @@
 package innovimax.mixthem;
 
+import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.Rule;
+import innovimax.mixthem.arguments.RuleParam;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,8 +13,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 /**
@@ -29,9 +33,9 @@ public class RuleRuns {
   	* @param url The URL of rule additional parameters file
   	* @return Returns a list of test runs for the rule
     	*/	
-	public static List<RuleRun> getRuns(URL url) throws FileNotFoundException, IOException {
-    		List<RuleRun> runs = new LinkedList<RuleRun>();
-    		runs.add(new RuleRun(Collections.emptyList()));
+	public static List<RuleRun> getRuns(Rule rule, URL url) throws FileNotFoundException, IOException, NumberFormatException {
+    		List<RuleRun> runs = new LinkedList<RuleRun>();		
+    		runs.add(new RuleRun(Collections.emptyMap()));
 		if (url != null) {
 			File file = new File(url.getFile());			
 			BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
@@ -40,11 +44,24 @@ public class RuleRuns {
 				String[] parts = entry.split("\\s");
 				if (parts.length > 1) {
 					String suffix = parts[0];
-					List<String> params = Arrays.asList(Arrays.copyOfRange(parts, 1, parts.length));
+					Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
+					switch (rule) {
+						case _RANDOM_ALT_LINE:
+							int seed = Integer.parseInt(parts[1]);
+							params.put(RuleParam._RANDOM_SEED, new ParamValue(seed));
+							break;
+						case _JOIN:
+							int col = Integer.parseInt(parts[1]);
+							params.put(RuleParam._JOIN_COL1, new ParamValue(col));
+							if (parts.length > 2) {
+								col = Integer.parseInt(parts[2]);
+								params.put(RuleParam._JOIN_COL2, new ParamValue(col));
+							}					
+					}
 					if (suffix.equals(DEFAULT_OUTPUT_FILE)) {
-						runs.add(new RuleRun(-1, null, params));
+						runs.add(new RuleRun(null, params));
 					} else {
-						runs.add(new RuleRun(-1, suffix, params));
+						runs.add(new RuleRun(suffix, params));
 					}
 				}
 			});

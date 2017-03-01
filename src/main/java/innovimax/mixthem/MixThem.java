@@ -7,7 +7,7 @@ import innovimax.mixthem.operation.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
+import java.util.Map;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -100,8 +100,10 @@ public class MixThem {
     * @param params The rule parameters to be used for mixing
     * @throws MixException - If any error occurs during mixing
     * @see innovimax.mixthem.Rule
+    * @see innovimax.mixthem.RuleParam
+    * @see innovimax.mixthem.ParamValue
     */  
-    public void process(Rule rule, List<String> params) throws MixException {
+    public void process(Rule rule, Map<RuleParam, ParamValue> params) throws MixException {
         try {
 	    LOGGER.info("Started mixing for rule '" + rule.getName() + "'...");
             switch(rule) {
@@ -176,12 +178,12 @@ public class MixThem {
     }
 
     // this one copies two files alternativly line by line
-    private static void alternateLine(File file1, File file2, OutputStream out, ReadType type, List<String> params) throws MixException, IOException {
+    private static void alternateLine(File file1, File file2, OutputStream out, ReadType type,  Map<RuleParam, ParamValue> params) throws MixException, IOException {
         IInputLine reader1 = new DefaultLineReader(file1, true);
         IInputLine reader2 = new DefaultLineReader(file2, false);
-        IOutputLine writer = new DefaultLineWriter(out);        
-        if (type == ReadType._ALT_RANDOM && params.size() > 0) {
-            int seed = new Integer(params.get(0)).intValue();
+        IOutputLine writer = new DefaultLineWriter(out);
+        if (type == ReadType._ALT_RANDOM && params.containsKey(RuleParam._RANDOM_SEED)) {
+            int seed = params.get(RuleParam._RANDOM_SEED).intValue();
             reader1.setSeed(seed);
             reader2.setSeed(seed);
         }
@@ -201,17 +203,15 @@ public class MixThem {
     }
 
     // this one join lines of two files on a common field
-    private static void joinLine(File file1, File file2, OutputStream out, List<String> params) throws MixException, IOException {
+    private static void joinLine(File file1, File file2, OutputStream out,  Map<RuleParam, ParamValue> params) throws MixException, IOException {
         IInputLine reader1 = new DefaultLineReader(file1, true);
         IInputLine reader2 = new DefaultLineReader(file2, false);
         IOutputLine writer = new DefaultLineWriter(out);
         IJoinLine joining = new DefaultLineJoining();   
         while (reader1.hasLine() && reader2.hasLine()) {            
             final String line1 = reader1.nextLine(ReadType._REGULAR);
-            final String line2 = reader2.nextLine(ReadType._REGULAR);            
-            JoinType type = joining.getType(params);
-            List<Integer> columns = joining.getColumns(params);
-            String join = joining.join(line1, line2, type, columns);
+            final String line2 = reader2.nextLine(ReadType._REGULAR);                        
+            String join = joining.join(line1, line2, params);
             if (join != null) {
                 writer.writeLine(join);
             }

@@ -4,9 +4,9 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Map;
 
 /**
 * <p>Mix-them command line arguments management.</p>
@@ -16,7 +16,7 @@ import java.util.List;
 public class Arguments {
     
     private Rule rule = null;
-    private List<String> ruleParams = null;
+    private Map<RuleParam, ParamValue> ruleParams = null;
     private File file1 = null;
     private File file2 = null;
 
@@ -28,11 +28,11 @@ public class Arguments {
         return this.rule;
     }
 
-    void setRuleParameters(List<String> ruleParams) {
+    void setRuleParameters(Map<RuleParam, ParamValue> ruleParams) {
         this.ruleParams = ruleParams;
     }
 
-    public List<String> getRuleParameters() {
+    public Map<RuleParam, ParamValue> getRuleParameters() {
         return this.ruleParams;
     }
 
@@ -56,7 +56,7 @@ public class Arguments {
         Arguments mixArgs = new Arguments();
         int index = 0;
         Rule rule = findRuleArgument(args, index, "rule");
-        List<String> ruleParams = null;
+        Map<RuleParam, ParamValue> ruleParams = null;
         if (rule != null) {
             index++;
             ruleParams = findRuleParameters(args, index, rule);
@@ -86,9 +86,9 @@ public class Arguments {
         }
         return rule;
     }
-
-    private static List<String> findRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
-        List<String> params = new ArrayList<String>();
+   
+    private static Map<RuleParam, ParamValue> findRuleParameters(String[] args, int index, Rule rule) throws ArgumentException {
+        Map<RuleParam, ParamValue> map = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
         Iterator<RuleParam> iterator = rule.getParams().iterator();
         if (iterator.hasNext()) {
             RuleParam param = iterator.next();
@@ -96,13 +96,12 @@ public class Arguments {
                 String arg = args[index];
                 if (arg.startsWith("#")) {
                     final String paramString = arg.substring(1);
-                    if (param.checkValue(paramString)) {
-                        params.add(paramString);
+                    try {
+                        ParamValue value = param.createValue(paramString);
+                        map.put(param, value);
                         index++;
-                    } else {
-                        if (param.isRequired()) {
-                            throw new ArgumentException("[" + param.getName() + "] parameter is incorrect: " + paramString);
-                        }
+                    } catch (NumberFormatException e) {                    
+                            throw new ArgumentException("[" + param.getName() + "] parameter is incorrect: " + paramString);                        
                     }
                 } else {
                     if (param.isRequired()) {
@@ -115,7 +114,7 @@ public class Arguments {
                 }
             }            
         }     
-        return params;
+        return map;
     }
 
     private static File findFileArgument(String[] args, int index, String name) throws ArgumentException {

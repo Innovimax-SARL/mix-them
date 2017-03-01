@@ -1,11 +1,14 @@
 package innovimax.mixthem;
 
+import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.Rule;
+import innovimax.mixthem.arguments.RuleParam;
 
 import java.io.*;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 import org.junit.Assert;
@@ -20,7 +23,7 @@ import org.junit.runner.RunWith;
 public class GenericTest {
 	
    @Test
-   public final void parameter() throws MixException, FileNotFoundException, IOException {
+   public final void parameter() throws MixException, FileNotFoundException, IOException, NumberFormatException {
 	   MixThem.setLogging(Level.FINE);
 	   int testId = 1;
 	   boolean result = true;
@@ -40,7 +43,7 @@ public class GenericTest {
 				   if (urlP != null) {
 					   MixThem.LOGGER.fine("--> Params (" + paramsFile + ") : FOUND");
 				   }
-				   List<RuleRun> runs = RuleRuns.getRuns(urlP);
+				   List<RuleRun> runs = RuleRuns.getRuns(rule, urlP);
 				   for (RuleRun run : runs) {
 					   String resultFile = prefix + "output-" + rule.getExtension();
 					   if (run.hasSuffix()) {
@@ -61,7 +64,7 @@ public class GenericTest {
 	   }
 	   Assert.assertTrue(result);
    }	   
-   private final static boolean check(File file1, File file2, File expected, Rule rule, List<String> params)  throws MixException, FileNotFoundException, IOException  {
+   private final static boolean check(File file1, File file2, File expected, Rule rule, Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
 	   ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
 	   MixThem mixThem = new MixThem(file1, file2, baos_rule);
            mixThem.process(rule, params);	   	   

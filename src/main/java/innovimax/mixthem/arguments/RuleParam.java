@@ -6,9 +6,9 @@ package innovimax.mixthem.arguments;
 * @version 1.0
 */
 public enum RuleParam { 
-	_SEED("seed", false, ParamType._INTEGER),
-	_COL1("col1", false, ParamType._INTEGER),
-	_COL2("col2", false, ParamType._INTEGER);
+	_RANDOM_SEED("seed", false, ParamType._INTEGER),
+	_JOIN_COL1("col1", false, ParamType._INTEGER),
+	_JOIN_COL2("col2", false, ParamType._INTEGER);
 
 	private final String name;
 	private final boolean required;
@@ -37,22 +37,20 @@ public enum RuleParam {
 	}
 
 	/**
- 	* Returns true if the parameter value is correct.
+ 	* Returns the {@link ParamValue} representation of the parameter value.
  	* @param value The value of the parameter on command line
- 	* @return Returns true if the parameter value is correct
+ 	* @return The {@link ParamValue} representation of the parameter value
  	*/
-	boolean checkValue(String value) {
+	ParamValue createValue(String value) throws NumberFormatException {
+		ParamValue pv = null;
 		switch (this.type) {
-        	case _INTEGER:
-            	try {
-            		Integer.parseInt(value);
-            		return true;
-            	} catch (Exception e) {
-            		return false;
-            	}
-            default:
-            	return true;
+			case _INTEGER:				
+            			pv = new ParamValue(Integer.parseInt(value));
+            			break;
+            		default:
+            			pv = new ParamValue(value);
 		}
+		return pv;
 	}
 
 }
