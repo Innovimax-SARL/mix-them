@@ -16,28 +16,6 @@ import java.util.stream.Collectors;
 public class DefaultLineJoining implements IJoinLine {
 
 	@Override
-	public JoinType getType(List<String> params) {
-		JoinType type;
-		if (params.size() == 0) {
-			type = JoinType._DEFAULT;
-		} else if (params.size() == 1) {
-			type = JoinType._SAME_COL;
-		} else {
-			type = JoinType._DIFF_COL;
-		}
-		return type;
-	}
-	
-	@Override
-	public List<Integer> getColumns(List<String> params) throws MixException {
-		try {
-			return params.stream().map(s -> new Integer(s)).collect(Collectors.toList());
-		} catch (NumberFormatException e) {
-			throw new MixException("Unexpected join parameter values " + params.toString(), e);
-		}
-	}
-	
-	@Override
 	public String join(String line1, String line2, JoinType type, List<Integer> columns) throws MixException {
 		String join = null;
 		if (line1 != null && line2 != null) {
