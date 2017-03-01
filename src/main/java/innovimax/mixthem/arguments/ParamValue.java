@@ -8,4 +8,41 @@ package innovimax.mixthem.arguments;
 */
 public class ParamValue { 
 	
+	private final String text;
+	private final Integer number;
+	
+	/**
+	* Constructor
+	* @param text The String value of the parameter.	
+	*/ 	
+	public ParamValue(String text) {
+		this.text = test;
+		this.number = new Integer(-1);
+	}
+
+	/**
+	* Constructor
+	* @param number The Integer value of the parameter.	
+	*/ 	
+	public ParamValue(Integer number) {
+		this.text = null;
+		this.number = number;
+	}
+	
+	/**
+	* Returns the parameter value as a String.
+	* @return The parameter value as a String
+	*/
+	public String stringValue() {
+		return this.text;
+	}
+
+	/**
+	* Returns the parameter value as an Integer.
+	* @return The parameter value as an Integer
+	*/
+	public int intValue() {
+		return this.number.intValue();
+	}
+
 }
