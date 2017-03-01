@@ -30,7 +30,7 @@ public class Arguments {
         return this.rule;
     }
 
-    void setRuleParametersMap<RuleParam, ParamValue> ruleParams) {
+    void setRuleParameters(Map<RuleParam, ParamValue> ruleParams) {
         this.ruleParams = ruleParams;
     }
 
