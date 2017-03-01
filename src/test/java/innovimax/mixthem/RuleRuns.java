@@ -42,7 +42,7 @@ public class RuleRuns {
 				String[] parts = entry.split("\\s");
 				if (parts.length > 1) {
 					String suffix = parts[0];
-					Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>();
+					Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
 					switch (rule) {
 						case _RANDOM_ALT_LINE:
 							int seed = Integer.parseInt(parts[1]);
