@@ -21,7 +21,7 @@ import org.junit.runner.RunWith;
 public class GenericTest {
 	
    @Test
-   public final void parameter() throws MixException, FileNotFoundException, IOException {
+   public final void parameter() throws MixException, FileNotFoundException, IOException, NumberFormatException {
 	   MixThem.setLogging(Level.FINE);
 	   int testId = 1;
 	   boolean result = true;
