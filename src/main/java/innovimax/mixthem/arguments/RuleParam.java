@@ -6,9 +6,9 @@ package innovimax.mixthem.arguments;
 * @version 1.0
 */
 public enum RuleParam { 
-	_SEED("seed", false, ParamType._INTEGER),
-	_COL1("col1", false, ParamType._INTEGER),
-	_COL2("col2", false, ParamType._INTEGER);
+	_RANDOM_SEED("seed", false, ParamType._INTEGER),
+	_JOIN_COL1("col1", false, ParamType._INTEGER),
+	_JOIN_COL2("col2", false, ParamType._INTEGER);
 
 	private final String name;
 	private final boolean required;
