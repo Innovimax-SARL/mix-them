@@ -33,7 +33,7 @@ public abstract class ParamValue {
 		}			
 		
 		@Override
-		public String asString() {
+		public String asString() {
 			throw new UnsupportedOperationException("ParamIntValue does not have a String representation");
 		}
 
