@@ -37,25 +37,6 @@ public enum RuleParam {
 	}
 
 	/**
- 	* Returns true if the parameter value is correct.
- 	* @param value The value of the parameter on command line
- 	* @return Returns true if the parameter value is correct
- 	*/
-	boolean checkValue(String value) {
-		switch (this.type) {
-        	case _INTEGER:
-            	try {
-            		Integer.parseInt(value);
-            		return true;
-            	} catch (Exception e) {
-            		return false;
-            	}
-            default:
-            	return true;
-		}
-	}
-
-	/**
  	* Returns the {@link ParamValue} representation of the parameter value.
  	* @param value The value of the parameter on command line
  	* @return The {@link ParamValue} representation of the parameter value
