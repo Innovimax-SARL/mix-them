@@ -39,10 +39,11 @@ public class DefaultLineJoining implements ILineOperation {
 		List<String> list1 = Arrays.asList(line1.split("\\s"));
 		List<String> list2 = Arrays.asList(line2.split("\\s"));
 		switch (this.params.size()) {
-			case 0:				
-				if (list1.size() > 0 && list2.contains(list1.get(0))) {
+			case 0:						
+				if (list1.size() > 0 && list2.size() > 0 && list2.get(0).equals(list1.get(0))) {
+					String key = list1.get(0);
 					String part1 = list1.stream().collect(Collectors.joining(" "));
-					String part2 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
+					String part2 = list2.stream().filter(s -> !s.equals(key)).collect(Collectors.joining(" "));
 					join = part1 + " " + part2;
 				}				
 				break;
