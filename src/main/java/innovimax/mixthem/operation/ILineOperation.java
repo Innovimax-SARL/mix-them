@@ -1,5 +1,5 @@
-package innovimax.mixthem.operation;
+npackage innovimax.mixthem.operation;
 
-interface ILineOperation implements IOperation {
+interface ILineOperation extends IOperation {
 	String process(String line1, String line2);
 }
