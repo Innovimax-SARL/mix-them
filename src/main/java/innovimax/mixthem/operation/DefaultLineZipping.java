@@ -4,6 +4,7 @@ import innovimax.mixthem.MixException;
 import innovimax.mixthem.MixThem;
 
 import java.util.logging.Level;
+import java.util.Map;
 
 /**
 * <p>Zips two lines on a common field.</p>
@@ -12,6 +13,18 @@ import java.util.logging.Level;
 * @version 1.0
 */
 public class DefaultLineZipping implements ILineOperation {
+
+	private final Map<RuleParam, ParamValue> params;
+	
+	/**
+ 	* @param params The list of parameters (maybe empty)
+	* @see innovimax.mixthem.operation.RuleParam
+	* @see innovimax.mixthem.operation.ParamValue
+	*/
+	public DefaultLineZipping(Map<RuleParam, ParamValue> params) {
+		this.params = params;
+	}
+	
 	/**
  	* Returns the result of zipping two lines.
 	* @param line1 The first line to zip
