@@ -131,7 +131,9 @@ public class MixThem {
                 case _JOIN:  
                   joinLine(this.file1, this.file2, this.out, params);
                   break;
-                case _ZIP:    
+                case _ZIP_LINE:
+		case _ZIP_CHAR:
+		case _ZIP_CELL:
                 default:    
                    System.out.println("This rule has not been implemented yet.");                
             }
