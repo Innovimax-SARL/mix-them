@@ -51,7 +51,7 @@ public class DefaultLineJoining implements ILineOperation {
 				if (list1.size() >= col && list2.size() >= col && list1.get(col - 1).equals(list2.get(col - 1))) {
 					String part1 = list1.get(col - 1);
 					String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
-					String part3 = list2.stream().filter(s -> !list1.contains(s)).collect(Collectors.joining(" "));
+					String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
 					join = part1 + " " + part2 + " " + part3;				
 				}
 				break;
@@ -61,7 +61,7 @@ public class DefaultLineJoining implements ILineOperation {
 				if (list1.size() >= col1 && list2.size() >= col2 && list1.get(col1 - 1).equals(list2.get(col2 - 1))) {
 					String part1 = list1.get(col1 - 1);
 					String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
-					String part3 = list2.stream().filter(s -> !list1.contains(s)).collect(Collectors.joining(" "));
+					String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
 					join = part1 + " " + part2 + " " + part3;				
 				}
 			}
