@@ -59,6 +59,8 @@ public class RuleRuns {
 							}	
 							break;
 						case _ZIP_LINE:
+						case _ZIP_CELL:
+						case _ZIP_CHAR:
 							String sep = parts[1];
 							params.put(RuleParam._ZIP_SEP, ParamValue.createString(sep));
 					}
