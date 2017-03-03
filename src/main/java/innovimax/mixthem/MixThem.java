@@ -132,10 +132,12 @@ public class MixThem {
                   joinLine(this.file1, this.file2, this.out, params);
                   break;
                 case _ZIP_LINE:
-		  zipLine(this.file1, this.file2, this.out, params);
+		  zipLine(this.file1, this.file2, this.out, ZipType._LINE, params);
                   break;
-		case _ZIP_CHAR:
 		case _ZIP_CELL:
+		  zipLine(this.file1, this.file2, this.out, ZipType._CELL, params);
+		  break;
+		case _ZIP_CHAR:			    
                 default:    
                    System.out.println("This rule has not been implemented yet.");                
             }
@@ -226,11 +228,11 @@ public class MixThem {
     }
 
     // this one zine lines of two files
-    private static void zipLine(File file1, File file2, OutputStream out,  Map<RuleParam, ParamValue> params) throws MixException, IOException {
+    private static void zipLine(File file1, File file2, OutputStream out,  ZipType type, Map<RuleParam, ParamValue> params) throws MixException, IOException {
         IInputLine reader1 = new DefaultLineReader(file1, true);
         IInputLine reader2 = new DefaultLineReader(file2, false);
         IOutputLine writer = new DefaultLineWriter(out);
-        ILineOperation zipping = new DefaultLineZipping(params);   
+        ILineOperation zipping = new DefaultLineZipping(type, params);   
         while (reader1.hasLine() && reader2.hasLine()) {            
             final String line1 = reader1.nextLine(ReadType._REGULAR);
             final String line2 = reader2.nextLine(ReadType._REGULAR);                        
