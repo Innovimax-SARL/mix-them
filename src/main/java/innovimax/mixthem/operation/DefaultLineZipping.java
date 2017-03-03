@@ -60,6 +60,8 @@ public class DefaultLineZipping implements ILineOperation {
 					while (index < list1.size() && index < list2.size()) {						
 						if (index == 0) {
 							zip = "";
+						} else {
+							zip += " ";  // cell separator
 						}
 						zip += list1.get(index) + sep + list2.get(index);
 						index++;
