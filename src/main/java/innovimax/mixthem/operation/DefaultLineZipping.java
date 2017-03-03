@@ -14,7 +14,7 @@ import java.util.Map;
 */
 public class DefaultLineZipping implements ILineOperation {
 	
-	private final static String DEFAULT_ZIP_SEPARATOR = " ";
+	private final static String DEFAULT_ZIP_SEPARATOR = "";
 
 	private final Map<RuleParam, ParamValue> params;
 	
@@ -42,43 +42,9 @@ public class DefaultLineZipping implements ILineOperation {
 			sep = this.params.get(RuleParam._ZIP_SEP).asString();
 		}		
 		if (line1 != null && line2 != null) {      			
-			zip = "[";
-			char[] buf1 = line1.toCharArray();
-			char[] buf2 = line2.toCharArray();
-			int index = 0;
-			while (index < buf1.length && index < buf2.length) {
-				if (index > 0) {
-					zip += sep;
-				}
-				ZipTuple tuple = new ZipTuple(buf1[index], buf2[index], sep);
-				zip += tuple.toString();
-				index++;
-			}
-			zip += "]";
+			zip = line1 + sep + line2;
 		}
 		return zip;
-	}
-	
-	private class ZipTuple {
-		
-		private final char c1;
-		private final char c2;
-		private final String sep;
-		
-		private ZipTuple(char c1, char c2) {
-			this(c1, c2, " ");
-		}
-
-		private ZipTuple(char c1, char c2, String sep) {
-			this.c1 = c1;
-			this.c2 = c2;
-			this.sep = sep;
-		}
-		
-		@Override
-		public String toString() {
-			return "('" + this.c1 +"'" + this.sep + "'" + this.c2 + "')";
-		}
 	}
 
 }
