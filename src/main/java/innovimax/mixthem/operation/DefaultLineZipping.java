@@ -16,14 +16,19 @@ public class DefaultLineZipping implements ILineOperation {
 	
 	private final static String DEFAULT_ZIP_SEPARATOR = "";
 
+	private final ZipType type;
 	private final Map<RuleParam, ParamValue> params;
 	
 	/**
+	* Constructor
+	* @param type The type of zip to process
  	* @param params The list of parameters (maybe empty)
-	* @see innovimax.mixthem.operation.RuleParam
-	* @see innovimax.mixthem.operation.ParamValue
+	* @see innovimax.mixthem.operation.ZipType
+	* @see innovimax.mixthem.arguments.RuleParam
+	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultLineZipping(Map<RuleParam, ParamValue> params) {
+	public DefaultLineZipping(ZipType type, Map<RuleParam, ParamValue> params) {
+		this.type = type;
 		this.params = params;
 	}
 	
@@ -41,8 +46,24 @@ public class DefaultLineZipping implements ILineOperation {
 		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
 			sep = this.params.get(RuleParam._ZIP_SEP).asString();
 		}		
-		if (line1 != null && line2 != null) {      			
-			zip = line1 + sep + line2;
+		if (line1 != null && line2 != null) {
+			switch (this.type) {
+				case _LINE:
+					zip = line1 + sep + line2;
+					break;
+				case _CELL:					
+					List<String> list1 = Arrays.asList(line1.split("\\s"));
+					List<String> list2 = Arrays.asList(line2.split("\\s"));
+					int index = 0;
+					while (index < list1.size() && index < list2.size()) {						
+						if (index == 0) {
+							zip = "";
+						} else {
+							zip += list1.get(index) + sep + list2.get(index);
+						}
+						index++;
+					}
+			}
 		}
 		return zip;
 	}
