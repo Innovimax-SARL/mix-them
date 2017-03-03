@@ -36,7 +36,8 @@ public class DefaultLineZipping implements ILineOperation {
 	public String process(String line1, String line2) throws MixException {
 		String zippedLine = null;
 		if (line1 != null && line2 != null) {
-      			MixThem.LOGGER.logp(Level.INFO, "DefaultLineZipping", "zip", "TO IMPLEMENT");
+      			MixThem.LOGGER.logp(Level.INFO, "DefaultLineZipping", "zip-line", "TO IMPLEMENT");
+			MixThem.LOGGER.info("Params " + params.toString());
 		}
 		return zippedLine;
 	}
