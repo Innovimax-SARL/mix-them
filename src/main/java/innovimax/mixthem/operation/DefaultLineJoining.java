@@ -38,11 +38,11 @@ public class DefaultLineJoining implements ILineOperation {
 		String join = null;
 		int col1 = 1;
 		int col2 = 1;
-		if (this.params.containsKey(ParamValue._JOIN_COL1)) {
+		if (this.params.containsKey(RuleParam._JOIN_COL1)) {
 			col1 = this.params.get(RuleParam._JOIN_COL1).asInt();
 			col2 = col1;
 		}
-		if (this.params.containsKey(ParamValue._JOIN_COL2)) {
+		if (this.params.containsKey(RuleParam._JOIN_COL2)) {
 			col2 = this.params.get(RuleParam._JOIN_COL2).asInt();			
 		}
 		List<String> list1 = Arrays.asList(line1.split("\\s"));
