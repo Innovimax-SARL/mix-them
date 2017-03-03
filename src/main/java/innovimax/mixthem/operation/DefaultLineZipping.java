@@ -14,12 +14,11 @@ import java.util.List;
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultLineZipping implements ILineOperation {
+public class DefaultLineZipping extends AbstractOperation {
 	
 	private final static String DEFAULT_ZIP_SEPARATOR = "";
 
 	private final ZipType type;
-	private final Map<RuleParam, ParamValue> params;
 	
 	/**
 	* Constructor
@@ -30,8 +29,8 @@ public class DefaultLineZipping implements ILineOperation {
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
 	public DefaultLineZipping(ZipType type, Map<RuleParam, ParamValue> params) {
-		this.type = type;
-		this.params = params;
+		super(params);
+		this.type = type;		
 	}
 	
 	/**

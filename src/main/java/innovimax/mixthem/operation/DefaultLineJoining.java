@@ -15,15 +15,15 @@ import java.util.stream.Collectors;
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultLineJoining implements ILineOperation {
-	private final Map<RuleParam, ParamValue> params;
+public class DefaultLineJoining extends AbstractOperation {
+	
 	/**
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.operation.RuleParam
 	* @see innovimax.mixthem.operation.ParamValue
 	*/
 	public DefaultLineJoining(Map<RuleParam, ParamValue> params) {
-		this.params = params;
+		super(params);
 	}	
 
 	/**
