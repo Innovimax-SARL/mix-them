@@ -29,7 +29,7 @@ public class DefaultLineZipping extends AbstractOperation {
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
 	public DefaultLineZipping(ZipType type, Map<RuleParam, ParamValue> params) {
-		super(this.params);
+		super(params);
 		this.type = type;		
 	}
 	
