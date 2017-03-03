@@ -68,8 +68,8 @@ public class GenericTest {
 	   ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
 	   MixThem mixThem = new MixThem(file1, file2, baos_rule);
            mixThem.process(rule, params);	   	   
-	   //mixThem = new MixThem(file1, file2, System.out);
-           //mixThem.process(rule, params);
+	   mixThem = new MixThem(file1, file2, System.out);
+           mixThem.process(rule, params);
 	   return checkFileEquals(expected, baos_rule.toByteArray());
    }
 

@@ -56,7 +56,13 @@ public class RuleRuns {
 							if (parts.length > 2) {
 								col = Integer.parseInt(parts[2]);
 								params.put(RuleParam._JOIN_COL2, ParamValue.createInt(col));
-							}					
+							}	
+							break;
+						case _ZIP_LINE:
+						case _ZIP_CELL:
+						case _ZIP_CHAR:
+							String sep = parts[1];
+							params.put(RuleParam._ZIP_SEP, ParamValue.createString(sep));
 					}
 					if (suffix.equals(DEFAULT_OUTPUT_FILE)) {
 						runs.add(new RuleRun(null, params));
