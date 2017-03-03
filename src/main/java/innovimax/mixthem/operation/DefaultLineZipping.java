@@ -36,12 +36,33 @@ public class DefaultLineZipping implements ILineOperation {
  	*/
 	@Override
 	public String process(String line1, String line2) throws MixException {
-		String zippedLine = null;
-		if (line1 != null && line2 != null) {
-      			MixThem.LOGGER.logp(Level.INFO, "DefaultLineZipping", "zip-line", "TO IMPLEMENT");
-			MixThem.LOGGER.info("Params " + params.toString());
+		String zip = null;
+		if (line1 != null && line2 != null) {      			
+			MixThem.LOGGER.info("Params " + params.toString());									
 		}
-		return zippedLine;
+		return zip;
+	}
+	
+	private class ZipTuple {
+		
+		private final char c1;
+		private final char c2;
+		private final String sep;
+		
+		private ZipTuple(char c1, char c2) {
+			this(c1, c2, " ");
+		}
+
+		private ZipTuple(char c1, char c2, String sep) {
+			this.c1 = c1;
+			this.c2 = c2;
+			this.sep = sep;
+		}
+		
+		@Override
+		public String toString() {
+			return '(' + this.c1 + this.sep + this.c2 + ')';
+		}
 	}
 
 }
