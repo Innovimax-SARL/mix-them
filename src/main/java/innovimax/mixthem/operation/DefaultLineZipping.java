@@ -14,6 +14,8 @@ import java.util.Map;
 * @version 1.0
 */
 public class DefaultLineZipping implements ILineOperation {
+	
+	private final static String DEFAULT_ZIP_SEPARATOR = " ";
 
 	private final Map<RuleParam, ParamValue> params;
 	
@@ -36,8 +38,24 @@ public class DefaultLineZipping implements ILineOperation {
 	@Override
 	public String process(String line1, String line2) throws MixException {
 		String zip = null;
+		String sep = DEFAULT_ZIP_SEPARATOR;
+		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
+			sep = this.params.get(RuleParam._ZIP_SEP).asString();
+		}		
 		if (line1 != null && line2 != null) {      			
-			MixThem.LOGGER.info("Params " + params.toString());									
+			zip = "[";
+			char[] buf1 = line1.toCharArray();
+			char[] buf2 = line2.toCharArray();
+			int index = 0;
+			while (index < buf1.length && index < buf2.length) {
+				if (index > 0) {
+					zip += sep;
+				}
+				ZipTuple tuple = new ZipTuple(buf1[index], buf2[index], sep);
+				zip += tuple.toString();
+				index++;
+			}
+			zip += "]";
 		}
 		return zip;
 	}
@@ -60,7 +78,7 @@ public class DefaultLineZipping implements ILineOperation {
 		
 		@Override
 		public String toString() {
-			return '(' + this.c1 + this.sep + this.c2 + ')';
+			return "('" + this.c1 +"'" + this.sep + "'" + this.c2 + "')";
 		}
 	}
 
