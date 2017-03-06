@@ -34,10 +34,12 @@ public class MainTest {
     
     @Test
     public final void testMainRule1Lock() {
+        FileLock lock = null;
         try {
             File file = new File(getClass().getResource("test001_file1.txt").getFile());
             FileChannel fileChannel = new RandomAccessFile(file, "rw").getChannel();
-            FileLock lock = fileChannel.lock();
+            lock = fileChannel.lock();
+            System.out.println("LOCK=" + lock.isValid());
             final String args[] = { "-1", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
             MixThem.main(args);
             Assert.assertTrue(true);
@@ -45,6 +47,10 @@ public class MainTest {
             Assert.assertTrue(false);
         } catch (IOException e) {
             Assert.assertTrue(false);
+        } finally {
+            if (lock != null) {
+                lock.release();
+            }
         }
     }
     
