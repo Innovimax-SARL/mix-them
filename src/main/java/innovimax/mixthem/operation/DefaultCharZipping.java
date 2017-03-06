@@ -40,16 +40,15 @@ public class DefaultCharZipping extends AbstractOperation {
 			sep = this.params.get(RuleParam._ZIP_SEP).asString();
 		}		
 		if (c1 != -1 && c2 != -1) {
-        zip = new int[2 + sep.length()];
-        int index = 0;
-        zip[index++] = c1;
-        for (int n = 0; n < sep.length(); n++) {
-          int cn = sep.codePointAt(n);
-          zip[index++] = cn;
-        }
-        zip[index] = c2;
-			}
-		}
+        		zip = new int[2 + sep.length()];
+        		int index = 0;
+        		zip[index++] = c1;
+        		for (int n = 0; n < sep.length(); n++) {
+          			int cn = sep.codePointAt(n);
+          			zip[index++] = cn;
+        		}
+        		zip[index] = c2;
+		}		
 		return zip;
 	}
 
