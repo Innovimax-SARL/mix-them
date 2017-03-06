@@ -19,7 +19,7 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractLineOperation(Map<RuleParam, ParamValue> params) {
+	public AbstractCharOperation(Map<RuleParam, ParamValue> params) {
 		super(params);
 	}
 
