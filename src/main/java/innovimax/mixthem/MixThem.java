@@ -55,11 +55,10 @@ public class MixThem {
 	    LOGGER.setLevel(Level.ALL);
 	    Handler handler = new ConsoleHandler();
 	    LOGGER.addHandler(handler);        
+	    handler.setLevel(Level.OFF);
 	    String prop = System.getProperty("mixthem.logging");
             if (prop == null || prop.equals("true")) {
-                handler.setLevel(level);
-            } else {
-                handler.setLevel(Level.OFF);
+                handler.setLevel(level);            
             }
 	}
     }
