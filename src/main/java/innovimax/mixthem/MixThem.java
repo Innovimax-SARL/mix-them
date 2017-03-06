@@ -138,6 +138,7 @@ public class MixThem {
 		  zipLine(this.file1, this.file2, this.out, ZipType._CELL, params);
 		  break;
 		case _ZIP_CHAR:			    
+		  zipChar(this.file1, this.file2, this.out, params);
                 default:    
                    System.out.println("This rule has not been implemented yet.");                
             }
@@ -246,4 +247,21 @@ public class MixThem {
         writer.close();
     }
 
+    // this one zine characters of two files
+    private static void zipChar(File file1, File file2, OutputStream out,  Map<RuleParam, ParamValue> params) throws MixException, IOException {
+        IInputChar reader1 = new DefaultCharReader(file1, true);
+        IInputChar reader2 = new DefaultCharReader(file2, false);
+        IOutputChar writer = new DefaultCharWriter(out);
+	/*
+        ILineOperation zipping = new DefaultCharZipping(params);   
+        while (reader1.hasCharacter() && reader2.hasCharacter()) {            
+	    final int c1 = reader1.nextCharacter(ReadType._REGULAR);
+	    final int c2 = reader1.nextCharacter(ReadType._REGULAR);                                    
+            //TODO
+        }
+	*/
+        reader1.close();
+        reader2.close();
+        writer.close();
+    }
 }
