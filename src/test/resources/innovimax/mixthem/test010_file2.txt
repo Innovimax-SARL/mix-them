@@ -1,0 +1,3 @@
+red blue gold
+green purple
+silver yellow
