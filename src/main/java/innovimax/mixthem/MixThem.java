@@ -139,8 +139,9 @@ public class MixThem {
 		  break;
 		case _ZIP_CHAR:			    
 		  zipChar(this.file1, this.file2, this.out, params);
+		  /*break;
                 default:    
-                   System.out.println("This rule has not been implemented yet.");                
+                   System.out.println("This rule has not been implemented yet.");*/
             }
 	    LOGGER.info("Ended mixing for rule '" + rule.getName() + "'.");
         } catch (IOException e) {
@@ -255,7 +256,7 @@ public class MixThem {
         ICharOperation zipping = new DefaultCharZipping(params);   
         while (reader1.hasCharacter() && reader2.hasCharacter()) {            
 	    final int c1 = reader1.nextCharacter(ReadType._REGULAR);
-	    final int c2 = reader1.nextCharacter(ReadType._REGULAR);                                    
+	    final int c2 = reader2.nextCharacter(ReadType._REGULAR);                                    
             int[] zip = zipping.process(c1, c2);
             if (zip != null) {
 		for (int i = 0; i < zip.length; i++) {
