@@ -252,20 +252,17 @@ public class MixThem {
         IInputChar reader1 = new DefaultCharReader(file1, true);
         IInputChar reader2 = new DefaultCharReader(file2, false);
         IOutputChar writer = new DefaultCharWriter(out);
-	System.out.println("params="+params);
-	/*
         ICharOperation zipping = new DefaultCharZipping(params);   
         while (reader1.hasCharacter() && reader2.hasCharacter()) {            
 	    final int c1 = reader1.nextCharacter(ReadType._REGULAR);
 	    final int c2 = reader1.nextCharacter(ReadType._REGULAR);                                    
             int[] zip = zipping.process(c1, c2);
-            if (zip.length > 0) {
+            if (zip != null) {
 		for (int i = 0; i < zip.length; i++) {
                     writer.writeCharacter(zip[i]);
 		}
             }
         }
-	*/
         reader1.close();
         reader2.close();
         writer.close();
