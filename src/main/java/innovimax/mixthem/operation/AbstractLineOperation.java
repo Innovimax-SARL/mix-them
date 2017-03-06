@@ -13,8 +13,6 @@ import java.util.Map;
 */
 public abstract class AbstractLineOperation extends AbstractOperation implements ILineOperation {
 	
-  protected final Map<RuleParam, ParamValue> params;
-	
 	/**
 	* Constructor
  	* @param params The list of parameters (maybe empty)
