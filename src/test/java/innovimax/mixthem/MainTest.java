@@ -49,7 +49,11 @@ public class MainTest {
             Assert.assertTrue(false);
         } finally {
             if (lock != null) {
-                lock.release();
+                try {
+                    lock.release();
+                } cattch (Exception e) {
+                    Assert.assertTrue(false);
+                }
             }
         }
     }
