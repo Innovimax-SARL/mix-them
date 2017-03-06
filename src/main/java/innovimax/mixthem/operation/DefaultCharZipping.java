@@ -12,7 +12,7 @@ import java.util.Map;
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultCharZipping extends AbstractOperation {
+public class DefaultCharZipping extends AbstractCharOperation {
 	
 	private final static String DEFAULT_ZIP_SEPARATOR = "";
 
