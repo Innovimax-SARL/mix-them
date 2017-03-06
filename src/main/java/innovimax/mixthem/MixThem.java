@@ -236,9 +236,7 @@ public class MixThem {
             final String line1 = reader1.nextLine(ReadType._REGULAR);
             final String line2 = reader2.nextLine(ReadType._REGULAR);                        
             String zip = zipping.process(line1, line2);
-            if (zip != null) {
-                writer.writeLine(zip);
-            }
+            writer.writeLine(zip);
         }
         reader1.close();
         reader2.close();
@@ -255,10 +253,8 @@ public class MixThem {
 	    final int c1 = reader1.nextCharacter(ReadType._REGULAR);
 	    final int c2 = reader2.nextCharacter(ReadType._REGULAR);                                    
             int[] zip = zipping.process(c1, c2);
-            if (zip != null) {
-		for (int i = 0; i < zip.length; i++) {
-                    writer.writeCharacter(zip[i]);
-		}
+	    for (int i = 0; i < zip.length; i++) {
+                writer.writeCharacter(zip[i]);
             }
         }
         reader1.close();
