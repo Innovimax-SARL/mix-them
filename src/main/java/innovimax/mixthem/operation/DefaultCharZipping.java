@@ -44,10 +44,9 @@ public class DefaultCharZipping extends AbstractCharOperation {
         		zip = new int[2 + sep.length()];
         		int index = 0;
         		zip[index++] = c1;
-        		for (int n = 0; n < sep.length(); n++) {
-          			int cn = sep.codePointAt(n);
-          			zip[index++] = cn;
-        		}
+			sep.chars().forEach(i -> {
+				zip[index++] = i;
+			});
         		zip[index] = c2;
 		}		
 		return zip;
