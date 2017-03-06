@@ -51,7 +51,7 @@ public class MainTest {
             if (lock != null) {
                 try {
                     lock.release();
-                } cattch (Exception e) {
+                } catch (Exception e) {
                     Assert.assertTrue(false);
                 }
             }
