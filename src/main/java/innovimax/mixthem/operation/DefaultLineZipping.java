@@ -14,7 +14,7 @@ import java.util.List;
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultLineZipping extends AbstractOperation {
+public class DefaultLineZipping extends AbstractLineOperation {
 	
 	private final static String DEFAULT_ZIP_SEPARATOR = "";
 
