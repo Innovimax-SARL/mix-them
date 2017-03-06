@@ -3,12 +3,6 @@ package innovimax.mixthem;
 import innovimax.mixthem.arguments.Arguments;
 import innovimax.mixthem.arguments.ArgumentException;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -70,16 +64,6 @@ public class BasicTest {
         final String args[] = { "-random-alt-line", "#1789", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
         Arguments mixArgs = Arguments.checkArguments(args);
         Assert.assertTrue(true);        
-    }
-    
-    @Test(expected=IOException.class)
-    public final void test1RuleLock() throws ArgumentException {
-        File file = new File(getClass().getResource("test001_file1.txt").getFile());
-        FileChannel fileChannel = new RandomAccessFile(file, "rw").getChannel();
-        FileLock lock = fileChannel.lock();
-        final String args[] = { "-1", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
-        Arguments mixArgs = Arguments.checkArguments(args);
-        Assert.assertTrue(true);
     }
 
 }
