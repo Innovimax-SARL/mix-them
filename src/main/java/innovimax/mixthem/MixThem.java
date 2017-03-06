@@ -146,8 +146,6 @@ public class MixThem {
 	    LOGGER.info("Ended mixing for rule '" + rule.getName() + "'.");
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
-        } catch (MixException e) {
-            throw e;
         }
 
     }   
