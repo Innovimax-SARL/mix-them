@@ -11,7 +11,7 @@ import java.util.Map;
 * @author Innovimax
 * @version 1.0
 */
-public abstract class AbstractOperation implements ILineOperation {
+public abstract class AbstractOperation {
 	
 	protected final Map<RuleParam, ParamValue> params;
 	
