@@ -4,6 +4,8 @@ import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 
+import java.util.Map;
+
 /**
 * <p>Zips two characters.</p>
 * @see CharOperation
@@ -13,7 +15,6 @@ import innovimax.mixthem.arguments.ParamValue;
 public class DefaultCharZipping extends AbstractOperation {
 	
 	private final static String DEFAULT_ZIP_SEPARATOR = "";
-
 
 	/**
 	* Constructor
