@@ -74,7 +74,7 @@ public class BasicTest {
     
     @Test(expected=IOException.class)
     public final void test1RuleLock() throws ArgumentException {
-        File file = getClass().getResource("test001_file1.txt").getFile();
+        File file = new File(getClass().getResource("test001_file1.txt").getFile());
         FileChannel fileChannel = new RandomAccessFile(file, "rw").getChannel();
         FileLock lock = fileChannel.lock();
         final String args[] = { "-1", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
