@@ -129,7 +129,7 @@ public class MixThem {
                   break;
                 case _JOIN:  
                   //joinLine(this.file1, this.file2, this.out, params);	
-		  final ILineOperation operation = new DefaultLineJoining(params)
+		  final ILineOperation operation = new DefaultLineJoining(params);
 		  processLine(this.file1, this.file2, this.out, operation);
                   break;
                 case _ZIP_LINE:
@@ -144,7 +144,7 @@ public class MixThem {
 		  break;
 		case _ZIP_CHAR:			    
 		  //zipChar(this.file1, this.file2, this.out, params);
-		  ICharOperation operation = new DefaultCharZipping(params);
+		  final ICharOperation operation = new DefaultCharZipping(params);
 		  processChar(this.file1, this.file2, this.out, operation);
 		  /*break;
                 default:    
