@@ -38,7 +38,7 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	public int[] process(int c1, int c2) throws MixException {		
 		int[] result = new int[1];
 		result[0] = this.first ? c1 : c2;
-		first != first;
+		this.first = !this.first;
 		return result;
 	}
 
