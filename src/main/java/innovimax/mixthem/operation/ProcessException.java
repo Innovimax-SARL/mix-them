@@ -1,11 +1,11 @@
-package innovimax.mixthem.arguments;
+package innovimax.mixthem.operation;
 
 /**
 * Indicates that a process must be stopped.
 * @author Innovimax
 * @version 1.0
 */
-public class ProcessException extends Exception {
+class ProcessException extends Exception {
 
 	public ProcessException() { 
 		super(); 
