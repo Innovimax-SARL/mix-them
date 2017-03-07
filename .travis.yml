@@ -4,6 +4,8 @@ sudo: required
 # required for oraclejdk9
 dist: trusty
 
+before_script:
+  - echo "MAVEN_OPTS='-Xmx2g'" > ~/.mavenrc
 jdk:
   - oraclejdk8
   - oraclejdk9
