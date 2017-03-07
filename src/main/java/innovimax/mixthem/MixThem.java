@@ -119,32 +119,34 @@ public class MixThem {
                   copyChar(this.file2, this.out);
                   break;
                 case _ALT_CHAR:
-                  alternateChar(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE);
+                  //alternateChar(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE);
+		  IOperation altCharOp = new DefaultCharAlternation(AltMode._NORMAL, params);
+		  altCharOp.processFiles(this.file1, this.file2, this.out);	
                   break;
                 case _ALT_LINE:    
                   //alternateLine(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE, params);
-		  final IOperation altLineOp = new DefaultLineAlternation(AltMode._NORMAL, params);
+		  IOperation altLineOp = new DefaultLineAlternation(AltMode._NORMAL, params);
 		  altLineOp.processFiles(this.file1, this.file2, this.out);			    
                   break;
                 case _RANDOM_ALT_LINE:
                   //alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM, params);
-		  final IOperation randomAltLineOp = new DefaultLineAlternation(AltMode._RANDOM, params);
+		  IOperation randomAltLineOp = new DefaultLineAlternation(AltMode._RANDOM, params);
 		  randomAltLineOp.processFiles(this.file1, this.file2, this.out);	
                   break;
                 case _JOIN:  
-		  final IOperation joinLineOp = new DefaultLineJoining(params);
+		  IOperation joinLineOp = new DefaultLineJoining(params);
 		  joinLineOp.processFiles(this.file1, this.file2, this.out);
                   break;
                 case _ZIP_LINE:
-		  final IOperation zipLineOp = new DefaultLineZipping(ZipType._LINE, params);
+		  IOperation zipLineOp = new DefaultLineZipping(ZipType._LINE, params);
 		  zipLineOp.processFiles(this.file1, this.file2, this.out);
                   break;
 		case _ZIP_CELL:		  
-		  final IOperation zipCellOp = new DefaultLineZipping(ZipType._CELL, params);
+		  IOperation zipCellOp = new DefaultLineZipping(ZipType._CELL, params);
 		  zipCellOp.processFiles(this.file1, this.file2, this.out);
 		  break;
 		case _ZIP_CHAR:			    
-		  final IOperation zipCharOp = new DefaultCharZipping(params);
+		  IOperation zipCharOp = new DefaultCharZipping(params);
 		  zipCharOp.processFiles(this.file1, this.file2, this.out);
 		  /*break;
                 default:    
@@ -169,7 +171,7 @@ public class MixThem {
         reader.close();
         writer.close();
     }    
-
+/*
     // this one copies two files alternativly char by char
     private static void alternateChar(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
         IInputChar reader1 = new DefaultCharReader(file1, true);
@@ -189,7 +191,7 @@ public class MixThem {
         reader2.close();
         writer.close();
     }
-/*
+
     // this one copies two files alternativly line by line
     private static void alternateLine(File file1, File file2, OutputStream out, ReadType type,  Map<RuleParam, ParamValue> params) throws MixException, IOException {
         IInputLine reader1 = new DefaultLineReader(file1, true);
