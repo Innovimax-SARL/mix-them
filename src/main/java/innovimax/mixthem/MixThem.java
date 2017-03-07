@@ -261,4 +261,30 @@ public class MixThem {
         reader2.close();
         writer.close();
     }
+
+    private static void processLine(Rule rule, File file1, File file2, OutputStream out,  Map<RuleParam, ParamValue> params, ILineOperation operation) 
+	    throws MixException, IOException
+	IInputLine reader1 = new DefaultLineReader(file1, true);
+	IInputLine reader2 = new DefaultLineReader(file2, false);
+	IOutputLine writer = new DefaultLineWriter(out);
+	while (reader1.hasLine() && reader2.hasLine()) {
+		final String line1 = reader1.nextLine(ReadType._REGULAR).
+		final String line2 = reader2.nextLine(ReadType._REGULAR);
+		String result = operation.process(line1, line2).
+		switch (rule) {
+			case _JOIN:
+				if (join != null) {
+					writer.writeLine(result);
+				}
+                  		break;
+			case _ZIP_LINE:
+			case _ZIP_CELL:
+				writer.writeLine(result);
+		}
+        }
+        reader1.close();
+        reader2.close();
+        writer.close();
+    }
+
 }
