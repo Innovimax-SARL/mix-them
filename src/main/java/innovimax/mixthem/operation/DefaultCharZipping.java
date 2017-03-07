@@ -34,7 +34,7 @@ public class DefaultCharZipping extends AbstractCharOperation {
  	* @throws MixException - If an mixing error occurs
  	*/
 	@Override
-	public int[] process(int c1, int c2) throws MixException {		
+	public int[] process(int c1, int c2) throws MixException, ProcessException {		
 		String sep = DEFAULT_ZIP_SEPARATOR;
 		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
 			sep = this.params.get(RuleParam._ZIP_SEP).asString();
