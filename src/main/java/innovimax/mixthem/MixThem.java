@@ -55,11 +55,10 @@ public class MixThem {
 	    LOGGER.setLevel(Level.ALL);
 	    Handler handler = new ConsoleHandler();
 	    LOGGER.addHandler(handler);        
+	    handler.setLevel(Level.OFF);
 	    String prop = System.getProperty("mixthem.logging");
             if (prop == null || prop.equals("true")) {
-                handler.setLevel(level);
-            } else {
-                handler.setLevel(Level.OFF);
+                handler.setLevel(level);            
             }
 	}
     }
@@ -138,14 +137,14 @@ public class MixThem {
 		  zipLine(this.file1, this.file2, this.out, ZipType._CELL, params);
 		  break;
 		case _ZIP_CHAR:			    
+		  zipChar(this.file1, this.file2, this.out, params);
+		  /*break;
                 default:    
-                   System.out.println("This rule has not been implemented yet.");                
+                   System.out.println("This rule has not been implemented yet.");*/
             }
 	    LOGGER.info("Ended mixing for rule '" + rule.getName() + "'.");
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
-        } catch (MixException e) {
-            throw e;
         }
 
     }   
@@ -237,13 +236,29 @@ public class MixThem {
             final String line1 = reader1.nextLine(ReadType._REGULAR);
             final String line2 = reader2.nextLine(ReadType._REGULAR);                        
             String zip = zipping.process(line1, line2);
-            if (zip != null) {
-                writer.writeLine(zip);
-            }
+            writer.writeLine(zip);
         }
         reader1.close();
         reader2.close();
         writer.close();
     }
 
+    // this one zine characters of two files
+    private static void zipChar(File file1, File file2, OutputStream out,  Map<RuleParam, ParamValue> params) throws MixException, IOException {
+        IInputChar reader1 = new DefaultCharReader(file1, true);
+        IInputChar reader2 = new DefaultCharReader(file2, false);
+        IOutputChar writer = new DefaultCharWriter(out);
+        ICharOperation zipping = new DefaultCharZipping(params);   
+        while (reader1.hasCharacter() && reader2.hasCharacter()) {            
+	    final int c1 = reader1.nextCharacter(ReadType._REGULAR);
+	    final int c2 = reader2.nextCharacter(ReadType._REGULAR);                                    
+            int[] zip = zipping.process(c1, c2);
+	    for (int i = 0; i < zip.length; i++) {
+                writer.writeCharacter(zip[i]);
+            }
+        }
+        reader1.close();
+        reader2.close();
+        writer.close();
+    }
 }

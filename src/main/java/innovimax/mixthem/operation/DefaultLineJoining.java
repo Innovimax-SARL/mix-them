@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultLineJoining extends AbstractOperation {
+public class DefaultLineJoining extends AbstractLineOperation {
 	
 	/**
  	* @param params The list of parameters (maybe empty)

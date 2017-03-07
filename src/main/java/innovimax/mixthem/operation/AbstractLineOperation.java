@@ -6,14 +6,12 @@ import innovimax.mixthem.arguments.ParamValue;
 import java.util.Map;
 
 /**
-* <p>Abstract class for all operation.</p>
+* <p>Abstract class for all line operation.</p>
 * @see ILineOperation
 * @author Innovimax
 * @version 1.0
 */
-public abstract class AbstractOperation {
-	
-	protected final Map<RuleParam, ParamValue> params;
+public abstract class AbstractLineOperation extends AbstractOperation implements ILineOperation {
 	
 	/**
 	* Constructor
@@ -21,8 +19,8 @@ public abstract class AbstractOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractOperation(Map<RuleParam, ParamValue> params) {
-		this.params = params;
+	public AbstractLineOperation(Map<RuleParam, ParamValue> params) {
+		super(params);
 	}
 
 }

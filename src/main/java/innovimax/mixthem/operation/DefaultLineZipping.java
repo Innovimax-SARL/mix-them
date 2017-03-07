@@ -14,7 +14,7 @@ import java.util.List;
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultLineZipping extends AbstractOperation {
+public class DefaultLineZipping extends AbstractLineOperation {
 	
 	private final static String DEFAULT_ZIP_SEPARATOR = "";
 
@@ -47,25 +47,23 @@ public class DefaultLineZipping extends AbstractOperation {
 		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
 			sep = this.params.get(RuleParam._ZIP_SEP).asString();
 		}		
-		if (line1 != null && line2 != null) {
-			switch (this.type) {
-				case _LINE:
-					zip = line1 + sep + line2;
-					break;
-				case _CELL:					
-					List<String> list1 = Arrays.asList(line1.split("\\s"));
-					List<String> list2 = Arrays.asList(line2.split("\\s"));
-					int index = 0;
-					while (index < list1.size() && index < list2.size()) {						
-						if (index == 0) {
-							zip = "";
-						} else {
-							zip += " ";  // cell separator
-						}
-						zip += list1.get(index) + sep + list2.get(index);
-						index++;
+		switch (this.type) {
+			case _LINE:
+				zip = line1 + sep + line2;
+				break;
+			case _CELL:					
+				List<String> list1 = Arrays.asList(line1.split("\\s"));
+				List<String> list2 = Arrays.asList(line2.split("\\s"));
+				int index = 0;
+				while (index < list1.size() && index < list2.size()) {						
+					if (index == 0) {
+						zip = "";
+					} else {
+						zip += " ";  // cell separator
 					}
-			}
+					zip += list1.get(index) + sep + list2.get(index);
+					index++;
+				}
 		}
 		return zip;
 	}
