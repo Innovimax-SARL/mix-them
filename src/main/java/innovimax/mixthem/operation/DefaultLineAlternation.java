@@ -5,6 +5,7 @@ import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 
 import java.util.Map;
+import java.util.Random;
 
 /**
 * <p>Alternates two lines.</p>
@@ -13,14 +14,27 @@ import java.util.Map;
 * @version 1.0
 */
 public class DefaultLineAlternation extends AbstractLineOperation {
+
+	private final static int DEFAULT_RANDOM_SEED = 1789;
 	
+	private final AltMode mode;
+	private boolean first;
+	private final Random random;
+
 	/**
- 	* @param params The list of parameters (maybe empty)
+	* @param mode The alternate mode to process
+ 	* @param params The list of parameters (maybe empty)	
 	* @see innovimax.mixthem.operation.RuleParam
 	* @see innovimax.mixthem.operation.ParamValue
 	*/
-	public DefaultLineAlternation(Map<RuleParam, ParamValue> params) {
+	public DefaultLineAlternation(AltMode mode, Map<RuleParam, ParamValue> params) {
 		super(params);
+		this.mode = mode;
+		this.first = true;
+		this.random = new Random(DEFAULT_RANDOM_SEED);
+		if (this.params.containsKey(RuleParam._RANDOM_SEED)) {
+			this.random.setSeed(this.params.get(RuleParam._RANDOM_SEED).asInt());
+		}
 	}	
 
 	/**
@@ -32,10 +46,16 @@ public class DefaultLineAlternation extends AbstractLineOperation {
  	*/
 	@Override
 	public String process(String line1, String line2) throws MixException {
-    //TODO
-		System.out.println(line1);
-    System.out.println(line2);
-		return null;
+		String line = null;
+		switch (this.mode) {
+			case _RANDOM:
+				line = this.random.nextBoolean() ? line1 : line2;
+				break;
+			case _NORMAL:
+			default:
+				line = this.first ? line1 : line2;
+		}
+		return line;
 	}
 
 }
