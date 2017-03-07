@@ -14,7 +14,7 @@ import java.util.Map;
 */
 public class DefaultCharAlternation extends AbstractCharOperation {
 	
-	private boolean first;
+	private boolean odd;
 	
 	/**
 	* Constructor
@@ -24,7 +24,7 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	*/
 	public DefaultCharAlternation(Map<RuleParam, ParamValue> params) {
 		super(params);
-		this.first = true;
+		this.odd = true;
 	}
 	
 	@Override
@@ -35,8 +35,8 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 		} else if (c2 == -1) {
 			result[0] = c1;
 		} else {					
-			result[0] = this.first ? c1 : c2;
-			this.first = !this.first;			
+			result[0] = this.odd ? c1 : c2;
+			this.odd = !this.odd;			
 		}
 		return result;
 	}
