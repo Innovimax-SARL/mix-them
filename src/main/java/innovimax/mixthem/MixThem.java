@@ -120,7 +120,7 @@ public class MixThem {
                   break;
                 case _ALT_CHAR:
                   //alternateChar(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE);
-		  IOperation altCharOp = new DefaultCharAlternation(AltMode._NORMAL, params);
+		  IOperation altCharOp = new DefaultCharAlternation(params);
 		  altCharOp.processFiles(this.file1, this.file2, this.out);	
                   break;
                 case _ALT_LINE:    
