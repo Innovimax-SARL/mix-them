@@ -38,25 +38,31 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	}	
 
 	/**
- 	* Returns the alternated line.
+ 	* Returns the alternated line or null if no result.
 	* @param line1 The first line to alternate
  	* @param line2 The second line to alternate
- 	* @return The alternated line
+ 	* @return The alternated line or null if no result
  	* @throws MixException - If an mixing error occurs
  	*/
 	@Override
-	public String process(String line1, String line2) throws MixException {
-		String line = null;
-		switch (this.mode) {
-			case _RANDOM:
-				line = this.random.nextBoolean() ? line1 : line2;
-				break;
-			case _NORMAL:
-			default:
-				line = this.first ? line1 : line2;
-				this.first = !this.first;
+	public String process(String line1, String line2) throws MixException {		
+		if (line1 == null) {
+			return line2;
+		} else if (line2 == null) {
+			return line1;
+		} else {
+			String line = null;
+			switch (this.mode) {
+				case _RANDOM:
+					line = this.random.nextBoolean() ? line1 : line2;
+					break;
+				case _NORMAL:
+				default:
+					line = this.first ? line1 : line2;
+					this.first = !this.first;
+			}
+			return line;
 		}
-		return line;
 	}
 
 }
