@@ -54,7 +54,7 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 			case _NORMAL:
 			default:
 				line = this.first ? line1 : line2;
-				first = !first;
+				this.first = !this.first;
 		}
 		return line;
 	}
