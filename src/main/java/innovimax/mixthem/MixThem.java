@@ -129,25 +129,25 @@ public class MixThem {
                   break;
                 case _JOIN:  
                   //joinLine(this.file1, this.file2, this.out, params);	
-		  final ILineOperation joinLineOp = new DefaultLineJoining(params);
+		  final IOperation joinLineOp = new DefaultLineJoining(params);
 		  //processLine(this.file1, this.file2, this.out, joinLineOp);
 		  joinLineOp.processFiles(this.file1, this.file2, this.out);
                   break;
                 case _ZIP_LINE:
 		  //zipLine(this.file1, this.file2, this.out, ZipType._LINE, params);
-		  final ILineOperation zipLineOp = new DefaultLineZipping(ZipType._LINE, params);
+		  final IOperation zipLineOp = new DefaultLineZipping(ZipType._LINE, params);
 		  //processLine(this.file1, this.file2, this.out, zipLineOp);
 		  zipLineOp.processFiles(this.file1, this.file2, this.out);
                   break;
 		case _ZIP_CELL:		  
 		  //zipLine(this.file1, this.file2, this.out, ZipType._CELL, params);
-		  final ILineOperation zipCellOp = new DefaultLineZipping(ZipType._CELL, params);
+		  final IOperation zipCellOp = new DefaultLineZipping(ZipType._CELL, params);
 		  //processLine(this.file1, this.file2, this.out, zipCellOp);
 		  zipCellOp.processFiles(this.file1, this.file2, this.out);
 		  break;
 		case _ZIP_CHAR:			    
 		  //zipChar(this.file1, this.file2, this.out, params);
-		  final ICharOperation zipCharOp = new DefaultCharZipping(params);
+		  final IOperation zipCharOp = new DefaultCharZipping(params);
 		  //processChar(this.file1, this.file2, this.out, zipCharOp);
 		  zipCharOp.processFiles(this.file1, this.file2, this.out);
 		  /*break;
