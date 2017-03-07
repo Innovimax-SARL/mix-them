@@ -35,7 +35,7 @@ public class DefaultCharAlternation extends AbstractCharOperation {
  	* @throws MixException - If an mixing error occurs
  	*/
 	@Override
-	public int[] process(int c1, int c2) throws MixException {		
+	public int[] process(int c1, int c2) throws MixException, ProcessException {		
 		int[] result = new int[1];
 		result[0] = this.first ? c1 : c2;
 		this.first = !this.first;
