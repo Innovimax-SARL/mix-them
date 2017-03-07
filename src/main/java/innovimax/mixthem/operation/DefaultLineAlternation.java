@@ -38,10 +38,10 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	}	
 
 	/**
- 	* Returns the alternated line or null if no result.
+ 	* Returns the alternated linet.
 	* @param line1 The first line to alternate
  	* @param line2 The second line to alternate
- 	* @return The alternated line or null if no result
+ 	* @return The alternated line
  	* @throws MixException - If an mixing error occurs
  	*/
 	@Override
