@@ -128,16 +128,24 @@ public class MixThem {
                   alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM, params);
                   break;
                 case _JOIN:  
-                  joinLine(this.file1, this.file2, this.out, params);		  
+                  //joinLine(this.file1, this.file2, this.out, params);	
+		  final ILineOperation operation = new DefaultLineJoining(params)
+		  processLine(this.file1, this.file2, this.out, operation);
                   break;
                 case _ZIP_LINE:
-		  zipLine(this.file1, this.file2, this.out, ZipType._LINE, params);
+		  //zipLine(this.file1, this.file2, this.out, ZipType._LINE, params);
+		  final ILineOperation operation = new DefaultLineZipping(ZipType._LINE, params);
+		  processLine(this.file1, this.file2, this.out, operation);
                   break;
-		case _ZIP_CELL:
-		  zipLine(this.file1, this.file2, this.out, ZipType._CELL, params);
+		case _ZIP_CELL:		  
+		  //zipLine(this.file1, this.file2, this.out, ZipType._CELL, params);
+		  final ILineOperation operation = new DefaultLineZipping(ZipType._CELL, params);
+		  processLine(this.file1, this.file2, this.out, operation);
 		  break;
 		case _ZIP_CHAR:			    
-		  zipChar(this.file1, this.file2, this.out, params);
+		  //zipChar(this.file1, this.file2, this.out, params);
+		  ICharOperation operation = new DefaultCharZipping(params);
+		  processChar(this.file1, this.file2, this.out, operation);
 		  /*break;
                 default:    
                    System.out.println("This rule has not been implemented yet.");*/
@@ -206,7 +214,7 @@ public class MixThem {
         reader2.close();
         writer.close();
     }
-
+/*
     // this one join lines of two files on a common field
     private static void joinLine(File file1, File file2, OutputStream out,  Map<RuleParam, ParamValue> params) throws MixException, IOException {
         IInputLine reader1 = new DefaultLineReader(file1, true);
@@ -261,7 +269,7 @@ public class MixThem {
         reader2.close();
         writer.close();
     }
-
+*/
     private static void processLine(File file1, File file2, OutputStream out, ILineOperation operation) 
 	    throws MixException, IOException {
 	IInputLine reader1 = new DefaultLineReader(file1, true);
