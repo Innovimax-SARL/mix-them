@@ -27,18 +27,17 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 		this.first = true;
 	}
 	
-	/**
- 	* Returns the alternated char.
-	* @param c1 The first character to alternate
- 	* @param c2 The second character to alternate	
- 	* @return The alternated char
- 	* @throws MixException - If an mixing error occurs
- 	*/
 	@Override
 	public int[] process(int c1, int c2) throws MixException, ProcessException {		
 		int[] result = new int[1];
-		result[0] = this.first ? c1 : c2;
-		this.first = !this.first;
+		if (c1 == -1) {
+			result[0] = c2;
+		} else if (c2 == -1) {
+			result[0] = c1;
+		} else {					
+			result[0] = this.first ? c1 : c2;
+			this.first = !this.first;			
+		}
 		return result;
 	}
 
