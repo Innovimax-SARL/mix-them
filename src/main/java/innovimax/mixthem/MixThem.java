@@ -128,7 +128,7 @@ public class MixThem {
                   alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM, params);
                   break;
                 case _JOIN:  
-                  joinLine(this.file1, this.file2, this.out, params);
+                  joinLine(this.file1, this.file2, this.out, params);		  
                   break;
                 case _ZIP_LINE:
 		  zipLine(this.file1, this.file2, this.out, ZipType._LINE, params);
@@ -262,7 +262,7 @@ public class MixThem {
         writer.close();
     }
 
-    private static void processLine(File file1, File file2, OutputStream out,  Map<RuleParam, ParamValue> params, ILineOperation operation) 
+    private static void processLine(File file1, File file2, OutputStream out, ILineOperation operation) 
 	    throws MixException, IOException {
 	IInputLine reader1 = new DefaultLineReader(file1, true);
 	IInputLine reader2 = new DefaultLineReader(file2, false);
@@ -270,7 +270,7 @@ public class MixThem {
 	while (reader1.hasLine() && reader2.hasLine()) {
 		final String line1 = reader1.nextLine(ReadType._REGULAR);
 		final String line2 = reader2.nextLine(ReadType._REGULAR);
-		String result = operation.process(line1, line2).
+		String result = operation.process(line1, line2);
 		if (result != null) {
 			writer.writeLine(result);
 		}
@@ -280,7 +280,7 @@ public class MixThem {
         writer.close();
     }
 
-    private static void processChar(File file1, File file2, OutputStream out,  Map<RuleParam, ParamValue> params, ICharOperation operation) 
+    private static void processChar(File file1, File file2, OutputStream out, ICharOperation operation) 
 	    throws MixException, IOException {
         IInputChar reader1 = new DefaultCharReader(file1, true);
         IInputChar reader2 = new DefaultCharReader(file2, false);
