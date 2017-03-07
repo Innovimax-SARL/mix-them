@@ -33,43 +33,35 @@ public class DefaultLineZipping extends AbstractLineOperation {
 		this.type = type;		
 	}
 	
-	/**
- 	* Returns the result of zipping two lines.
-	* @param line1 The first line to zip
- 	* @param line2 The second line to zip	
- 	* @return The result of zipping two lines
- 	* @throws MixException - If an mixing error occurs
- 	*/
 	@Override
 	public String process(String line1, String line2) throws MixException, ProcessException {
 		if (line1 == null || line2 == null) {
-			return null;
-		} else {
-			String zip = null;
-			String sep = DEFAULT_ZIP_SEPARATOR;
-			if (this.params.containsKey(RuleParam._ZIP_SEP)) {
-				sep = this.params.get(RuleParam._ZIP_SEP).asString();
-			}		
-			switch (this.type) {
-				case _LINE:
-					zip = line1 + sep + line2;
-					break;
-				case _CELL:					
-					List<String> list1 = Arrays.asList(line1.split("\\s"));
-					List<String> list2 = Arrays.asList(line2.split("\\s"));
-					int index = 0;
-					while (index < list1.size() && index < list2.size()) {						
-						if (index == 0) {
-							zip = "";
-						} else {
-							zip += " ";  // cell separator
-						}
-						zip += list1.get(index) + sep + list2.get(index);
-						index++;
-					}
-			}
-			return zip;
+			throw new ProcessException();
 		}
+		String zip = null;
+		String sep = DEFAULT_ZIP_SEPARATOR;
+		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
+			sep = this.params.get(RuleParam._ZIP_SEP).asString();
+		}		
+		switch (this.type) {
+			case _LINE:
+				zip = line1 + sep + line2;
+				break;
+			case _CELL:					
+				List<String> list1 = Arrays.asList(line1.split("\\s"));
+				List<String> list2 = Arrays.asList(line2.split("\\s"));
+				int index = 0;
+				while (index < list1.size() && index < list2.size()) {						
+					if (index == 0) {
+						zip = "";
+					} else {
+						zip += " ";  // cell separator
+					}
+					zip += list1.get(index) + sep + list2.get(index);
+					index++;
+				}
+		}
+		return zip;
 	}
 
 }
