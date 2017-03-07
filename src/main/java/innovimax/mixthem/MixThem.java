@@ -122,7 +122,9 @@ public class MixThem {
                   alternateChar(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE);
                   break;
                 case _ALT_LINE:    
-                  alternateLine(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE, params);
+                  //alternateLine(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE, params);
+		  final IOperation altLineOp = new DefaultLineAlternation(AltMode._NORMAL, params);
+		  altLineOp.processFiles(this.file1, this.file2, this.out);			    
                   break;
                 case _RANDOM_ALT_LINE:
                   alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM, params);
