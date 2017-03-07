@@ -127,7 +127,9 @@ public class MixThem {
 		  altLineOp.processFiles(this.file1, this.file2, this.out);			    
                   break;
                 case _RANDOM_ALT_LINE:
-                  alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM, params);
+                  //alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM, params);
+		  final IOperation randomAltLineOp = new DefaultLineAlternation(AltMode._RANDOM, params);
+		  randomAltLineOp.processFiles(this.file1, this.file2, this.out);	
                   break;
                 case _JOIN:  
 		  final IOperation joinLineOp = new DefaultLineJoining(params);
