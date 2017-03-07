@@ -129,23 +129,23 @@ public class MixThem {
                   break;
                 case _JOIN:  
                   //joinLine(this.file1, this.file2, this.out, params);	
-		  final ILineOperation operation = new DefaultLineJoining(params);
-		  processLine(this.file1, this.file2, this.out, operation);
+		  final ILineOperation joinLineOp = new DefaultLineJoining(params);
+		  processLine(this.file1, this.file2, this.out, joinLineOp);
                   break;
                 case _ZIP_LINE:
 		  //zipLine(this.file1, this.file2, this.out, ZipType._LINE, params);
-		  final ILineOperation operation = new DefaultLineZipping(ZipType._LINE, params);
-		  processLine(this.file1, this.file2, this.out, operation);
+		  final ILineOperation zipLineOp = new DefaultLineZipping(ZipType._LINE, params);
+		  processLine(this.file1, this.file2, this.out, zipLineOp);
                   break;
 		case _ZIP_CELL:		  
 		  //zipLine(this.file1, this.file2, this.out, ZipType._CELL, params);
-		  final ILineOperation operation = new DefaultLineZipping(ZipType._CELL, params);
-		  processLine(this.file1, this.file2, this.out, operation);
+		  final ILineOperation zipCellOp = new DefaultLineZipping(ZipType._CELL, params);
+		  processLine(this.file1, this.file2, this.out, zipCellOp);
 		  break;
 		case _ZIP_CHAR:			    
 		  //zipChar(this.file1, this.file2, this.out, params);
-		  final ICharOperation operation = new DefaultCharZipping(params);
-		  processChar(this.file1, this.file2, this.out, operation);
+		  final ICharOperation zipCharOp = new DefaultCharZipping(params);
+		  processChar(this.file1, this.file2, this.out, zipCharOp);
 		  /*break;
                 default:    
                    System.out.println("This rule has not been implemented yet.");*/
