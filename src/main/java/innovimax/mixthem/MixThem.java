@@ -128,16 +128,20 @@ public class MixThem {
                   alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM, params);
                   break;
                 case _JOIN:  
-                  joinLine(this.file1, this.file2, this.out, params);
+		  final IOperation joinLineOp = new DefaultLineJoining(params);
+		  joinLineOp.processFiles(this.file1, this.file2, this.out);
                   break;
                 case _ZIP_LINE:
-		  zipLine(this.file1, this.file2, this.out, ZipType._LINE, params);
+		  final IOperation zipLineOp = new DefaultLineZipping(ZipType._LINE, params);
+		  zipLineOp.processFiles(this.file1, this.file2, this.out);
                   break;
-		case _ZIP_CELL:
-		  zipLine(this.file1, this.file2, this.out, ZipType._CELL, params);
+		case _ZIP_CELL:		  
+		  final IOperation zipCellOp = new DefaultLineZipping(ZipType._CELL, params);
+		  zipCellOp.processFiles(this.file1, this.file2, this.out);
 		  break;
 		case _ZIP_CHAR:			    
-		  zipChar(this.file1, this.file2, this.out, params);
+		  final IOperation zipCharOp = new DefaultCharZipping(params);
+		  zipCharOp.processFiles(this.file1, this.file2, this.out);
 		  /*break;
                 default:    
                    System.out.println("This rule has not been implemented yet.");*/
@@ -207,58 +211,4 @@ public class MixThem {
         writer.close();
     }
 
-    // this one join lines of two files on a common field
-    private static void joinLine(File file1, File file2, OutputStream out,  Map<RuleParam, ParamValue> params) throws MixException, IOException {
-        IInputLine reader1 = new DefaultLineReader(file1, true);
-        IInputLine reader2 = new DefaultLineReader(file2, false);
-        IOutputLine writer = new DefaultLineWriter(out);
-        ILineOperation joining = new DefaultLineJoining(params);   
-        while (reader1.hasLine() && reader2.hasLine()) {            
-            final String line1 = reader1.nextLine(ReadType._REGULAR);
-            final String line2 = reader2.nextLine(ReadType._REGULAR);                        
-            String join = joining.process(line1, line2);
-            if (join != null) {
-                writer.writeLine(join);
-            }
-        }
-        reader1.close();
-        reader2.close();
-        writer.close();
-    }
-
-    // this one zine lines of two files
-    private static void zipLine(File file1, File file2, OutputStream out,  ZipType type, Map<RuleParam, ParamValue> params) throws MixException, IOException {
-        IInputLine reader1 = new DefaultLineReader(file1, true);
-        IInputLine reader2 = new DefaultLineReader(file2, false);
-        IOutputLine writer = new DefaultLineWriter(out);
-        ILineOperation zipping = new DefaultLineZipping(type, params);   
-        while (reader1.hasLine() && reader2.hasLine()) {            
-            final String line1 = reader1.nextLine(ReadType._REGULAR);
-            final String line2 = reader2.nextLine(ReadType._REGULAR);                        
-            String zip = zipping.process(line1, line2);
-            writer.writeLine(zip);
-        }
-        reader1.close();
-        reader2.close();
-        writer.close();
-    }
-
-    // this one zine characters of two files
-    private static void zipChar(File file1, File file2, OutputStream out,  Map<RuleParam, ParamValue> params) throws MixException, IOException {
-        IInputChar reader1 = new DefaultCharReader(file1, true);
-        IInputChar reader2 = new DefaultCharReader(file2, false);
-        IOutputChar writer = new DefaultCharWriter(out);
-        ICharOperation zipping = new DefaultCharZipping(params);   
-        while (reader1.hasCharacter() && reader2.hasCharacter()) {            
-	    final int c1 = reader1.nextCharacter(ReadType._REGULAR);
-	    final int c2 = reader2.nextCharacter(ReadType._REGULAR);                                    
-            int[] zip = zipping.process(c1, c2);
-	    for (int i = 0; i < zip.length; i++) {
-                writer.writeCharacter(zip[i]);
-            }
-        }
-        reader1.close();
-        reader2.close();
-        writer.close();
-    }
 }

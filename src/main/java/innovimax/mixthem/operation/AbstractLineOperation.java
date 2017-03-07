@@ -1,8 +1,17 @@
 package innovimax.mixthem.operation;
 
+import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
+import innovimax.mixthem.io.DefaultLineReader;
+import innovimax.mixthem.io.DefaultLineWriter;
+import innovimax.mixthem.io.IInputLine;
+import innovimax.mixthem.io.IOutputLine;
+import innovimax.mixthem.io.ReadType;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Map;
 
 /**
@@ -22,5 +31,23 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 	public AbstractLineOperation(Map<RuleParam, ParamValue> params) {
 		super(params);
 	}
+
+	@Override
+	public void processFiles(File file1, File file2, OutputStream out) throws MixException, IOException {
+		IInputLine reader1 = new DefaultLineReader(file1, true);
+		IInputLine reader2 = new DefaultLineReader(file2, false);
+		IOutputLine writer = new DefaultLineWriter(out);
+		while (reader1.hasLine() && reader2.hasLine()) {
+			final String line1 = reader1.nextLine(ReadType._REGULAR);
+			final String line2 = reader2.nextLine(ReadType._REGULAR);
+			String result = process(line1, line2);
+			if (result != null) {
+				writer.writeLine(result);
+			}
+        	}
+        	reader1.close();
+        	reader2.close();
+        	writer.close();				
+    	}
 
 }
