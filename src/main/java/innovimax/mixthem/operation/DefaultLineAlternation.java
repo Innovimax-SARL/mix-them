@@ -18,7 +18,7 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	private final static int DEFAULT_RANDOM_SEED = 1789;
 	
 	private final AltMode mode;
-	private boolean first;
+	private boolean odd;
 	private final Random random;
 
 	/**
@@ -30,7 +30,7 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	public DefaultLineAlternation(AltMode mode, Map<RuleParam, ParamValue> params) {
 		super(params);
 		this.mode = mode;
-		this.first = true;
+		this.odd = true;
 		this.random = new Random(DEFAULT_RANDOM_SEED);
 		if (this.params.containsKey(RuleParam._RANDOM_SEED)) {
 			this.random.setSeed(this.params.get(RuleParam._RANDOM_SEED).asInt());
@@ -58,8 +58,8 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 					break;
 				case _NORMAL:
 				default:
-					line = this.first ? line1 : line2;
-					this.first = !this.first;
+					line = this.odd ? line1 : line2;
+					this.odd = !this.odd;
 			}
 			return line;
 		}
