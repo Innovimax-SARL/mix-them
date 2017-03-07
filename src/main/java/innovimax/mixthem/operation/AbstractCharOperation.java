@@ -37,13 +37,17 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
         	IInputChar reader1 = new DefaultCharReader(file1, true);
         	IInputChar reader2 = new DefaultCharReader(file2, false);
         	IOutputChar writer = new DefaultCharWriter(out); 
-        	while (reader1.hasCharacter() && reader2.hasCharacter()) {
+        	while (reader1.hasCharacter() || reader2.hasCharacter()) {
 			final int c1 = reader1.nextCharacter(ReadType._REGULAR);
 			final int c2 = reader2.nextCharacter(ReadType._REGULAR);
-			int[] result = process(c1, c2);
-			for (int i = 0; i < result.length; i++) {
-				writer.writeCharacter(result[i]);
-			}		
+			try {
+				int[] result = process(c1, c2);
+				for (int i = 0; i < result.length; i++) {
+					writer.writeCharacter(result[i]);
+				}		
+			} catch (ProcessException e) {
+				break;
+			}
         	}
         	reader1.close();
         	reader2.close();
