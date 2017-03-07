@@ -187,7 +187,7 @@ public class MixThem {
         reader2.close();
         writer.close();
     }
-
+/*
     // this one copies two files alternativly line by line
     private static void alternateLine(File file1, File file2, OutputStream out, ReadType type,  Map<RuleParam, ParamValue> params) throws MixException, IOException {
         IInputLine reader1 = new DefaultLineReader(file1, true);
@@ -212,5 +212,5 @@ public class MixThem {
         reader2.close();
         writer.close();
     }
-
+*/
 }
