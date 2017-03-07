@@ -14,6 +14,8 @@ import java.util.Map;
 */
 public class DefaultCharAlternation extends AbstractCharOperation {
 	
+	private boolean first;
+	
 	/**
 	* Constructor
  	* @param params The list of parameters (maybe empty)
@@ -22,6 +24,7 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	*/
 	public DefaultCharAlternation(Map<RuleParam, ParamValue> params) {
 		super(params);
+		this.first = true;
 	}
 	
 	/**
@@ -32,11 +35,10 @@ public class DefaultCharAlternation extends AbstractCharOperation {
  	* @throws MixException - If an mixing error occurs
  	*/
 	@Override
-	public int[] process(int c1, int c2) throws MixException {
-		//TODO
-		System.out.println(c1);
-		System.out.println(c2);
-		int[] result = new int[0];
+	public int[] process(int c1, int c2) throws MixException {		
+		int[] result = new int[1];
+		result[0] = this.first ? c1 : c2;
+		first != first;
 		return result;
 	}
 
