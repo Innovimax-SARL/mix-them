@@ -14,8 +14,6 @@ import java.util.Map;
 */
 public class DefaultCharAlternation extends AbstractCharOperation {
 	
-	private final static String DEFAULT_ZIP_SEPARATOR = "";
-
 	/**
 	* Constructor
  	* @param params The list of parameters (maybe empty)
@@ -35,11 +33,11 @@ public class DefaultCharAlternation extends AbstractCharOperation {
  	*/
 	@Override
 	public int[] process(int c1, int c2) throws MixException {
-    //TODO
-    System.out.println(c1);
-    System.out.println(c2);
-    int[] result = new int[0];
-    return result;
+		//TODO
+		System.out.println(c1);
+		System.out.println(c2);
+		int[] result = new int[0];
+		return result;
 	}
 
 }
