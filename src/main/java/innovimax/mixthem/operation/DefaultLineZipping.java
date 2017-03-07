@@ -41,7 +41,7 @@ public class DefaultLineZipping extends AbstractLineOperation {
  	* @throws MixException - If an mixing error occurs
  	*/
 	@Override
-	public String process(String line1, String line2) throws MixException {
+	public String process(String line1, String line2) throws MixException, ProcessException {
 		if (line1 == null || line2 == null) {
 			return null;
 		} else {
