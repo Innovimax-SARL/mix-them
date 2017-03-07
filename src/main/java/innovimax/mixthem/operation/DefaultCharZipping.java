@@ -26,15 +26,11 @@ public class DefaultCharZipping extends AbstractCharOperation {
 		super(params);
 	}
 	
-	/**
- 	* Returns the result of zipping two lines.
-	* @param c1 The first character to zip
- 	* @param c2 The second character to zip	
- 	* @return The result of zipping two characters
- 	* @throws MixException - If an mixing error occurs
- 	*/
 	@Override
-	public int[] process(int c1, int c2) throws MixException, ProcessException {		
+	public int[] process(int c1, int c2) throws MixException, ProcessException {
+		if (c1 == -1 || c2 == -1) {
+			throw new ProcessException();
+		}
 		String sep = DEFAULT_ZIP_SEPARATOR;
 		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
 			sep = this.params.get(RuleParam._ZIP_SEP).asString();
