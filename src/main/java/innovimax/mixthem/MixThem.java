@@ -1,5 +1,6 @@
 package innovimax.mixthem;
 
+import static innovimax.mixthem.MixConstants.*;
 import innovimax.mixthem.arguments.*;
 import innovimax.mixthem.io.*;
 import innovimax.mixthem.operation.*;
@@ -31,7 +32,6 @@ import java.util.logging.Logger;
 public class MixThem {
     
     public final static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
-    private final static int CHAR_BUFFER_SIZE = 1024;
 
     private final File file1, file2;
     private final OutputStream out;
