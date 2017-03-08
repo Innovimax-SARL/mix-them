@@ -33,34 +33,34 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	}
 	
 	@Override
-	public String process(String line1, String line2) throws MixException, ProcessException {
+	public OperationResult process(String line1, String line2) throws MixException {
 		if (line1 == null || line2 == null) {
-			throw new ProcessException();
-		}
-		String zip = null;
+			throw new OperationResult(ResultType._CAN_STOP);
+		}		
 		String sep = DEFAULT_ZIP_SEPARATOR;
 		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
 			sep = this.params.get(RuleParam._ZIP_SEP).asString();
-		}		
+		}
+		String data = "";
 		switch (this.type) {
 			case _LINE:
-				zip = line1 + sep + line2;
+				data = line1 + sep + line2;
 				break;
-			case _CELL:					
+			case _CELL:			
 				List<String> list1 = Arrays.asList(line1.split("\\s"));
 				List<String> list2 = Arrays.asList(line2.split("\\s"));
 				int index = 0;
 				while (index < list1.size() && index < list2.size()) {						
 					if (index == 0) {
-						zip = "";
+						data = "";
 					} else {
-						zip += " ";  // cell separator
+						data += " ";  // cell separator
 					}
-					zip += list1.get(index) + sep + list2.get(index);
+					data += list1.get(index) + sep + list2.get(index);
 					index++;
 				}
 		}
-		return zip;
+		return OperationResult(data.toCharArray());
 	}
 
 }

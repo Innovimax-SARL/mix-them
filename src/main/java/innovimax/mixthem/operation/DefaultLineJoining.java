@@ -27,11 +27,11 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	}	
 
 	@Override
-	public String process(String line1, String line2) throws MixException, ProcessException {
+	public OperationResult process(String line1, String line2) throws MixException {
 		if (line1 == null || line2 == null) {
-			throw new ProcessException();
+			throw new OperationResult(ResultType._CAN_STOP);
 		}
-		String join = null;
+		String data = null;
 		int col1 = 1;
 		int col2 = 1;
 		if (this.params.containsKey(RuleParam._JOIN_COL1)) {
@@ -47,9 +47,9 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			String part1 = list1.get(col1 - 1);
 			String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
 			String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
-			join = part1 + " " + part2 + " " + part3;				
+			data = part1 + " " + part2 + " " + part3;				
 		}		
-		return join;
+		return OperationResult(data == null ? ResultType._NONE : data.toCharArray());
 	}
 
 }

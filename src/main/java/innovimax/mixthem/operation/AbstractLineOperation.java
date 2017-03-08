@@ -39,13 +39,11 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 		while (reader1.hasLine() || reader2.hasLine()) {
 			final String line1 = reader1.nextLine();
 			final String line2 = reader2.nextLine();
-			try {
-				String result = process(line1, line2);
-				if (result != null) {
-					writer.writeLine(result);
-				}
-			} catch (ProcessException e) {
+			OperationResult result = process(line1, line2);
+			if (result.canStop()) {
 				break;
+			} else if (!result.hasNone()) {			
+				writer.writeLine(String.valueof(result.getData()));
 			}
         	}
         	reader1.close();
