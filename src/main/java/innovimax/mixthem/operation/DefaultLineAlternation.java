@@ -38,23 +38,23 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 
 	@Override
 	public OperationResult process(String line1, String line2) throws MixException {
-		String line;
+		String data = "";
 		if (line1 == null) {
-			line = line2;
+			data = line2;
 		} else if (line2 == null) {
-			line = line1;
+			data = line1;
 		} else {
 			switch (this.mode) {
 				case _RANDOM:
-					line = this.random.nextBoolean() ? line1 : line2;
+					data = this.random.nextBoolean() ? line1 : line2;
 					break;
 				case _NORMAL:
 				default:
-					line = this.odd ? line1 : line2;
+					data = this.odd ? line1 : line2;
 					this.odd = !this.odd;
 			}			
 		}
-		return OperationResult(line.toCharArray());		
+		return OperationResult(data.toCharArray());		
 	}
 
 }
