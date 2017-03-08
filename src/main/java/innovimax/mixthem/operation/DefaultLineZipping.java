@@ -1,5 +1,6 @@
 package innovimax.mixthem.operation;
 
+import static innovimax.mixthem.MixConstants.*;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
@@ -16,8 +17,6 @@ import java.util.List;
 */
 public class DefaultLineZipping extends AbstractLineOperation {
 	
-	private final static String DEFAULT_ZIP_SEPARATOR = "";
-
 	private final ZipType type;
 	
 	/**
