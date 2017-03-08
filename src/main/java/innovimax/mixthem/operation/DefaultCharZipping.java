@@ -28,7 +28,7 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	@Override
 	public OperationResult process(int c1, int c2) throws MixException {
 		if (c1 == -1 || c2 == -1) {
-			return new OperationResult(ResultType.WANT_STOP);
+			return new OperationResult(ResultType.CAN_STOP);
 		}
 		String sep = DEFAULT_ZIP_SEPARATOR;
 		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
