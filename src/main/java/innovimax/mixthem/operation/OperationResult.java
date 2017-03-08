@@ -24,8 +24,8 @@ class OperationResult {
     return this.type == ResultType._NONE;
   }
 	
-  public boolean wantStop() {
-    return this.type == ResultType._WANT_STOP;
+  public boolean canStop() {
+    return this.type == ResultType._CAN_STOP;
   }
   
   public char[] getData() {
