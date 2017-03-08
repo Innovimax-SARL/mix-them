@@ -36,13 +36,6 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 		}
 	}	
 
-	/**
- 	* Returns the alternation result as {@link OperationResult}
-	* @param line1 The first line to alternate
- 	* @param line2 The second line to alternate
- 	* @return The alternation result as {@link OperationResult}
- 	* @throws MixException - If an mixing error occurs
- 	*/
 	@Override
 	public OperationResult process(String line1, String line2) throws MixException {
 		String line;
