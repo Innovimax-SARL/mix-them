@@ -1,1 +1,1 @@
-apple 1 red france red
+apple 1 red 1 france
