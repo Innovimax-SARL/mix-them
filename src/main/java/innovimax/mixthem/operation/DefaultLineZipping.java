@@ -33,15 +33,11 @@ public class DefaultLineZipping extends AbstractLineOperation {
 		this.type = type;		
 	}
 	
-	/**
- 	* Returns the result of zipping two lines.
-	* @param line1 The first line to zip
- 	* @param line2 The second line to zip	
- 	* @return The result of zipping two lines
- 	* @throws MixException - If an mixing error occurs
- 	*/
 	@Override
-	public String process(String line1, String line2) throws MixException {
+	public String process(String line1, String line2) throws MixException, ProcessException {
+		if (line1 == null || line2 == null) {
+			throw new ProcessException();
+		}
 		String zip = null;
 		String sep = DEFAULT_ZIP_SEPARATOR;
 		if (this.params.containsKey(RuleParam._ZIP_SEP)) {

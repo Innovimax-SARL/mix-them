@@ -119,28 +119,31 @@ public class MixThem {
                   copyChar(this.file2, this.out);
                   break;
                 case _ALT_CHAR:
-                  alternateChar(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE);
+		  IOperation altCharOp = new DefaultCharAlternation(params);
+		  altCharOp.processFiles(this.file1, this.file2, this.out);	
                   break;
                 case _ALT_LINE:    
-                  alternateLine(this.file1, this.file2, this.out, ReadType._ALT_SIMPLE, params);
+		  IOperation altLineOp = new DefaultLineAlternation(AltMode._NORMAL, params);
+		  altLineOp.processFiles(this.file1, this.file2, this.out);			    
                   break;
                 case _RANDOM_ALT_LINE:
-                  alternateLine(this.file1, this.file2, this.out, ReadType._ALT_RANDOM, params);
+		  IOperation randomAltLineOp = new DefaultLineAlternation(AltMode._RANDOM, params);
+		  randomAltLineOp.processFiles(this.file1, this.file2, this.out);	
                   break;
                 case _JOIN:  
-		  final IOperation joinLineOp = new DefaultLineJoining(params);
+		  IOperation joinLineOp = new DefaultLineJoining(params);
 		  joinLineOp.processFiles(this.file1, this.file2, this.out);
                   break;
                 case _ZIP_LINE:
-		  final IOperation zipLineOp = new DefaultLineZipping(ZipType._LINE, params);
+		  IOperation zipLineOp = new DefaultLineZipping(ZipType._LINE, params);
 		  zipLineOp.processFiles(this.file1, this.file2, this.out);
                   break;
 		case _ZIP_CELL:		  
-		  final IOperation zipCellOp = new DefaultLineZipping(ZipType._CELL, params);
+		  IOperation zipCellOp = new DefaultLineZipping(ZipType._CELL, params);
 		  zipCellOp.processFiles(this.file1, this.file2, this.out);
 		  break;
 		case _ZIP_CHAR:			    
-		  final IOperation zipCharOp = new DefaultCharZipping(params);
+		  IOperation zipCharOp = new DefaultCharZipping(params);
 		  zipCharOp.processFiles(this.file1, this.file2, this.out);
 		  /*break;
                 default:    
@@ -165,50 +168,5 @@ public class MixThem {
         reader.close();
         writer.close();
     }    
-
-    // this one copies two files alternativly char by char
-    private static void alternateChar(File file1, File file2, OutputStream out, ReadType type) throws MixException, IOException {
-        IInputChar reader1 = new DefaultCharReader(file1, true);
-        IInputChar reader2 = new DefaultCharReader(file2, false);
-        IOutputChar writer = new DefaultCharWriter(out);
-        while (reader1.hasCharacter() || reader2.hasCharacter()) {             
-            final int c1 = reader1.nextCharacter(reader2.hasCharacter() ? type : ReadType._REGULAR);
-            if (c1 >= 0) {
-                writer.writeCharacter(c1);
-            }            
-            final int c2 = reader2.nextCharacter(reader1.hasCharacter() ? type : ReadType._REGULAR);
-            if (c2 >= 0) {
-                writer.writeCharacter(c2);
-            }
-        }
-        reader1.close();
-        reader2.close();
-        writer.close();
-    }
-
-    // this one copies two files alternativly line by line
-    private static void alternateLine(File file1, File file2, OutputStream out, ReadType type,  Map<RuleParam, ParamValue> params) throws MixException, IOException {
-        IInputLine reader1 = new DefaultLineReader(file1, true);
-        IInputLine reader2 = new DefaultLineReader(file2, false);
-        IOutputLine writer = new DefaultLineWriter(out);
-        if (type == ReadType._ALT_RANDOM && params.containsKey(RuleParam._RANDOM_SEED)) {
-            int seed = params.get(RuleParam._RANDOM_SEED).asInt();
-            reader1.setSeed(seed);
-            reader2.setSeed(seed);
-        }
-        while (reader1.hasLine() || reader2.hasLine()) {            
-            final String line1 = reader1.nextLine(reader2.hasLine() ? type : ReadType._REGULAR);
-            if (line1 != null) {
-                writer.writeLine(line1);
-            }            
-            final String line2 = reader2.nextLine(reader1.hasLine() ? type : ReadType._REGULAR);
-            if (line2 != null) {
-                writer.writeLine(line2);
-            }
-        }
-        reader1.close();
-        reader2.close();
-        writer.close();
-    }
 
 }

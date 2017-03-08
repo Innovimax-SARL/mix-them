@@ -26,15 +26,11 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		super(params);
 	}	
 
-	/**
- 	* Returns the result of joining two lines regarding the parameters.
-	* @param line1 The first line to join
- 	* @param line2 The second line to join
- 	* @return The result of joining two lines regarding the parameters
- 	* @throws MixException - If an mixing error occurs
- 	*/
 	@Override
-	public String process(String line1, String line2) throws MixException {
+	public String process(String line1, String line2) throws MixException, ProcessException {
+		if (line1 == null || line2 == null) {
+			throw new ProcessException();
+		}
 		String join = null;
 		int col1 = 1;
 		int col2 = 1;
