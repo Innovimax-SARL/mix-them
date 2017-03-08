@@ -29,15 +29,6 @@ public class DefaultCharReader implements IInputChar {
 		this.reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 	}
 
-	/**
- 	* Creates a character reader.
- 	* @param input The input file to be read 	
- 	* @throws IOException - If an I/O error occurs
- 	*/
-	public DefaultCharReader(File input) throws IOException {		
-		this(input, true);
-	}
-
 	@Override
 	public boolean hasCharacter() throws IOException {
 		return this.reader.ready();
