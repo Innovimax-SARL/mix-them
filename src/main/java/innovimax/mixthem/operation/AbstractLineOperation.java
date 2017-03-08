@@ -42,7 +42,7 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 			OperationResult result = process(line1, line2);
 			if (result.canStop()) {
 				break;
-			} else if (!result.isNone()) {			
+			} else if (!result.hasNone()) {			
 				writer.writeLine(String.valueof(result.getData()));
 			}
         	}
