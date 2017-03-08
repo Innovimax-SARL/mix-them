@@ -6,14 +6,12 @@ package innovimax.mixthem.operation;
 * @version 1.0
 */
 class OperationResult {
-
-  enum ResultType { FILL, EMPTY, STOP }
-  
+ 
   private final ResultType type;
   private final char[] data;  
   
   public OperationResult(char[] data) {
-    this.type = ResultType.FILL;
+    this.type = ResultType._FILLED;
     this.data = data;    
   }
 
@@ -22,12 +20,12 @@ class OperationResult {
     this.data = null;
   }
   
-  public boolean isEmpty() {
-    return this.type == ResultType.EMPTY;
+  public boolean hasNone() {
+    return this.type == ResultType._NONE;
   }
 	
   public boolean wantStop() {
-    return this.type == ResultType.STOP;
+    return this.type == ResultType._WANT_STOP;
   }
   
   public char[] getData() {
