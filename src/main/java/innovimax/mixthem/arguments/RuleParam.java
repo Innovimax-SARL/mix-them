@@ -39,7 +39,6 @@ public enum RuleParam {
             			pv = ParamValue.createInt(Integer.parseInt(value));
             			break;
             		default:
-				System.out.println(">> ParamValue.createString("+value+")");
             			pv = ParamValue.createString(value);
 		}
 		return pv;
