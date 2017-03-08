@@ -7,7 +7,6 @@ import innovimax.mixthem.io.DefaultCharReader;
 import innovimax.mixthem.io.DefaultCharWriter;
 import innovimax.mixthem.io.IInputChar;
 import innovimax.mixthem.io.IOutputChar;
-import innovimax.mixthem.io.ReadType;
 
 import java.io.File;
 import java.io.IOException;
