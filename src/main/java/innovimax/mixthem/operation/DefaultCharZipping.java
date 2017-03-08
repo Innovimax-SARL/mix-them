@@ -1,5 +1,6 @@
 package innovimax.mixthem.operation;
 
+import static innovimax.mixthem.MixConstants.*;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
@@ -13,8 +14,6 @@ import java.util.Map;
 * @version 1.0
 */
 public class DefaultCharZipping extends AbstractCharOperation {
-	
-	private final static String DEFAULT_ZIP_SEPARATOR = "";
 
 	/**
 	* Constructor
