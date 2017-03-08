@@ -28,17 +28,17 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	}
 	
 	@Override
-	public int[] process(int c1, int c2) throws MixException, ProcessException {		
-		int[] result = new int[1];
+	public OperationResult process(int c1, int c2) throws MixException {		
+		char[] data = new char[1];
 		if (c1 == -1) {
-			result[0] = c2;
+			data[0] = (char) c2;
 		} else if (c2 == -1) {
-			result[0] = c1;
+			data[0] = (char) c1;
 		} else {					
-			result[0] = this.odd ? c1 : c2;
+			data[0] = this.odd ? (char) c1 : (char) c2;
 			this.odd = !this.odd;			
 		}
-		return result;
+		return new OperationResult(data);
 	}
 
 }
