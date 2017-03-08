@@ -34,12 +34,12 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 
 	@Override
     	public void processFiles(File file1, File file2, OutputStream out) throws MixException, IOException {
-        	IInputChar reader1 = new DefaultCharReader(file1, true);
-        	IInputChar reader2 = new DefaultCharReader(file2, false);
+        	IInputChar reader1 = new DefaultCharReader(file1);
+        	IInputChar reader2 = new DefaultCharReader(file2);
         	IOutputChar writer = new DefaultCharWriter(out); 
         	while (reader1.hasCharacter() || reader2.hasCharacter()) {
-			final int c1 = reader1.nextCharacter(ReadType._REGULAR);
-			final int c2 = reader2.nextCharacter(ReadType._REGULAR);
+			final int c1 = reader1.nextCharacter();
+			final int c2 = reader2.nextCharacter();
 			try {
 				int[] result = process(c1, c2);
 				for (int i = 0; i < result.length; i++) {
