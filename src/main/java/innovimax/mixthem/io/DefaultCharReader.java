@@ -18,27 +18,15 @@ public class DefaultCharReader implements IInputChar {
 
 	private final Path path;
 	private final BufferedReader reader;
-	private boolean jump;
 
 	/**
  	* Creates a character reader.
  	* @param input The input file to be read
- 	* @param first True is this reader is the first one for mixing
- 	* @throws IOException - If an I/O error occurs
- 	*/
-	public DefaultCharReader(File input, boolean first) throws IOException {		
-		this.path = input.toPath();
-		this.reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
-		this.jump = !first;
-	}
-
-	/**
- 	* Creates a character reader.
- 	* @param input The input file to be read 	
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultCharReader(File input) throws IOException {		
-		this(input, true);
+		this.path = input.toPath();
+		this.reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
 	}
 
 	@Override
@@ -47,22 +35,10 @@ public class DefaultCharReader implements IInputChar {
 	}
 
 	@Override
-	public int nextCharacter(ReadType type) throws IOException {		
+	public int nextCharacter() throws IOException {		
 		int c = -1;
 		if (hasCharacter()) {
-			switch (type) {
-				case _REGULAR:
-					c = this.reader.read();
-					break;
-				case _ALT_SIMPLE:
-					if (!this.jump) {
-						c = this.reader.read();
-					} else {
-						this.reader.read();
-					}					
-					this.jump = !this.jump;
-					break;				
-			}
+			c = this.reader.read();
 		}
 		return c;
 	}
