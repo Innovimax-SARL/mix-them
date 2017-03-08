@@ -65,11 +65,18 @@ public class BasicTest {
         Arguments mixArgs = Arguments.checkArguments(args);
         Assert.assertTrue(true);        
     }
-
+    
     @Test(expected=ArgumentException.class)
     public final void testNotAParam() throws ArgumentException {
         final String args[] = { "-random-alt-line", "1789", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
         Arguments mixArgs = Arguments.checkArguments(args);
     }
 
+    @Test
+    public final void testOptionalParam() throws ArgumentException {
+        final String args[] = { "-random-alt-line", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+        Arguments mixArgs = Arguments.checkArguments(args);
+        Assert.assertTrue(true);        
+    }
+    
 }
