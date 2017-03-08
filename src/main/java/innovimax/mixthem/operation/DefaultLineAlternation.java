@@ -1,5 +1,6 @@
 package innovimax.mixthem.operation;
 
+import static innovimax.mixthem.MixConstants;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
@@ -15,8 +16,6 @@ import java.util.Random;
 */
 public class DefaultLineAlternation extends AbstractLineOperation {
 
-	private final static int DEFAULT_RANDOM_SEED = 1789;
-	
 	private final AltMode mode;
 	private boolean odd;
 	private final Random random;
@@ -38,20 +37,20 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	}	
 
 	/**
- 	* Returns the alternated linet.
+ 	* Returns the alternation result as {@link OperationResult}
 	* @param line1 The first line to alternate
  	* @param line2 The second line to alternate
- 	* @return The alternated line
+ 	* @return The alternation result as {@link OperationResult}
  	* @throws MixException - If an mixing error occurs
  	*/
 	@Override
-	public String process(String line1, String line2) throws MixException, ProcessException {		
+	public OperationResult process(String line1, String line2) throws MixException {
+		String line;
 		if (line1 == null) {
-			return line2;
+			line = line2;
 		} else if (line2 == null) {
-			return line1;
+			line = line1;
 		} else {
-			String line = null;
 			switch (this.mode) {
 				case _RANDOM:
 					line = this.random.nextBoolean() ? line1 : line2;
@@ -60,9 +59,9 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 				default:
 					line = this.odd ? line1 : line2;
 					this.odd = !this.odd;
-			}
-			return line;
+			}			
 		}
+		return OperationResult(line.toCharArray());		
 	}
 
 }
