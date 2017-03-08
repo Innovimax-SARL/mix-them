@@ -15,12 +15,12 @@ public interface IInputChar {
 	*/
 	boolean hasCharacter() throws IOException;
 	/**
- 	* Reads an eligible character regarding the type, or returns null if not eligible or no more lines.
+ 	* Reads a character, or returns -1 if no more characters.
  	* @param type The type of reading expected
- 	* @return The eligible character as an int, or -1 if not eligible or no more characters
+ 	* @return The character as an int, or -1 if more characters
  	* @throws IOException - If an I/O error occurs
  	*/
-	int nextCharacter(ReadType type) throws IOException;
+	int nextCharacter() throws IOException;
 	/**
  	* Reads characters into a portion of an array.
  	* @param buffer Destination buffer

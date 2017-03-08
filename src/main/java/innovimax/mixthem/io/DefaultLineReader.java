@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Random;
 
 /**
 * <p>Reads lines from a character-input file.</p>
@@ -17,62 +16,29 @@ import java.util.Random;
 */
 public class DefaultLineReader implements IInputLine {
 
-	private final static int DEFAULT_RANDOM_SEED = 1789;
-
 	private final Path path;
 	private final BufferedReader reader;
-	private final boolean first;
-	private final Random random;
-	private boolean jump;
 
 	/**
  	* Creates a line reader.
- 	* @param input The input file to be read
- 	* @param first True is this reader is the first one for mixing
+ 	* @param input The input file to be read 	
  	* @throws IOException - If an I/O error occurs
  	*/
-	public DefaultLineReader(File input, boolean first) throws IOException {
+	public DefaultLineReader(File input) throws IOException {
 		this.path = input.toPath();
-		this.reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
-		this.first = first;
-		this.random = new Random(DEFAULT_RANDOM_SEED);
-		this.jump = !first;
+		this.reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);		
 	}
-
-	@Override
-	public void setSeed(int seed) {
-		this.random.setSeed(seed);
-	}
-
+	
 	@Override
 	public boolean hasLine() throws IOException {
 		return this.reader.ready();
 	}
 
 	@Override
-	public String nextLine(ReadType type) throws IOException {
+	public String nextLine() throws IOException {
 		String line = null;
 		if (hasLine()) {
-			switch (type) {
-				case _REGULAR:					
-					line = this.reader.readLine();
-					break;
-				case _ALT_SIMPLE:
-					if (!this.jump) {
-						line = this.reader.readLine();						
-					} else {
-						this.reader.readLine();
-					}					
-					this.jump = !this.jump;
-					break;
-				case _ALT_RANDOM:					
-					if (random.nextBoolean() == this.first) {
-						line = this.reader.readLine();
-					} else {
-						this.reader.readLine();
-					}					
-					break;
-			}
+			line = this.reader.readLine();
 		}
 		return line;
 	}

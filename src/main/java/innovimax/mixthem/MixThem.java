@@ -157,7 +157,7 @@ public class MixThem {
     }   
 
     // this one copies one file as beeing char
-    private static void copyChar(File file, OutputStream out) throws MixException, IOException {	
+    private static void copyChar(File file, OutputStream out) throws IOException {	
         char[] buffer = new char[CHAR_BUFFER_SIZE];
         IInputChar reader = new DefaultCharReader(file);
         IOutputChar writer = new DefaultCharWriter(out);
