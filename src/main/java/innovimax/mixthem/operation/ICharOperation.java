@@ -1,5 +1,6 @@
 
 package innovimax.mixthem.operation;
+
 import innovimax.mixthem.MixException;
 
 interface ICharOperation extends IOperation {
@@ -11,5 +12,5 @@ interface ICharOperation extends IOperation {
 	* @throws MixException - If an mixing error occurs
 	* @throws ProcessException - If process must be ended
 	*/	
-	OperationResult process(int c1, int c2) throws MixException, ProcessException;
+	OperationResult process(int c1, int c2) throws MixException;
 }
