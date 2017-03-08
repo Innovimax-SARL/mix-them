@@ -49,7 +49,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
 			data = part1 + " " + part2 + " " + part3;				
 		}		
-		return OperationResult(data != null ? data : ResultType._NONE);
+		return OperationResult(data == null ? ResultType._NONE : data.toCharArray());
 	}
 
 }
