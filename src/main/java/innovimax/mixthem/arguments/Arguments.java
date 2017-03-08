@@ -97,6 +97,7 @@ public class Arguments {
                 if (arg.startsWith("#")) {
                     final String paramString = arg.substring(1);
                     try {
+                        System.out.println(">> Arguments.createValue("+paramString+")");
                         ParamValue value = param.createValue(paramString);
                         map.put(param, value);
                         index++;
