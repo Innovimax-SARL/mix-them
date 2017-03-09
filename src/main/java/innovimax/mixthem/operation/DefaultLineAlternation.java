@@ -45,7 +45,7 @@ public class DefaultLineAlternation extends AbstractLineOperation {
  	* @throws MixException - If an mixing error occurs
  	*/
 	@Override
-	public String process(String line1, String line2) throws MixException, ProcessException {		
+	public String process(String line1, String line2) throws MixException {		
 		if (line1 == null) {
 			return line2;
 		} else if (line2 == null) {
