@@ -14,6 +14,8 @@ import java.util.Map;
 * @version 1.0
 */
 public class DefaultCharZipping extends AbstractCharOperation {
+	
+	private final String sep;
 
 	/**
 	* Constructor
@@ -23,14 +25,14 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	*/
 	public DefaultCharZipping(Map<RuleParam, ParamValue> params) {
 		super(params);
+		this.sep = DEFAULT_ZIP_SEPARATOR;
+		if (params.containsKey(RuleParam._ZIP_SEP)) {
+			this.sep = params.get(RuleParam._ZIP_SEP).asString();
+		}
 	}
 	
 	@Override
 	public int[] process(int c1, int c2) throws MixException {
-		String sep = DEFAULT_ZIP_SEPARATOR;
-		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
-			sep = this.params.get(RuleParam._ZIP_SEP).asString();
-		}
 		int len = (c1 != -1 ? 1 : 0) + sep.length() + (c2 != -1 ? 1 : 0);
         	int[] zip = new int[len];
 		if (c1 != -1) { 
