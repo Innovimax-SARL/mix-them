@@ -19,6 +19,7 @@ import java.util.Map;
 public class DefaultLineZipping extends AbstractLineOperation {
 	
 	private final ZipType type;
+	private final String sep;
 	
 	/**
 	* Constructor
@@ -30,19 +31,16 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	*/
 	public DefaultLineZipping(ZipType type, Map<RuleParam, ParamValue> params) {
 		super(params);
-		this.type = type;		
+		this.type = type;
+		this.sep = params.containsKey(RuleParam._ZIP_SEP) ? params.get(RuleParam._ZIP_SEP).asString() : DEFAULT_ZIP_SEPARATOR;	
 	}
 	
 	@Override
 	public String process(String line1, String line2) throws MixException {
 		String zip = null;
-		String sep = DEFAULT_ZIP_SEPARATOR;
-		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
-			sep = this.params.get(RuleParam._ZIP_SEP).asString();
-		}		
 		switch (this.type) {
 			case _LINE:
-				zip = (line1 != null ? line1 : "") + sep + (line2 != null ? line2 : "");
+				zip = (line1 != null ? line1 : "") + this.sep + (line2 != null ? line2 : "");
 				break;
 			case _CELL:					
 				Iterator<String> iterator1 = line1 != null ? Arrays.asList(line1.split(DEFAULT_SPLIT_CELL_REGEX )).iterator() : Collections.emptyIterator();
@@ -54,7 +52,7 @@ public class DefaultLineZipping extends AbstractLineOperation {
 					if (buf.length() > 0) {						
 						buf.append(DEFAULT_CELL_SEPARATOR);
 					}					
-					buf.append(cell1 + sep + cell2);					
+					buf.append(cell1 + this.sep + cell2);					
 				}
 				zip = buf.toString();
 		}
