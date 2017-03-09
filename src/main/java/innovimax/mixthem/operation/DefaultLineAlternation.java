@@ -15,8 +15,6 @@ import java.util.Random;
 */
 public class DefaultLineAlternation extends AbstractLineOperation {
 
-	private final static int DEFAULT_RANDOM_SEED = 1789;
-	
 	private final AltMode mode;
 	private boolean odd;
 	private final Random random;
