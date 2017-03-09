@@ -26,22 +26,22 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	}
 	
 	@Override
-	public int[] process(int c1, int c2) throws MixException, ProcessException {
-		if (c1 == -1 || c2 == -1) {
-			throw new ProcessException();
-		}
+	public int[] process(int c1, int c2) throws MixException {
 		String sep = DEFAULT_ZIP_SEPARATOR;
 		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
 			sep = this.params.get(RuleParam._ZIP_SEP).asString();
-		}		
-        	int[] zip = new int[2 + sep.length()];
-        	int index = 0;
-        	zip[index++] = c1;
-        	for (int n = 0; n < sep.length(); n++) {
-			int cn = sep.codePointAt(n);
-			zip[index++] = cn;
 		}
-        	zip[index] = c2;
+		int len = (c1 != -1 ? 1 : 0) + sep.length() + (c2 != -1 ? 1 : 0);
+        	int[] zip = new int[len];
+		if (c1 != -1) { 
+			zip[0] = c1; 
+		}
+        	for (int i = 0; i < sep.length(); i++) {			
+			zip[i + 1] = (int) sep.charAt(i);
+		}		
+		if (c2 != -1) { 
+			zip[zip.length - 1] = c2; 
+		}        	
 		return zip;
 	}
 
