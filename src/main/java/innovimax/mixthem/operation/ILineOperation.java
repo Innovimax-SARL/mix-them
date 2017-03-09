@@ -10,5 +10,5 @@ interface ILineOperation extends IOperation {
  	* @throws MixException - If an mixing error occurs
 	* @throws ProcessException - If process must be ended
  	*/
-	String process(String line1, String line2) throws MixException, ProcessException;
+	String process(String line1, String line2) throws MixException;
 }
