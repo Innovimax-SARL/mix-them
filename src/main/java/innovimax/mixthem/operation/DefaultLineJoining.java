@@ -27,10 +27,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	}	
 
 	@Override
-	public String process(String line1, String line2) throws MixException, ProcessException {
-		if (line1 == null || line2 == null) {
-			throw new ProcessException();
-		}
+	public String process(String line1, String line2) throws MixException {
 		String join = null;
 		int col1 = 1;
 		int col2 = 1;
