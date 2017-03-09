@@ -25,11 +25,7 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	*/
 	public DefaultCharZipping(Map<RuleParam, ParamValue> params) {
 		super(params);		
-		if (params.containsKey(RuleParam._ZIP_SEP)) {
-			this.sep = params.get(RuleParam._ZIP_SEP).asString();
-		} else {
-			this.sep = DEFAULT_ZIP_SEPARATOR;
-		}
+		this.sep = params.containsKey(RuleParam._ZIP_SEP) ? params.get(RuleParam._ZIP_SEP).asString() : DEFAULT_ZIP_SEPARATOR;		
 	}
 	
 	@Override
