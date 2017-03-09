@@ -6,6 +6,7 @@ import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.List;
 
@@ -33,10 +34,7 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	}
 	
 	@Override
-	public String process(String line1, String line2) throws MixException, ProcessException {
-		if (line1 == null || line2 == null) {
-			throw new ProcessException();
-		}
+	public String process(String line1, String line2) throws MixException {
 		String zip = null;
 		String sep = DEFAULT_ZIP_SEPARATOR;
 		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
@@ -44,21 +42,23 @@ public class DefaultLineZipping extends AbstractLineOperation {
 		}		
 		switch (this.type) {
 			case _LINE:
-				zip = line1 + sep + line2;
+				zip = (line1 != null ? line1 : "") + sep + (line2 != null ? line2 : "");
 				break;
 			case _CELL:					
-				List<String> list1 = Arrays.asList(line1.split("\\s"));
-				List<String> list2 = Arrays.asList(line2.split("\\s"));
-				int index = 0;
-				while (index < list1.size() && index < list2.size()) {						
-					if (index == 0) {
-						zip = "";
-					} else {
-						zip += " ";  // cell separator
-					}
-					zip += list1.get(index) + sep + list2.get(index);
-					index++;
+				List<String> list1 = line1 != null ? Arrays.asList(line1.split("\\s")) : Collections.emptyList();
+				List<String> list2 = line2 != null ? Arrays.asList(line2.split("\\s")) : Collections.emptyList();
+				Iterator<String> iterator1 = list1.iterator();
+				Iterator<String> iterator2 = list2.iterator();
+				StringBuffer buf = new StringBuffer();
+				while (iterator1.hasNext() || iterator2.hasNext()) {						
+					String cell1 = iterator1.hasNext() ? iterator1.next() : "";
+					String cell2 = iterator2.hasNext() ? iterator2.next() : "";					
+					if (buf.length() > 0) {						
+						buff.append(" ");  // cell separator
+					}					
+					buf.append(cell1 + sep + cell2);					
 				}
+				zip = buf.toString();
 		}
 		return zip;
 	}
