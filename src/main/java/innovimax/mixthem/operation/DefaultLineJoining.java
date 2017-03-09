@@ -1,5 +1,6 @@
 package innovimax.mixthem.operation;
 
+import static innovimax.mixthem.MixConstants.*;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
@@ -38,13 +39,13 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		if (this.params.containsKey(RuleParam._JOIN_COL2)) {
 			col2 = this.params.get(RuleParam._JOIN_COL2).asInt();			
 		}
-		List<String> list1 = Arrays.asList(line1.split("\\s"));
-		List<String> list2 = Arrays.asList(line2.split("\\s"));		
+		List<String> list1 = Arrays.asList(line1.split(DEFAULT_SPLIT_CELL_REGEX));
+		List<String> list2 = Arrays.asList(line2.split(DEFAULT_SPLIT_CELL_REGEX));		
 		if (list1.size() >= col1 && list2.size() >= col2 && list1.get(col1 - 1).equals(list2.get(col2 - 1))) {
 			String part1 = list1.get(col1 - 1);
-			String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
-			String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(" "));
-			join = part1 + " " + part2 + " " + part3;				
+			String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(DEFAULT_CELL_SEPARATOR));
+			String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(DEFAULT_CELL_SEPARATOR));
+			join = part1 + DEFAULT_CELL_SEPARATOR  + part2 + DEFAULT_CELL_SEPARATOR + part3;				
 		}		
 		return join;
 	}
