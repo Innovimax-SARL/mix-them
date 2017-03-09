@@ -6,6 +6,7 @@ import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
 * <p>Zips two characters.</p>
@@ -29,19 +30,19 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	}
 	
 	@Override
-	public int[] process(int c1, int c2) throws MixException {
+	public Stream process(int c1, int c2) throws MixException {
 		int len = (c1 != -1 ? 1 : 0) + sep.length() + (c2 != -1 ? 1 : 0);
         	int[] zip = new int[len];
 		if (c1 != -1) { 
 			zip[0] = c1; 
-		}
+		}		
         	for (int i = 0; i < sep.length(); i++) {			
 			zip[i + 1] = (int) sep.charAt(i);
 		}		
 		if (c2 != -1) { 
 			zip[zip.length - 1] = c2; 
 		}        	
-		return zip;
+		return Arrays.stream(zip);
 	}
 
 }
