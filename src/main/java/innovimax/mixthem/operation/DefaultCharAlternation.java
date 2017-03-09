@@ -28,7 +28,7 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	}
 	
 	@Override
-	public int[] process(int c1, int c2) throws MixException, ProcessException {		
+	public int[] process(int c1, int c2) throws MixException {		
 		int[] result = new int[1];
 		if (c1 == -1) {
 			result[0] = c2;
