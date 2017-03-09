@@ -3,7 +3,7 @@ package innovimax.mixthem.operation;
 
 import innovimax.mixthem.MixException;
 
-import java.util.Stream;
+import java.util.stream.Stream;
 
 interface ICharOperation extends IOperation {
 	/**
