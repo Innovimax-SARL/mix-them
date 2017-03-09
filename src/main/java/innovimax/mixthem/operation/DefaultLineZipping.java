@@ -52,7 +52,7 @@ public class DefaultLineZipping extends AbstractLineOperation {
 					String cell1 = iterator1.hasNext() ? iterator1.next() : "";
 					String cell2 = iterator2.hasNext() ? iterator2.next() : "";					
 					if (buf.length() > 0) {						
-						buff.append(" ");  // cell separator
+						buf.append(" ");  // cell separator
 					}					
 					buf.append(cell1 + sep + cell2);					
 				}
