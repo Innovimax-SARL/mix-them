@@ -5,6 +5,7 @@ import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 
 import java.util.Map;
+import java.util.stream.IntStream;
 
 /**
 * <p>Alternate two characters.</p>
@@ -28,7 +29,7 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	}
 	
 	@Override
-	public int[] process(int c1, int c2) throws MixException {		
+	public IntStream process(int c1, int c2) throws MixException {		
 		int[] result = new int[1];
 		if (c1 == -1) {
 			result[0] = c2;
@@ -38,7 +39,7 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 			result[0] = this.odd ? c1 : c2;
 			this.odd = !this.odd;			
 		}
-		return result;
+		return Arrays.stream(result);
 	}
 
 }
