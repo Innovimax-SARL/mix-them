@@ -24,10 +24,11 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
 	public DefaultCharZipping(Map<RuleParam, ParamValue> params) {
-		super(params);
-		this.sep = DEFAULT_ZIP_SEPARATOR;
+		super(params);		
 		if (params.containsKey(RuleParam._ZIP_SEP)) {
 			this.sep = params.get(RuleParam._ZIP_SEP).asString();
+		} else {
+			this.sep = DEFAULT_ZIP_SEPARATOR;
 		}
 	}
 	
