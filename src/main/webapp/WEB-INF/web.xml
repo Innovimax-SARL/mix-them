@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <servlet>
+        <servlet-name>mixthem</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>innovimax.mixthem.rest</param-value>
+        </init-param>        
+        <init-param>
+            <param-name>jersey.config.server.provider.classnames</param-name>
+            <param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>mixthem</servlet-name>
+        <url-pattern>/api/*</url-pattern>        
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>control</filter-name>
+        <filter-class>innovimax.mixthem.rest.filters.ControlFilter</filter-class>
+    </filter>  
+    <filter-mapping>
+        <filter-name>control</filter-name>
+        <url-pattern>/api/*</url-pattern>        
+    </filter-mapping>   
+
+    <filter>
+        <filter-name>logging</filter-name>
+        <filter-class>innovimax.mixthem.rest.filters.LoggingFilter</filter-class>
+    </filter>      
+    <filter-mapping>
+        <filter-name>logging</filter-name>       
+        <url-pattern>/api/*</url-pattern>        
+    </filter-mapping>
+
+</web-app>
