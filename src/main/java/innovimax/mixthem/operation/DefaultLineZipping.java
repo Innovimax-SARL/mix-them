@@ -35,12 +35,20 @@ public class DefaultLineZipping extends AbstractLineOperation {
 		this.sep = params.containsKey(RuleParam._ZIP_SEP) ? params.get(RuleParam._ZIP_SEP).asString() : DEFAULT_ZIP_SEPARATOR;	
 	}
 	
+	/**
+ 	* Returns the zipped lines in a LineResult object.
+	* @param line1 The first line to alternate
+ 	* @param line2 The second line to alternate
+ 	* @return The zipped lines
+ 	* @throws MixException - If an mixing error occurs
+	* @see innovimax.mixthem.operation.LineResult
+ 	*/
 	@Override
-	public String process(String line1, String line2) throws MixException {
-		String zip = null;
+	public LineResult process(String line1, String line2) throws MixException {
+		LineResult result = new LineResult();
 		switch (this.type) {
 			case _LINE:
-				zip = (line1 != null ? line1 : "") + this.sep + (line2 != null ? line2 : "");
+				result.setResult((line1 != null ? line1 : "") + this.sep + (line2 != null ? line2 : ""));
 				break;
 			case _CELL:					
 				Iterator<String> iterator1 = line1 != null ? Arrays.asList(line1.split(DEFAULT_SPLIT_CELL_REGEX )).iterator() : Collections.emptyIterator();
@@ -54,9 +62,13 @@ public class DefaultLineZipping extends AbstractLineOperation {
 					}					
 					buf.append(cell1 + this.sep + cell2);					
 				}
-				zip = buf.toString();
+				result.setResult(buf.toString());
+				break;
+			default:
+				result.setResult(null);
 		}
-		return zip;
+		result.exploreBoth();
+		return result;
 	}
 
 }
