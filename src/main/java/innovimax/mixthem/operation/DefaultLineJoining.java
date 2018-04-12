@@ -35,7 +35,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	@Override
 	public void process(LineResult result) throws MixException {
 		result.resetTypes();
-		if (result.getFirstLine() !=null && result.getLastLine() != null) {
+		if (result.hasFirstLine() && result.hasLastLine()) {
 			List<String> list1 = Arrays.asList(result.getFirstLine().split(DEFAULT_SPLIT_CELL_REGEX));
 			List<String> list2 = Arrays.asList(result.getLastLine().split(DEFAULT_SPLIT_CELL_REGEX));		
 			if (list1.size() >= this.col1 && list2.size() >= this.col2 && list1.get(this.col1 - 1).equals(list2.get(this.col2 - 1))) {
