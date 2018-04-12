@@ -10,7 +10,7 @@ import java.util.EnumSet;
 public class LineResult {
     
     private final EnumSet<ResultType> types = EnumSet.noneOf(ResultType.class);
-    private String result;
+    private String result = null;
 
     /**
     * Set the result of the operation (maybe null).
@@ -18,6 +18,13 @@ public class LineResult {
     void setResult(String result) {
         this.result = result;        
         this.types.add(result == null ? ResultType._IGNORE_RESULT : ResultType._GET_RESULT);        
+    }
+
+    /**
+    * Ignores the result of the operation (set to null).
+    */
+    void ignoreResult() {
+        this.types.add(ResultType._IGNORE_RESULT);
     }
 
     /**
