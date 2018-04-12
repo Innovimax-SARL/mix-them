@@ -36,17 +36,8 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 		}
 	}	
 
-	/**
- 	* Returns the alternated line in a LineResult object.
-	* @param line1 The first line to alternate
- 	* @param line2 The second line to alternate
-	* @param result The previous operation result
- 	* @return The alternated line
- 	* @throws MixException - If an mixing error occurs
-	* @see innovimax.mixthem.operation.LineResult
- 	*/
 	@Override
-	public LineResult process(String line1, String line2, LineResult result) throws MixException {		
+	public void process(String line1, String line2, LineResult result) throws MixException {		
 		result.resetTypes();
 		if (line1 == null) {
 			result.setResult(line2);
