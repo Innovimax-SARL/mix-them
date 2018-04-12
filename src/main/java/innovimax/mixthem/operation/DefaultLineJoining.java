@@ -42,7 +42,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 				String part1 = list1.get(this.col1 - 1);
 				String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(DEFAULT_CELL_SEPARATOR));
 				String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(DEFAULT_CELL_SEPARATOR));
-				reseut.setResult(part1 + DEFAULT_CELL_SEPARATOR  + part2 + DEFAULT_CELL_SEPARATOR + part3);
+				result.setResult(part1 + DEFAULT_CELL_SEPARATOR  + part2 + DEFAULT_CELL_SEPARATOR + part3);
 			}
 		} else {
 			result.ignoreResult();
