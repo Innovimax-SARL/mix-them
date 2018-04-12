@@ -39,11 +39,11 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
         	while (reader1.hasCharacter() || reader2.hasCharacter()) {
 			final int c1 = reader1.nextCharacter();
 			final int c2 = reader2.nextCharacter();
-			try {
-				process(c1, c2).forEach(i -> writer.writeCharacter(i));
-			} catch (IOException e) {
-				throw e;
-			}
+			process(c1, c2).forEach(i -> {
+					writer.writeCharacter(i);
+				} catch (IOException e) {
+					throw e;
+				});
         	}
         	reader1.close();
         	reader2.close();
