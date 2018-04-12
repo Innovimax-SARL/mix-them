@@ -37,18 +37,20 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	}	
 
 	/**
- 	* Returns the alternated linet.
+ 	* Returns the alternated line in a LineResult object.
 	* @param line1 The first line to alternate
  	* @param line2 The second line to alternate
  	* @return The alternated line
  	* @throws MixException - If an mixing error occurs
+	* @see innovimax.mixthem.operation.LineResult
  	*/
 	@Override
-	public String process(String line1, String line2) throws MixException {		
+	public LineResult process(String line1, String line2) throws MixException {		
+		LineResult result = new LineResult();
 		if (line1 == null) {
-			return line2;
+			result.setResult(line2);
 		} else if (line2 == null) {
-			return line1;
+			result.setResult(line1);
 		} else {
 			String line = null;
 			switch (this.mode) {
@@ -60,8 +62,10 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 					line = this.odd ? line1 : line2;
 					this.odd = !this.odd;
 			}
-			return line;
+			result.setResult(line);
 		}
+		result.exploreBoth();
+		return result;
 	}
 
 }
