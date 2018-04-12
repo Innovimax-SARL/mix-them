@@ -3,7 +3,7 @@ import innovimax.mixthem.MixException;
 
 interface ILineOperation extends IOperation {
 	/**
- 	* Returns the result of the operation as a LineResult object.
+ 	* Processes operation and set new result in the LineResult parameter.
 	* @param line1 The first line to join (maybe null)
  	* @param line2 The second line to join (maybe null)
 	* @param result The previous operation result
@@ -11,5 +11,5 @@ interface ILineOperation extends IOperation {
  	* @throws MixException - If an mixing error occurs
 	* @see innovimax.mixthem.operation.LineResult
  	*/
-	LineResult process(String line1, String line2, LineResult result) throws MixException;
+	void process(String line1, String line2, LineResult result) throws MixException;
 }
