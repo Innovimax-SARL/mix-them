@@ -44,7 +44,7 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 					writer.writeCharacter(i);
 				} catch (IOException e) {
 					throw e;
-				});
+				}});
         	}
         	reader1.close();
         	reader2.close();
