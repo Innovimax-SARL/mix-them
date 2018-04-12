@@ -10,6 +10,8 @@ import java.util.EnumSet;
 public class LineResult {
     
     private final EnumSet<ResultType> types = EnumSet.noneOf(ResultType.class);
+    private String line1 = null;
+    private String line2 = null;
     private String result = null;
 
     /**
@@ -17,6 +19,42 @@ public class LineResult {
     */
     void resetTypes() {        
         this.types.clear(); 
+    }
+    
+    /**
+    * Reset the read lines.
+    */
+    void resetLines() {        
+        this.line1 = null;
+        this.line2 = null;
+    }
+
+    /**
+    * Set the first line.
+    */
+    void setFirstLine(String line) {
+        this.line1 = line;        
+    }
+    
+    /**
+    * Get the first line.
+    */
+    String getFirstLine() {
+        return this.line1;
+    }
+    
+    /**
+    * Set the last line.
+    */
+    void setLastLine(String line) {
+        this.line2 = line;        
+    }
+    
+    /**
+    * Get the last line.
+    */
+    String getLastLine() {
+        return this.line2;
     }
     
     /**
