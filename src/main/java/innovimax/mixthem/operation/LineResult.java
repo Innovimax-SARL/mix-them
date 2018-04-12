@@ -44,6 +44,13 @@ public class LineResult {
     }
     
     /**
+    * Has first line?
+    */
+    boolean hasFirstLine() {
+        return this.line1 != null;
+    }
+    
+    /**
     * Set the last line.
     */
     void setLastLine(String line) {
@@ -55,6 +62,13 @@ public class LineResult {
     */
     String getLastLine() {
         return this.line2;
+    }
+    
+    /**
+    * Has last line?
+    */
+    boolean hasLastLine() {
+        return this.line2 != null;
     }
     
     /**
