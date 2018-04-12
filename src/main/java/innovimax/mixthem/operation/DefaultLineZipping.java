@@ -65,7 +65,7 @@ public class DefaultLineZipping extends AbstractLineOperation {
 				result.setResult(buf.toString());
 				break;
 			default:
-				result.setResult(null);
+				result.ignoreResult();
 		}
 		result.exploreBoth();
 		return result;
