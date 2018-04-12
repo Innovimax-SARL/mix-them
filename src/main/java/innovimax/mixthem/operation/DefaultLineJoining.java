@@ -32,9 +32,17 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		this.col2 = this.params.containsKey(RuleParam._JOIN_COL2) ? this.params.get(RuleParam._JOIN_COL2).asInt() : 1;		
 	}	
 
+	/**
+ 	* Returns the joined lines in a LineResult object.
+	* @param line1 The first line to join
+ 	* @param line2 The second line to join
+ 	* @return The alternated line
+ 	* @throws MixException - If an mixing error occurs
+	* @see innovimax.mixthem.operation.LineResult
+ 	*/
 	@Override
 	public String process(String line1, String line2) throws MixException {
-		String join = null;
+		LineResult result = new LineResult();
 		if (line1 !=null && line2 != null) {
 			List<String> list1 = Arrays.asList(line1.split(DEFAULT_SPLIT_CELL_REGEX));
 			List<String> list2 = Arrays.asList(line2.split(DEFAULT_SPLIT_CELL_REGEX));		
@@ -42,10 +50,13 @@ public class DefaultLineJoining extends AbstractLineOperation {
 				String part1 = list1.get(this.col1 - 1);
 				String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(DEFAULT_CELL_SEPARATOR));
 				String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(DEFAULT_CELL_SEPARATOR));
-				join = part1 + DEFAULT_CELL_SEPARATOR  + part2 + DEFAULT_CELL_SEPARATOR + part3;				
+				reseut.setResult(part1 + DEFAULT_CELL_SEPARATOR  + part2 + DEFAULT_CELL_SEPARATOR + part3);
 			}
+		} else {
+			result.ignoreResult();
 		}
-		return join;
+		result.exploreBoth();  // TODO: preserve lines
+		return result;
 	}
 
 }
