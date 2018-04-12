@@ -48,7 +48,6 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			result.ignoreResult();
 		}
 		result.exploreBoth();  // TODO: preserve lines
-		return result;
 	}
 
 }
