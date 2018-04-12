@@ -37,21 +37,21 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	}	
 
 	@Override
-	public void process(LineResult result) throws MixException {		
+	public void process(String line1, String line2, LineResult result) throws MixException {		
 		result.resetTypes();
-		if (!result.hasFirstLine()) {
-			result.setResult(result.getLastLine());
-		} else if (!result.hasLastLine()) {
-			result.setResult(result.getFirstLine());
+		if (line1 == null) {
+			result.setResult(line2);
+		} else if (line2 == null) {
+			result.setResult(line1);
 		} else {
 			String line = null;
 			switch (this.mode) {
 				case _RANDOM:
-					line = this.random.nextBoolean() ? result.getFirstLine() : result.getLastLine();
+					line = this.random.nextBoolean() ? line1 : line2;
 					break;
 				case _NORMAL:
 				default:
-					line = this.odd ? result.getFirstLine() : result.getLastLine();
+					line = this.odd ? line1 : line2;
 					this.odd = !this.odd;
 			}
 			result.setResult(line);
