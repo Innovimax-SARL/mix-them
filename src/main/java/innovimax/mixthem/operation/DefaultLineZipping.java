@@ -37,8 +37,8 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	
 	/**
  	* Returns the zipped lines in a LineResult object.
-	* @param line1 The first line to alternate
- 	* @param line2 The second line to alternate
+	* @param line1 The first line to zip
+ 	* @param line2 The second line to zip
  	* @return The zipped lines
  	* @throws MixException - If an mixing error occurs
 	* @see innovimax.mixthem.operation.LineResult
