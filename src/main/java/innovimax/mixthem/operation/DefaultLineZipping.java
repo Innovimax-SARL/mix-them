@@ -39,13 +39,14 @@ public class DefaultLineZipping extends AbstractLineOperation {
  	* Returns the zipped lines in a LineResult object.
 	* @param line1 The first line to zip
  	* @param line2 The second line to zip
+	* @param result The previous operation result
  	* @return The zipped lines
  	* @throws MixException - If an mixing error occurs
 	* @see innovimax.mixthem.operation.LineResult
  	*/
 	@Override
-	public LineResult process(String line1, String line2) throws MixException {
-		LineResult result = new LineResult();
+	public LineResult process(String line1, String line2, LineResult result) throws MixException {
+		result.resetTypes();
 		switch (this.type) {
 			case _LINE:
 				result.setResult((line1 != null ? line1 : "") + this.sep + (line2 != null ? line2 : ""));
