@@ -39,9 +39,9 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	@Override
 	public void process(LineResult result) throws MixException {		
 		result.resetTypes();
-		if (result.getFirstLine() == null) {
+		if (!result.hasFirstLine()) {
 			result.setResult(result.getLastLine());
-		} else if (result.getLastLine() == null) {
+		} else if (!result.hasLastLine()) {
 			result.setResult(result.getFirstLine());
 		} else {
 			String line = null;
