@@ -35,17 +35,8 @@ public class DefaultLineZipping extends AbstractLineOperation {
 		this.sep = params.containsKey(RuleParam._ZIP_SEP) ? params.get(RuleParam._ZIP_SEP).asString() : DEFAULT_ZIP_SEPARATOR;	
 	}
 	
-	/**
- 	* Returns the zipped lines in a LineResult object.
-	* @param line1 The first line to zip
- 	* @param line2 The second line to zip
-	* @param result The previous operation result
- 	* @return The zipped lines
- 	* @throws MixException - If an mixing error occurs
-	* @see innovimax.mixthem.operation.LineResult
- 	*/
 	@Override
-	public LineResult process(String line1, String line2, LineResult result) throws MixException {
+	public void process(String line1, String line2, LineResult result) throws MixException {
 		result.resetTypes();
 		switch (this.type) {
 			case _LINE:
@@ -69,7 +60,6 @@ public class DefaultLineZipping extends AbstractLineOperation {
 				result.ignoreResult();
 		}
 		result.exploreBoth();
-		return result;
 	}
 
 }
