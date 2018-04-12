@@ -17,5 +17,6 @@ public enum ResultType {
     _GET_RESULT,
     _IGNORE_RESULT,
     _READ_FIRST,
+    _READ_LAST,
     _READ_BOTH;
 }
