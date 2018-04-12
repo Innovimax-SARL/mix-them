@@ -36,13 +36,14 @@ public class DefaultLineJoining extends AbstractLineOperation {
  	* Returns the joined lines in a LineResult object.
 	* @param line1 The first line to join
  	* @param line2 The second line to join
+	* @param result The previous operation result
  	* @return The alternated line
  	* @throws MixException - If an mixing error occurs
 	* @see innovimax.mixthem.operation.LineResult
  	*/
 	@Override
-	public String process(String line1, String line2) throws MixException {
-		LineResult result = new LineResult();
+	public LineResult process(String line1, String line2, LineResult result) throws MixException {
+		result.resetTypes();
 		if (line1 !=null && line2 != null) {
 			List<String> list1 = Arrays.asList(line1.split(DEFAULT_SPLIT_CELL_REGEX));
 			List<String> list2 = Arrays.asList(line2.split(DEFAULT_SPLIT_CELL_REGEX));		
