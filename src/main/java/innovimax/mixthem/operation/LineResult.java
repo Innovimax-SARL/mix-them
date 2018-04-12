@@ -13,6 +13,13 @@ public class LineResult {
     private String result = null;
 
     /**
+    * Reset the result types.
+    */
+    void resetTypes() {        
+        this.types.clear(); 
+    }
+    
+    /**
     * Set the result of the operation (maybe null).
     */
     void setResult(String result) {
