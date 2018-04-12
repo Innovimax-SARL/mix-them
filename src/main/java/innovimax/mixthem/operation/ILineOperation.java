@@ -6,9 +6,10 @@ interface ILineOperation extends IOperation {
  	* Returns the result of the operation as a LineResult object.
 	* @param line1 The first line to join (maybe null)
  	* @param line2 The second line to join (maybe null)
+	* @param result The previous operation result
  	* @return The result result of the operation (maybe null)
  	* @throws MixException - If an mixing error occurs
 	* @see innovimax.mixthem.operation.LineResult
  	*/
-	LineResult process(String line1, String line2) throws MixException;
+	LineResult process(String line1, String line2, LineResult result) throws MixException;
 }
