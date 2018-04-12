@@ -43,7 +43,7 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 				try {
 					writer.writeCharacter(i);
 				} catch (IOException e) {
-					throw e;
+					throw new RuntimeException(e);
 				}});
         	}
         	reader1.close();
