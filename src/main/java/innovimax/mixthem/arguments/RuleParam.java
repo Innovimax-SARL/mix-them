@@ -6,10 +6,10 @@ package innovimax.mixthem.arguments;
 * @version 1.0
 */
 public enum RuleParam { 
-	RANDOM_SEED("seed", ParamType._INTEGER),
-	JOIN_COL1("col1", ParamType._INTEGER),
-	JOIN_COL2("col2", ParamType._INTEGER),
-	ZIP_SEP("sep", ParamType._STRING);
+	RANDOM_SEED("seed", ParamType.INTEGER),
+	JOIN_COL1("col1", ParamType.INTEGER),
+	JOIN_COL2("col2", ParamType.INTEGER),
+	ZIP_SEP("sep", ParamType.STRING);
 
 	private final String name;
 	private final ParamType type;
