@@ -38,10 +38,10 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	public void process(String line1, String line2, LineResult result) throws MixException {
 		result.resetTypes();
 		switch (this.type) {
-			case _LINE:
+			case LINE:
 				result.setResult((line1 != null ? line1 : "") + this.sep + (line2 != null ? line2 : ""));
 				break;
-			case _CELL:					
+			case CELL:					
 				Iterator<String> iterator1 = line1 != null ? Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString())).iterator() : Collections.emptyIterator();
 				Iterator<String> iterator2 = line2 != null ? Arrays.asList(line2.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString())).iterator() : Collections.emptyIterator();				
 				StringBuffer buf = new StringBuffer();
