@@ -30,8 +30,8 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 		this.mode = mode;
 		this.odd = true;
 		this.random = new Random(AltOperation.DEFAULT_RANDOM_SEED.toInteger());
-		if (this.params.containsKey(RuleParam._RANDOM_SEED)) {
-			this.random.setSeed(this.params.get(RuleParam._RANDOM_SEED).asInt());
+		if (this.params.containsKey(RuleParam.RANDOM_SEED)) {
+			this.random.setSeed(this.params.get(RuleParam.RANDOM_SEED).asInt());
 		}
 	}	
 
