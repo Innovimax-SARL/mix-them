@@ -43,14 +43,14 @@ public class DefaultLineZipping extends AbstractLineOperation {
 				result.setResult((line1 != null ? line1 : "") + this.sep + (line2 != null ? line2 : ""));
 				break;
 			case _CELL:					
-				Iterator<String> iterator1 = line1 != null ? Arrays.asList(line1.split(DEFAULT_SPLIT_CELL_REGEX )).iterator() : Collections.emptyIterator();
-				Iterator<String> iterator2 = line2 != null ? Arrays.asList(line2.split(DEFAULT_SPLIT_CELL_REGEX )).iterator() : Collections.emptyIterator();				
+				Iterator<String> iterator1 = line1 != null ? Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString())).iterator() : Collections.emptyIterator();
+				Iterator<String> iterator2 = line2 != null ? Arrays.asList(line2.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString())).iterator() : Collections.emptyIterator();				
 				StringBuffer buf = new StringBuffer();
 				while (iterator1.hasNext() || iterator2.hasNext()) {						
 					String cell1 = iterator1.hasNext() ? iterator1.next() : "";
 					String cell2 = iterator2.hasNext() ? iterator2.next() : "";					
 					if (buf.length() > 0) {						
-						buf.append(DEFAULT_CELL_SEPARATOR);
+						buf.append(CellOperation.DEFAULT_CELL_SEPARATOR.toString());
 					}					
 					buf.append(cell1 + this.sep + cell2);					
 				}
