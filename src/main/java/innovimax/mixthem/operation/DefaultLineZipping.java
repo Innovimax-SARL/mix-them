@@ -36,7 +36,7 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	
 	@Override
 	public void process(String line1, String line2, LineResult result) throws MixException {
-		result.resetTypes();
+		result.reset();
 		switch (this.type) {
 			case LINE:
 				result.setResult((line1 != null ? line1 : "") + this.sep + (line2 != null ? line2 : ""));
@@ -54,9 +54,6 @@ public class DefaultLineZipping extends AbstractLineOperation {
 					buf.append(cell1 + this.sep + cell2);					
 				}
 				result.setResult(buf.toString());
-				break;
-			default:
-				result.ignoreResult();
 		}
 		result.exploreBothFiles();
 	}
