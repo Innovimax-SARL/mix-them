@@ -97,7 +97,7 @@ public class LineResult {
     * Returns the result of the operation (maybe null).
     */
     boolean hasResult() {
-        eturn this.types.contains(ResultType._GET_RESULT);     
+        return this.types.contains(ResultType._GET_RESULT);     
     }
     
     /**
