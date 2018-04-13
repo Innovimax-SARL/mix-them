@@ -9,10 +9,21 @@ import java.util.EnumSet;
 */
 public class LineResult {
     
-    private final EnumSet<ResultType> types = EnumSet.noneOf(ResultType.class);
-    private String line1 = null;
-    private String line2 = null;
-    private String result = null;
+    private final EnumSet<ResultType> types;
+    private String line1;
+    private String line2;
+    private String result;
+    
+    /**
+    * Creates a line result.    
+    */
+    public LineResult() {
+        this.types = EnumSet.noneOf(ResultType.class);
+        this.types.add(ResultType._READ_BOTH_FILES);
+        this.line1 = null;
+        this.line2 = null;
+        this.result = null;
+    }
 
     /**
     * Reset the result types.
