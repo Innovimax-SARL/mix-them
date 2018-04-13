@@ -45,10 +45,10 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 		} else {
 			String line = null;
 			switch (this.mode) {
-				case _RANDOM:
+				case RANDOM:
 					line = this.random.nextBoolean() ? line1 : line2;
 					break;
-				case _NORMAL:
+				case NORMAL:
 				default:
 					line = this.odd ? line1 : line2;
 					this.odd = !this.odd;
