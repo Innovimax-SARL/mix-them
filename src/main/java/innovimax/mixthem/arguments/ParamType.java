@@ -6,6 +6,6 @@ package innovimax.mixthem.arguments;
 * @version 1.0
 */
 public enum ParamType { 
-	_STRING,
-	_INTEGER;
+	STRING,
+	INTEGER;
 }
