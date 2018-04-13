@@ -47,12 +47,13 @@ public class DefaultLineJoining extends AbstractLineOperation {
 						String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.toString()));
 						result.setResult(part1 + CellOperation.DEFAULT_CELL_SEPARATOR.toString()  + 
 								 part2 + CellOperation.DEFAULT_CELL_SEPARATOR.toString() + part3);
-						result.exploreBothFiles();
 						break;
 					case 1:
+						result.setFirstLine(line1);
 						result.preserveFirstLine();
 						break;
 					default:
+						result.setSecondLine(line2);
 						result.preserveSecondLine();
 				}
 			}
