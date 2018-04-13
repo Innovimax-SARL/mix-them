@@ -108,41 +108,41 @@ public class MixThem {
         try {
 	    LOGGER.info("Started mixing for rule '" + rule.getName() + "'...");
             switch(rule) {
-                case _1:
+                case FILE_1:
                   copyChar(this.file1, this.out);
                   break;
-                case _2:               
+                case FILE_2:               
                   copyChar(this.file2, this.out);  
                   break; 
-                case _ADD:    
+                case ADD:    
                   copyChar(this.file1, this.out);
                   copyChar(this.file2, this.out);
                   break;
-                case _ALT_CHAR:
+                case ALT_CHAR:
 		  IOperation altCharOp = new DefaultCharAlternation(params);
 		  altCharOp.processFiles(this.file1, this.file2, this.out);	
                   break;
-                case _ALT_LINE:    
+                case ALT_LINE:    
 		  IOperation altLineOp = new DefaultLineAlternation(AltMode._NORMAL, params);
 		  altLineOp.processFiles(this.file1, this.file2, this.out);			    
                   break;
-                case _RANDOM_ALT_LINE:
+                case RANDOM_ALT_LINE:
 		  IOperation randomAltLineOp = new DefaultLineAlternation(AltMode._RANDOM, params);
 		  randomAltLineOp.processFiles(this.file1, this.file2, this.out);	
                   break;
-                case _JOIN:  
+                case JOIN:  
 		  IOperation joinLineOp = new DefaultLineJoining(params);
 		  joinLineOp.processFiles(this.file1, this.file2, this.out);
                   break;
-                case _ZIP_LINE:
+                case ZIP_LINE:
 		  IOperation zipLineOp = new DefaultLineZipping(ZipType._LINE, params);
 		  zipLineOp.processFiles(this.file1, this.file2, this.out);
                   break;
-		case _ZIP_CELL:		  
+		case ZIP_CELL:		  
 		  IOperation zipCellOp = new DefaultLineZipping(ZipType._CELL, params);
 		  zipCellOp.processFiles(this.file1, this.file2, this.out);
 		  break;
-		case _ZIP_CHAR:			    
+		case ZIP_CHAR:			    
 		  IOperation zipCharOp = new DefaultCharZipping(params);
 		  zipCharOp.processFiles(this.file1, this.file2, this.out);
 		  /*break;
