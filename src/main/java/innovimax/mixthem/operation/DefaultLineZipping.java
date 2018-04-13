@@ -32,7 +32,7 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	public DefaultLineZipping(ZipType type, Map<RuleParam, ParamValue> params) {
 		super(params);
 		this.type = type;
-		this.sep = params.containsKey(RuleParam._ZIP_SEP) ? params.get(RuleParam._ZIP_SEP).asString() : DEFAULT_ZIP_SEPARATOR;	
+		this.sep = params.containsKey(RuleParam._ZIP_SEP) ? params.get(RuleParam._ZIP_SEP).asString() : ZipOperation.DEFAULT_ZIP_SEPARATOR.toString();	
 	}
 	
 	@Override
