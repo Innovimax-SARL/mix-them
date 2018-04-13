@@ -123,11 +123,11 @@ public class MixThem {
 		  altCharOp.processFiles(this.file1, this.file2, this.out);	
                   break;
                 case ALT_LINE:    
-		  IOperation altLineOp = new DefaultLineAlternation(AltMode._NORMAL, params);
+		  IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, params);
 		  altLineOp.processFiles(this.file1, this.file2, this.out);			    
                   break;
                 case RANDOM_ALT_LINE:
-		  IOperation randomAltLineOp = new DefaultLineAlternation(AltMode._RANDOM, params);
+		  IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, params);
 		  randomAltLineOp.processFiles(this.file1, this.file2, this.out);	
                   break;
                 case JOIN:  
