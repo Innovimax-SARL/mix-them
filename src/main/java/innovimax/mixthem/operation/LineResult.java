@@ -94,6 +94,13 @@ public class LineResult {
     }
 
     /**
+    * Returns the result of the operation (maybe null).
+    */
+    boolean hasResult() {
+        eturn this.types.contains(ResultType._GET_RESULT);     
+    }
+    
+    /**
     * Preserves first file from reading
     */
     void preserveFirst() {
