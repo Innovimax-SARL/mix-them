@@ -37,7 +37,7 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 
 	@Override
 	public void process(String line1, String line2, LineResult result) throws MixException {		
-		result.resetTypes();
+		result.reset();
 		if (line1 == null) {
 			result.setResult(line2);
 		} else if (line2 == null) {
