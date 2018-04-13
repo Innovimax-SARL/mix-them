@@ -64,6 +64,13 @@ public class LineResult {
     }
     
     /**
+    * Has first line?
+    */
+    boolean hasFirstLine() {
+        return this.line1 != null;
+    }
+
+    /**
     * Set the first line.
     */
     void setFirstLine(String line) {
@@ -76,6 +83,13 @@ public class LineResult {
     String getSecondLine() {
         return this.line2;
     }
+
+    /**
+    * Has second line?
+    */
+    boolean hasSecondLine() {
+        return this.line2 != null;
+    }
     
     /**
     * Set the second line.
@@ -83,7 +97,6 @@ public class LineResult {
     void setSecondLine(String line) {
         this.line2 = line;
     }
-    
     
     /**
     * Preserves first file from reading
