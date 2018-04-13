@@ -62,7 +62,7 @@ public class Arguments {
             ruleParams = findRuleParameters(args, index, rule);
             index += ruleParams.size();
         } else {
-            rule = Rule._ADD;
+            rule = Rule.ADD;
         }
         File file1 = findFileArgument(args, index, "file1");
         File file2 = findFileArgument(args, ++index, "file2");
