@@ -48,13 +48,11 @@ public class DefaultLineJoining extends AbstractLineOperation {
 						result.setResult(part1 + CellOperation.DEFAULT_CELL_SEPARATOR.toString()  + 
 								 part2 + CellOperation.DEFAULT_CELL_SEPARATOR.toString() + part3);
 						break;
-					case 1:
-						result.setFirstLine(line1);
-						result.preserveFirstLine();
+					case 1:						
+						result.preserveFirstLine(line1);
 						break;
-					default:
-						result.setSecondLine(line2);
-						result.preserveSecondLine();
+					default:						
+						result.preserveSecondLine(line2);
 				}
 			}
 		}
