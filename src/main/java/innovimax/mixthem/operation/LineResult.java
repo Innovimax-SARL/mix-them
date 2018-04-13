@@ -51,23 +51,23 @@ public class LineResult {
     }
     
     /**
-    * Set the last line.
+    * Set the second line.
     */
-    void setLastLine(String line) {
+    void setSecondLine(String line) {
         this.line2 = line;        
     }
     
     /**
-    * Get the last line.
+    * Get the second line.
     */
-    String getLastLine() {
+    String getSecondLine() {
         return this.line2;
     }
     
     /**
-    * Has last line?
+    * Has second line?
     */
-    boolean hasLastLine() {
+    boolean hasSecondLine() {
         return this.line2 != null;
     }
     
@@ -103,43 +103,43 @@ public class LineResult {
     /**
     * Preserves first file from reading
     */
-    void preserveFirst() {
-        this.types.add(ResultType._READ_LAST);        
+    void preserveFirstLine() {
+        this.types.add(ResultType._READ_SECOND_FILE);        
     }
 
     /**
     * Has to read first file ?
     */
-    boolean readFirst() {
-        return this.types.contains(ResultType._READ_FIRST);        
+    boolean firstFileReading() {
+        return this.types.contains(ResultType._READ_FIRST_FILE) || this.types.contains(ResultType._READ_BOTH_FILES);        
     }
 
     /**
-    * Preserves last file from reading
+    * Preserves second file from reading
     */
-    void preserveLast() {
-        this.types.add(ResultType._READ_FIRST);        
+    void preserveSecondLine() {
+        this.types.add(ResultType._READ_FIRST_FILE);        
     }
 
     /**
-    * Has to read last file ?
+    * Has to read second file ?
     */
-    boolean readLast() {
-        return this.types.contains(ResultType._READ_LAST);        
+    boolean secondFileReading() {
+        return this.types.contains(ResultType._READ_SECOND_FILE) || this.types.contains(ResultType._READ_BOTH_FILES);        
     }
 
     /**
     * Explores both files for next reading
     */
-    void exploreBoth() {
-        this.types.add(ResultType._READ_BOTH);        
+    void exploreBothFiles() {
+        this.types.add(ResultType._READ_BOTH_FILES);        
     }   
 
     /**
     * Has to read both files ?
     */
-    boolean readBoth() {
-        return this.types.contains(ResultType._READ_BOTH);        
+    boolean bothFilesReading() {
+        return this.types.contains(ResultType._READ_BOTH_FILES);        
     } 
 
 }
