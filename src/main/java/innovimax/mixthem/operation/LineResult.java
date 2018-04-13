@@ -18,8 +18,7 @@ public class LineResult {
     * Creates a line result.    
     */
     public LineResult() {
-        this.types = EnumSet.noneOf(ResultType.class);
-        this.types.add(ResultType._READ_BOTH_FILES);
+        this.types = EnumSet.of(ResultType._READ_BOTH_FILES);        
         this.line1 = null;
         this.line2 = null;
         this.result = null;
