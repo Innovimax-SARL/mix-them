@@ -46,11 +46,11 @@ public class RuleRuns {
 					String suffix = parts[0];
 					Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
 					switch (rule) {
-						case _RANDOM_ALT_LINE:
+						case RANDOM_ALT_LINE:
 							int seed = Integer.parseInt(parts[1]);
 							params.put(RuleParam._RANDOM_SEED, ParamValue.createInt(seed));
 							break;
-						case _JOIN:
+						case JOIN:
 							int col = Integer.parseInt(parts[1]);
 							params.put(RuleParam._JOIN_COL1, ParamValue.createInt(col));
 							if (parts.length > 2) {
@@ -58,9 +58,9 @@ public class RuleRuns {
 								params.put(RuleParam._JOIN_COL2, ParamValue.createInt(col));
 							}	
 							break;
-						case _ZIP_LINE:
-						case _ZIP_CELL:
-						case _ZIP_CHAR:
+						case ZIP_LINE:
+						case ZIP_CELL:
+						case ZIP_CHAR:
 							String sep = parts[1];
 							params.put(RuleParam._ZIP_SEP, ParamValue.createString(sep));
 					}
