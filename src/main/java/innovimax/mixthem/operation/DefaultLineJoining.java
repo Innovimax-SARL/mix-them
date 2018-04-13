@@ -33,7 +33,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 
 	@Override
 	public void process(String line1, String line2, LineResult result) throws MixException {
-		result.resetTypes();
+		result.reset();
 		if (line1 !=null && line2 != null) {
 			List<String> list1 = Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));
 			List<String> list2 = Arrays.asList(line2.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));		
@@ -44,8 +44,6 @@ public class DefaultLineJoining extends AbstractLineOperation {
 				result.setResult(part1 + CellOperation.DEFAULT_CELL_SEPARATOR.toString()  + 
 						 part2 + CellOperation.DEFAULT_CELL_SEPARATOR.toString() + part3);
 			}
-		} else {
-			result.ignoreResult();
 		}
 		result.exploreBothFiles();  // TODO: preserve lines
 	}
