@@ -35,7 +35,7 @@ public enum RuleParam {
 	ParamValue createValue(String value) throws NumberFormatException {
 		ParamValue pv = null;
 		switch (this.type) {
-			case _INTEGER:				
+			case INTEGER:				
             			pv = ParamValue.createInt(Integer.parseInt(value));
             			break;
             		default:
