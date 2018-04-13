@@ -55,7 +55,6 @@ public class DefaultLineZipping extends AbstractLineOperation {
 				}
 				result.setResult(buf.toString());
 		}
-		result.exploreBothFiles();
 	}
 
 }
