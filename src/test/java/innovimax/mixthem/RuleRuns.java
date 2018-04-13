@@ -48,21 +48,21 @@ public class RuleRuns {
 					switch (rule) {
 						case RANDOM_ALT_LINE:
 							int seed = Integer.parseInt(parts[1]);
-							params.put(RuleParam._RANDOM_SEED, ParamValue.createInt(seed));
+							params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(seed));
 							break;
 						case JOIN:
 							int col = Integer.parseInt(parts[1]);
-							params.put(RuleParam._JOIN_COL1, ParamValue.createInt(col));
+							params.put(RuleParam.JOIN_COL1, ParamValue.createInt(col));
 							if (parts.length > 2) {
 								col = Integer.parseInt(parts[2]);
-								params.put(RuleParam._JOIN_COL2, ParamValue.createInt(col));
+								params.put(RuleParam.JOIN_COL2, ParamValue.createInt(col));
 							}	
 							break;
 						case ZIP_LINE:
 						case ZIP_CELL:
 						case ZIP_CHAR:
 							String sep = parts[1];
-							params.put(RuleParam._ZIP_SEP, ParamValue.createString(sep));
+							params.put(RuleParam.ZIP_SEP, ParamValue.createString(sep));
 					}
 					if (suffix.equals(DEFAULT_OUTPUT_FILE)) {
 						runs.add(new RuleRun(null, params));
