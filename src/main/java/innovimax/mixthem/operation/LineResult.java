@@ -18,7 +18,7 @@ public class LineResult {
     * Creates a line result.    
     */
     public LineResult() {
-        this.types = EnumSet.of(ResultType.READ_BOTH_FILES);
+        this.types = EnumSet.noneOf(ResultType.class);
         this.result = null;
         this.line1 = null;
         this.line2 = null;        
@@ -102,42 +102,28 @@ public class LineResult {
     * Preserves first file from reading
     */
     void preserveFirstLine() {
-        this.types.add(ResultType.READ_SECOND_FILE);        
+        this.types.add(ResultType.PRESERVE_FIRST_LINE);        
     }
 
     /**
     * Has to read first file ?
     */
-    boolean firstFileReading() {
-        return this.types.contains(ResultType.READ_FIRST_FILE) || this.types.contains(ResultType.READ_BOTH_FILES);        
+    boolean readingFirstFile() {
+        return !this.types.contains(ResultType.PRESERVE_FIRST_LINE);
     }
 
     /**
     * Preserves second file from reading
     */
     void preserveSecondLine() {
-        this.types.add(ResultType.READ_FIRST_FILE);        
+        this.types.add(ResultType.PRESERVE_SECOND_LINE);        
     }
 
     /**
     * Has to read second file ?
     */
-    boolean secondFileReading() {
-        return this.types.contains(ResultType.READ_SECOND_FILE) || this.types.contains(ResultType.READ_BOTH_FILES);        
+    boolean readingSecondFile() {
+        return !this.types.contains(ResultType.PRESERVE_SECOND_LINE);
     }
-
-    /**
-    * Explores both files for next reading
-    */
-    void exploreBothFiles() {
-        this.types.add(ResultType.READ_BOTH_FILES);        
-    }   
-
-    /**
-    * Has to read both files ?
-    */
-    boolean bothFilesReading() {
-        return this.types.contains(ResultType.READ_BOTH_FILES);        
-    } 
 
 }
