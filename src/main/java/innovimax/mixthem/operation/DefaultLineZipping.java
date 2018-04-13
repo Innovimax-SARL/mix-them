@@ -59,7 +59,7 @@ public class DefaultLineZipping extends AbstractLineOperation {
 			default:
 				result.ignoreResult();
 		}
-		result.exploreBoth();
+		result.exploreBothFiles();
 	}
 
 }
