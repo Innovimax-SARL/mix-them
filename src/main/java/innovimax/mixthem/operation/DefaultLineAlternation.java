@@ -55,7 +55,6 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 			}
 			result.setResult(line);
 		}
-		result.exploreBothFiles();
 	}
 
 }
