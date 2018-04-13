@@ -47,7 +47,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		} else {
 			result.ignoreResult();
 		}
-		result.exploreBoth();  // TODO: preserve lines
+		result.exploreBothFiles();  // TODO: preserve lines
 	}
 
 }
