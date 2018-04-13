@@ -38,8 +38,8 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 		IOutputLine writer = new DefaultLineWriter(out);
 		LineResult result = new LineResult();
 		while (reader1.hasLine() || reader2.hasLine()) {
-			final String line1 = result.firstFileReading() ? reader1.nextLine() : result.getFirstLine();
-			final String line2 = result.secondFileReading() ? reader2.nextLine() : result.getSecondLine();
+			final String line1 = result.readingFirstFile() ? reader1.nextLine() : result.getFirstLine();
+			final String line2 = result.readingSecondFile() ? reader2.nextLine() : result.getSecondLine();
 			process(line1, line2, result);
 			if (result.hasResult()) {
 				writer.writeLine(result.getResult());
