@@ -10,35 +10,52 @@ import java.util.EnumSet;
 public class LineResult {
     
     private final EnumSet<ResultType> types;
-    private String line1;
-    private String line2;
     private String result;
+    private String line1;
+    private String line2;    
     
     /**
     * Creates a line result.    
     */
     public LineResult() {
-        this.types = EnumSet.of(ResultType.READ_BOTH_FILES);        
-        this.line1 = null;
-        this.line2 = null;
+        this.types = EnumSet.of(ResultType.READ_BOTH_FILES);
         this.result = null;
+        this.line1 = null;
+        this.line2 = null;        
     }
 
     /**
-    * Reset the result types.
+    * Reset the result.
     */
-    void resetTypes() {        
-        this.types.clear(); 
+    void reset() {        
+        this.types.clear();
+        this.result = null;
     }
     
     /**
-    * Reset the read lines.
+    * Set the result (maybe null).
     */
-    void resetLines() {        
-        this.line1 = null;
-        this.line2 = null;
+    void setResult(String result) {
+        this.result = result;
+        if (result != null) {
+            this.types.add(ResultType.HAS_RESULT);
+        }
     }
 
+    /**
+    * Returns the result (maybe null).
+    */
+    String getResult() {
+        return this.result;
+    }
+
+    /**
+    * Has a result ?
+    */
+    boolean hasResult() {
+        return this.types.contains(ResultType.HAS_RESULT);     
+    }
+    
     /**
     * Set the first line.
     */
@@ -79,35 +96,6 @@ public class LineResult {
     */
     boolean hasSecondLine() {
         return this.line2 != null;
-    }
-    
-    /**
-    * Set the result of the operation (maybe null).
-    */
-    void setResult(String result) {
-        this.result = result;        
-        this.types.add(result == null ? ResultType.IGNORE_RESULT : ResultType.GET_RESULT);        
-    }
-
-    /**
-    * Ignores the result of the operation (set to null).
-    */
-    void ignoreResult() {
-        this.types.add(ResultType.IGNORE_RESULT);
-    }
-
-    /**
-    * Returns the result of the operation (maybe null).
-    */
-    String getResult() {
-        return this.result;
-    }
-
-    /**
-    * Returns the result of the operation (maybe null).
-    */
-    boolean hasResult() {
-        return this.types.contains(ResultType.GET_RESULT);     
     }
     
     /**
