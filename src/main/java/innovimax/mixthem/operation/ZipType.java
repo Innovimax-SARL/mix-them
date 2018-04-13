@@ -11,6 +11,6 @@ package innovimax.mixthem.operation;
 * @version 1.0
 */
 public enum ZipType {	
-	_LINE,
-	_CELL;
+	LINE,
+	CELL;
 }
