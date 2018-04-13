@@ -1,6 +1,5 @@
 package innovimax.mixthem.operation;
 
-import static innovimax.mixthem.MixConstants.*;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
