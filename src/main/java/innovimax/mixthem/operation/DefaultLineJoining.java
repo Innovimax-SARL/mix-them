@@ -38,7 +38,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			List<String> list1 = Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));
 			List<String> list2 = Arrays.asList(line2.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));		
 			String cell1 = list1.size() >= this.col1 ? list1.get(this.col1 - 1) : null;
-			String cell2 = list2.size() >= this.col2 ? list1.get(this.col2 - 1) : null;
+			String cell2 = list2.size() >= this.col2 ? list2.get(this.col2 - 1) : null;
 			if (cell1 != null && cell2 != null) {
 				switch (cell1.compareTo(cell2)) {
 					case 0:
