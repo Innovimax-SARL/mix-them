@@ -15,11 +15,11 @@ public enum Rule {
     ADD("+", "add", "will output file1+file2", true, EnumSet.noneOf(RuleParam.class)),
     ALT_LINE("alt-line", "altline", "will output one line of each starting with first line of file1", true, EnumSet.noneOf(RuleParam.class)), 
     ALT_CHAR("alt-char", "altchar", "will output one char of each starting with first char of file1", true, EnumSet.noneOf(RuleParam.class)),
-    RANDOM_ALT_LINE("random-alt-line", "random-altline", "will output one line of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam._RANDOM_SEED)),
-    JOIN("join", "join", "will output merging of lines that have common occurrence", true, EnumSet.of(RuleParam._JOIN_COL1, RuleParam._JOIN_COL2)),    
-    ZIP_LINE("zip-line", "zipline", "will output zip of line from file1 and file2", true, EnumSet.of(RuleParam._ZIP_SEP)),
-    ZIP_CHAR("zip-char", "zipchar", "will output zip of char from file1 and file2", true, EnumSet.of(RuleParam._ZIP_SEP)),
-    ZIP_CELL("zip-cell", "zipcell", "will output zip of cell from file1 and file2", true, EnumSet.of(RuleParam._ZIP_SEP));
+    RANDOM_ALT_LINE("random-alt-line", "random-altline", "will output one line of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam.RANDOM_SEED)),
+    JOIN("join", "join", "will output merging of lines that have common occurrence", true, EnumSet.of(RuleParam.JOIN_COL1, RuleParam.JOIN_COL2)),    
+    ZIP_LINE("zip-line", "zipline", "will output zip of line from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP)),
+    ZIP_CHAR("zip-char", "zipchar", "will output zip of char from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP)),
+    ZIP_CELL("zip-cell", "zipcell", "will output zip of cell from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP));
 
     private final String name, extension, description;
     private final boolean implemented;
