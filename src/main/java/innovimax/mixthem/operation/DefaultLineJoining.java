@@ -27,8 +27,8 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	*/
 	public DefaultLineJoining(Map<RuleParam, ParamValue> params) {
 		super(params);
-		this.col1 = this.params.containsKey(RuleParam._JOIN_COL1) ? this.params.get(RuleParam._JOIN_COL1).asInt() : JoinOperation.DEFAULT_JOIN_COLUMN.toInteger();
-		this.col2 = this.params.containsKey(RuleParam._JOIN_COL2) ? this.params.get(RuleParam._JOIN_COL2).asInt() : JoinOperation.DEFAULT_JOIN_COLUMN.toInteger();
+		this.col1 = this.params.containsKey(RuleParam.JOIN_COL1) ? this.params.get(RuleParam.JOIN_COL1).asInt() : JoinOperation.DEFAULT_JOIN_COLUMN.toInteger();
+		this.col2 = this.params.containsKey(RuleParam.JOIN_COL2) ? this.params.get(RuleParam.JOIN_COL2).asInt() : JoinOperation.DEFAULT_JOIN_COLUMN.toInteger();
 	}	
 
 	@Override
