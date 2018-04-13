@@ -57,31 +57,10 @@ public class LineResult {
     }
     
     /**
-    * Set the first line.
-    */
-    void setFirstLine(String line) {
-        this.line1 = line;        
-    }
-    
-    /**
     * Get the first line.
     */
     String getFirstLine() {
         return this.line1;
-    }
-    
-    /**
-    * Has first line?
-    */
-    boolean hasFirstLine() {
-        return this.line1 != null;
-    }
-    
-    /**
-    * Set the second line.
-    */
-    void setSecondLine(String line) {
-        this.line2 = line;        
     }
     
     /**
@@ -92,17 +71,11 @@ public class LineResult {
     }
     
     /**
-    * Has second line?
-    */
-    boolean hasSecondLine() {
-        return this.line2 != null;
-    }
-    
-    /**
     * Preserves first file from reading
     */
-    void preserveFirstLine() {
-        this.types.add(ResultType.PRESERVE_FIRST_LINE);        
+    void preserveFirstLine(String line) {        
+        this.types.add(ResultType.PRESERVE_FIRST_LINE);
+        this.line1 = line;
     }
 
     /**
@@ -115,8 +88,9 @@ public class LineResult {
     /**
     * Preserves second file from reading
     */
-    void preserveSecondLine() {
-        this.types.add(ResultType.PRESERVE_SECOND_LINE);        
+    void preserveSecondLine(String line) {
+        this.types.add(ResultType.PRESERVE_SECOND_LINE);
+        this.line2 = line;
     }
 
     /**
