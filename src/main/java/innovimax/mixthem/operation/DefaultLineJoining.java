@@ -60,10 +60,12 @@ public class DefaultLineJoining extends AbstractLineOperation {
           joinLines(list1, prevList2, result);
           result.preserveSecondLine();
           result.setFirstLine(line1);
+          result.keepSecondLine(line2);
         } else if (cell2.equals(prevCell2) && !secondPreserved) {
           System.out.println("PREVIOUS 2");
           joinLines(prevList1, list2, result);
           result.preserveFirstLine();
+          result.keepFirstLine(line1);
           result.setSecondLine(line2);
         } else {
           switch (Integer.signum(cell1.compareTo(cell2))) {
