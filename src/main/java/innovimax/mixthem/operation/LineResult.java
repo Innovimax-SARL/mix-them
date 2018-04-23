@@ -78,16 +78,20 @@ public class LineResult {
     * Set the first line.
     */
     void setFirstLine(String line) {
-        this.readLine1 = line;
-        this.keptLine1 = null;
+        if (this.keptLine1 != null) {            
+            preserveFirstLine();
+            this.keptLine1 = null;
+        } else {
+            this.readLine1 = line; 
+        }
     }
-    
+
     /**
-    * Keep previous first line and set next first line.
+    * Reset the first line.
     */
-    void keepFirstLine(String line) {
-        this.keptLine1 = this.readLine1;
-        this.readLine1 = line;
+    void resetFirstLine(String line) {
+        this.readLine1 = this.keptLine1 != null ? this.readLine1 : line; 
+        this.keptLine1 = null;
     }
     
     /**
@@ -108,12 +112,16 @@ public class LineResult {
     * Set the second line.
     */
     void setSecondLine(String line) {
-        this.readLine2 = line;
-        this.keptLine2 = null;
+        if (this.keptLine2 != null) {            
+            preserveSecondLine();
+            this.keptLine2 = null;
+        } else {
+            this.readLine2 = line; 
+        }
     }
     
     /**
-    * Keep previous second line and set next second line.
+    * Keep previous second line and set future second line.
     */
     void keepSecondLine(String line) {
         this.keptLine2 = this.readLine2;
