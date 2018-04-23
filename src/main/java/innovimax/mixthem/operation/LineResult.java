@@ -12,7 +12,7 @@ public class LineResult {
     private final EnumSet<ResultType> types;
     private String result;
     private String readLine1;
-    private String readline2;    
+    private String readLine2;    
     private String keptLine1;
     private String keptLine2;    
     
@@ -82,10 +82,11 @@ public class LineResult {
     }
     
     /**
-    * Keep first line.
+    * Keep previous first line and set next first line.
     */
-    void keepFirstLine(String line) {
-        this.keptLine1 = line;
+    void keepSecondLine(String line) {
+        this.keptLine1 = this.readLine1;
+        setFirstLine(line);
     }
     
     /**
@@ -110,10 +111,11 @@ public class LineResult {
     }
     
     /**
-    * Keep second line.
+    * Keep previous second line and set next second line.
     */
     void keepSecondLine(String line) {
-        this.keptLine2 = line;
+        this.keptLine2 = this.readLine2;
+        setSecondLine(line);
     }
     
     /**
