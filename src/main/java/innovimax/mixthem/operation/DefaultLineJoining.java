@@ -58,7 +58,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
           result.preserveFirstLine();
           result.setSecondLine(line2);
         } else {
-          switch (cell1.compareTo(cell2)) {
+          switch (Integer.signum(cell1.compareTo(cell2))) {
             case 0:
               joinLines(list1, list2, result);            
               break;
