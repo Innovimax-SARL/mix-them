@@ -7,8 +7,8 @@ public enum ZipOperation {
 
   private ParamValue value;
 
-  private ZipOperation(String value) {
-    this.value = ParamValue.createString(value);
+  private ZipOperation(String s) {
+    this.value = ParamValue.createString(s);
   }
 
   @Override
