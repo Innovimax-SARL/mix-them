@@ -49,17 +49,21 @@ public class DefaultLineJoining extends AbstractLineOperation {
                         Collections.emptyList();    
         String prevCell1 = prevList1.size() >= this.col1 ? prevList1.get(this.col1 - 1) : null;
         String prevCell2 = prevList2.size() >= this.col2 ? prevList2.get(this.col2 - 1) : null;
+        System.out.println("LINE1=" + line1 + " / CELL1=" + cell1);
+        System.out.println("LINE2=" + line2 + " / CELL2=" + cell2);
+        System.out.println("PVLINE1=" + result.getFirstLine() + " / PVCELL1=" + prevCell1);
+        System.out.println("PVLINE2=" + result.getSecondLine() + " / PVCELL2=" + prevCell2);
         if (cell1.equals(prevCell1)) {
+          System.out.println("PREVIOUS 1");
           joinLines(list1, prevList2, result);
           result.preserveSecondLine();
           result.setFirstLine(line1);
         } else if (cell2.equals(prevCell2)) {
+          System.out.println("PREVIOUS 2");
           joinLines(prevList1, list2, result);
           result.preserveFirstLine();
           result.setSecondLine(line2);
         } else {
-          System.out.println("LINE1=" + line1 + " / CELL1=" + cell1);
-          System.out.println("LINE2=" + line2 + " / CELL2=" + cell2);          
           switch (Integer.signum(cell1.compareTo(cell2))) {
             case 0:
               System.out.println("EQUALS");
