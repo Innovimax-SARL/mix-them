@@ -87,11 +87,11 @@ public class LineResult {
     }
 
     /**
-    * Reset the first line.
+    * Keep previous first line and set future first line.
     */
-    void resetFirstLine(String line) {
-        this.readLine1 = this.keptLine1 != null ? this.readLine1 : line; 
-        this.keptLine1 = null;
+    void keepFirstLine(String line) {
+        this.keptLine1 = this.readLine1;
+        this.readLine1 = line;
     }
     
     /**
