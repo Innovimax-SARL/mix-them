@@ -7,8 +7,8 @@ public enum AltOperation {
 
   private ParamValue value;
 
-  private AltOperation(int value) {
-    this.value = ParamValue.createInt(value);
+  private AltOperation(int i) {
+    this.value = ParamValue.createInt(i);
   }
 
   @Override
