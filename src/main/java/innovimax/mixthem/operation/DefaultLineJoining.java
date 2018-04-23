@@ -49,7 +49,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
                         Collections.emptyList();    
         String prevCell1 = prevList1.size() >= this.col1 ? prevList1.get(this.col1 - 1) : null;
         String prevCell2 = prevList2.size() >= this.col2 ? prevList2.get(this.col2 - 1) : null;
-        if (cell1.equals(prevCell1)) {
+        /*if (cell1.equals(prevCell1)) {
           joinLines(list1, prevList2, result);
           result.preserveSecondLine();
           result.setFirstLine(line1);
@@ -57,7 +57,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
           joinLines(prevList1, list2, result);
           result.preserveFirstLine();
           result.setSecondLine(line2);
-        } else {
+        } else {*/
           switch (Integer.signum(cell1.compareTo(cell2))) {
             case 0:
               joinLines(list1, list2, result);            
@@ -67,7 +67,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
               break;
             default:            
               result.preserveSecondLine();
-          }
+          //}
           result.setFirstLine(line1);
           result.setSecondLine(line2);
         }
