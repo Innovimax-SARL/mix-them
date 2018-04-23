@@ -1,25 +1,23 @@
 package innovimax.mixthem.operation;
 
+import innovimax.mixthem.arguments.ParamValue;
+
 public enum AltOperation { 
-  DEFAULT_RANDOM_SEED("1789");
+  DEFAULT_RANDOM_SEED(1789);
 
-  private String value;
+  private ParamValue value;
 
-  private AltOperation(String value) {
-    this.value = value;
+  private AltOperation(int value) {
+    this.value = ParamValue.createInt(value);
   }
 
   @Override
   public String toString() {
-    return this.value;
+    return Integer.toString(this.value.asInt());
   }
 
-  public int toInteger() {
-    try {
-      return Integer.parseInt(this.value);
-    } catch (Exception e) {
-      return 0;
-    }
+  public ParamValue getValue() {
+    return this.value;
   }
 
 }
