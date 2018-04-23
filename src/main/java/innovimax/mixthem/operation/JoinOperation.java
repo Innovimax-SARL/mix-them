@@ -1,25 +1,23 @@
 package innovimax.mixthem.operation;
 
+import innovimax.mixthem.arguments.ParamValue;
+
 public enum JoinOperation { 
-  DEFAULT_JOIN_COLUMN("1");
+  DEFAULT_JOIN_COLUMN(1);
 
-  private String value;
+  private ParamValue value;
 
-  private JoinOperation(String value) {
-    this.value = value;
+  private JoinOperation(int i) {
+    this.value = ParamValue.createInt(i);
   }
 
   @Override
   public String toString() {
-    return this.value;
+    return Integer.toString(this.value.asInt());
   }
 
-  public int toInteger() {
-    try {
-      return Integer.parseInt(this.value);
-    } catch (Exception e) {
-      return 0;
-    }
+  public ParamValue getValue() {
+    return this.value;
   }
 
 }
