@@ -66,7 +66,7 @@ public class GenericTest {
 		   }
 		   testId++;
 	   }
-	   MixThem.LOGGER.info("FAILED TESTS : " + (errors.size() > 0 ? errors.toString() : "None");
+	   MixThem.LOGGER.info("FAILED TESTS : " + (errors.size() > 0 ? errors.toString() : "None"));
 	   Assert.assertTrue(result);
    }	   
    private final static boolean check(File file1, File file2, File expected, Rule rule, Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
