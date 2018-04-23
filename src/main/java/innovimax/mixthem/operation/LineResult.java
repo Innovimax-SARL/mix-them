@@ -13,6 +13,8 @@ public class LineResult {
     private String result;
     private String line1;
     private String line2;    
+    private String nextLine1;
+    private String nextLine2;    
     
     /**
     * Creates a line result.    
@@ -21,7 +23,9 @@ public class LineResult {
         this.types = EnumSet.noneOf(ResultType.class);
         this.result = null;
         this.line1 = null;
-        this.line2 = null;        
+        this.line2 = null;
+        this.nextLine1 = null;
+        this.nextLine2 = null;
     }
 
     /**
@@ -75,6 +79,14 @@ public class LineResult {
     */
     void setFirstLine(String line) {
         this.line1 = line;
+        this.nextLine1 = null;
+    }
+    
+    /**
+    * Set the next (pre-read) first line.
+    */
+    void setNextFirstLine(String line) {
+        this.nextLine1 = line;
     }
     
     /**
@@ -96,6 +108,14 @@ public class LineResult {
     */
     void setSecondLine(String line) {
         this.line2 = line;
+        this.nextLine2 = null;
+    }
+ 
+    /**
+    * Set the next (pre-read) second line.
+    */
+    void setNextSecondLine(String line) {
+        this.nextLine2 = line;
     }
     
     /**
