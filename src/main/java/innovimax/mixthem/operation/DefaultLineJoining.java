@@ -58,14 +58,21 @@ public class DefaultLineJoining extends AbstractLineOperation {
           result.preserveFirstLine();
           result.setSecondLine(line2);
         } else {*/
+          System.out.println("LINE1=" + line1);
+          System.out.println("LINE2=" + line2);
+          System.out.println("CELL1=" + cell1);
+          System.out.println("CELL2=" + cell2);        
           switch (Integer.signum(cell1.compareTo(cell2))) {
             case 0:
+              System.out.println("EQUALS");
               joinLines(list1, list2, result);            
               break;
             case 1:           
+              System.out.println("PRESERVE 1");
               result.preserveFirstLine();
               break;
             default:            
+              System.out.println("PRESERVE 2");
               result.preserveSecondLine();
           }
           result.setFirstLine(line1);
