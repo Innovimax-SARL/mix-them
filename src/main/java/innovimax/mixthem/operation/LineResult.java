@@ -84,7 +84,7 @@ public class LineResult {
     /**
     * Keep previous first line and set next first line.
     */
-    void keepSecondLine(String line) {
+    void keepFirstLine(String line) {
         this.keptLine1 = this.readLine1;
         setFirstLine(line);
     }
