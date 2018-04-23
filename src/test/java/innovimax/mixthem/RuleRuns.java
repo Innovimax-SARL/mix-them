@@ -56,8 +56,6 @@ public class RuleRuns {
 							if (parts.length > 2) {
 								col = Integer.parseInt(parts[2]);
 								params.put(RuleParam.JOIN_COL2, ParamValue.createInt(col));
-							} else {
-								params.put(RuleParam.JOIN_COL2, ParamValue.createInt(col));
 							}	
 							break;
 						case ZIP_LINE:
