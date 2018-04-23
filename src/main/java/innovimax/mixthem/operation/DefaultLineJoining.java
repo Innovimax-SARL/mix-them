@@ -41,13 +41,13 @@ public class DefaultLineJoining extends AbstractLineOperation {
       String cell1 = list1.size() >= this.col1 ? list1.get(this.col1 - 1) : null;
       String cell2 = list2.size() >= this.col2 ? list2.get(this.col2 - 1) : null;
       if (cell1 != null && cell2 != null) {
-        List<String> prevList1 = result.hasFirstLine() ?
+        /*List<String> prevList1 = result.hasFirstLine() ?
                         Arrays.asList(result.getFirstLine().split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
                         Collections.emptyList();
         List<String> prevList2 = result.hasSecondLine() ?
                         Arrays.asList(result.getSecondLine().split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
                         Collections.emptyList();    
-        /*String prevCell1 = prevList1.size() >= this.col1 ? prevList1.get(this.col1 - 1) : null;
+        String prevCell1 = prevList1.size() >= this.col1 ? prevList1.get(this.col1 - 1) : null;
         String prevCell2 = prevList2.size() >= this.col2 ? prevList2.get(this.col2 - 1) : null;
         if (cell1.equals(prevCell1)) {
           joinLines(list1, prevList2, result);
