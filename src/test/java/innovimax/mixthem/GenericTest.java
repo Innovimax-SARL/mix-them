@@ -26,6 +26,7 @@ public class GenericTest {
    public final void parameter() throws MixException, FileNotFoundException, IOException, NumberFormatException {
 	   MixThem.setLogging(Level.FINE);
 	   int testId = 1;
+	   List<String> failed = new ArrayList<String>();
 	   boolean result = true;
 	   while (true) {
 		   MixThem.LOGGER.info("TEST N° " + testId + "***********************************************************");
@@ -56,12 +57,16 @@ public class GenericTest {
 						   boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(urlR.getFile()), rule, run.getParams());
 						   MixThem.LOGGER.info("RUN " + (res ? "PASS" : "FAIL") + " WITH PARAMS " + run.getParams().toString());
 						   result &= res;
+						   if (!res) {
+							   failed.add(Integer.toString(testId));
+						   }
 					   }
 				   }
 			   }
 		   }
 		   testId++;
 	   }
+	   MixThem.LOGGER.info("FAILED TESTS : " + (errors.size() > 0 ? errors.toString() : "None");
 	   Assert.assertTrue(result);
    }	   
    private final static boolean check(File file1, File file2, File expected, Rule rule, Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
