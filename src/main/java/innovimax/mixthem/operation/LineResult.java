@@ -99,12 +99,19 @@ public class LineResult {
     }
     
     /**
-    * Preserves first file from reading
+    * Preserves first file from reading (keep line)
     */
     void preserveFirstLine() {        
         this.types.add(ResultType.PRESERVE_FIRST_LINE);
     }
 
+    /**
+    * First line preserved ?
+    */
+    boolean firstLinePreserved() {
+        return this.types.contains(ResultType.PRESERVE_FIRST_LINE);
+    }
+    
     /**
     * Has to read first file ?
     */
@@ -113,10 +120,17 @@ public class LineResult {
     }
 
     /**
-    * Preserves second file from reading
+    * Preserves second file from reading (keep line)
     */
     void preserveSecondLine() {
         this.types.add(ResultType.PRESERVE_SECOND_LINE);        
+    }
+    
+    /**
+    * Second line preserved ?
+    */
+    boolean secondLinePreserved() {
+        return this.types.contains(ResultType.PRESERVE_SECOND_LINE);
     }
 
     /**
