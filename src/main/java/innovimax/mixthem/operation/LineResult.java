@@ -79,6 +79,7 @@ public class LineResult {
     */
     void setFirstLine(String line) {
         this.readLine1 = line;
+        this.keptLine1 = null;
     }
     
     /**
@@ -86,7 +87,7 @@ public class LineResult {
     */
     void keepFirstLine(String line) {
         this.keptLine1 = this.readLine1;
-        setFirstLine(line);
+        this.readLine1 = line;
     }
     
     /**
@@ -108,6 +109,7 @@ public class LineResult {
     */
     void setSecondLine(String line) {
         this.readLine2 = line;
+        this.keptLine2 = null;
     }
     
     /**
@@ -115,7 +117,7 @@ public class LineResult {
     */
     void keepSecondLine(String line) {
         this.keptLine2 = this.readLine2;
-        setSecondLine(line);
+        this.readLine2 = line;
     }
     
     /**
