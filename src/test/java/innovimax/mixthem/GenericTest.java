@@ -6,6 +6,7 @@ import innovimax.mixthem.arguments.RuleParam;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,7 @@ public class GenericTest {
 		   }
 		   testId++;
 	   }
-	   MixThem.LOGGER.info("FAILED TESTS : " + (errors.size() > 0 ? errors.toString() : "None"));
+	   MixThem.LOGGER.info("FAILED TESTS : " + (failed.size() > 0 ? failed.toString() : "None"));
 	   Assert.assertTrue(result);
    }	   
    private final static boolean check(File file1, File file2, File expected, Rule rule, Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
