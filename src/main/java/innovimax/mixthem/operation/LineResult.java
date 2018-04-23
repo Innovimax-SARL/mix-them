@@ -11,10 +11,10 @@ public class LineResult {
     
     private final EnumSet<ResultType> types;
     private String result;
-    private String line1;
-    private String line2;    
-    private String nextLine1;
-    private String nextLine2;    
+    private String readLine1;
+    private String readline2;    
+    private String keptLine1;
+    private String keptLine2;    
     
     /**
     * Creates a line result.    
@@ -22,10 +22,10 @@ public class LineResult {
     public LineResult() {
         this.types = EnumSet.noneOf(ResultType.class);
         this.result = null;
-        this.line1 = null;
-        this.line2 = null;
-        this.nextLine1 = null;
-        this.nextLine2 = null;
+        this.readLine1 = null;
+        this.readLine2 = null;
+        this.keptLine1 = null;
+        this.keptLine2 = null;
     }
 
     /**
@@ -61,61 +61,87 @@ public class LineResult {
     }
     
     /**
-    * Get the first line.
+    * Get the first read line.
     */
-    String getFirstLine() {
-        return this.line1;
+    String getFirstReadLine() {
+        return this.readLine1;
     }
     
     /**
-    * Has first line?
+    * Has first read line?
     */
-    boolean hasFirstLine() {
-        return this.line1 != null;
+    boolean hasFirstReadLine() {
+        return this.readLine1 != null;
     }
 
     /**
-    * Set the first line.
+    * Set the first read line.
     */
-    void setFirstLine(String line) {
-        this.line1 = line;
-        this.nextLine1 = null;
+    void setFirstReadLine(String line) {
+        this.readLine1 = line;
     }
     
     /**
-    * Set the next (pre-read) first line.
+    * Get the first kept line.
     */
-    void setNextFirstLine(String line) {
-        this.nextLine1 = line;
+    String getFirstKeptLine() {
+        return this.keptLine1;
     }
     
     /**
-    * Get the second line.
+    * Has first kept line?
     */
-    String getSecondLine() {
-        return this.line2;
+    boolean hasFirstKeptLine() {
+        return this.KeptLine1 != null;
     }
 
     /**
-    * Has second line?
+    * Set the first kept line.
     */
-    boolean hasSecondLine() {
-        return this.line2 != null;
+    void setFirstKeptLine(String line) {
+        this.keptLine1 = line;
     }
     
     /**
-    * Set the second line.
+    * Get the second read line.
     */
-    void setSecondLine(String line) {
-        this.line2 = line;
-        this.nextLine2 = null;
+    String getSecondReadLine() {
+        return this.readLine2;
+    }
+
+    /**
+    * Has second read line?
+    */
+    boolean hasSecondReadLine() {
+        return this.readLine2 != null;
+    }
+    
+    /**
+    * Set the second read line.
+    */
+    void setSecondReadLine(String line) {
+        this.readLine2 = line;        
+    }
+    
+    /**
+    * Get the second kept line.
+    */
+    String getSecondKeptLine() {
+        return this.keptLine2;
+    }
+
+    /**
+    * Has second kept line?
+    */
+    boolean hasSecondKeptLine() {
+        return this.keptLine2 != null;
     }
  
     /**
-    * Set the next (pre-read) second line.
+    * Set the second kept line.
     */
-    void setNextSecondLine(String line) {
-        this.nextLine2 = line;
+    void setSecondKeptLine(String line) {
+        this.keptLine2 = line;
     }
     
     /**
