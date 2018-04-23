@@ -67,10 +67,10 @@ public class DefaultLineJoining extends AbstractLineOperation {
               break;
             default:            
               result.preserveSecondLine();
-          //}
+          }
           result.setFirstLine(line1);
           result.setSecondLine(line2);
-        }
+        //}
       }
     }   
   }
