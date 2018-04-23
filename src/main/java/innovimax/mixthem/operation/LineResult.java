@@ -59,88 +59,60 @@ public class LineResult {
     boolean hasResult() {
         return this.types.contains(ResultType.HAS_RESULT);     
     }
-    
+
     /**
-    * Get the first read line.
+    * Get the first line.
     */
-    String getFirstReadLine() {
-        return this.readLine1;
+    String getFirstLine() {        
+        return this.keptLine1 != null ? this.keptLine1 : this.readLine1;        
     }
-    
+       
     /**
-    * Has first read line?
+    * Has first line?
     */
-    boolean hasFirstReadLine() {
-        return this.readLine1 != null;
+    boolean hasFirstLine() {
+        return getFirstLine() != null;
     }
 
     /**
-    * Set the first read line.
+    * Set the first line.
     */
-    void setFirstReadLine(String line) {
+    void setFirstLine(String line) {
         this.readLine1 = line;
     }
     
     /**
-    * Get the first kept line.
+    * Keep first line.
     */
-    String getFirstKeptLine() {
-        return this.keptLine1;
-    }
-    
-    /**
-    * Has first kept line?
-    */
-    boolean hasFirstKeptLine() {
-        return this.KeptLine1 != null;
-    }
-
-    /**
-    * Set the first kept line.
-    */
-    void setFirstKeptLine(String line) {
+    void keepFirstLine(String line) {
         this.keptLine1 = line;
     }
     
     /**
-    * Get the second read line.
+    * Get the second line.
     */
-    String getSecondReadLine() {
-        return this.readLine2;
+    String getSecondLine() {        
+        return this.keptLine2 != null ? this.keptLine2 : this.readLine2;        
+    }
+       
+    /**
+    * Has second line?
+    */
+    boolean hasSecondLine() {
+        return getSecondLine() != null;
     }
 
     /**
-    * Has second read line?
+    * Set the second line.
     */
-    boolean hasSecondReadLine() {
-        return this.readLine2 != null;
+    void setSecondLine(String line) {
+        this.readLine2 = line;
     }
     
     /**
-    * Set the second read line.
+    * Keep second line.
     */
-    void setSecondReadLine(String line) {
-        this.readLine2 = line;        
-    }
-    
-    /**
-    * Get the second kept line.
-    */
-    String getSecondKeptLine() {
-        return this.keptLine2;
-    }
-
-    /**
-    * Has second kept line?
-    */
-    boolean hasSecondKeptLine() {
-        return this.keptLine2 != null;
-    }
- 
-    /**
-    * Set the second kept line.
-    */
-    void setSecondKeptLine(String line) {
+    void keepSecondLine(String line) {
         this.keptLine2 = line;
     }
     
