@@ -34,6 +34,8 @@ public class DefaultLineJoining extends AbstractLineOperation {
 
   @Override
   public void process(String line1, String line2, LineResult result) throws MixException {
+    boolean firstPreserved = result.firstLinePreserved();
+    boolean secondPreserved = result.secondLinePreserved();
     result.reset();
     if (line1 != null && line2 != null) {
       List<String> list1 = Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));
@@ -53,12 +55,12 @@ public class DefaultLineJoining extends AbstractLineOperation {
         System.out.println("LINE2=" + line2 + " / CELL2=" + cell2);
         System.out.println("PVLINE1=" + result.getFirstLine() + " / PVCELL1=" + prevCell1);
         System.out.println("PVLINE2=" + result.getSecondLine() + " / PVCELL2=" + prevCell2);
-        if (cell1.equals(prevCell1)) {
+        if (cell1.equals(prevCell1) && !firstPreserved) {
           System.out.println("PREVIOUS 1");
           joinLines(list1, prevList2, result);
           result.preserveSecondLine();
           result.setFirstLine(line1);
-        } else if (cell2.equals(prevCell2)) {
+        } else if (cell2.equals(prevCell2) && !secondPreserved) {
           System.out.println("PREVIOUS 2");
           joinLines(prevList1, list2, result);
           result.preserveFirstLine();
