@@ -42,7 +42,7 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 			final int c2 = reader2.nextCharacter();
 			process(c1, c2, result);
 			if (result.hasResult()) {
-				reult.getResult().forEach(i -> {
+				result.getResult().forEach(i -> {
 					try {
 						writer.writeCharacter(i);
 					} catch (IOException e) {
