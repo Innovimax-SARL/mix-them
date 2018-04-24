@@ -34,16 +34,15 @@ public class GenericTest {
 		   String prefix = "test" + String.format("%03d", testId) +"_";
 		   URL url1 = getClass().getResource(prefix + "file1.txt");
 		   URL url2 = getClass().getResource(prefix + "file2.txt");
-		   MixThem.LOGGER.info("--> URL 1 (" + prefix + "file1.txt"+") : " + (url1 != null ? "FOUND" : "NOT FOUND"));
-		   MixThem.LOGGER.info("--> URL 2 (" + prefix + "file2.txt"+") : " + (url2 != null ? "FOUND" : "NOT FOUND"));
+		   MixThem.LOGGER.info("File " + prefix + "file1.txt : " + (url1 != null ? "found" : "not found"));
+		   MixThem.LOGGER.info("File " + prefix + "file2.txt : " + (url2 != null ? "found" : "not found"));
 		   if( url1 == null || url2 == null) break;
-		   for(Rule rule : Rule.values()) {
-			   MixThem.LOGGER.info("RULE " + rule + " (" + (rule.isImplemented() ? "" : "NOT ") + "IMPLEMENTED)");
+		   for(Rule rule : Rule.values()) {			   
 			   if (rule.isImplemented()) {
 				   String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
 				   URL urlP = getClass().getResource(paramsFile);
 				   if (urlP != null) {
-					   MixThem.LOGGER.info("--> Params (" + paramsFile + ") : FOUND");
+					   MixThem.LOGGER.info("Params " + paramsFile + " : found");
 				   }
 				   List<RuleRun> runs = RuleRuns.getRuns(rule, urlP);
 				   for (RuleRun run : runs) {
@@ -53,10 +52,10 @@ public class GenericTest {
 					   }
 					   resultFile += ".txt";
 					   URL urlR = getClass().getResource(resultFile);
-					   MixThem.LOGGER.info("--> Result (" + resultFile + ") : " + (urlR != null ? "FOUND" : "NOT FOUND"));
+					   MixThem.LOGGER.info("Result " + resultFile + " : " + (urlR != null ? "found" : "not found"));
 					   if (urlR != null) {
 						   boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(urlR.getFile()), rule, run.getParams());
-						   MixThem.LOGGER.info("RUN " + (res ? "PASS" : "FAIL") + " WITH PARAMS " + run.getParams().toString());
+						   MixThem.LOGGER.info("Run " + (res ? "pass" : "FAIL") + " with params " + run.getParams().toString());
 						   result &= res;
 						   if (!res) {
 							   failed.add(Integer.toString(testId));
@@ -67,7 +66,9 @@ public class GenericTest {
 		   }
 		   testId++;
 	   }
+	   MixThem.LOGGER.info("****************************************************************************");
 	   MixThem.LOGGER.info("FAILED TESTS : " + (failed.size() > 0 ? failed.toString() : "None"));
+	   MixThem.LOGGER.info("****************************************************************************");
 	   Assert.assertTrue(result);
    }	   
    private final static boolean check(File file1, File file2, File expected, Rule rule, Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
