@@ -1,0 +1,7 @@
+b BB 10
+c CC 10
+c CC 11
+c CC 12
+c CC 13
+f FF 10
+g GG 10
