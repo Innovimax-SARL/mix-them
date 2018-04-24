@@ -41,9 +41,6 @@ public class GenericTest {
 			   if (rule.isImplemented()) {
 				   String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
 				   URL urlP = getClass().getResource(paramsFile);
-				   if (urlP != null) {
-					   MixThem.LOGGER.info("Params file : " + paramsFile);
-				   }
 				   List<RuleRun> runs = RuleRuns.getRuns(rule, urlP);
 				   for (RuleRun run : runs) {
 					   String resultFile = prefix + "output-" + rule.getExtension();
@@ -54,6 +51,9 @@ public class GenericTest {
 					   URL urlR = getClass().getResource(resultFile);					   
 					   if (urlR != null) {
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
+						   if (urlP != null) {
+							   MixThem.LOGGER.info("Params file : " + paramsFile);
+						   }
 						   MixThem.LOGGER.info("Result file : " + resultFile);
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
 						   boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(urlR.getFile()), rule, run.getParams());
