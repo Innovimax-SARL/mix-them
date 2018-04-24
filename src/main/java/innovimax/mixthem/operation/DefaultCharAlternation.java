@@ -30,17 +30,18 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	}
 	
 	@Override
-	public IntStream process(int c1, int c2) throws MixException {		
-		int[] result = new int[1];
+	public process(int c1, int c2, CharResult result) throws MixException {
+		result.reset();
+		int[] array = new int[1];
 		if (c1 == -1) {
-			result[0] = c2;
+			array[0] = c2;
 		} else if (c2 == -1) {
-			result[0] = c1;
+			array[0] = c1;
 		} else {					
-			result[0] = this.odd ? c1 : c2;
+			array[0] = this.odd ? c1 : c2;
 			this.odd = !this.odd;			
 		}
-		return Arrays.stream(result);
+		result.setResult(Arrays.stream(array));
 	}
 
 }
