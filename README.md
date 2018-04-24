@@ -23,3 +23,13 @@ Mix files togethers
   - zip-line [#sep]: will output zip of char from file1 and file2 
   - zip-char [#sep]: will output zip of line from file1 and file2 
   - zip-cell [#sep]: will output zip of cell from file1 and file2 
+
+
+    mix-them --zip zipfile 
+    mix-them --jar zipfile 
+  will generate on standard out any file based on first entrie and second entrie of zip/jar file.
+  by default it assumes zip/jar entries are character based (not binary)
+  
+    mix-them [-rule] --zip zipfile
+    mix-them [-rule] --jar jarfile
+  will generate on standard out a file based on the rule
