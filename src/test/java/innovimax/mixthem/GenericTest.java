@@ -53,8 +53,9 @@ public class GenericTest {
 					   resultFile += ".txt";
 					   URL urlR = getClass().getResource(resultFile);					   
 					   if (urlR != null) {
-						   MixThem.LOGGER.info("----------------------------------------------------------------------------");
+						   MixThem.LOGGER.info("--------------------------------------------------------------------");
 						   MixThem.LOGGER.info("Result file : " + resultFile);
+						   MixThem.LOGGER.info("--------------------------------------------------------------------");
 						   boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(urlR.getFile()), rule, run.getParams());
 						   MixThem.LOGGER.info("Run " + (res ? "pass" : "FAIL") + " with params " + run.getParams().toString());
 						   result &= res;
@@ -67,9 +68,9 @@ public class GenericTest {
 		   }
 		   testId++;
 	   }
-	   MixThem.LOGGER.info("****************************************************************************");
+	   MixThem.LOGGER.info("*********************************************************************");
 	   MixThem.LOGGER.info("FAILED TESTS : " + (failed.size() > 0 ? failed.toString() : "None"));
-	   MixThem.LOGGER.info("****************************************************************************");
+	   MixThem.LOGGER.info("*********************************************************************");
 	   Assert.assertTrue(result);
    }	   
    private final static boolean check(File file1, File file2, File expected, Rule rule, Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
