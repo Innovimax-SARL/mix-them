@@ -24,6 +24,7 @@ Mix files togethers
   - zip-char [#sep]: will output zip of line from file1 and file2 
   - zip-cell [#sep]: will output zip of cell from file1 and file2 
 
+Mix files togethers from a zip/jar file
 
     mix-them --zip zipfile 
     mix-them --jar zipfile 
