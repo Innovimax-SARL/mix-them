@@ -6,7 +6,6 @@ import innovimax.mixthem.arguments.ParamValue;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 /**
 * <p>Alternate two characters.</p>
