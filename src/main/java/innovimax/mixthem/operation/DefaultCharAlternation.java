@@ -30,7 +30,7 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	}
 	
 	@Override
-	public process(int c1, int c2, CharResult result) throws MixException {
+	public void process(int c1, int c2, CharResult result) throws MixException {
 		result.reset();
 		int[] array = new int[1];
 		if (c1 == -1) {
