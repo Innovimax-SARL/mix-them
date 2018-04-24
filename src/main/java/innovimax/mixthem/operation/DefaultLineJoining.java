@@ -55,18 +55,18 @@ public class DefaultLineJoining extends AbstractLineOperation {
         System.out.println("LINE2=" + line2 + " / CELL2=" + cell2);
         System.out.println("PVLINE1=" + result.getFirstLine() + " / PVCELL1=" + prevCell1);
         System.out.println("PVLINE2=" + result.getSecondLine() + " / PVCELL2=" + prevCell2);*/
-        if (cell1.equals(prevCell1) && !firstPreserved) {
-          //System.out.println("PREVIOUS 1");
-          joinLines(list1, prevList2, result);
-          result.preserveSecondLine();
-          result.setFirstLine(line1);
-          result.keepSecondLine(line2);
-        } else if (cell2.equals(prevCell2) && !secondPreserved) {
+        if (cell2.equals(prevCell2) && !secondPreserved) {
           //System.out.println("PREVIOUS 2");
           joinLines(prevList1, list2, result);
           result.preserveFirstLine();
           result.keepFirstLine(line1);
           result.setSecondLine(line2);
+        } else if (cell1.equals(prevCell1) && !firstPreserved) {
+          //System.out.println("PREVIOUS 1");
+          joinLines(list1, prevList2, result);
+          result.preserveSecondLine();
+          result.setFirstLine(line1);
+          result.keepSecondLine(line2);
         } else {
           switch (Integer.signum(cell1.compareTo(cell2))) {
             case 0:
