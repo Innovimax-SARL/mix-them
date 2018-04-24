@@ -3,15 +3,15 @@ package innovimax.mixthem.operation;
 
 import innovimax.mixthem.MixException;
 
-import java.util.stream.IntStream;
-
 interface ICharOperation extends IOperation {
 	/**
-	* Returns the result of the operation as an int stream.
+ 	* Processes operation and set new result in the CharResult parameter.
 	* @param c1 The first character to zip (maybe -1)
 	* @param c2 The second character to zip (maybe -1)
-	* @return The result of the operation as an int stream
-	* @throws MixException - If an mixing error occurs	
+	* @param result The previous operation result
+ 	* @return The result of the operation (maybe null)
+ 	* @throws MixException - If an mixing error occurs
+	* @see innovimax.mixthem.operation.CharResult	
 	*/	
-	IntStream process(int c1, int c2) throws MixException;
+	void process(int c1, int c2, CharResult result) throws MixException;
 }
