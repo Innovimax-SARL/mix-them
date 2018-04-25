@@ -20,21 +20,12 @@ public class DefaultCharReader implements IInputChar {
 	private final BufferedReader reader;
 
 	/**
- 	* Creates a character reader from a file.
- 	* @param input The input file to be read
+ 	* Creates a character reader from an input resource.
+ 	* @param input The input resource to be read
  	* @throws IOException - If an I/O error occurs
  	*/
-	public DefaultCharReader(File input) throws IOException {		
-		this.reader = Files.newBufferedReader(input.toPath(), StandardCharsets.UTF_8);
-	}
-	
-	/**
- 	* Creates a character reader from an input stream.
- 	* @param input The input stream to be read
- 	* @throws IOException - If an I/O error occurs
- 	*/
-	public DefaultCharReader(InputStream input) throws IOException {
-		this.reader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
+	public DefaultCharReader(InputResource input) throws IOException {		
+		this.reader = input.newBufferedReader();
 	}
 
 	@Override
