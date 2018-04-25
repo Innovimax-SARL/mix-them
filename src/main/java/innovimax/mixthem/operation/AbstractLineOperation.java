@@ -49,5 +49,10 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
         	reader2.close();
         	writer.close();				
     	}
+	
+	@Override
+	public void processFiles(InputStream input1, InputStream input2, OutputStream out) throws MixException, IOException {
+		//TODO
+	}
 
 }
