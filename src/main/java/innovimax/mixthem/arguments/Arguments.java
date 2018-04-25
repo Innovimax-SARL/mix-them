@@ -65,7 +65,7 @@ public class Arguments {
             index += ruleParams.size();
         } else {
             rule = Rule.ADD;
-        }
+        }        
         File file1 = findFileArgument(args, index, "file1");
         File file2 = findFileArgument(args, ++index, "file2");
         mixArgs.setRule(rule);
@@ -128,6 +128,16 @@ public class Arguments {
             throw new ArgumentException(name + " argument missing.");
         }
         return file;
+    }
+    
+    private static String findZipArgument(String[] args, int index) throws ArgumentException {
+        String zipArg = null;
+        if (args.length > index) {
+            if (args[index].equals("--zip") || args[index].equals("--jar")) {
+                zipArg = args[index].substring(2);            
+            }
+        }
+        return zipArg;
     }
 
     public static void printUsage() {    
