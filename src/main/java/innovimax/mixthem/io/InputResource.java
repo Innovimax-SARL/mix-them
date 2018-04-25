@@ -15,9 +15,9 @@ import java.nio.file.Files;
 */
 public abstract class InputResource {
 
-  private static class InputFileResource extends InputResource {
+  private static class FileResource extends InputResource {
     private final File file;
-    private InputFileResource(File file) {
+    private FileResource(File file) {
       this.file = file;
     }
     @Override
@@ -42,8 +42,8 @@ public abstract class InputResource {
   */  
   public InputResource() {}
   
-  public static InputResource createInputFile(File file) {
-    return new InputFileResource(file);
+  public static InputResource createFile(File file) {
+    return new FileResource(file);
   }
   
   public static InputResource createInputStream(InputStream input) {
