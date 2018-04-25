@@ -47,20 +47,20 @@ public class MixThem {
         this.out = out;        
     }
     
-    static void setLogging(Level level) { 
-  if (LOGGER.getHandlers().length == 0) {
-            //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");            
-      System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s%n");
-      LOGGER.setUseParentHandlers(false);  
-      LOGGER.setLevel(Level.ALL);
-      Handler handler = new ConsoleHandler();
-      LOGGER.addHandler(handler);        
-      handler.setLevel(Level.OFF);
-      String prop = System.getProperty("mixthem.logging");
+    static void setLogging(Level level) {
+        if (LOGGER.getHandlers().length == 0) {
+            //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
+            System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s%n");
+            LOGGER.setUseParentHandlers(false);
+            LOGGER.setLevel(Level.ALL);
+            Handler handler = new ConsoleHandler();
+            LOGGER.addHandler(handler);
+            handler.setLevel(Level.OFF);
+            String prop = System.getProperty("mixthem.logging");
             if (prop == null || prop.equals("true")) {
                 handler.setLevel(level);            
             }
-  }
+        }
     }
 
     /**
