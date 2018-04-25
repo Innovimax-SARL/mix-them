@@ -132,10 +132,8 @@ public class Arguments {
     
     private static String findZipArgument(String[] args, int index) throws ArgumentException {
         String zipArg = null;
-        if (args.length > index) {
-            if (args[index].equals("--zip") || args[index].equals("--jar")) {
-                zipArg = args[index].substring(2);            
-            }
+        if ((args.length > index) && (args[index].equals("--zip") || args[index].equals("--jar"))) {
+            zipArg = args[index].substring(2);
         }
         return zipArg;
     }
