@@ -22,13 +22,13 @@ public abstract class InputResource {
     }
     @Override
     public BufferedReader newBufferedReader() throws IOException {
-      return Files.newBufferedReader(input.toPath(), StandardCharsets.UTF_8);  
+      return Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);  
     }
   }
 
   private static class InputStreamResource extends InputResource {
     private final InputStream input;
-    private InputStreamResource(File input) {
+    private InputStreamResource(InputStream input) {
       this.input = input;
     }
     @Override
