@@ -3,6 +3,7 @@ package innovimax.mixthem;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.Rule;
 import innovimax.mixthem.arguments.RuleParam;
+import innovimax.mixthem.io.InputResource;
 
 import java.io.*;
 import java.net.URL;
