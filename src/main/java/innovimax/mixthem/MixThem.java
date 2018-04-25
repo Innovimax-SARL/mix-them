@@ -47,20 +47,20 @@ public class MixThem {
         this.out = out;        
     }
     
-    static void setLogging(Level level) {	
-	if (LOGGER.getHandlers().length == 0) {
+    static void setLogging(Level level) { 
+  if (LOGGER.getHandlers().length == 0) {
             //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");            
-	    System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s%n");
-	    LOGGER.setUseParentHandlers(false);	 
-	    LOGGER.setLevel(Level.ALL);
-	    Handler handler = new ConsoleHandler();
-	    LOGGER.addHandler(handler);        
-	    handler.setLevel(Level.OFF);
-	    String prop = System.getProperty("mixthem.logging");
+      System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s%n");
+      LOGGER.setUseParentHandlers(false);  
+      LOGGER.setLevel(Level.ALL);
+      Handler handler = new ConsoleHandler();
+      LOGGER.addHandler(handler);        
+      handler.setLevel(Level.OFF);
+      String prop = System.getProperty("mixthem.logging");
             if (prop == null || prop.equals("true")) {
                 handler.setLevel(level);            
             }
-	}
+  }
     }
 
     /**
@@ -73,8 +73,8 @@ public class MixThem {
 
     private static void run(String[] args) {
         try {
-	    setLogging(Level.INFO);
-	    LOGGER.info("Started application");		
+      setLogging(Level.INFO);
+      LOGGER.info("Started application");   
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getFirstInput(), mixArgs.getSecondInput(), System.out);
             mixThem.process(mixArgs.getRule(), mixArgs.getRuleParameters());
@@ -106,50 +106,50 @@ public class MixThem {
     */  
     public void process(Rule rule, Map<RuleParam, ParamValue> params) throws MixException {
         try {
-	    LOGGER.info("Started mixing for rule '" + rule.getName() + "'...");
+      LOGGER.info("Started mixing for rule '" + rule.getName() + "'...");
             switch(rule) {
                 case FILE_1:
-                  copyChar(this.file1, this.out);
+                  copyChar(this.input1, this.out);
                   break;
                 case FILE_2:               
-                  copyChar(this.file2, this.out);  
+                  copyChar(this.input2, this.out);  
                   break; 
                 case ADD:    
-                  copyChar(this.file1, this.out);
-                  copyChar(this.file2, this.out);
+                  copyChar(this.input1, this.out);
+                  copyChar(this.input2, this.out);
                   break;
                 case ALT_CHAR:
-		  IOperation altCharOp = new DefaultCharAlternation(params);
-		  altCharOp.processFiles(this.file1, this.file2, this.out);	
+      IOperation altCharOp = new DefaultCharAlternation(params);
+      altCharOp.processFiles(this.input1, this.input2, this.out); 
                   break;
                 case ALT_LINE:    
-		  IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, params);
-		  altLineOp.processFiles(this.file1, this.file2, this.out);			    
+      IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, params);
+      altLineOp.processFiles(this.input1, this.input2, this.out);         
                   break;
                 case RANDOM_ALT_LINE:
-		  IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, params);
-		  randomAltLineOp.processFiles(this.file1, this.file2, this.out);	
+      IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, params);
+      randomAltLineOp.processFiles(this.input1, this.input2, this.out); 
                   break;
                 case JOIN:  
-		  IOperation joinLineOp = new DefaultLineJoining(params);
-		  joinLineOp.processFiles(this.file1, this.file2, this.out);
+      IOperation joinLineOp = new DefaultLineJoining(params);
+      joinLineOp.processFiles(this.input1, this.input2, this.out);
                   break;
                 case ZIP_LINE:
-		  IOperation zipLineOp = new DefaultLineZipping(ZipType.LINE, params);
-		  zipLineOp.processFiles(this.file1, this.file2, this.out);
+      IOperation zipLineOp = new DefaultLineZipping(ZipType.LINE, params);
+      zipLineOp.processFiles(this.input1, this.input2, this.out);
                   break;
-		case ZIP_CELL:		  
-		  IOperation zipCellOp = new DefaultLineZipping(ZipType.CELL, params);
-		  zipCellOp.processFiles(this.file1, this.file2, this.out);
-		  break;
-		case ZIP_CHAR:			    
-		  IOperation zipCharOp = new DefaultCharZipping(params);
-		  zipCharOp.processFiles(this.file1, this.file2, this.out);
-		  /*break;
+    case ZIP_CELL:      
+      IOperation zipCellOp = new DefaultLineZipping(ZipType.CELL, params);
+      zipCellOp.processFiles(this.input1, this.input2, this.out);
+      break;
+    case ZIP_CHAR:          
+      IOperation zipCharOp = new DefaultCharZipping(params);
+      zipCharOp.processFiles(this.input1, this.input2, this.out);
+      /*break;
                 default:    
                    System.out.println("This rule has not been implemented yet.");*/
             }
-	    LOGGER.info("Ended mixing for rule '" + rule.getName() + "'.");
+      LOGGER.info("Ended mixing for rule '" + rule.getName() + "'.");
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
         }
@@ -157,7 +157,7 @@ public class MixThem {
     }   
 
     // this one copies one file as beeing char
-    private static void copyChar(File file, OutputStream out) throws IOException {	
+    private static void copyChar(File file, OutputStream out) throws IOException {  
         char[] buffer = new char[CHAR_BUFFER_SIZE];
         IInputChar reader = new DefaultCharReader(file);
         IOutputChar writer = new DefaultCharWriter(out);
