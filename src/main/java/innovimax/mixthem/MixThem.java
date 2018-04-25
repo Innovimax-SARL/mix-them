@@ -155,6 +155,14 @@ public class MixThem {
         }
 
     }   
+	
+    private IInputChar newCharReader(int index) {
+	    return index == 1 ? new DefaultCharReader(this.file1) : new DefaultCharReader(this.file2);
+    }
+	
+    private IInputLine newLineReader(int index) {
+	    return index == 1 ? new DefaultLineReader(this.file1) : new DefaultLineReader(this.file2);
+    }
 
     // this one copies one file as beeing char
     private static void copyChar(File file, OutputStream out) throws IOException {	
