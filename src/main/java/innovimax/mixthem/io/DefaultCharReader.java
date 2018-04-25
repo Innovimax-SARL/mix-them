@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 /**
 * <p>Reads characters from a character-input file.</p>
@@ -26,7 +25,7 @@ public class DefaultCharReader implements IInputChar {
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultCharReader(File input) throws IOException {		
-		this.reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+		this.reader = Files.newBufferedReader(input.toPath(), StandardCharsets.UTF_8);
 	}
 	
 	/**
