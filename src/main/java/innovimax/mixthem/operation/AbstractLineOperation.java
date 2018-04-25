@@ -7,6 +7,7 @@ import innovimax.mixthem.io.DefaultLineReader;
 import innovimax.mixthem.io.DefaultLineWriter;
 import innovimax.mixthem.io.IInputLine;
 import innovimax.mixthem.io.IOutputLine;
+import innovimax.mixthem.io.InputResource;
 
 import java.io.File;
 import java.io.InputStream;
@@ -33,16 +34,10 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 	}
 
 	@Override
-	public void processFiles(File file1, File file2, OutputStream out) throws MixException, IOException {		
-		processFiles(new DefaultLineReader(file1), new DefaultLineReader(file2), new DefaultLineWriter(out));
-    	}
-	
-	@Override
-	public void processFiles(InputStream input1, InputStream input2, OutputStream out) throws MixException, IOException {
-		processFiles(new DefaultLineReader(input1), new DefaultLineReader(input2), new DefaultLineWriter(out));
-	}
-	
-	private void processFiles(IInputLine reader1, IInputLine reader2, IOutputLine writer) throws MixException, IOException {
+	public void processFiles(InputResource input1, InputResource input2, OutputStream out) throws MixException, IOException {
+		IInputLine reader1 = new DefaultLineReader(input1);
+		IInputLine reader2 = new DefaultLineReader(input2);
+		IOutputLine writer = new DefaultLineWriter(out);
 		LineResult result = new LineResult();
 		while (reader1.hasLine() || reader2.hasLine()) {
 			final String line1 = result.readingFirstFile() ? reader1.nextLine() : result.getFirstLine();
