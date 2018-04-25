@@ -1,5 +1,7 @@
 package innovimax.mixthem.arguments;
 
+import innovimax.mixthem.io.InputResource;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
