@@ -33,17 +33,17 @@ public class MixThem {
     public final static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
     private final static int CHAR_BUFFER_SIZE = 1024;
 
-    private final File file1, file2;
+    private final InputResource input1, input2;
     private final OutputStream out;
     /**
      * Constructor
-     * @param file1 The first file to be mixed
-     * @param file2 The second file to be mixed
+     * @param input1 The first input resource to be mixed
+     * @param input2 The second input resource to be mixed
      * @param out The output stream to write mixing result
      */ 
-    public MixThem(File file1, File file2, OutputStream out) {
-        this.file1 = file1;
-        this.file2 = file2;
+    public MixThem(InputResource input1, InputResource input2, OutputStream out) {
+        this.input1 = input1;
+        this.input2 = input2;
         this.out = out;        
     }
     
@@ -76,7 +76,7 @@ public class MixThem {
 	    setLogging(Level.INFO);
 	    LOGGER.info("Started application");		
             Arguments mixArgs = Arguments.checkArguments(args);        
-            MixThem mixThem = new MixThem(mixArgs.getFirstFile(), mixArgs.getSecondFile(), System.out);
+            MixThem mixThem = new MixThem(mixArgs.getFirstInput(), mixArgs.getSecondInput(), System.out);
             mixThem.process(mixArgs.getRule(), mixArgs.getRuleParameters());
             LOGGER.info("Exited application with no errors");
         } catch (ArgumentException e) {
