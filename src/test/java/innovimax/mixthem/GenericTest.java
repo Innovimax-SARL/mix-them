@@ -75,11 +75,13 @@ public class GenericTest {
    }	   
    private final static boolean check(File file1, File file2, File expected, Rule rule, Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
 	   MixThem.LOGGER.info("Run and check result...");
+	   InputResource input1 = InputResource.createFile(file1);
+	   InputResource input2 = InputResource.createFile(file2);
 	   ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
-	   MixThem mixThem = new MixThem(file1, file2, baos_rule);
+	   MixThem mixThem = new MixThem(input1, input2, baos_rule);
            mixThem.process(rule, params);
 	   MixThem.LOGGER.info("Run and print result...");
-	   mixThem = new MixThem(file1, file2, System.out);
+	   mixThem = new MixThem(input1, input2, System.out);
            mixThem.process(rule, params);
 	   return checkFileEquals(expected, baos_rule.toByteArray());
    }
