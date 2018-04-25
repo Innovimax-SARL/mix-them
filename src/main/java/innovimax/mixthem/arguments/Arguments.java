@@ -17,8 +17,8 @@ public class Arguments {
     
     private Rule rule = null;
     private Map<RuleParam, ParamValue> ruleParams = null;
-    private File file1 = null;
-    private File file2 = null;
+    private InputResource input1 = null;
+    private InputResource input2 = null;
 
     private void setRule(Rule rule) {
         this.rule = rule;
@@ -36,20 +36,20 @@ public class Arguments {
         return this.ruleParams;
     }
 
-    void setFirstFile(File file1) {
-        this.file1 = file1;
+    void setFirstInput(InputResource input) {
+        this.input1 = input;
     }
 
-    public File getFirstFile() {
-        return this.file1;
+    public InputResource getFirstInput() {
+        return this.input1;
     }
 
-    void setSecondFile(File file2) {
-        this.file2 = file2;
+    void setSecondInput(InputResource input) {
+        this.input2 = input;
     }
 
-    public File getSecondFile() {
-        return this.file2;
+    public InputResource getSecondInput() {
+        return this.input2;
     }
 
     public static Arguments checkArguments(String[] args) throws ArgumentException { 
@@ -68,8 +68,8 @@ public class Arguments {
         File file2 = findFileArgument(args, ++index, "file2");
         mixArgs.setRule(rule);
         mixArgs.setRuleParameters(ruleParams);
-        mixArgs.setFirstFile(file1);
-        mixArgs.setSecondFile(file2);
+        mixArgs.setFirstInput(InputResource.createFile(file1));
+        mixArgs.setSecondInput(InputResource.createFile(file2));
         return mixArgs;
     }
 
