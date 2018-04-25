@@ -42,7 +42,7 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 		processFiles(new DefaultCharReader(input1), new DefaultCharReader(input2), new DefaultCharWriter(out));
 	}
 		
-	private void processFiles(IInputChar reader1, IInputChar reader2, IOutputChar write) throws MixException, IOException {
+	private void processFiles(IInputChar reader1, IInputChar reader2, IOutputChar writer) throws MixException, IOException {
 		CharResult result = new CharResult();
         	while (reader1.hasCharacter() || reader2.hasCharacter()) {
 			final int c1 = reader1.nextCharacter();
