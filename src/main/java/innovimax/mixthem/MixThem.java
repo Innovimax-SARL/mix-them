@@ -73,8 +73,8 @@ public class MixThem {
 
     private static void run(String[] args) {
         try {
-      setLogging(Level.INFO);
-      LOGGER.info("Started application");   
+            setLogging(Level.INFO);
+            LOGGER.info("Started application");   
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getFirstInput(), mixArgs.getSecondInput(), System.out);
             mixThem.process(mixArgs.getRule(), mixArgs.getRuleParameters());
@@ -106,50 +106,50 @@ public class MixThem {
     */  
     public void process(Rule rule, Map<RuleParam, ParamValue> params) throws MixException {
         try {
-      LOGGER.info("Started mixing for rule '" + rule.getName() + "'...");
+            LOGGER.info("Started mixing for rule '" + rule.getName() + "'...");
             switch(rule) {
                 case FILE_1:
-                  copyChar(this.input1, this.out);
-                  break;
-                case FILE_2:               
-                  copyChar(this.input2, this.out);  
-                  break; 
-                case ADD:    
-                  copyChar(this.input1, this.out);
-                  copyChar(this.input2, this.out);
-                  break;
+                    copyChar(this.input1, this.out);
+                    break;
+                case FILE_2:
+                    copyChar(this.input2, this.out);
+                    break; 
+                case ADD:
+                    copyChar(this.input1, this.out);
+                    copyChar(this.input2, this.out);
+                    break;
                 case ALT_CHAR:
-      IOperation altCharOp = new DefaultCharAlternation(params);
-      altCharOp.processFiles(this.input1, this.input2, this.out); 
-                  break;
-                case ALT_LINE:    
-      IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, params);
-      altLineOp.processFiles(this.input1, this.input2, this.out);         
-                  break;
+                    IOperation altCharOp = new DefaultCharAlternation(params);
+                    altCharOp.processFiles(this.input1, this.input2, this.out); 
+                    break;
+                case ALT_LINE:
+                    IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, params);
+                    altLineOp.processFiles(this.input1, this.input2, this.out);
+                    break;
                 case RANDOM_ALT_LINE:
-      IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, params);
-      randomAltLineOp.processFiles(this.input1, this.input2, this.out); 
-                  break;
-                case JOIN:  
-      IOperation joinLineOp = new DefaultLineJoining(params);
-      joinLineOp.processFiles(this.input1, this.input2, this.out);
-                  break;
+                    IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, params);
+                    randomAltLineOp.processFiles(this.input1, this.input2, this.out); 
+                    break;
+                case JOIN:
+                    IOperation joinLineOp = new DefaultLineJoining(params);
+                    joinLineOp.processFiles(this.input1, this.input2, this.out);
+                    break;
                 case ZIP_LINE:
-      IOperation zipLineOp = new DefaultLineZipping(ZipType.LINE, params);
-      zipLineOp.processFiles(this.input1, this.input2, this.out);
-                  break;
-    case ZIP_CELL:      
-      IOperation zipCellOp = new DefaultLineZipping(ZipType.CELL, params);
-      zipCellOp.processFiles(this.input1, this.input2, this.out);
-      break;
-    case ZIP_CHAR:          
-      IOperation zipCharOp = new DefaultCharZipping(params);
-      zipCharOp.processFiles(this.input1, this.input2, this.out);
-      /*break;
+                    IOperation zipLineOp = new DefaultLineZipping(ZipType.LINE, params);
+                    zipLineOp.processFiles(this.input1, this.input2, this.out);
+                    break;
+                case ZIP_CELL:
+                    IOperation zipCellOp = new DefaultLineZipping(ZipType.CELL, params);
+                    zipCellOp.processFiles(this.input1, this.input2, this.out);
+                    break;
+                case ZIP_CHAR:
+                    IOperation zipCharOp = new DefaultCharZipping(params);
+                    zipCharOp.processFiles(this.input1, this.input2, this.out);
+                    /*break;
                 default:    
                    System.out.println("This rule has not been implemented yet.");*/
             }
-      LOGGER.info("Ended mixing for rule '" + rule.getName() + "'.");
+            LOGGER.info("Ended mixing for rule '" + rule.getName() + "'.");
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
         }
