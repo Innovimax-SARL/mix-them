@@ -7,9 +7,8 @@ import innovimax.mixthem.io.DefaultCharReader;
 import innovimax.mixthem.io.DefaultCharWriter;
 import innovimax.mixthem.io.IInputChar;
 import innovimax.mixthem.io.IOutputChar;
+import innovimax.mixthem.io.InputResource;
 
-import java.io.File;
-import java.io.InputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
@@ -33,16 +32,10 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 	}
 
 	@Override
-    	public void processFiles(File file1, File file2, OutputStream out) throws MixException, IOException {        	
-		processFiles(new DefaultCharReader(file1), new DefaultCharReader(file2), new DefaultCharWriter(out));
-	}
-	
-	@Override
-    	public void processFiles(InputStream input1, InputStream input2, OutputStream out) throws MixException, IOException {        	
-		processFiles(new DefaultCharReader(input1), new DefaultCharReader(input2), new DefaultCharWriter(out));
-	}
-		
-	private void processFiles(IInputChar reader1, IInputChar reader2, IOutputChar writer) throws MixException, IOException {
+    	public void processFiles(InputResource input1, InputResource input2, OutputStream out) throws MixException, IOException {		
+		IInputChar reader1 = new DefaultCharReader(input1);
+		IInputChar reader2 = new DefaultCharReader(input2);
+		IOutputChar writer = new DefaultCharWriter(out);
 		CharResult result = new CharResult();
         	while (reader1.hasCharacter() || reader2.hasCharacter()) {
 			final int c1 = reader1.nextCharacter();
