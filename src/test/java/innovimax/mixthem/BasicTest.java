@@ -14,7 +14,7 @@ import org.junit.Test;
     Basic tests for this application
 */
 public class BasicTest {
-        @Test
+    @Test
     public final void testPrintUsage() {
         Arguments.printUsage();
         Assert.assertTrue(true);
@@ -84,14 +84,24 @@ public class BasicTest {
 
     @Test(expected=ArgumentException.class)
     public final void testZipEmptyArgs() throws ArgumentException, IOException, ZipException {
-        final String args[] = { "--zip" };
-        Arguments mixArgs = Arguments.checkArguments(args);
+        try {
+            final String args[] = { "--zip" };
+            Arguments mixArgs = Arguments.checkArguments(args);
+        } catch (ArgumentException e) {
+            System.out.println("testZipEmptyArgs: "+e.getMessage());
+            throw e;
+        }
     }
     
     @Test(expected=ArgumentException.class)
     public final void testZipWrongArgs() throws ArgumentException, IOException, ZipException {
-        final String args[] = { "--zip", "zip/ghost1" };
-        Arguments mixArgs = Arguments.checkArguments(args);
+        try {
+            final String args[] = { "--zip", "zip/ghost1" };
+            Arguments mixArgs = Arguments.checkArguments(args);
+        } catch (ArgumentException e) {
+            System.out.println("testZipWrongArgs: "+e.getMessage());
+            throw e;
+        }
     }
     
     @Test
@@ -106,6 +116,28 @@ public class BasicTest {
         final String args[] = { "-1", "--jar", getClass().getResource("zip/test001.jar").getFile() };
         Arguments mixArgs = Arguments.checkArguments(args);
         Assert.assertTrue(true);
+    }
+    
+    @Test(expected=ArgumentException.class)
+    public final void testZipOneFile() throws ArgumentException, IOException, ZipException {
+        try {
+            final String args[] = { "--zip", getClass().getResource("zip/wrong.zip").getFile() };
+            Arguments mixArgs = Arguments.checkArguments(args);
+        } catch (ArgumentException e) {
+            System.out.println("testZipOneFile: "+e.getMessage());
+            throw e;
+        }        
+    }
+    
+    @Test(expected=ArgumentException.class)
+    public final void testJarEmpty() throws ArgumentException, IOException, ZipException {
+        try {
+            final String args[] = { "--jar", getClass().getResource("zip/empty.jar").getFile() };
+            Arguments mixArgs = Arguments.checkArguments(args);
+        } catch (ArgumentException e) {
+            System.out.println("testJarEmpty: "+e.getMessage());
+            throw e;
+        }
     }
     
 }
