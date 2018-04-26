@@ -32,7 +32,7 @@ public class CharResult {
     /**
     * Set the result (maybe null).
     */
-    void setResult(IntStream result) {
+    void setResult(final IntStream result) {
         this.result = result;
         if (result != null) {
             this.types.add(ResultType.HAS_RESULT);
