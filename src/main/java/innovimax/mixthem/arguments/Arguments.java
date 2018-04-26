@@ -82,6 +82,12 @@ public class Arguments {
             mixArgs.setSecondInput(InputResource.createFile(file2));
         } else {
             final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
+            System.out.println("ZIP entries: "+zipFile.size());
+            Enumeration entries = zipFile.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry entry = (ZipEntry) entries.nextElement();
+                System.out.println(" > entry: "+entry.getName());
+            }
             final InputStream input1 = extractFileEntry(zipFile, 1, "file1");
             final InputStream input2 = extractFileEntry(zipFile, 2, "file2");
             mixArgs.setFirstInput(InputResource.createInputStream(input1));
