@@ -33,21 +33,21 @@ public class RuleRuns {
   	* @param url The URL of rule additional parameters file
   	* @return Returns a list of test runs for the rule
     	*/	
-	public static List<RuleRun> getRuns(Rule rule, URL url) throws FileNotFoundException, IOException, NumberFormatException {
-    		List<RuleRun> runs = new LinkedList<RuleRun>();		
+	public static List<RuleRun> getRuns(final Rule rule, final URL url) throws FileNotFoundException, IOException, NumberFormatException {
+    		final List<RuleRun> runs = new LinkedList<RuleRun>();		
     		runs.add(new RuleRun(Collections.emptyMap()));
 		if (url != null) {
-			File file = new File(url.getFile());			
-			BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
-			Stream<String> entries = reader.lines();
+			final File file = new File(url.getFile());			
+			final BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
+			final Stream<String> entries = reader.lines();
 			entries.forEach(entry -> {
-				String[] parts = entry.split("\\s");
+				final String[] parts = entry.split("\\s");
 				if (parts.length > 1) {
-					String suffix = parts[0];
-					Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
+					final String suffix = parts[0];
+					final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
 					switch (rule) {
 						case RANDOM_ALT_LINE:
-							int seed = Integer.parseInt(parts[1]);
+							final int seed = Integer.parseInt(parts[1]);
 							params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(seed));
 							break;
 						case JOIN:
@@ -61,7 +61,7 @@ public class RuleRuns {
 						case ZIP_LINE:
 						case ZIP_CELL:
 						case ZIP_CHAR:
-							String sep = parts[1];
+							final String sep = parts[1];
 							params.put(RuleParam.ZIP_SEP, ParamValue.createString(sep));
 					}
 					if (suffix.equals(DEFAULT_OUTPUT_FILE)) {
