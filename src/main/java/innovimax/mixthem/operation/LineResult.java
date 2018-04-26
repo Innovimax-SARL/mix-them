@@ -39,7 +39,7 @@ public class LineResult {
     /**
     * Set the result (maybe null).
     */
-    void setResult(String result) {
+    void setResult(final String result) {
         this.result = result;
         if (result != null) {
             this.types.add(ResultType.HAS_RESULT);
@@ -77,7 +77,7 @@ public class LineResult {
     /**
     * Set the first line.
     */
-    void setFirstLine(String line) {
+    void setFirstLine(final String line) {
         if (this.keptLine1 != null) {            
             preserveFirstLine();
             this.keptLine1 = null;
@@ -89,7 +89,7 @@ public class LineResult {
     /**
     * Keep previous first line and set future first line.
     */
-    void keepFirstLine(String line) {
+    void keepFirstLine(final String line) {
         this.keptLine1 = this.readLine1;
         this.readLine1 = line;
     }
@@ -111,7 +111,7 @@ public class LineResult {
     /**
     * Set the second line.
     */
-    void setSecondLine(String line) {
+    void setSecondLine(final String line) {
         if (this.keptLine2 != null) {            
             preserveSecondLine();
             this.keptLine2 = null;
@@ -123,7 +123,7 @@ public class LineResult {
     /**
     * Keep previous second line and set future second line.
     */
-    void keepSecondLine(String line) {
+    void keepSecondLine(final String line) {
         this.keptLine2 = this.readLine2;
         this.readLine2 = line;
     }
