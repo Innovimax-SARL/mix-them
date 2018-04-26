@@ -23,10 +23,10 @@ import java.util.zip.ZipFile;
 */
 public class Arguments {
     
-    private final Rule rule;
-    private final Map<RuleParam, ParamValue> ruleParams;
-    private final InputResource input1;
-    private final InputResource input2;
+    private Rule rule = null;
+    private Map<RuleParam, ParamValue> ruleParams = null;
+    private InputResource input1 = null;
+    private InputResource input2 = null;
 
     private void setRule(final Rule rule) {
         this.rule = rule;
