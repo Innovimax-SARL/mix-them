@@ -21,17 +21,17 @@ public class DefaultCharWriter implements IOutputChar {
  	* @param output The output stream for characters to be written.
  	* @throws IOException - If an I/O error occurs
  	*/
-	public DefaultCharWriter(OutputStream output) throws IOException {
+	public DefaultCharWriter(final OutputStream output) throws IOException {
 		this.writer = new BufferedWriter(new OutputStreamWriter(output));
 	}
 
 	@Override
-	public void writeCharacter(int c) throws IOException {		
+	public void writeCharacter(final int c) throws IOException {		
 		this.writer.write(c);
 	}
 
 	@Override
-	public void writeCharacters(char[] buffer, int len) throws IOException {      
+	public void writeCharacters(final char[] buffer, final int len) throws IOException {      
 		this.writer.write(buffer, 0, len);
 		this.writer.flush(); // WHY ?	
 	}
