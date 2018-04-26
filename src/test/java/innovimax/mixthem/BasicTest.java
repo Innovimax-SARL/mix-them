@@ -51,7 +51,7 @@ public class BasicTest {
     }
 
     @Test(expected=ArgumentException.class)
-    public final void testUnexpectedParam() throws ArgumentException, IOException, ZIPException {
+    public final void testUnexpectedParam() throws ArgumentException, IOException, ZipException {
         final String args[] = { "-1", "#val", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
         Arguments mixArgs = Arguments.checkArguments(args);
     }
