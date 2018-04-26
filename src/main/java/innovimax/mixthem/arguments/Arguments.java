@@ -12,7 +12,6 @@ import java.util.Enumeration;
 import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**
@@ -184,6 +183,13 @@ public class Arguments {
             }
             System.out.println(": " + rule.getDescription());
         }
+        System.out.println("  mix-them --zip zipfile");
+        System.out.println("  mix-them --jar jarfile");
+        System.out.println("  (will generate any entry based on zipfile/jarfile entries)");
+        System.out.println("  ");
+        System.out.println("  mix-them -[rule] --zip zipFile");
+        System.out.println("  mix-them -[rule] --jar jarFile");
+        System.out.println("  (will generate a file based on the rule)");
         System.out.println("  ");
     }
 
