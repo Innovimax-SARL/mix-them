@@ -12,6 +12,7 @@ import java.util.Enumeration;
 import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**
@@ -154,7 +155,7 @@ public class Arguments {
     private static InputStream extractFileEntry(ZipFile zipFile, int index, String name) throws ArgumentException, IOException {
         InputStream input = null;
         if (zipFile.size() >= index) {
-            Enumeration entries = zipFile.entries();
+            Enumeration<? extends ZipEntry> entries = zipFile.entries();
             if (index > 1) {
                 entries.nextElement();
             }
