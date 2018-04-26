@@ -170,7 +170,7 @@ public class Arguments {
         return "none";
     }
     
-    private static InputStream extractZipEntry(final JarFile zipFile, final int index, final String name) throws ArgumentException, IOException, ZipException {
+    private static InputStream extractZipEntry(final ZipFile zipFile, final int index, final String name) throws ArgumentException, IOException, ZipException {
         InputStream input = null;
         if (zipFile.size() >= index) {
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
