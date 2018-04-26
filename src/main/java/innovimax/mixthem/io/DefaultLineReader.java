@@ -19,7 +19,7 @@ public class DefaultLineReader implements IInputLine {
  	* @param input The input resource to be read 	
  	* @throws IOException - If an I/O error occurs
  	*/
-	public DefaultLineReader(InputResource input) throws IOException {
+	public DefaultLineReader(final InputResource input) throws IOException {
 		this.reader = input.newBufferedReader();
 	}
 	
