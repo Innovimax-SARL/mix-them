@@ -12,6 +12,8 @@ import java.util.Enumeration;
 import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -75,24 +77,35 @@ public class Arguments {
         mixArgs.setRule(rule);
         mixArgs.setRuleParameters(ruleParams);        
         final String zipOption = findZipOptionArgument(args, index);
-        if (zipOption == null) {
-            final File file1 = findFileArgument(args, index, "file1");
-            final File file2 = findFileArgument(args, ++index, "file2");        
-            mixArgs.setFirstInput(InputResource.createFile(file1));
-            mixArgs.setSecondInput(InputResource.createFile(file2));
-        } else {
-            final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
-            System.out.println("ZIP entries: "+zipFile.size());
-            Enumeration entries = zipFile.entries();
-            while (entries.hasMoreElements()) {
-                ZipEntry entry = (ZipEntry) entries.nextElement();
-                System.out.println(" > entry: "+entry.getName());
-            }
-            final InputStream input1 = extractFileEntry(zipFile, 1, "file1");
-            final InputStream input2 = extractFileEntry(zipFile, 2, "file2");
-            mixArgs.setFirstInput(InputResource.createInputStream(input1));
-            mixArgs.setSecondInput(InputResource.createInputStream(input2));
-        }
+        switch (zipOption) {
+            case "zip":
+                final zipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
+                final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
+                final InputStream input2 = extractZipEntry(zipFile, 2, "file2");
+                mixArgs.setFirstInput(InputResource.createInputStream(input1));
+                mixArgs.setSecondInput(InputResource.createInputStream(input2));
+                break;
+            case "jar":
+                final JarFile jarFile = new JarFile(findFileArgument(args, ++index, zipOption));
+                
+                System.out.println("JAR Entries: "+jarFile.size());
+                final Enumeration<JarEntry> entries = JarFile.entries();
+                while (entries.hasMoreElements()) {
+                    JarEntry entry = entries.nextElement();
+                    System.out.println(" > Entry: "+entry.getName());
+                }
+                
+                final InputStream input1 = extractJarEntry(jarFile, 1, "file1");
+                final InputStream input2 = extractJarEntry(jarFile, 2, "file2");
+                mixArgs.setFirstInput(InputResource.createInputStream(input1));
+                mixArgs.setSecondInput(InputResource.createInputStream(input2));
+                break;
+            default:
+                final File file1 = findFileArgument(args, index, "file1");
+                final File file2 = findFileArgument(args, ++index, "file2");        
+                mixArgs.setFirstInput(InputResource.createFile(file1));
+                mixArgs.setSecondInput(InputResource.createFile(file2));    
+        }        
         return mixArgs;
     }
 
@@ -154,10 +167,10 @@ public class Arguments {
         if (args.length > index && (args[index].equals("--zip") || args[index].equals("--jar"))) {
             return args[index].substring(2);
         }
-        return null;
+        return "none";
     }
     
-    private static InputStream extractFileEntry(final ZipFile zipFile, final int index, final String name) throws ArgumentException, IOException, ZipException {
+    private static InputStream extractZipEntry(final JarFile zipFile, final int index, final String name) throws ArgumentException, IOException, ZipException {
         InputStream input = null;
         if (zipFile.size() >= index) {
             final Enumeration<? extends ZipEntry> entries = zipFile.entries();
@@ -166,11 +179,25 @@ public class Arguments {
             }
             input = zipFile.getInputStream(entries.nextElement());
         } else {
-            throw new ArgumentException(name + " entry missing.");
+            throw new ArgumentException(name + " zip entry missing.");
         }        
         return input;
     }
 
+    private static InputStream extractJarEntry(final JarFile jarFile, final int index, final String name) throws ArgumentException, IOException, ZipException {
+        InputStream input = null;
+        if (JarFile.size() >= index) {
+            final Enumeration<JarEntry> entries = JarFile.entries();
+            if (index > 1) {
+                entries.nextElement();
+            }
+            input = jarFile.getInputStream(entries.nextElement());
+        } else {
+            throw new ArgumentException(name + " jar entry missing.");
+        }        
+        return input;
+    }
+    
     public static void printUsage() {    
         System.out.println("  ");    
         System.out.println("Usage:");
