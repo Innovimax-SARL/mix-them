@@ -27,16 +27,16 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractLineOperation(Map<RuleParam, ParamValue> params) {
+	public AbstractLineOperation(final Map<RuleParam, ParamValue> params) {
 		super(params);
 	}
 
 	@Override
-	public void processFiles(InputResource input1, InputResource input2, OutputStream out) throws MixException, IOException {
-		IInputLine reader1 = new DefaultLineReader(input1);
-		IInputLine reader2 = new DefaultLineReader(input2);
-		IOutputLine writer = new DefaultLineWriter(out);
-		LineResult result = new LineResult();
+	public void processFiles(final InputResource input1, final InputResource input2, final OutputStream out) throws MixException, IOException {
+		final IInputLine reader1 = new DefaultLineReader(input1);
+		final IInputLine reader2 = new DefaultLineReader(input2);
+		final IOutputLine writer = new DefaultLineWriter(out);
+		final LineResult result = new LineResult();
 		while (reader1.hasLine() || reader2.hasLine()) {
 			final String line1 = result.readingFirstFile() ? reader1.nextLine() : result.getFirstLine();
 			final String line2 = result.readingSecondFile() ? reader2.nextLine() : result.getSecondLine();
