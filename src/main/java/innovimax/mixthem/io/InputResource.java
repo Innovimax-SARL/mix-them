@@ -17,7 +17,7 @@ public abstract class InputResource {
 
   private static class FileResource extends InputResource {
     private final File file;
-    private FileResource(File file) {
+    private FileResource(final File file) {
       this.file = file;
     }
     @Override
@@ -28,7 +28,7 @@ public abstract class InputResource {
 
   private static class InputStreamResource extends InputResource {
     private final InputStream input;
-    private InputStreamResource(InputStream input) {
+    private InputStreamResource(final InputStream input) {
       this.input = input;
     }
     @Override
@@ -42,11 +42,11 @@ public abstract class InputResource {
   */  
   public InputResource() {}
   
-  public static InputResource createFile(File file) {
+  public static InputResource createFile(final File file) {
     return new FileResource(file);
   }
   
-  public static InputResource createInputStream(InputStream input) {
+  public static InputResource createInputStream(final InputStream input) {
     return new InputStreamResource(input);
   }
   
