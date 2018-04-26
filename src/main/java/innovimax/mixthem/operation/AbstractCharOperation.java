@@ -27,16 +27,16 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractCharOperation(Map<RuleParam, ParamValue> params) {
+	public AbstractCharOperation(final Map<RuleParam, ParamValue> params) {
 		super(params);
 	}
 
 	@Override
-    	public void processFiles(InputResource input1, InputResource input2, OutputStream out) throws MixException, IOException {		
-		IInputChar reader1 = new DefaultCharReader(input1);
-		IInputChar reader2 = new DefaultCharReader(input2);
-		IOutputChar writer = new DefaultCharWriter(out);
-		CharResult result = new CharResult();
+    	public void processFiles(final InputResource input1, final InputResource input2, final OutputStream out) throws MixException, IOException {		
+		final IInputChar reader1 = new DefaultCharReader(input1);
+		final IInputChar reader2 = new DefaultCharReader(input2);
+		final IOutputChar writer = new DefaultCharWriter(out);
+		final CharResult result = new CharResult();
         	while (reader1.hasCharacter() || reader2.hasCharacter()) {
 			final int c1 = reader1.nextCharacter();
 			final int c2 = reader2.nextCharacter();
@@ -47,7 +47,8 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 						writer.writeCharacter(i);
 					} catch (IOException e) {
 						throw new RuntimeException(e);
-					}});
+					}
+				});
 			}
         	}
         	reader1.close();
