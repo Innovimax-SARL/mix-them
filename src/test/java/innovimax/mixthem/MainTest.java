@@ -25,4 +25,10 @@ public class MainTest {
         Assert.assertTrue(true);
     }
 
+    @Test
+    public final void testMainZip() throws ArgumentException {
+        final String args[] = { "-+", "--zip", getClass().getResource("zip/test001.zip").getFile() };
+        MixThem.main(args);
+        Assert.assertTrue(true);
+    }
 }
