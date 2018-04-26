@@ -65,13 +65,22 @@ public class Arguments {
             index += ruleParams.size();
         } else {
             rule = Rule.ADD;
-        }        
-        File file1 = findFileArgument(args, index, "file1");
-        File file2 = findFileArgument(args, ++index, "file2");
+        }
         mixArgs.setRule(rule);
-        mixArgs.setRuleParameters(ruleParams);
-        mixArgs.setFirstInput(InputResource.createFile(file1));
-        mixArgs.setSecondInput(InputResource.createFile(file2));
+        mixArgs.setRuleParameters(ruleParams);        
+        String zipOption = findZipOptionArgument(args, index);
+        if (zipOption == null) {
+            File file1 = findFileArgument(args, index, "file1");
+            File file2 = findFileArgument(args, ++index, "file2");        
+            mixArgs.setFirstInput(InputResource.createFile(file1));
+            mixArgs.setSecondInput(InputResource.createFile(file2));
+        } else {
+            File zipFile = findFileArgument(args, ++index, zipOption);
+            InputStream input1 = extractFileEntry(zipFile, 1, "file1");
+            InputStream input2 = extractFileEntry(zipFile, 2, "file2");
+            mixArgs.setFirstInput(InputResource.createInputStream(input1));
+            mixArgs.setSecondInput(InputResource.createInputStream(input2));
+        }
         return mixArgs;
     }
 
@@ -130,12 +139,12 @@ public class Arguments {
         return file;
     }
     
-    private static String findZipArgument(String[] args, int index) throws ArgumentException {
-        String zipArg = null;
+    private static String findZipOptionArgument(String[] args, int index) throws ArgumentException {
+        String zipOption = null;
         if (args.length > index && (args[index].equals("--zip") || args[index].equals("--jar"))) {
-            zipArg = args[index].substring(2);
+            zipOption = args[index].substring(2);
         }
-        return zipArg;
+        return zipOption;
     }
 
     public static void printUsage() {    
