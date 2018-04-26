@@ -81,5 +81,17 @@ public class BasicTest {
         Arguments mixArgs = Arguments.checkArguments(args);
         Assert.assertTrue(true);        
     }
+
+    @Test(expected=ArgumentException.class)
+    public final void testEmptyZipArgs() throws ArgumentException, IOException, ZipException {
+        final String args[] = { "--zip" };
+        Arguments mixArgs = Arguments.checkArguments(args);
+    }
+    
+    @Test(expected=ArgumentException.class)
+    public final void testWrongZipArgs() throws ArgumentException, IOException, ZipException {
+        final String args[] = { "--zip", "ghost1" };
+        Arguments mixArgs = Arguments.checkArguments(args);
+    }
     
 }
