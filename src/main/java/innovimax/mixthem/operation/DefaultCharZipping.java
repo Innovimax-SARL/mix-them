@@ -29,10 +29,10 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	}
 	
 	@Override
-	public void process(int c1, int c2, CharResult result) throws MixException {
+	public void process(final int c1, final int c2, final CharResult result) throws MixException {
 		result.reset();
-		int len = (c1 != -1 ? 1 : 0) + sep.length() + (c2 != -1 ? 1 : 0);
-        	int[] array = new int[len];
+		final int len = (c1 != -1 ? 1 : 0) + sep.length() + (c2 != -1 ? 1 : 0);
+        	final int[] array = new int[len];
 		if (c1 != -1) { 
 			array[0] = c1; 
 		}		
