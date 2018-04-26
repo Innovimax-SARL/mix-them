@@ -79,26 +79,26 @@ public class Arguments {
         final String zipOption = findZipOptionArgument(args, index);
         switch (zipOption) {
             case "zip":
-                final zipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
-                final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
-                final InputStream input2 = extractZipEntry(zipFile, 2, "file2");
-                mixArgs.setFirstInput(InputResource.createInputStream(input1));
-                mixArgs.setSecondInput(InputResource.createInputStream(input2));
+                final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
+                final InputStream zipEntry1 = extractZipEntry(zipFile, 1, "file1");
+                final InputStream zipEntry2 = extractZipEntry(zipFile, 2, "file2");
+                mixArgs.setFirstInput(InputResource.createInputStream(zipEntry1));
+                mixArgs.setSecondInput(InputResource.createInputStream(zipEntry2));
                 break;
             case "jar":
                 final JarFile jarFile = new JarFile(findFileArgument(args, ++index, zipOption));
                 
                 System.out.println("JAR Entries: "+jarFile.size());
-                final Enumeration<JarEntry> entries = JarFile.entries();
+                final Enumeration<JarEntry> entries = jarFile.entries();
                 while (entries.hasMoreElements()) {
                     JarEntry entry = entries.nextElement();
                     System.out.println(" > Entry: "+entry.getName());
                 }
                 
-                final InputStream input1 = extractJarEntry(jarFile, 1, "file1");
-                final InputStream input2 = extractJarEntry(jarFile, 2, "file2");
-                mixArgs.setFirstInput(InputResource.createInputStream(input1));
-                mixArgs.setSecondInput(InputResource.createInputStream(input2));
+                final InputStream jarEntry1 = extractJarEntry(jarFile, 1, "file1");
+                final InputStream jarEntry2 = extractJarEntry(jarFile, 2, "file2");
+                mixArgs.setFirstInput(InputResource.createInputStream(jarEntry1));
+                mixArgs.setSecondInput(InputResource.createInputStream(jarEntry2));
                 break;
             default:
                 final File file1 = findFileArgument(args, index, "file1");
@@ -186,8 +186,8 @@ public class Arguments {
 
     private static InputStream extractJarEntry(final JarFile jarFile, final int index, final String name) throws ArgumentException, IOException, ZipException {
         InputStream input = null;
-        if (JarFile.size() >= index) {
-            final Enumeration<JarEntry> entries = JarFile.entries();
+        if (jarFile.size() >= index) {
+            final Enumeration<JarEntry> entries = jarFile.entries();
             if (index > 1) {
                 entries.nextElement();
             }
