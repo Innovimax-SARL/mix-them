@@ -121,8 +121,10 @@ public class BasicTest {
     @Test(expected=ArgumentException.class)
     public final void testZipOneFile() throws ArgumentException, IOException, ZipException {
         try {
+            System.out.println("testZipOneFile: 1");
             final String args[] = { "--zip", getClass().getResource("zip/wrong.zip").getFile() };
             Arguments mixArgs = Arguments.checkArguments(args);
+            System.out.println("testZipOneFile: 2");
         } catch (ArgumentException e) {
             System.out.println("testZipOneFile: "+e.getMessage());
             throw e;
@@ -132,8 +134,10 @@ public class BasicTest {
     @Test(expected=ArgumentException.class)
     public final void testJarEmpty() throws ArgumentException, IOException, ZipException {
         try {
+            System.out.println("testJarEmpty: 1");
             final String args[] = { "--jar", getClass().getResource("zip/empty.jar").getFile() };
             Arguments mixArgs = Arguments.checkArguments(args);
+            System.out.println("testJarEmpty: 2");
         } catch (ArgumentException e) {
             System.out.println("testJarEmpty: "+e.getMessage());
             throw e;
