@@ -23,15 +23,15 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultCharAlternation(Map<RuleParam, ParamValue> params) {
+	public DefaultCharAlternation(final Map<RuleParam, ParamValue> params) {
 		super(params);
 		this.odd = true;
 	}
 	
 	@Override
-	public void process(int c1, int c2, CharResult result) throws MixException {
+	public void process(final int c1, final int c2, final CharResult result) throws MixException {
 		result.reset();
-		int[] array = new int[1];
+		final int[] array = new int[1];
 		if (c1 == -1) {
 			array[0] = c2;
 		} else if (c2 == -1) {
