@@ -25,7 +25,7 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	* @see innovimax.mixthem.operation.RuleParam
 	* @see innovimax.mixthem.operation.ParamValue
 	*/
-	public DefaultLineAlternation(AltMode mode, Map<RuleParam, ParamValue> params) {
+	public DefaultLineAlternation(final AltMode mode, final Map<RuleParam, ParamValue> params) {
 		super(params);
 		this.mode = mode;
 		this.odd = true;
@@ -33,7 +33,7 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	}	
 
 	@Override
-	public void process(String line1, String line2, LineResult result) throws MixException {		
+	public void process(final String line1, final String line2, final LineResult result) throws MixException {		
 		result.reset();
 		if (line1 == null) {
 			result.setResult(line2);
