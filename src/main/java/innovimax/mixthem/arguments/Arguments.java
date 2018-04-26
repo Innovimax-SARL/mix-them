@@ -94,7 +94,7 @@ public class Arguments {
         Rule rule = null;
         if (args.length > index) {
             final String ruleString = args[index];
-            if (ruleString.startsWith("-")) {
+            if (ruleString.startsWith("-") && !ruleString.startsWith("--")) {
                 rule = Rule.findByName(ruleString.substring(1));
                 if (rule == null) {
                     throw new ArgumentException(name + " argument is incorrect: " + ruleString);
