@@ -28,26 +28,26 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultLineZipping(ZipType type, Map<RuleParam, ParamValue> params) {
+	public DefaultLineZipping(final ZipType type, final Map<RuleParam, ParamValue> params) {
 		super(params);
 		this.type = type;
 		this.sep = params.getOrDefault(RuleParam.ZIP_SEP, ZipOperation.DEFAULT_ZIP_SEPARATOR.getValue()).asString();	
 	}
 	
 	@Override
-	public void process(String line1, String line2, LineResult result) throws MixException {
+	public void process(final String line1, final String line2, final LineResult result) throws MixException {
 		result.reset();
 		switch (this.type) {
 			case LINE:
 				result.setResult((line1 != null ? line1 : "") + this.sep + (line2 != null ? line2 : ""));
 				break;
 			case CELL:					
-				Iterator<String> iterator1 = line1 != null ? Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator() : Collections.emptyIterator();
-				Iterator<String> iterator2 = line2 != null ? Arrays.asList(line2.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator() : Collections.emptyIterator();				
-				StringBuffer buf = new StringBuffer();
+				final Iterator<String> iterator1 = line1 != null ? Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator() : Collections.emptyIterator();
+				final Iterator<String> iterator2 = line2 != null ? Arrays.asList(line2.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator() : Collections.emptyIterator();				
+				final StringBuffer buf = new StringBuffer();
 				while (iterator1.hasNext() || iterator2.hasNext()) {						
-					String cell1 = iterator1.hasNext() ? iterator1.next() : "";
-					String cell2 = iterator2.hasNext() ? iterator2.next() : "";					
+					final String cell1 = iterator1.hasNext() ? iterator1.next() : "";
+					final String cell2 = iterator2.hasNext() ? iterator2.next() : "";					
 					if (buf.length() > 0) {						
 						buf.append(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
 					}					
