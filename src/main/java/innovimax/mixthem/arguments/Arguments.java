@@ -13,6 +13,7 @@ import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 /**
@@ -59,7 +60,7 @@ public class Arguments {
         return this.input2;
     }
 
-    public static Arguments checkArguments(String[] args) throws ArgumentException { 
+    public static Arguments checkArguments(String[] args) throws ArgumentException, IOException, ZipException { 
         Arguments mixArgs = new Arguments();
         int index = 0;
         Rule rule = findRuleArgument(args, index, "rule");
@@ -152,7 +153,7 @@ public class Arguments {
         return zipOption;
     }
     
-    private static InputStream extractFileEntry(ZipFile zipFile, int index, String name) throws ArgumentException, IOException {
+    private static InputStream extractFileEntry(ZipFile zipFile, int index, String name) throws ArgumentException, IOException, ZipException {
         InputStream input = null;
         if (zipFile.size() >= index) {
             Enumeration<? extends ZipEntry> entries = zipFile.entries();
