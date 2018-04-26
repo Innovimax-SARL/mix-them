@@ -14,7 +14,7 @@ public enum RuleParam {
 	private final String name;
 	private final ParamType type;
 
-	private RuleParam(String name, ParamType type) {
+	private RuleParam(final String name, final ParamType type) {
 		this.name = name;
 		this.type = type;
 	}
@@ -32,7 +32,7 @@ public enum RuleParam {
  	* @param value The value of the parameter on command line
  	* @return The {@link ParamValue} representation of the parameter value
  	*/
-	ParamValue createValue(String value) throws NumberFormatException {
+	ParamValue createValue(final String value) throws NumberFormatException {
 		ParamValue pv = null;
 		switch (this.type) {
 			case INTEGER:				
