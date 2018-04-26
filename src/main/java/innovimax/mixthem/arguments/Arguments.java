@@ -4,6 +4,7 @@ import innovimax.mixthem.io.InputResource;
 
 import java.io.File;
 import java.io.InputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -154,7 +155,7 @@ public class Arguments {
     private static InputStream extractFileEntry(ZipFile zipFile, int index, String name) throws ArgumentException, IOException {
         InputStream input = null;
         if (zipFile.size() >= index) {
-            Enumeration<ZipEntry> entries = zipFile.entries();
+            Enumeration entries = zipFile.entries();
             if (index > 1) {
                 entries.nextElement();
             }
