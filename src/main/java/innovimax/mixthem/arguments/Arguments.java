@@ -148,7 +148,7 @@ public class Arguments {
         if (args.length > index && (args[index].equals("--zip") || args[index].equals("--jar"))) {
             return args[index].substring(2);
         }
-        return "none";
+        return null;
     }
     
     private static InputStream extractZipEntry(final ZipFile zipFile, final int index, final String name) throws ArgumentException, IOException, ZipException {
