@@ -83,15 +83,29 @@ public class BasicTest {
     }
 
     @Test(expected=ArgumentException.class)
-    public final void testEmptyZipArgs() throws ArgumentException, IOException, ZipException {
+    public final void testZipEmptyArgs() throws ArgumentException, IOException, ZipException {
         final String args[] = { "--zip" };
         Arguments mixArgs = Arguments.checkArguments(args);
     }
     
     @Test(expected=ArgumentException.class)
-    public final void testWrongZipArgs() throws ArgumentException, IOException, ZipException {
+    public final void testZipWrongArgs() throws ArgumentException, IOException, ZipException {
         final String args[] = { "--zip", "ghost1" };
         Arguments mixArgs = Arguments.checkArguments(args);
+    }
+    
+    @Test
+    public final void testZipNoRule() throws ArgumentException, IOException, ZipException {
+        final String args[] = { "--zip", getClass().getResource("test001.zip").getFile() };
+        Arguments mixArgs = Arguments.checkArguments(args);
+        Assert.assertTrue(true);
+    }
+    
+    @Test
+    public final void testJar1Rule() throws ArgumentException, IOException, ZipException {
+        final String args[] = { "-1", "--jar", getClass().getResource("test001.jar").getFile() };
+        Arguments mixArgs = Arguments.checkArguments(args);
+        Assert.assertTrue(true);
     }
     
 }
