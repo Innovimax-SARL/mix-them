@@ -19,7 +19,7 @@ public class DefaultCharReader implements IInputChar {
  	* @param input The input resource to be read
  	* @throws IOException - If an I/O error occurs
  	*/
-	public DefaultCharReader(InputResource input) throws IOException {		
+	public DefaultCharReader(final InputResource input) throws IOException {		
 		this.reader = input.newBufferedReader();
 	}
 
@@ -38,7 +38,7 @@ public class DefaultCharReader implements IInputChar {
 	}
 
 	@Override
-	public int nextCharacters(char[] buffer, int len) throws IOException {
+	public int nextCharacters(final char[] buffer, final int len) throws IOException {
 		return this.reader.read(buffer, 0, len);		
 	}
 
