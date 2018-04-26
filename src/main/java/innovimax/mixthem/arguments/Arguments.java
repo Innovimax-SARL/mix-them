@@ -3,6 +3,7 @@ package innovimax.mixthem.arguments;
 import innovimax.mixthem.io.InputResource;
 
 import java.io.File;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -75,7 +76,7 @@ public class Arguments {
             mixArgs.setFirstInput(InputResource.createFile(file1));
             mixArgs.setSecondInput(InputResource.createFile(file2));
         } else {
-            File zipFile = findFileArgument(args, ++index, zipOption);
+            ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
             InputStream input1 = extractFileEntry(zipFile, 1, "file1");
             InputStream input2 = extractFileEntry(zipFile, 2, "file2");
             mixArgs.setFirstInput(InputResource.createInputStream(input1));
@@ -139,12 +140,26 @@ public class Arguments {
         return file;
     }
     
-    private static String findZipOptionArgument(String[] args, int index) throws ArgumentException {
+    private static String findZipOptionArgument(String[] args, int index) {
         String zipOption = null;
         if (args.length > index && (args[index].equals("--zip") || args[index].equals("--jar"))) {
             zipOption = args[index].substring(2);
         }
         return zipOption;
+    }
+    
+    private static InputStream extractFileEntry(ZipFile zipFile, int index, String name) throws ArgumentException, IOException {
+        InputStream input = null;
+        if (zipFile.size() >= index) {
+            Enumeration<ZipEntry> entries = zipFile.entries();
+            if (index > 1) {
+                entries.nextElement();
+            }
+            input = zipFile.getInputStream(entries.nextElement());
+        } else {
+            throw new ArgumentException(name + " entry missing.");
+        }        
+        return input;
     }
 
     public static void printUsage() {    
