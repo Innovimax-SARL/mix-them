@@ -25,7 +25,7 @@ public enum Rule {
     private final boolean implemented;
     private final EnumSet<RuleParam> params;
 
-    private Rule(String name, String extension, String description, boolean implemented, EnumSet<RuleParam> params) {
+    private Rule(final String name, final String extension, final String description, final boolean implemented, final EnumSet<RuleParam> params) {
         this.name = name;
         this.extension = extension;
         this.description = description;
@@ -78,7 +78,7 @@ public enum Rule {
     * @param name The name of the rule in command line
     * @return The {@link Rule} object
     */    
-    public static Rule findByName(String name) {
+    public static Rule findByName(final String name) {
         for(Rule rule : values()){
             if (rule.getName().equals(name)) {
                 return rule;
