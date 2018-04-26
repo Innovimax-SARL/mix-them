@@ -26,31 +26,31 @@ public class DefaultLineJoining extends AbstractLineOperation {
   * @see innovimax.mixthem.operation.RuleParam
   * @see innovimax.mixthem.operation.ParamValue
   */
-  public DefaultLineJoining(Map<RuleParam, ParamValue> params) {
+  public DefaultLineJoining(final Map<RuleParam, ParamValue> params) {
     super(params);
     this.col1 = this.params.getOrDefault(RuleParam.JOIN_COL1, JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
     this.col2 = this.params.getOrDefault(RuleParam.JOIN_COL2, JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
   } 
 
   @Override
-  public void process(String line1, String line2, LineResult result) throws MixException {
-    boolean firstPreserved = result.firstLinePreserved();
-    boolean secondPreserved = result.secondLinePreserved();
+  public void process(final String line1, final String line2, final LineResult result) throws MixException {
+    final boolean firstPreserved = result.firstLinePreserved();
+    final boolean secondPreserved = result.secondLinePreserved();
     result.reset();
     if (line1 != null && line2 != null) {
-      List<String> list1 = Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));
-      List<String> list2 = Arrays.asList(line2.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));   
-      String cell1 = list1.size() >= this.col1 ? list1.get(this.col1 - 1) : null;
-      String cell2 = list2.size() >= this.col2 ? list2.get(this.col2 - 1) : null;
+      final List<String> list1 = Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));
+      final List<String> list2 = Arrays.asList(line2.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));   
+      final String cell1 = list1.size() >= this.col1 ? list1.get(this.col1 - 1) : null;
+      final String cell2 = list2.size() >= this.col2 ? list2.get(this.col2 - 1) : null;
       if (cell1 != null && cell2 != null) {
-        List<String> prevList1 = result.hasFirstLine() ?
+        final List<String> prevList1 = result.hasFirstLine() ?
                         Arrays.asList(result.getFirstLine().split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
                         Collections.emptyList();
-        List<String> prevList2 = result.hasSecondLine() ?
+       final  List<String> prevList2 = result.hasSecondLine() ?
                         Arrays.asList(result.getSecondLine().split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
                         Collections.emptyList();    
-        String prevCell1 = prevList1.size() >= this.col1 ? prevList1.get(this.col1 - 1) : null;
-        String prevCell2 = prevList2.size() >= this.col2 ? prevList2.get(this.col2 - 1) : null;
+        final String prevCell1 = prevList1.size() >= this.col1 ? prevList1.get(this.col1 - 1) : null;
+        final String prevCell2 = prevList2.size() >= this.col2 ? prevList2.get(this.col2 - 1) : null;
         System.out.println("LINE1=" + line1 + " / CELL1=" + cell1);
         System.out.println("LINE2=" + line2 + " / CELL2=" + cell2);
         System.out.println("PVLINE1=" + result.getFirstLine() + " / PVCELL1=" + prevCell1);
@@ -89,9 +89,9 @@ public class DefaultLineJoining extends AbstractLineOperation {
   }
 
   private void joinLines(List<String> list1, List<String> list2, LineResult result) {
-    String part1 = list1.get(this.col1 - 1);
-    String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
-    String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
+    final String part1 = list1.get(this.col1 - 1);
+    final String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
+    final String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
     result.setResult(part1 + CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()  + 
          part2 + CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString() + part3);
   }
