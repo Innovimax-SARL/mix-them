@@ -88,7 +88,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
     }   
   }
 
-  private void joinLines(List<String> list1, List<String> list2, LineResult result) {
+  private void joinLines(final List<String> list1, final List<String> list2, final LineResult result) {
     final String part1 = list1.get(this.col1 - 1);
     final String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
     final String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
