@@ -1,11 +1,7 @@
 package innovimax.mixthem.io;
 
-import java.io.File;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 /**
 * <p>Reads characters from a character-input file.</p>
@@ -16,17 +12,15 @@ import java.nio.file.Path;
 */
 public class DefaultCharReader implements IInputChar {
 
-	private final Path path;
 	private final BufferedReader reader;
 
 	/**
- 	* Creates a character reader.
- 	* @param input The input file to be read
+ 	* Creates a character reader from an input resource.
+ 	* @param input The input resource to be read
  	* @throws IOException - If an I/O error occurs
  	*/
-	public DefaultCharReader(File input) throws IOException {		
-		this.path = input.toPath();
-		this.reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+	public DefaultCharReader(final InputResource input) throws IOException {		
+		this.reader = input.newBufferedReader();
 	}
 
 	@Override
@@ -44,7 +38,7 @@ public class DefaultCharReader implements IInputChar {
 	}
 
 	@Override
-	public int nextCharacters(char[] buffer, int len) throws IOException {
+	public int nextCharacters(final char[] buffer, final int len) throws IOException {
 		return this.reader.read(buffer, 0, len);		
 	}
 

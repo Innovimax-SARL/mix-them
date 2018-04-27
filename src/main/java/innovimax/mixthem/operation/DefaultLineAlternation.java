@@ -15,8 +15,6 @@ import java.util.Random;
 */
 public class DefaultLineAlternation extends AbstractLineOperation {
 
-	private final static int DEFAULT_RANDOM_SEED = 1789;
-	
 	private final AltMode mode;
 	private boolean odd;
 	private final Random random;
@@ -27,41 +25,32 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	* @see innovimax.mixthem.operation.RuleParam
 	* @see innovimax.mixthem.operation.ParamValue
 	*/
-	public DefaultLineAlternation(AltMode mode, Map<RuleParam, ParamValue> params) {
+	public DefaultLineAlternation(final AltMode mode, final Map<RuleParam, ParamValue> params) {
 		super(params);
 		this.mode = mode;
 		this.odd = true;
-		this.random = new Random(DEFAULT_RANDOM_SEED);
-		if (this.params.containsKey(RuleParam._RANDOM_SEED)) {
-			this.random.setSeed(this.params.get(RuleParam._RANDOM_SEED).asInt());
-		}
+		this.random = new Random(params.getOrDefault(RuleParam.RANDOM_SEED, AltOperation.DEFAULT_RANDOM_SEED.getValue()).asInt());
 	}	
 
-	/**
- 	* Returns the alternated linet.
-	* @param line1 The first line to alternate
- 	* @param line2 The second line to alternate
- 	* @return The alternated line
- 	* @throws MixException - If an mixing error occurs
- 	*/
 	@Override
-	public String process(String line1, String line2) throws MixException, ProcessException {		
+	public void process(final String line1, final String line2, final LineResult result) throws MixException {		
+		result.reset();
 		if (line1 == null) {
-			return line2;
+			result.setResult(line2);
 		} else if (line2 == null) {
-			return line1;
+			result.setResult(line1);
 		} else {
 			String line = null;
 			switch (this.mode) {
-				case _RANDOM:
+				case RANDOM:
 					line = this.random.nextBoolean() ? line1 : line2;
 					break;
-				case _NORMAL:
+				case NORMAL:
 				default:
 					line = this.odd ? line1 : line2;
 					this.odd = !this.odd;
 			}
-			return line;
+			result.setResult(line);
 		}
 	}
 

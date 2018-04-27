@@ -7,8 +7,8 @@ import innovimax.mixthem.io.DefaultCharReader;
 import innovimax.mixthem.io.DefaultCharWriter;
 import innovimax.mixthem.io.IInputChar;
 import innovimax.mixthem.io.IOutputChar;
+import innovimax.mixthem.io.InputResource;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
@@ -27,25 +27,28 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractCharOperation(Map<RuleParam, ParamValue> params) {
+	public AbstractCharOperation(final Map<RuleParam, ParamValue> params) {
 		super(params);
 	}
 
 	@Override
-    	public void processFiles(File file1, File file2, OutputStream out) throws MixException, IOException {
-        	IInputChar reader1 = new DefaultCharReader(file1);
-        	IInputChar reader2 = new DefaultCharReader(file2);
-        	IOutputChar writer = new DefaultCharWriter(out); 
+    	public void processFiles(final InputResource input1, final InputResource input2, final OutputStream out) throws MixException, IOException {		
+		final IInputChar reader1 = new DefaultCharReader(input1);
+		final IInputChar reader2 = new DefaultCharReader(input2);
+		final IOutputChar writer = new DefaultCharWriter(out);
+		final CharResult result = new CharResult();
         	while (reader1.hasCharacter() || reader2.hasCharacter()) {
 			final int c1 = reader1.nextCharacter();
 			final int c2 = reader2.nextCharacter();
-			try {
-				int[] result = process(c1, c2);
-				for (int i = 0; i < result.length; i++) {
-					writer.writeCharacter(result[i]);
-				}		
-			} catch (ProcessException e) {
-				break;
+			process(c1, c2, result);
+			if (result.hasResult()) {
+				result.getResult().forEach(i -> {
+					try {
+						writer.writeCharacter(i);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				});
 			}
         	}
         	reader1.close();

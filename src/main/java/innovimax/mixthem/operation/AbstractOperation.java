@@ -21,7 +21,7 @@ public abstract class AbstractOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractOperation(Map<RuleParam, ParamValue> params) {
+	public AbstractOperation(final Map<RuleParam, ParamValue> params) {
 		this.params = params;
 	}
 

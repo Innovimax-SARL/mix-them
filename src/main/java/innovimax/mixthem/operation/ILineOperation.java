@@ -1,14 +1,16 @@
 package innovimax.mixthem.operation;
+
 import innovimax.mixthem.MixException;
 
 interface ILineOperation extends IOperation {
 	/**
- 	* Returns the result of the operation (maybe null).
+ 	* Processes operation and set new result in the LineResult parameter.
 	* @param line1 The first line to join (maybe null)
  	* @param line2 The second line to join (maybe null)
- 	* @return The result result of the operation (maybe null)
+	* @param result The previous operation result
+ 	* @return The result of the operation (maybe null)
  	* @throws MixException - If an mixing error occurs
-	* @throws ProcessException - If process must be ended
+	* @see innovimax.mixthem.operation.LineResult
  	*/
-	String process(String line1, String line2) throws MixException, ProcessException;
+	void process(String line1, String line2, LineResult result) throws MixException;
 }

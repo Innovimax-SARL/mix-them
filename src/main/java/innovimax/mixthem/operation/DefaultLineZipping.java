@@ -1,13 +1,13 @@
 package innovimax.mixthem.operation;
 
-import static innovimax.mixthem.MixConstants.*;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.Map;
-import java.util.List;
 
 /**
 * <p>Zips two lines on a common field.</p>
@@ -18,6 +18,7 @@ import java.util.List;
 public class DefaultLineZipping extends AbstractLineOperation {
 	
 	private final ZipType type;
+	private final String sep;
 	
 	/**
 	* Constructor
@@ -27,40 +28,33 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultLineZipping(ZipType type, Map<RuleParam, ParamValue> params) {
+	public DefaultLineZipping(final ZipType type, final Map<RuleParam, ParamValue> params) {
 		super(params);
-		this.type = type;		
+		this.type = type;
+		this.sep = params.getOrDefault(RuleParam.ZIP_SEP, ZipOperation.DEFAULT_ZIP_SEPARATOR.getValue()).asString();	
 	}
 	
 	@Override
-	public String process(String line1, String line2) throws MixException, ProcessException {
-		if (line1 == null || line2 == null) {
-			throw new ProcessException();
-		}
-		String zip = null;
-		String sep = DEFAULT_ZIP_SEPARATOR;
-		if (this.params.containsKey(RuleParam._ZIP_SEP)) {
-			sep = this.params.get(RuleParam._ZIP_SEP).asString();
-		}		
+	public void process(final String line1, final String line2, final LineResult result) throws MixException {
+		result.reset();
 		switch (this.type) {
-			case _LINE:
-				zip = line1 + sep + line2;
+			case LINE:
+				result.setResult((line1 != null ? line1 : "") + this.sep + (line2 != null ? line2 : ""));
 				break;
-			case _CELL:					
-				List<String> list1 = Arrays.asList(line1.split("\\s"));
-				List<String> list2 = Arrays.asList(line2.split("\\s"));
-				int index = 0;
-				while (index < list1.size() && index < list2.size()) {						
-					if (index == 0) {
-						zip = "";
-					} else {
-						zip += " ";  // cell separator
-					}
-					zip += list1.get(index) + sep + list2.get(index);
-					index++;
+			case CELL:					
+				final Iterator<String> iterator1 = line1 != null ? Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator() : Collections.emptyIterator();
+				final Iterator<String> iterator2 = line2 != null ? Arrays.asList(line2.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator() : Collections.emptyIterator();				
+				final StringBuffer buf = new StringBuffer();
+				while (iterator1.hasNext() || iterator2.hasNext()) {						
+					final String cell1 = iterator1.hasNext() ? iterator1.next() : "";
+					final String cell2 = iterator2.hasNext() ? iterator2.next() : "";					
+					if (buf.length() > 0) {						
+						buf.append(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
+					}					
+					buf.append(cell1 + this.sep + cell2);					
 				}
+				result.setResult(buf.toString());
 		}
-		return zip;
 	}
 
 }

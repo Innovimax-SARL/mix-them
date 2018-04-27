@@ -4,6 +4,7 @@ import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -22,23 +23,24 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultCharAlternation(Map<RuleParam, ParamValue> params) {
+	public DefaultCharAlternation(final Map<RuleParam, ParamValue> params) {
 		super(params);
 		this.odd = true;
 	}
 	
 	@Override
-	public int[] process(int c1, int c2) throws MixException, ProcessException {		
-		int[] result = new int[1];
+	public void process(final int c1, final int c2, final CharResult result) throws MixException {
+		result.reset();
+		final int[] array = new int[1];
 		if (c1 == -1) {
-			result[0] = c2;
+			array[0] = c2;
 		} else if (c2 == -1) {
-			result[0] = c1;
+			array[0] = c1;
 		} else {					
-			result[0] = this.odd ? c1 : c2;
+			array[0] = this.odd ? c1 : c2;
 			this.odd = !this.odd;			
 		}
-		return result;
+		result.setResult(Arrays.stream(array));
 	}
 
 }

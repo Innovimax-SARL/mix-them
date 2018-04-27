@@ -1,15 +1,17 @@
 
 package innovimax.mixthem.operation;
+
 import innovimax.mixthem.MixException;
 
 interface ICharOperation extends IOperation {
 	/**
-	* Returns the result of the operation (maybe empty).
+ 	* Processes operation and set new result in the CharResult parameter.
 	* @param c1 The first character to zip (maybe -1)
 	* @param c2 The second character to zip (maybe -1)
-	* @return The result of the operation (maybe empty)
-	* @throws MixException - If an mixing error occurs
-	* @throws ProcessException - If process must be ended
+	* @param result The previous operation result
+ 	* @return The result of the operation (maybe null)
+ 	* @throws MixException - If an mixing error occurs
+	* @see innovimax.mixthem.operation.CharResult	
 	*/	
-	int[] process(int c1, int c2) throws MixException, ProcessException;
+	void process(int c1, int c2, CharResult result) throws MixException;
 }

@@ -7,8 +7,8 @@ import innovimax.mixthem.io.DefaultLineReader;
 import innovimax.mixthem.io.DefaultLineWriter;
 import innovimax.mixthem.io.IInputLine;
 import innovimax.mixthem.io.IOutputLine;
+import innovimax.mixthem.io.InputResource;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
@@ -27,25 +27,22 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractLineOperation(Map<RuleParam, ParamValue> params) {
+	public AbstractLineOperation(final Map<RuleParam, ParamValue> params) {
 		super(params);
 	}
 
 	@Override
-	public void processFiles(File file1, File file2, OutputStream out) throws MixException, IOException {
-		IInputLine reader1 = new DefaultLineReader(file1);
-		IInputLine reader2 = new DefaultLineReader(file2);
-		IOutputLine writer = new DefaultLineWriter(out);
+	public void processFiles(final InputResource input1, final InputResource input2, final OutputStream out) throws MixException, IOException {
+		final IInputLine reader1 = new DefaultLineReader(input1);
+		final IInputLine reader2 = new DefaultLineReader(input2);
+		final IOutputLine writer = new DefaultLineWriter(out);
+		final LineResult result = new LineResult();
 		while (reader1.hasLine() || reader2.hasLine()) {
-			final String line1 = reader1.nextLine();
-			final String line2 = reader2.nextLine();
-			try {
-				String result = process(line1, line2);
-				if (result != null) {
-					writer.writeLine(result);
-				}
-			} catch (ProcessException e) {
-				break;
+			final String line1 = result.readingFirstFile() ? reader1.nextLine() : result.getFirstLine();
+			final String line2 = result.readingSecondFile() ? reader2.nextLine() : result.getSecondLine();
+			process(line1, line2, result);
+			if (result.hasResult()) {
+				writer.writeLine(result.getResult());
 			}
         	}
         	reader1.close();

@@ -30,7 +30,7 @@ public class RuleRun {
   * @param suffix The specific suffix attached to the run (maybe null)
   * @param params The list of parameter values for this run
   */
-  public RuleRun(String suffix, Map<RuleParam, ParamValue> params) {    
+  public RuleRun(final String suffix, final Map<RuleParam, ParamValue> params) {    
     this.suffix = suffix;
     this.params = params;    
   }

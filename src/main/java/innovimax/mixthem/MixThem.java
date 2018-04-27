@@ -1,11 +1,9 @@
 package innovimax.mixthem;
 
-import static innovimax.mixthem.MixConstants.*;
 import innovimax.mixthem.arguments.*;
 import innovimax.mixthem.io.*;
 import innovimax.mixthem.operation.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
@@ -32,35 +30,36 @@ import java.util.logging.Logger;
 public class MixThem {
     
     public final static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
+    private final static int CHAR_BUFFER_SIZE = 1024;
 
-    private final File file1, file2;
+    private final InputResource input1, input2;
     private final OutputStream out;
     /**
      * Constructor
-     * @param file1 The first file to be mixed
-     * @param file2 The second file to be mixed
+     * @param input1 The first input resource to be mixed
+     * @param input2 The second input resource to be mixed
      * @param out The output stream to write mixing result
      */ 
-    public MixThem(File file1, File file2, OutputStream out) {
-        this.file1 = file1;
-        this.file2 = file2;
+    public MixThem(InputResource input1, InputResource input2, OutputStream out) {
+        this.input1 = input1;
+        this.input2 = input2;
         this.out = out;        
     }
     
-    static void setLogging(Level level) {	
-	if (LOGGER.getHandlers().length == 0) {
-            //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");            
-	    System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s%n");
-	    LOGGER.setUseParentHandlers(false);	 
-	    LOGGER.setLevel(Level.ALL);
-	    Handler handler = new ConsoleHandler();
-	    LOGGER.addHandler(handler);        
-	    handler.setLevel(Level.OFF);
-	    String prop = System.getProperty("mixthem.logging");
+    static void setLogging(Level level) {
+        if (LOGGER.getHandlers().length == 0) {
+            //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
+            System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s%n");
+            LOGGER.setUseParentHandlers(false);
+            LOGGER.setLevel(Level.ALL);
+            Handler handler = new ConsoleHandler();
+            LOGGER.addHandler(handler);
+            handler.setLevel(Level.OFF);
+            String prop = System.getProperty("mixthem.logging");
             if (prop == null || prop.equals("true")) {
                 handler.setLevel(level);            
             }
-	}
+        }
     }
 
     /**
@@ -73,10 +72,10 @@ public class MixThem {
 
     private static void run(String[] args) {
         try {
-	    setLogging(Level.INFO);
-	    LOGGER.info("Started application");		
+            setLogging(Level.INFO);
+            LOGGER.info("Started application");   
             Arguments mixArgs = Arguments.checkArguments(args);        
-            MixThem mixThem = new MixThem(mixArgs.getFirstFile(), mixArgs.getSecondFile(), System.out);
+            MixThem mixThem = new MixThem(mixArgs.getFirstInput(), mixArgs.getSecondInput(), System.out);
             mixThem.process(mixArgs.getRule(), mixArgs.getRuleParameters());
             LOGGER.info("Exited application with no errors");
         } catch (ArgumentException e) {
@@ -106,50 +105,50 @@ public class MixThem {
     */  
     public void process(Rule rule, Map<RuleParam, ParamValue> params) throws MixException {
         try {
-	    LOGGER.info("Started mixing for rule '" + rule.getName() + "'...");
+            LOGGER.info("Started mixing for rule '" + rule.getName() + "'...");
             switch(rule) {
-                case _1:
-                  copyChar(this.file1, this.out);
-                  break;
-                case _2:               
-                  copyChar(this.file2, this.out);  
-                  break; 
-                case _ADD:    
-                  copyChar(this.file1, this.out);
-                  copyChar(this.file2, this.out);
-                  break;
-                case _ALT_CHAR:
-		  IOperation altCharOp = new DefaultCharAlternation(params);
-		  altCharOp.processFiles(this.file1, this.file2, this.out);	
-                  break;
-                case _ALT_LINE:    
-		  IOperation altLineOp = new DefaultLineAlternation(AltMode._NORMAL, params);
-		  altLineOp.processFiles(this.file1, this.file2, this.out);			    
-                  break;
-                case _RANDOM_ALT_LINE:
-		  IOperation randomAltLineOp = new DefaultLineAlternation(AltMode._RANDOM, params);
-		  randomAltLineOp.processFiles(this.file1, this.file2, this.out);	
-                  break;
-                case _JOIN:  
-		  IOperation joinLineOp = new DefaultLineJoining(params);
-		  joinLineOp.processFiles(this.file1, this.file2, this.out);
-                  break;
-                case _ZIP_LINE:
-		  IOperation zipLineOp = new DefaultLineZipping(ZipType._LINE, params);
-		  zipLineOp.processFiles(this.file1, this.file2, this.out);
-                  break;
-		case _ZIP_CELL:		  
-		  IOperation zipCellOp = new DefaultLineZipping(ZipType._CELL, params);
-		  zipCellOp.processFiles(this.file1, this.file2, this.out);
-		  break;
-		case _ZIP_CHAR:			    
-		  IOperation zipCharOp = new DefaultCharZipping(params);
-		  zipCharOp.processFiles(this.file1, this.file2, this.out);
-		  /*break;
+                case FILE_1:
+                    copyChar(this.input1, this.out);
+                    break;
+                case FILE_2:
+                    copyChar(this.input2, this.out);
+                    break; 
+                case ADD:
+                    copyChar(this.input1, this.out);
+                    copyChar(this.input2, this.out);
+                    break;
+                case ALT_CHAR:
+                    IOperation altCharOp = new DefaultCharAlternation(params);
+                    altCharOp.processFiles(this.input1, this.input2, this.out); 
+                    break;
+                case ALT_LINE:
+                    IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, params);
+                    altLineOp.processFiles(this.input1, this.input2, this.out);
+                    break;
+                case RANDOM_ALT_LINE:
+                    IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, params);
+                    randomAltLineOp.processFiles(this.input1, this.input2, this.out); 
+                    break;
+                case JOIN:
+                    IOperation joinLineOp = new DefaultLineJoining(params);
+                    joinLineOp.processFiles(this.input1, this.input2, this.out);
+                    break;
+                case ZIP_LINE:
+                    IOperation zipLineOp = new DefaultLineZipping(ZipType.LINE, params);
+                    zipLineOp.processFiles(this.input1, this.input2, this.out);
+                    break;
+                case ZIP_CELL:
+                    IOperation zipCellOp = new DefaultLineZipping(ZipType.CELL, params);
+                    zipCellOp.processFiles(this.input1, this.input2, this.out);
+                    break;
+                case ZIP_CHAR:
+                    IOperation zipCharOp = new DefaultCharZipping(params);
+                    zipCharOp.processFiles(this.input1, this.input2, this.out);
+                    /*break;
                 default:    
                    System.out.println("This rule has not been implemented yet.");*/
             }
-	    LOGGER.info("Ended mixing for rule '" + rule.getName() + "'.");
+            LOGGER.info("Ended mixing for rule '" + rule.getName() + "'.");
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
         }
@@ -157,9 +156,9 @@ public class MixThem {
     }   
 
     // this one copies one file as beeing char
-    private static void copyChar(File file, OutputStream out) throws IOException {	
+    private static void copyChar(InputResource input, OutputStream out) throws IOException {  
         char[] buffer = new char[CHAR_BUFFER_SIZE];
-        IInputChar reader = new DefaultCharReader(file);
+        IInputChar reader = new DefaultCharReader(input);
         IOutputChar writer = new DefaultCharWriter(out);
         while (reader.hasCharacter()) {
             final int len = reader.nextCharacters(buffer, CHAR_BUFFER_SIZE);

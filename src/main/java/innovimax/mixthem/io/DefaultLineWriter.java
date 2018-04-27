@@ -21,12 +21,12 @@ public class DefaultLineWriter implements IOutputLine {
  	* @param output The output stream for lines to be written.
  	* @throws IOException - If an I/O error occurs
  	*/
-	public DefaultLineWriter(OutputStream output) throws IOException {
+	public DefaultLineWriter(final OutputStream output) throws IOException {
 		this.writer = new BufferedWriter(new OutputStreamWriter(output));
 	}
 
 	@Override
-	public void writeLine(String line) throws IOException {
+	public void writeLine(final String line) throws IOException {
 		this.writer.write(line);
 		this.writer.newLine();
 	}
