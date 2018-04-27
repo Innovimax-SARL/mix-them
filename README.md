@@ -6,10 +6,12 @@ Mix files togethers
 
 
     mix-them file1 file2 
+ 
   will generate on standard out any file based on file1 and file2.
   by default it assumes file1 and file2 are character based (not binary)
   
     mix-them [-rule] file1 file2
+  
   will generate on standard out a file based on the rule
   
   Here are the list of rules
@@ -28,9 +30,11 @@ Mix files togethers from a zip/jar file
 
     mix-them --zip zipfile 
     mix-them --jar zipfile 
+  
   will generate on standard out any file based on first entrie and second entrie of zip/jar file.
   by default it assumes zip/jar entries are character based (not binary)
   
     mix-them [-rule] --zip zipfile
     mix-them [-rule] --jar jarfile
+  
   will generate on standard out a file based on the rule
