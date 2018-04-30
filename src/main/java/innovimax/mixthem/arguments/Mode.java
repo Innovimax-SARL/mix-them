@@ -1,4 +1,4 @@
-package innovimax.mixthem.operation;
+package innovimax.mixthem.arguments;
 
 /**
 * <p>This is a detailed enumeration of modes used to mix files.</p>
