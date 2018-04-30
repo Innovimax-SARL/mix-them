@@ -5,12 +5,12 @@
 Mix files togethers
 
 
-    mix-them file1 file2 
+    mix-them <char|byte> file1 file2 
  
   will generate on standard out any file based on file1 and file2.
   by default it assumes file1 and file2 are character based (not binary)
   
-    mix-them [-rule] file1 file2
+    mix-them <char|byte> [-rule] file1 file2
   
   will generate on standard out a file based on the rule
   
@@ -28,13 +28,13 @@ Mix files togethers
 
 Mix files togethers from a zip/jar file
 
-    mix-them --zip zipfile 
-    mix-them --jar zipfile 
+    mix-them <char|byte> --zip zipfile 
+    mix-them <char|byte> --jar zipfile 
   
   will generate on standard out any file based on first entrie and second entrie of zip/jar file.
   by default it assumes zip/jar entries are character based (not binary)
   
-    mix-them [-rule] --zip zipfile
-    mix-them [-rule] --jar jarfile
+    mix-them <char|byte> [-rule] --zip zipfile
+    mix-them <char|byte> [-rule] --jar jarfile
   
   will generate on standard out a file based on the rule
