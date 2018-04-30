@@ -6,20 +6,21 @@ package innovimax.mixthem.arguments;
 * @version 1.0
 */
 public enum Mode {	
-	CHAR("char"),
-	BYTE("byte");
-	
-	private final String name;
-
+    CHAR("char"),
+    BYTE("byte");
+    
+    private final String name;
+    
     private Mode(final String name) {
         this.name = name;
     }
-	
-	/**
+    
+    /**
     * Returns the name of this mode on command line.
     * @return The name of the mode on command line
     */
     public String getName() {
         return this.name;
     }
+    
 }
