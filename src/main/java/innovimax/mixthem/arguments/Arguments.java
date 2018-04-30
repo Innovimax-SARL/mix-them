@@ -73,7 +73,8 @@ public class Arguments {
     public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException, ZipException { 
         final Arguments mixArgs = new Arguments();
         int index = 0;
-        Rule rule = findRuleArgument(args, index, "rule");
+        Mode mode = findModeArgument(args, index, "mode");
+        Rule rule = findRuleArgument(args, ++index, "rule");
         Map<RuleParam, ParamValue> ruleParams = null;
         if (rule != null) {
             index++;
@@ -82,6 +83,7 @@ public class Arguments {
         } else {
             rule = Rule.ADD;
         }
+        mixArgs.setMode(mode);
         mixArgs.setRule(rule);
         mixArgs.setRuleParameters(ruleParams);        
         final String zipOption = findZipOptionArgument(args, index);
@@ -100,6 +102,10 @@ public class Arguments {
         return mixArgs;
     }
 
+    private static Mode findModeArgument(final String[] args, final int index, final String name) throws ArgumentException {        
+        return Mode.CHAR;
+    }
+    
     private static Rule findRuleArgument(final String[] args, final int index, final String name) throws ArgumentException {        
         Rule rule = null;
         if (args.length > index) {
