@@ -23,11 +23,21 @@ import java.util.zip.ZipFile;
 */
 public class Arguments {
     
+    private Mode mode = null;
     private Rule rule = null;
     private Map<RuleParam, ParamValue> ruleParams = null;
     private InputResource input1 = null;
     private InputResource input2 = null;
 
+    
+    private void setMode(final Mode mode) {
+        this.mode = mode;
+    }
+
+    public Mode getMode() {
+        return this.mode;
+    }
+    
     private void setRule(final Rule rule) {
         this.rule = rule;
     }
