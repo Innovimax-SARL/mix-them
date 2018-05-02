@@ -88,7 +88,7 @@ public class GenericTest {
 	   return getClass().getResource((mode == Mode.BYTE ? "byte/" : "") + filename);
    }
 
-   private final static boolean check(final File final file1, final File file2, final File expected, final Mode mode, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
+   private final static boolean check(final File file1, final File file2, final File expected, final Mode mode, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
 	   MixThem.LOGGER.info("Run and check result...");
 	   InputResource input1 = InputResource.createFile(file1);
 	   InputResource input2 = InputResource.createFile(file2);
