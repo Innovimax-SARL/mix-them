@@ -73,8 +73,8 @@ public class Arguments {
     public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException, ZipException { 
         final Arguments mixArgs = new Arguments();
         int index = 0;
-        Mode mode = findModeArgument(args, index, "mode");
-        Rule rule = findRuleArgument(args, ++index, "rule");
+        Mode mode = findModeArgument(args, index);
+        Rule rule = findRuleArgument(args, ++index);
         Map<RuleParam, ParamValue> ruleParams = null;
         if (rule != null) {
             index++;
@@ -103,17 +103,25 @@ public class Arguments {
     }
 
     private static Mode findModeArgument(final String[] args, final int index, final String name) throws ArgumentException {        
-        return Mode.CHAR;
+        Mode mode = null;
+        if (args.length > index) {
+            final String modeString = args[index];            
+            mode = Mode.findByName(modeString);
+            if (mode == null) {
+                throw new ArgumentException"Mode argument is incorrect: " + ruleString);
+            }
+        }
+        return mode;
     }
     
-    private static Rule findRuleArgument(final String[] args, final int index, final String name) throws ArgumentException {        
+    private static Rule findRuleArgument(final String[] args, final int index) throws ArgumentException {        
         Rule rule = null;
         if (args.length > index) {
             final String ruleString = args[index];
             if (ruleString.startsWith("-") && !ruleString.startsWith("--")) {
                 rule = Rule.findByName(ruleString.substring(1));
                 if (rule == null) {
-                    throw new ArgumentException(name + " argument is incorrect: " + ruleString);
+                    throw new ArgumentException("Rule argument is incorrect: " + ruleString);
                 }
             }
         }
