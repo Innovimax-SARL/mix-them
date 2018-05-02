@@ -20,7 +20,7 @@ public interface IOutputByte {
  	* @param len Number of bytes to write
  	* @throws IOException - If an I/O error occurs
  	*/	
-	void writeCharacters(byte[] buffer, int len) throws IOException;	
+	void writeBytes(byte[] buffer, int len) throws IOException;	
 	/**
 	* Closes this output and releases any system resources associated with it.
  	* @throws IOException - If an I/O error occurs	
