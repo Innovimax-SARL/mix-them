@@ -79,7 +79,7 @@ public class Arguments {
         } else {
             mode = Mode.CHAR;
         }
-        Rule rule = findRuleArgument(args, index);
+        Rule rule = findRuleArgument(args, index, mode);
         Map<RuleParam, ParamValue> ruleParams = null;
         if (rule != null) {
             index++;
@@ -114,12 +114,12 @@ public class Arguments {
         return null;
     }
     
-    private static Rule findRuleArgument(final String[] args, final int index) throws ArgumentException {        
+    private static Rule findRuleArgument(final String[] args, final int index, finale Mode mode) throws ArgumentException {        
         Rule rule = null;
         if (args.length > index) {
             final String ruleString = args[index];
             if (ruleString.startsWith("-") && !ruleString.startsWith("--")) {
-                rule = Rule.findByName(ruleString.substring(1));
+                rule = Rule.findByName(ruleString.substring(1), mode);
                 if (rule == null) {
                     throw new ArgumentException("Rule argument is incorrect: " + ruleString);
                 }
