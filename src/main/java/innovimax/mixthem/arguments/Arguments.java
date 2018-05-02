@@ -108,8 +108,10 @@ public class Arguments {
             final String modeString = args[index];            
             mode = Mode.findByName(modeString);
             if (mode == null) {
-                throw new ArgumentException"Mode argument is incorrect: " + ruleString);
+                throw new ArgumentException("Mode argument is incorrect: " + ruleString);
             }
+        } else {
+            throw new ArgumentException("Mode argument is missing");
         }
         return mode;
     }
