@@ -74,20 +74,20 @@ public class GenericTest {
 	   MixThem.LOGGER.info("*********************************************************************");
 	   Assert.assertTrue(result);
    }	   
-   private final static boolean check(File file1, File file2, File expected, Rule rule, Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
+   private final static boolean check(final File final file1, final File file2, final File expected, final Mode mode, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
 	   MixThem.LOGGER.info("Run and check result...");
 	   InputResource input1 = InputResource.createFile(file1);
 	   InputResource input2 = InputResource.createFile(file2);
 	   ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
 	   MixThem mixThem = new MixThem(input1, input2, baos_rule);
-           mixThem.process(rule, params);
+           mixThem.process(mode, rule, params);
 	   MixThem.LOGGER.info("Run and print result...");
 	   mixThem = new MixThem(input1, input2, System.out);
-           mixThem.process(rule, params);
+           mixThem.process(mode, rule, params);
 	   return checkFileEquals(expected, baos_rule.toByteArray());
    }
 
-	private static boolean checkFileEquals(File fileExpected, byte[] result) throws FileNotFoundException, IOException {
+	private static boolean checkFileEquals(final File fileExpected, final byte[] result) throws FileNotFoundException, IOException {
 	   FileInputStream fisExpected = new FileInputStream(fileExpected);
 	   int c;
 	   int offset = 0;
