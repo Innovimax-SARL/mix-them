@@ -1,5 +1,6 @@
 package innovimax.mixthem.io;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
@@ -26,7 +27,7 @@ public abstract class InputResource {
     }
     @Override
     public BufferedInputStream newBufferedInputStream() throws IOException {
-      return new BufferedInputStream(new InputStream(file));
+      return new BufferedInputStream(Files.newInputStream(file.toPath()));
     }
   }
 
