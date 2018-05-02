@@ -1,5 +1,6 @@
 package innovimax.mixthem;
 
+import innovimax.mixthem.arguments.Mode;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.Rule;
 import innovimax.mixthem.arguments.RuleParam;
@@ -66,7 +67,7 @@ public class GenericTest {
 						   }
 						   MixThem.LOGGER.info("Result file : " + urlR);
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
-						   boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(urlR.getFile()), rule, run.getParams());
+						   boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(urlR.getFile()), mode, rule, run.getParams());
 						   MixThem.LOGGER.info("Run " + (res ? "pass" : "FAIL") + " with params " + run.getParams().toString());
 						   result &= res;
 						   if (!res) {
