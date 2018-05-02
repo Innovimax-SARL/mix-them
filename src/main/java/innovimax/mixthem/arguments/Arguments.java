@@ -108,15 +108,10 @@ public class Arguments {
     }
 
     private static Mode findModeArgument(final String[] args, final int index) throws ArgumentException {        
-        Mode mode = null;
-        if (args.length > index) {
-            final String modeString = args[index];            
-            mode = Mode.findByName(modeString);
-            if (mode == null) {
-                throw new ArgumentException("Mode argument is incorrect: " + modeString);
-            }
+        if (args.length > index) {            
+            return Mode.findByName(args[index]);
         }
-        return mode;
+        return null;
     }
     
     private static Rule findRuleArgument(final String[] args, final int index) throws ArgumentException {        
