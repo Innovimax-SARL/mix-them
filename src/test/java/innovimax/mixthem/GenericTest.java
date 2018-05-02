@@ -34,8 +34,7 @@ public class GenericTest {
 	   testRules(Mode.BYTE);
    }
 
-   @Test
-   public final void testRules(final Mode mode) throws MixException, FileNotFoundException, IOException, NumberFormatException {
+   private final void testRules(final Mode mode) throws MixException, FileNotFoundException, IOException, NumberFormatException {
 	   MixThem.setLogging(Level.FINE);
 	   int testId = 1;
 	   List<String> failed = new ArrayList<String>();
