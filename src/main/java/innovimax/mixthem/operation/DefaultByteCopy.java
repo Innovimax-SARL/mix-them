@@ -24,7 +24,7 @@ public class DefaultByteCopy implements ICopy {
         IOutputByte writer = new DefaultByteWriter(out);
         while (reader.hasByte()) {
             final int len = reader.nextBytes(buffer, BYTE_BUFFER_SIZE);
-            writer.writeByte(buffer, len);
+            writer.writeBytes(buffer, len);
         }
         reader.close();
         writer.close();
