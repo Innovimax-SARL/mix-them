@@ -114,7 +114,7 @@ public class Arguments {
         return null;
     }
     
-    private static Rule findRuleArgument(final String[] args, final int index, finale Mode mode) throws ArgumentException {        
+    private static Rule findRuleArgument(final String[] args, final int index, final Mode mode) throws ArgumentException {        
         Rule rule = null;
         if (args.length > index) {
             final String ruleString = args[index];
