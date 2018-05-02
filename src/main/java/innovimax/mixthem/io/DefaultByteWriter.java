@@ -21,7 +21,7 @@ public class DefaultByteWriter implements IOutputByte {
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultByteWriter(final OutputStream output) throws IOException {
-		this.writer = new BufferedWriter(output);
+		this.writer = new BufferedOutputStream(output);
 	}
 
 	@Override
