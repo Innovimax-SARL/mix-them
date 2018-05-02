@@ -21,7 +21,10 @@ import java.util.logging.Logger;
 * <li> +: will output file1+file2</li>
 * <li> alt-line: will output one line of each starting with first line of file1</li>
 * <li> alt-char: will output one char of each starting with first char of file1</li>
+* <li> alt-byte: will output one byte of each starting with first char of file1</li>
 * <li> random-alt-line[#seed]: will output one line of each code randomly based on a seed for reproducability</li>
+* <li> random-alt-char[#seed]: will output one char of each code randomly based on a seed for reproducability</li>
+* <li> random-alt-byte[#seed]: will output one byte of each code randomly based on a seed for reproducability</li>
 * <li> join[#col1][#col2]: will output merging of lines that have common occurrence</li>
 * </ul>
 * @author Innovimax
@@ -76,7 +79,7 @@ public class MixThem {
             LOGGER.info("Started application");   
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getFirstInput(), mixArgs.getSecondInput(), System.out);
-            mixThem.process(mixArgs.getRule(), mixArgs.getRuleParameters());
+            mixThem.process(mixArgs.getMode(), mixArgs.getRule(), mixArgs.getRuleParameters());
             LOGGER.info("Exited application with no errors");
         } catch (ArgumentException e) {
             LOGGER.severe("Exited application with errors...");
@@ -96,16 +99,18 @@ public class MixThem {
 
     /**
     * Mix files together using rules.
+    * @param modee The mode to be used for mixing
     * @param rule The rule to be used for mixing
     * @param params The rule parameters to be used for mixing
     * @throws MixException - If any error occurs during mixing
+    * @see innovimax.mixthem.Mode
     * @see innovimax.mixthem.Rule
     * @see innovimax.mixthem.RuleParam
     * @see innovimax.mixthem.ParamValue
     */  
-    public void process(Rule rule, Map<RuleParam, ParamValue> params) throws MixException {
+    public void process(Mode mode, Rule rule, Map<RuleParam, ParamValue> params) throws MixException {
         try {
-            LOGGER.info("Started mixing for rule '" + rule.getName() + "'...");
+            LOGGER.info("Started mixing for [" +  mode.getName() + "] rule '" + rule.getName() + "'...");
             switch(rule) {
                 case FILE_1:
                     copyChar(this.input1, this.out);
@@ -148,7 +153,7 @@ public class MixThem {
                 default:    
                    System.out.println("This rule has not been implemented yet.");*/
             }
-            LOGGER.info("Ended mixing for rule '" + rule.getName() + "'.");
+            LOGGER.info("Ended mixing for [" +  mode.getName() + "] rule '" + rule.getName() + "'.");
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
         }
