@@ -74,7 +74,12 @@ public class Arguments {
         final Arguments mixArgs = new Arguments();
         int index = 0;
         Mode mode = findModeArgument(args, index);
-        Rule rule = findRuleArgument(args, ++index);
+        if (mode != null) {
+            index++;
+        } else {
+            mode = Mode.CHAR;
+        }
+        Rule rule = findRuleArgument(args, index);
         Map<RuleParam, ParamValue> ruleParams = null;
         if (rule != null) {
             index++;
@@ -110,8 +115,6 @@ public class Arguments {
             if (mode == null) {
                 throw new ArgumentException("Mode argument is incorrect: " + modeString);
             }
-        } else {
-            throw new ArgumentException("Mode argument is missing");
         }
         return mode;
     }
