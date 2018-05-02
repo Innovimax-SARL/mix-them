@@ -1,11 +1,10 @@
 package innovimax.mixthem.operation;
 
-import innovimax.mixthem.MixException;
 import innovimax.mixthem.io.InputResource;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
 public interface ICopy {
-    void processFile(InputResource input, OutputStream out) throws MixException, IOException;
+    void processFile(InputResource input, OutputStream out) throws IOException;
 }
