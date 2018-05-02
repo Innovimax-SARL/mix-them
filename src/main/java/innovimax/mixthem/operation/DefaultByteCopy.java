@@ -19,7 +19,7 @@ public class DefaultByteCopy implements ICopy {
     private final static int BYTE_BUFFER_SIZE = 1024;
     
     public void processFile(InputResource input, OutputStream out) throws IOException {
-        char[] buffer = new char[BYTE_BUFFER_SIZE];
+        byte[] buffer = new byte[BYTE_BUFFER_SIZE];
         IInputByte reader = new DefaultByteReader(input);
         IOutputByte writer = new DefaultByteWriter(out);
         while (reader.hasByte()) {
