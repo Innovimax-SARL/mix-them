@@ -7,5 +7,5 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public interface ICopy {
-    void processFiles(InputResource input, OutputStream out) throws MixException, IOException;
+    void processFile(InputResource input, OutputStream out) throws MixException, IOException;
 }
