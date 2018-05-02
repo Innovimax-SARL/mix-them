@@ -14,8 +14,8 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
-* <p>Abstract class for all line operation.</p>
-* @see ILineOperation
+* <p>Abstract class for all character operation.</p>
+* @see ICharOperation
 * @author Innovimax
 * @version 1.0
 */
