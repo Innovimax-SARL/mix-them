@@ -85,7 +85,7 @@ public class GenericTest {
    }	   
 	
    private final URL getResource(final String filename, final Mode mode) {
-	   return getClass().getResource((mode == Mode.BYTE ? "byte/", "") + filename);
+	   return getClass().getResource((mode == Mode.BYTE ? "byte/" : "") + filename);
    }
 
    private final static boolean check(final File final file1, final File file2, final File expected, final Mode mode, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
