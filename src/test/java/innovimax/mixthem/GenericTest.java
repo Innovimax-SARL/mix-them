@@ -23,25 +23,35 @@ import org.junit.runner.RunWith;
 	Generic tests for this application
 */
 public class GenericTest {
-	
+
    @Test
-   public final void parameter() throws MixException, FileNotFoundException, IOException, NumberFormatException {
+   public final void testCharRules() throws MixException, FileNotFoundException, IOException, NumberFormatException {
+	   testRules(Mode.CHAR);
+   }
+
+   @Test
+   public final void testBytesRules() throws MixException, FileNotFoundException, IOException, NumberFormatException {
+	   testRules(Mode.BYTE);
+   }
+
+   @Test
+   public final void testRules(final Mode mode) throws MixException, FileNotFoundException, IOException, NumberFormatException {
 	   MixThem.setLogging(Level.FINE);
 	   int testId = 1;
 	   List<String> failed = new ArrayList<String>();
 	   boolean result = true;
 	   while (true) {
-		   MixThem.LOGGER.info("TEST N° " + testId + "***********************************************************");
+		   MixThem.LOGGER.info("TEST [" + mode.getName().toUpperCase() + "] N° " + testId + "***********************************************************");
 		   String prefix = "test" + String.format("%03d", testId) +"_";
-		   URL url1 = getClass().getResource(prefix + "file1.txt");
-		   URL url2 = getClass().getResource(prefix + "file2.txt");		   
+		   URL url1 = getResource(prefix + "file1.txt", mode);
+		   URL url2 = getResource(prefix + "file2.txt", mode);		   
 		   if( url1 == null || url2 == null) break;
-		   MixThem.LOGGER.info("File 1 : " + prefix + "file1.txt");
-		   MixThem.LOGGER.info("File 2 : " + prefix + "file2.txt");
+		   MixThem.LOGGER.info("File 1 : " + url1);
+		   MixThem.LOGGER.info("File 2 : " + url2);
 		   for(Rule rule : Rule.values()) {			   
 			   if (rule.isImplemented()) {
 				   String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
-				   URL urlP = getClass().getResource(paramsFile);
+				   URL urlP = getResource(paramsFile, mode);
 				   List<RuleRun> runs = RuleRuns.getRuns(rule, urlP);
 				   for (RuleRun run : runs) {
 					   String resultFile = prefix + "output-" + rule.getExtension();
@@ -49,13 +59,13 @@ public class GenericTest {
 						   resultFile += "-" + run.getSuffix();
 					   }
 					   resultFile += ".txt";
-					   URL urlR = getClass().getResource(resultFile);					   
+					   URL urlR = getClass().getResource(resultFile, mode);					   
 					   if (urlR != null) {
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
 						   if (urlP != null) {
-							   MixThem.LOGGER.info("Params file : " + paramsFile);
+							   MixThem.LOGGER.info("Params file : " + urlP);
 						   }
-						   MixThem.LOGGER.info("Result file : " + resultFile);
+						   MixThem.LOGGER.info("Result file : " + urlR);
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
 						   boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(urlR.getFile()), rule, run.getParams());
 						   MixThem.LOGGER.info("Run " + (res ? "pass" : "FAIL") + " with params " + run.getParams().toString());
@@ -70,10 +80,15 @@ public class GenericTest {
 		   testId++;
 	   }
 	   MixThem.LOGGER.info("*********************************************************************");
-	   MixThem.LOGGER.info("FAILED TESTS : " + (failed.size() > 0 ? failed.toString() : "None"));
+	   MixThem.LOGGER.info("FAILED [" + mode.getName().toUpperCase() + "] TESTS : " + (failed.size() > 0 ? failed.toString() : "None"));
 	   MixThem.LOGGER.info("*********************************************************************");
 	   Assert.assertTrue(result);
    }	   
+	
+   private final URL getResource(final String filename, final Mode mode) {
+	   return getClass().getResource((mode == Mode.BYTE ? "byte/", "") + filename);
+   }
+
    private final static boolean check(final File final file1, final File file2, final File expected, final Mode mode, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
 	   MixThem.LOGGER.info("Run and check result...");
 	   InputResource input1 = InputResource.createFile(file1);
