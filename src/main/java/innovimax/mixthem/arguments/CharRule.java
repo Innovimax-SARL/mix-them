@@ -9,13 +9,12 @@ import java.util.EnumSet;
 * @author Innovimax
 * @version 1.0
 */
-public enum Rule { 
+public enum CharRule { 
     FILE_1("1", "1", "will output file1", true, EnumSet.noneOf(RuleParam.class)),
     FILE_2("2", "2", "will output file2", true, EnumSet.noneOf(RuleParam.class)),
     ADD("+", "add", "will output file1+file2", true, EnumSet.noneOf(RuleParam.class)),
     ALT_LINE("alt-line", "altline", "will output one line of each starting with first line of file1", true, EnumSet.noneOf(RuleParam.class)), 
     ALT_CHAR("alt-char", "altchar", "will output one char of each starting with first char of file1", true, EnumSet.noneOf(RuleParam.class)),
-    ALT_BYTE("alt-byte", "altbyte", "will output one byte of each starting with first byte of file1", true, EnumSet.noneOf(RuleParam.class)),
     RANDOM_ALT_LINE("random-alt-line", "random-altline", "will output one line of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam.RANDOM_SEED)),
     JOIN("join", "join", "will output merging of lines that have common occurrence", true, EnumSet.of(RuleParam.JOIN_COL1, RuleParam.JOIN_COL2)),    
     ZIP_LINE("zip-line", "zipline", "will output zip of line from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP)),
@@ -26,7 +25,7 @@ public enum Rule {
     private final boolean implemented;
     private final EnumSet<RuleParam> params;
 
-    private Rule(final String name, final String extension, final String description, final boolean implemented, final EnumSet<RuleParam> params) {
+    private CharRule(final String name, final String extension, final String description, final boolean implemented, final EnumSet<RuleParam> params) {
         this.name = name;
         this.extension = extension;
         this.description = description;
@@ -75,12 +74,12 @@ public enum Rule {
     }
 
     /**
-    * Finds the Rule object correponding to a name
+    * Finds the CharRule object correponding to a name
     * @param name The name of the rule in command line
-    * @return The {@link Rule} object
+    * @return The {@link CharRule} object
     */    
-    public static Rule findByName(final String name) {
-        for(Rule rule : values()){
+    public static CharRule findByName(final String name) {
+        for(CharRule rule : values()){
             if (rule.getName().equals(name)) {
                 return rule;
             }
