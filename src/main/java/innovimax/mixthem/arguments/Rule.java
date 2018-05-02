@@ -24,6 +24,7 @@ public enum Rule {
     private final String name, extension, description;
     private final boolean implemented;
     private final EnumSet<RuleParam> params;
+    private final EnumSet<Mode> modes;
 
     private Rule(final String name, final String extension, final String description, final boolean implemented, final EnumSet<RuleParam> params, final EnumSet<Mode> modes) {
         this.name = name;
