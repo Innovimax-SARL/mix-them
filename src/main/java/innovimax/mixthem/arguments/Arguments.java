@@ -102,7 +102,7 @@ public class Arguments {
         return mixArgs;
     }
 
-    private static Mode findModeArgument(final String[] args, final int index, final String name) throws ArgumentException {        
+    private static Mode findModeArgument(final String[] args, final int index) throws ArgumentException {        
         Mode mode = null;
         if (args.length > index) {
             final String modeString = args[index];            
