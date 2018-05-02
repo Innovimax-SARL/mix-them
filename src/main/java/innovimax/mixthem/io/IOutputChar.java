@@ -3,7 +3,7 @@ package innovimax.mixthem.io;
 import java.io.IOException;
 
 /**
-* This interface provides for writing lines in an output stream.
+* This interface provides for writing characters in an output stream.
 * @author Innovimax
 * @version 1.0
 */
