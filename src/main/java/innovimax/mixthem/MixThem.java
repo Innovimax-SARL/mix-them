@@ -33,7 +33,6 @@ import java.util.logging.Logger;
 public class MixThem {
     
     public final static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
-    private final static int CHAR_BUFFER_SIZE = 1024;
 
     private final InputResource input1, input2;
     private final OutputStream out;
@@ -99,7 +98,7 @@ public class MixThem {
 
     /**
     * Mix files together using rules.
-    * @param modee The mode to be used for mixing
+    * @param mode The mode to be used for mixing
     * @param rule The rule to be used for mixing
     * @param params The rule parameters to be used for mixing
     * @throws MixException - If any error occurs during mixing
@@ -113,14 +112,17 @@ public class MixThem {
             LOGGER.info("Started mixing for [" +  mode.getName() + "] rule '" + rule.getName() + "'...");
             switch(rule) {
                 case FILE_1:
-                    copyChar(this.input1, this.out);
+                    ICopy file1CharCopy = new DefaultCharCopy();
+                    file1CharCopy.processFile(this.input1, this.out);
                     break;
                 case FILE_2:
-                    copyChar(this.input2, this.out);
+                    ICopy file2CharCopy = new DefaultCharCopy();
+                    file2CharCopy.processFile(this.input2, this.out);
                     break; 
                 case ADD:
-                    copyChar(this.input1, this.out);
-                    copyChar(this.input2, this.out);
+                    ICopy addCharCopy = new DefaultCharCopy();
+                    addCharCopy.processFile(this.input1, this.out);
+                    addCharCopy.processFile(this.input2, this.out);
                     break;
                 case ALT_CHAR:
                     IOperation altCharOp = new DefaultCharAlternation(params);
@@ -158,19 +160,6 @@ public class MixThem {
             throw new MixException("Unexpected file error", e);
         }
 
-    }   
-
-    // this one copies one file as beeing char
-    private static void copyChar(InputResource input, OutputStream out) throws IOException {  
-        char[] buffer = new char[CHAR_BUFFER_SIZE];
-        IInputChar reader = new DefaultCharReader(input);
-        IOutputChar writer = new DefaultCharWriter(out);
-        while (reader.hasCharacter()) {
-            final int len = reader.nextCharacters(buffer, CHAR_BUFFER_SIZE);
-            writer.writeCharacters(buffer, len);
-        }
-        reader.close();
-        writer.close();
-    }    
+    }     
 
 }
