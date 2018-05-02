@@ -23,4 +23,18 @@ public enum Mode {
         return this.name;
     }
     
+    /**
+    * Finds the Mode object correponding to a name
+    * @param name The name of the mode in command line
+    * @return The {@link Mode} object
+    */    
+    public static Mode findByName(final String name) {
+        for (Mode mode : values()) {
+            if (mode.getName().equals(name)) {
+                return mode;
+            }
+        }
+        return null;
+    }
+    
 }
