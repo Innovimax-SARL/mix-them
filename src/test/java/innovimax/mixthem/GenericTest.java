@@ -59,7 +59,7 @@ public class GenericTest {
 						   resultFile += "-" + run.getSuffix();
 					   }
 					   resultFile += ".txt";
-					   URL urlR = getClass().getResource(resultFile, mode);					   
+					   URL urlR = getResource(resultFile, mode);					   
 					   if (urlR != null) {
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
 						   if (urlP != null) {
