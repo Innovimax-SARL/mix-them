@@ -18,7 +18,7 @@ public class CharCopy implements ICopy {
 
     private final static int CHAR_BUFFER_SIZE = 1024;
     
-    public void processFile(InputResource input, OutputStream out) throws IOException    
+    public void processFile(InputResource input, OutputStream out) throws IOException {
         char[] buffer = new char[CHAR_BUFFER_SIZE];
         IInputChar reader = new DefaultCharReader(input);
         IOutputChar writer = new DefaultCharWriter(out);
