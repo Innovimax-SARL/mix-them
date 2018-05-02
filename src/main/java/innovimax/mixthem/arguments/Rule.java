@@ -9,28 +9,29 @@ import java.util.EnumSet;
 * @author Innovimax
 * @version 1.0
 */
-public enum CharRule { 
-    FILE_1("1", "1", "will output file1", true, EnumSet.noneOf(RuleParam.class)),
-    FILE_2("2", "2", "will output file2", true, EnumSet.noneOf(RuleParam.class)),
-    ADD("+", "add", "will output file1+file2", true, EnumSet.noneOf(RuleParam.class)),
-    ALT_LINE("alt-line", "altline", "will output one line of each starting with first line of file1", true, EnumSet.noneOf(RuleParam.class)), 
-    ALT_CHAR("alt-char", "altchar", "will output one char of each starting with first char of file1", true, EnumSet.noneOf(RuleParam.class)),
-    RANDOM_ALT_LINE("random-alt-line", "random-altline", "will output one line of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam.RANDOM_SEED)),
-    JOIN("join", "join", "will output merging of lines that have common occurrence", true, EnumSet.of(RuleParam.JOIN_COL1, RuleParam.JOIN_COL2)),    
-    ZIP_LINE("zip-line", "zipline", "will output zip of line from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP)),
-    ZIP_CHAR("zip-char", "zipchar", "will output zip of char from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP)),
-    ZIP_CELL("zip-cell", "zipcell", "will output zip of cell from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP));
+public enum Rule { 
+    FILE_1("1", "1", "will output file1", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR, Mode.BYTE)),
+    FILE_2("2", "2", "will output file2", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR, Mode.BYTE)),
+    ADD("+", "add", "will output file1+file2", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR, Mode.BYTE)),
+    ALT_LINE("alt-line", "altline", "will output one line of each starting with first line of file1", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR)), 
+    ALT_CHAR("alt-char", "altchar", "will output one char of each starting with first char of file1", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR)),
+    RANDOM_ALT_LINE("random-alt-line", "random-altline", "will output one line of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(Mode.CHAR)),
+    JOIN("join", "join", "will output merging of lines that have common occurrence", true, EnumSet.of(RuleParam.JOIN_COL1, RuleParam.JOIN_COL2), EnumSet.of(Mode.CHAR)),
+    ZIP_LINE("zip-line", "zipline", "will output zip of line from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(Mode.CHAR)),
+    ZIP_CHAR("zip-char", "zipchar", "will output zip of char from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(Mode.CHAR)),
+    ZIP_CELL("zip-cell", "zipcell", "will output zip of cell from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(Mode.CHAR));
 
     private final String name, extension, description;
     private final boolean implemented;
     private final EnumSet<RuleParam> params;
 
-    private CharRule(final String name, final String extension, final String description, final boolean implemented, final EnumSet<RuleParam> params) {
+    private Rule(final String name, final String extension, final String description, final boolean implemented, final EnumSet<RuleParam> params, final EnumSet<Mode> modes) {
         this.name = name;
         this.extension = extension;
         this.description = description;
         this.implemented = implemented;
         this.params = params;
+        this.modes = modes;
     }
 
     /**
@@ -78,8 +79,8 @@ public enum CharRule {
     * @param name The name of the rule in command line
     * @return The {@link CharRule} object
     */    
-    public static CharRule findByName(final String name) {
-        for(CharRule rule : values()){
+    public static Rule findByName(final String name) {
+        for(Rule rule : values()){
             if (rule.getName().equals(name)) {
                 return rule;
             }
