@@ -14,7 +14,7 @@ import java.io.OutputStream;
 * @author Innovimax
 * @version 1.0
 */
-public class CharCopy implements ICopy {
+public class DefaultCharCopy implements ICopy {
 
     private final static int CHAR_BUFFER_SIZE = 1024;
     
