@@ -49,7 +49,7 @@ public class GenericTest {
 		   MixThem.LOGGER.info("File 1 : " + url1);
 		   MixThem.LOGGER.info("File 2 : " + url2);
 		   for(Rule rule : Rule.values()) {			   
-			   if (rule.isImplemented() && rule.accept(mode)) {
+			   if (rule.isImplemented() && rule.acceptMode(mode)) {
 				   String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
 				   URL urlP = getClass().getResource(paramsFile);
 				   List<RuleRun> runs = RuleRuns.getRuns(rule, urlP);
