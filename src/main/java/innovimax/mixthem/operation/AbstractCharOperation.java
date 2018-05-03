@@ -40,6 +40,7 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
         	while (reader1.hasCharacter() || reader2.hasCharacter()) {
 			final char c1 = reader1.nextCharacter();
 			final char c2 = reader2.nextCharacter();
+			System.out.println("C1="+c1+" C2="+c2+" I1="+((int)c1)+" I2="+((int)c2));
 			process(c1, c2, result);
 			if (result.hasResult()) {
 				result.getResult().forEach(i -> {
