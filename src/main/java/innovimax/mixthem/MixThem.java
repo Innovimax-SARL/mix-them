@@ -112,15 +112,15 @@ public class MixThem {
             LOGGER.info("Started mixing for [" +  mode.getName() + "] rule '" + rule.getName() + "'...");
             switch(rule) {
                 case FILE_1:
-                    ICopy file1Copy = mode == Mode.CHAR ? new DefaultCharCopy() : new DefaultByteCopy();
+                    ICopy file1Copy = CopyFactory.newInstance(mode);
                     file1Copy.processFile(this.input1, this.out);
                     break;
                 case FILE_2:
-                    ICopy file2Copy = mode == Mode.CHAR ? new DefaultCharCopy() : new DefaultByteCopy();
+                    ICopy file2Copy = CopyFactory.newInstance(mode);
                     file2Copy.processFile(this.input2, this.out);
                     break; 
                 case ADD:
-                    ICopy fileAddCopy = mode == Mode.CHAR ? new DefaultCharCopy() : new DefaultByteCopy();
+                    ICopy fileAddCopy = CpoyFactory.newInstance(mode);
                     fileAddCopy.processFile(this.input1, this.out);
                     fileAddCopy.processFile(this.input2, this.out);
                     break;
