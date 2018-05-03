@@ -43,15 +43,15 @@ public class GenericTest {
 	   while (true) {
 		   MixThem.LOGGER.info("TEST [" + mode.getName().toUpperCase() + "] N° " + testId + "***********************************************************");
 		   String prefix = "test" + String.format("%03d", testId) +"_";
-		   URL url1 = getResource(prefix + "file1.txt", mode);
-		   URL url2 = getResource(prefix + "file2.txt", mode);		   
+		   URL url1 = getClass().getResource(prefix + "file1.txt");
+		   URL url2 = getClass().getResource(prefix + "file2.txt");		   
 		   if( url1 == null || url2 == null) break;
 		   MixThem.LOGGER.info("File 1 : " + url1);
 		   MixThem.LOGGER.info("File 2 : " + url2);
 		   for(Rule rule : Rule.values()) {			   
-			   if (rule.isImplemented()) {
+			   if (rule.isImplemented() && rule.accept(mode)) {
 				   String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
-				   URL urlP = getResource(paramsFile, mode);
+				   URL urlP = getClass().getResource(paramsFile);
 				   List<RuleRun> runs = RuleRuns.getRuns(rule, urlP);
 				   for (RuleRun run : runs) {
 					   String resultFile = prefix + "output-" + rule.getExtension();
@@ -59,7 +59,7 @@ public class GenericTest {
 						   resultFile += "-" + run.getSuffix();
 					   }
 					   resultFile += ".txt";
-					   URL urlR = getResource(resultFile, mode);					   
+					   URL urlR = getClass().getResource(resultFile);					   
 					   if (urlR != null) {
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
 						   if (urlP != null) {
@@ -84,10 +84,6 @@ public class GenericTest {
 	   MixThem.LOGGER.info("*********************************************************************");
 	   Assert.assertTrue(result);
    }	   
-	
-   private final URL getResource(final String filename, final Mode mode) {
-	   return getClass().getResource((mode == Mode.BYTE ? "byte/" : "") + filename);
-   }
 
    private final static boolean check(final File file1, final File file2, final File expected, final Mode mode, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
 	   MixThem.LOGGER.info("Run and check result...");
