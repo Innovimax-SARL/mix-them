@@ -125,7 +125,7 @@ public class MixThem {
                     fileAddCopy.processFile(this.input2, this.out);
                     break;
                 case ALT_CHAR:
-                    IOperation altCharOp = new DefaultCharAlternation(params);
+                    IOperation altCharOp = new DefaultCharAlternation(AltMode.NORMAL, params);
                     altCharOp.processFiles(this.input1, this.input2, this.out); 
                     break;
                 case ALT_BYTE:
@@ -139,6 +139,10 @@ public class MixThem {
                 case RANDOM_ALT_BYTE:
                     IOperation randomAltByteOp = new DefaultByteAlternation(AltMode.RANDOM, params);
                     randomAltByteOp.processFiles(this.input1, this.input2, this.out); 
+                    break;
+                case RANDOM_ALT_CHAR:
+                    IOperation randomAltCharOp = new DefaultCharAlternation(AltMode.RANDOM, params);
+                    randomAltCharOp.processFiles(this.input1, this.input2, this.out); 
                     break;
                 case RANDOM_ALT_LINE:
                     IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, params);
