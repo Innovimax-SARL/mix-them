@@ -29,7 +29,7 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 	}
 	
 	@Override
-	public void process(final int b1, final int b2, final ByteResult result) throws MixException {
+	public void process(final byte b1, final byte b2, final ByteResult result) throws MixException {
 		result.reset();
 		final int[] array = new int[1];
 		if (b1 == -1) {
