@@ -20,7 +20,7 @@ public interface IInputChar {
  	* @return The character as an int, or -1 if more characters
  	* @throws IOException - If an I/O error occurs
  	*/
-	int nextCharacter() throws IOException;
+	char nextCharacter() throws IOException;
 	/**
  	* Reads characters into a portion of an array.
  	* @param buffer Destination buffer
