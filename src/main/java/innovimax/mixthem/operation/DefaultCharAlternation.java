@@ -29,12 +29,12 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	}
 	
 	@Override
-	public void process(final int c1, final int c2, final CharResult result) throws MixException {
+	public void process(final char c1, final char c2, final CharResult result) throws MixException {
 		result.reset();
 		final int[] array = new int[1];
-		if (c1 == -1) {
+		if ((int) c1 == -1) {
 			array[0] = c2;
-		} else if (c2 == -1) {
+		} else if ((int) c2 == -1) {
 			array[0] = c1;
 		} else {					
 			array[0] = this.odd ? c1 : c2;
