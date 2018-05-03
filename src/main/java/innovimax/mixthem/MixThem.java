@@ -138,7 +138,7 @@ public class MixThem {
                     break;
                 case RANDOM_ALT_BYTE:
                     IOperation randomAltByteOp = new DefaultByteAlternation(AltMode.RANDOM, params);
-                    altByteOp.processFiles(this.input1, this.input2, this.out); 
+                    randomAltByteOp.processFiles(this.input1, this.input2, this.out); 
                     break;
                 case RANDOM_ALT_LINE:
                     IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, params);
