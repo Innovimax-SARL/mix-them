@@ -17,10 +17,10 @@ public interface IInputByte {
 	/**
  	* Reads a byte, or returns -1 if no more bytes.
  	* @param type The type of reading expected
- 	* @return The byte as an int, or -1 if more bytes
+ 	* @return The byte or -1 if no more bytes
  	* @throws IOException - If an I/O error occurs
  	*/
-	int nextByte() throws IOException;
+	byte nextByte() throws IOException;
 	/**
  	* Reads bytes into a portion of an array.
  	* @param buffer Destination buffer
