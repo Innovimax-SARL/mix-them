@@ -29,10 +29,10 @@ public class DefaultCharReader implements IInputChar {
 	}
 
 	@Override
-	public int nextCharacter() throws IOException {		
-		int c = -1;
+	public char nextCharacter() throws IOException {		
+		char c = (char) -1;
 		if (hasCharacter()) {
-			c = this.reader.read();
+			c = (char) this.reader.read();
 		}
 		return c;
 	}
