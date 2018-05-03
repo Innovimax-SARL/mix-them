@@ -32,7 +32,7 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	public void process(final int c1, final int c2, final CharResult result) throws MixException {
 		result.reset();
 		final int[] array = new int[1];
-		if ((c1 == -1) {
+		if (c1 == -1) {
 			array[0] = c2;
 		} else if (c2 == -1) {
 			array[0] = c1;
