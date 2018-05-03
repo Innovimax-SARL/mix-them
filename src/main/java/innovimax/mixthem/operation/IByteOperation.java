@@ -13,5 +13,5 @@ interface IByteOperation extends IOperation {
  	* @throws MixException - If an mixing error occurs
 	* @see innovimax.mixthem.operation.ByteResult	
 	*/	
-	void process(int b1, int b2, ByteResult result) throws MixException;
+	void process(byte b1, byte b2, ByteResult result) throws MixException;
 }
