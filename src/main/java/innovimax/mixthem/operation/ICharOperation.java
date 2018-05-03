@@ -6,8 +6,8 @@ import innovimax.mixthem.MixException;
 interface ICharOperation extends IOperation {
 	/**
  	* Processes operation and set new result in the CharResult parameter.
-	* @param c1 The first character to zip (maybe -1)
-	* @param c2 The second character to zip (maybe -1)
+	* @param c1 The first character to mix (maybe -1)
+	* @param c2 The second character to mix (maybe -1)
 	* @param result The previous operation result
  	* @return The result of the operation (maybe null)
  	* @throws MixException - If an mixing error occurs
