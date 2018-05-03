@@ -47,6 +47,8 @@ public class RuleRuns {
 					final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
 					switch (rule) {
 						case RANDOM_ALT_LINE:
+						case RANDOM_ALT_CHAR:
+						case RANDOM_ALT_BYTE:
 							final int seed = Integer.parseInt(parts[1]);
 							params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(seed));
 							break;
