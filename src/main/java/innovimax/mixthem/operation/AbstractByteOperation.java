@@ -39,8 +39,9 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 		final ByteResult result = new ByteResult();
 		while (reader1.hasByte() || reader2.hasByte()) {
 			final int b1 = reader1.nextByte();
-			final int b2 = reader2.nextByte();
+			final int b2 = reader2.nextByte();			
 			process(b1, b2, result);
+			System.out.println("B1="+b1+" B2="+b2+" RES="+result.getResult().toArray());
 			if (result.hasResult()) {
 				result.getResult().forEach(b -> {
 					try {
