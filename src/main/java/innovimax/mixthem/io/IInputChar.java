@@ -17,10 +17,10 @@ public interface IInputChar {
 	/**
  	* Reads a character, or returns -1 if no more characters.
  	* @param type The type of reading expected
- 	* @return The character as an int, or -1 if more characters
+ 	* @return The character as a Character or null if more characters
  	* @throws IOException - If an I/O error occurs
  	*/
-	char nextCharacter() throws IOException;
+	Character nextCharacter() throws IOException;
 	/**
  	* Reads characters into a portion of an array.
  	* @param buffer Destination buffer
