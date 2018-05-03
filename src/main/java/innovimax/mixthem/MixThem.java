@@ -120,7 +120,7 @@ public class MixThem {
                     file2Copy.processFile(this.input2, this.out);
                     break; 
                 case ADD:
-                    ICopy fileAddCopy = CpoyFactory.newInstance(mode);
+                    ICopy fileAddCopy = CopyFactory.newInstance(mode);
                     fileAddCopy.processFile(this.input1, this.out);
                     fileAddCopy.processFile(this.input2, this.out);
                     break;
