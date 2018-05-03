@@ -29,10 +29,10 @@ public class DefaultByteReader implements IInputByte {
 	}
 
 	@Override
-	public int nextByte() throws IOException {		
-		int b = -1;
+	public byte nextByte() throws IOException {		
+		byte b = -1;
 		if (hasByte()) {
-			b = this.reader.read();
+			b = (byte) this.reader.read();
 		}
 		return b;
 	}
