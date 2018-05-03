@@ -25,7 +25,7 @@ public class DefaultByteWriter implements IOutputByte {
 	}
 
 	@Override
-	public void writeByte(final int b) throws IOException {		
+	public void writeByte(final byte b) throws IOException {		
 		this.writer.write(b);
 	}
 
