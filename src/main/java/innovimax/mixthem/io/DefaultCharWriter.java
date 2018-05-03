@@ -26,7 +26,7 @@ public class DefaultCharWriter implements IOutputChar {
 	}
 
 	@Override
-	public void writeCharacter(final int c) throws IOException {		
+	public void writeCharacter(final char c) throws IOException {		
 		this.writer.write(c);
 	}
 
