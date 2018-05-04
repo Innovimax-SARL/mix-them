@@ -28,8 +28,6 @@ public class Arguments {
     private Mode mode = null;
     private Rule rule = null;
     private Map<RuleParam, ParamValue> ruleParams = null;
-    private InputResource input1 = null;
-    private InputResource input2 = null;
     private final List<InputResource> inputs = new ArrayList<InputResource>();
     
     private void setMode(final Mode mode) {
@@ -54,22 +52,6 @@ public class Arguments {
 
     public Map<RuleParam, ParamValue> getRuleParameters() {
         return this.ruleParams;
-    }
-
-    void setFirstInput(final InputResource input) {
-        this.input1 = input;
-    }
-
-    public InputResource getFirstInput() {
-        return this.input1;
-    }
-
-    void setSecondInput(final InputResource input) {
-        this.input2 = input;
-    }
-
-    public InputResource getSecondInput() {
-        return this.input2;
     }
 
     void addInput(final InputResource input) {
@@ -104,17 +86,13 @@ public class Arguments {
         final String zipOption = findZipOptionArgument(args, index);
         if (zipOption == null) {                        
             final File file1 = findFileArgument(args, index, "file1");
-            final File file2 = findFileArgument(args, ++index, "file2");        
-            mixArgs.setFirstInput(InputResource.createFile(file1));
-            mixArgs.setSecondInput(InputResource.createFile(file2));   
+            final File file2 = findFileArgument(args, ++index, "file2");
             mixArgs.addInput(InputResource.createFile(file1));
             mixArgs.addInput(InputResource.createFile(file2));   
         } else {
             final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
             final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
             final InputStream input2 = extractZipEntry(zipFile, 2, "file2");
-            mixArgs.setFirstInput(InputResource.createInputStream(input1));
-            mixArgs.setSecondInput(InputResource.createInputStream(input2));
             mixArgs.addInput(InputResource.createInputStream(input1));
             mixArgs.addInput(InputResource.createInputStream(input2));
         }        
