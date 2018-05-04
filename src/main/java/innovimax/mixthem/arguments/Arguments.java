@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.EnumMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
@@ -28,7 +30,7 @@ public class Arguments {
     private Map<RuleParam, ParamValue> ruleParams = null;
     private InputResource input1 = null;
     private InputResource input2 = null;
-
+    private final List<InputResource> inputs = new ArrayList<InputResource>();
     
     private void setMode(final Mode mode) {
         this.mode = mode;
@@ -68,6 +70,10 @@ public class Arguments {
 
     public InputResource getSecondInput() {
         return this.input2;
+    }
+
+    void addInput(final InputResource input) {
+        this.inputs.add(input);
     }
 
     public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException, ZipException { 
