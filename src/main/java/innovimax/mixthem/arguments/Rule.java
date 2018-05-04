@@ -12,7 +12,7 @@ import java.util.EnumSet;
 public enum Rule { 
     FILE_1("1", "1", "will output file1", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR, Mode.BYTE)),
     FILE_2("2", "2", "will output file2", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR, Mode.BYTE)),
-    ADD("+", "add", "will output file1+file2", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR, Mode.BYTE)),
+    ADD("+", "add", "will output file1+file2+...+fileN", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR, Mode.BYTE)),
     ALT_LINE("alt-line", "altline", "will output one line of each starting with first line of file1", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR)), 
     ALT_CHAR("alt-char", "altchar", "will output one char of each starting with first char of file1", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR)),
     ALT_BYTE("alt-byte", "altbyte", "will output one byte of each starting with first byte of file1", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.BYTE)),
@@ -20,9 +20,9 @@ public enum Rule {
     RANDOM_ALT_CHAR("random-alt-char", "random-altchar", "will output one char of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(Mode.CHAR)),
     RANDOM_ALT_BYTE("random-alt-byte", "random-altbyte", "will output one byte of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(Mode.BYTE)),
     JOIN("join", "join", "will output merging of lines that have common occurrence", true, EnumSet.of(RuleParam.JOIN_COL1, RuleParam.JOIN_COL2), EnumSet.of(Mode.CHAR)),
-    ZIP_LINE("zip-line", "zipline", "will output zip of line from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(Mode.CHAR)),
-    ZIP_CHAR("zip-char", "zipchar", "will output zip of char from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(Mode.CHAR)),
-    ZIP_CELL("zip-cell", "zipcell", "will output zip of cell from file1 and file2", true, EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(Mode.CHAR));
+    ZIP_LINE("zip-line", "zipline", "will output zip of line from file1 and file2 to fileN", true, EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(Mode.CHAR)),
+    ZIP_CHAR("zip-char", "zipchar", "will output zip of char from file1 and file2 to fileN", true, EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(Mode.CHAR)),
+    ZIP_CELL("zip-cell", "zipcell", "will output zip of cell from file1 and file2 to fileN", true, EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(Mode.CHAR));
 
     private final String name, extension, description;
     private final boolean implemented;
