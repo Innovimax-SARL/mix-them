@@ -162,7 +162,7 @@ public class Arguments {
         return file;
     }
     
-    private static List<File> findFilesArgument(final String[] args, final int index) throws ArgumentException {
+    private static List<File> findFilesArgument(final String[] args, int index) throws ArgumentException {
         final List<File> files = new ArrayList<File>();
         while (args.length > index) {
             final String filepath = args[index++];
@@ -181,7 +181,6 @@ public class Arguments {
         switch (files.size()) {
             case 0: 
                 throw new ArgumentException("First input file argument missing.");
-                break;
             case 1: 
                 throw new ArgumentException("Second input file argument missing.");
         }
