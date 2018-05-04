@@ -2,9 +2,10 @@ package innovimax.mixthem.io;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class MultiChannelByteReader {
+public class MultiChannelByteReader implements IMultiInputByte {
 	
 	private final List<IInputByte> readers = new ArrayList<IInputByte>();
 	
@@ -16,6 +17,40 @@ public class MultiChannelByteReader {
 				throw new RuntimeException(e);
 			}
 		});
+	}
+	
+	@Override
+	public boolean hasByte() throws IOException {
+		Iterator<InputByte> iterator = this.readers.iterator();
+		while (iterator.hasNext()) {
+			IInputByte reader = iterator.next();
+			if (reader.hasByte()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public byte[] nextBytes() throws IOException {
+		byte[] bytes = new bytes[this.readers.size()];
+		int channel = 0;
+		Iterator<InputByte> iterator = this.readers.iterator();
+		while (iterator.hasNext()) {
+			IInputByte reader = iterator.next();
+			byte b = reader.nextByte();
+			bytes[channel++] = b;
+		}
+		return bytes;
+	}
+	
+	@Override
+	public void close() throws IOException {
+		Iterator<InputByte> iterator = this.readers.iterator();
+		while (iterator.hasNext()) {
+			IInputByte reader = iterator.next();
+			reader.close();
+		}		
 	}
 
 }
