@@ -11,6 +11,7 @@ import innovimax.mixthem.io.InputResource;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,10 +33,10 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 	}
 
     @Override
-    public void processFiles(final InputResource input1, final InputResource input2, final OutputStream out) throws MixException, IOException {
-		final IInputByte reader1 = new DefaultByteReader(input1);
-		final IInputByte reader2 = new DefaultByteReader(input2);
-		final IOutputByte writer = new DefaultByteWriter(out);
+    public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
+		final IInputByte reader1 = new DefaultByteReader(inputs.get(0));
+		final IInputByte reader2 = new DefaultByteReader(inputs.get(1));
+		final IOutputByte writer = new DefaultByteWriter(output);
 		final ByteResult result = new ByteResult();
 		while (reader1.hasByte() || reader2.hasByte()) {
 			final byte b1 = reader1.nextByte();
