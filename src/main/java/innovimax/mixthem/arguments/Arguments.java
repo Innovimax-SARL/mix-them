@@ -86,12 +86,9 @@ public class Arguments {
         final String zipOption = findZipOptionArgument(args, index);
         if (zipOption == null) {
             List<File> files = findFilesArgument(args, index);
-            //final File file1 = findFileArgument(args, index, "file1");
-            //final File file2 = findFileArgument(args, ++index, "file2");
-            //mixArgs.addInput(InputResource.createFile(file1));
-            //mixArgs.addInput(InputResource.createFile(file2));
             files.stream().forEach(file -> mixArgs.addInput(InputResource.createFile(file)));
         } else {
+            List<InputStream> inputs = extractZipEntries(args, index);
             final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
             final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
             final InputStream input2 = extractZipEntry(zipFile, 2, "file2");
@@ -213,6 +210,25 @@ public class Arguments {
             throw new ArgumentException(name + " entry missing.");
         }        
         return input;
+    }
+    
+    private static List<InputStream> extractZipEntries(final ZipFile zipFile) throws ArgumentException, IOException, ZipException {
+        final List<InputSTream> inputs = new ArrayList<InputStream>();        
+        final Enumeration entries = zipFile.entries();        
+        while (entries.hasMoreElements()) {
+            ZipEntry entry = (ZipEntry) entries.nextElement();
+            if (entry.getName().toUpperCase().startsWith("META-INF")) {
+                continue;        
+            }           
+            inputs.add(zipFile.getInputStream(entry));
+        }
+        switch (inputs.size()) {
+            case 0: 
+                throw new ArgumentException("First input entry missing.");
+            case 1: 
+                throw new ArgumentException("Second input entry missing.");
+        }
+        return inputs;
     }
     
     public static void printUsage() {    
