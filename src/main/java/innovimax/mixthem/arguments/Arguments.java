@@ -76,6 +76,10 @@ public class Arguments {
         this.inputs.add(input);
     }
 
+    public InputResource getInput(int index)) {
+        return this.inputs.get(index);
+    }
+    
     public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException, ZipException { 
         final Arguments mixArgs = new Arguments();
         int index = 0;
@@ -103,12 +107,16 @@ public class Arguments {
             final File file2 = findFileArgument(args, ++index, "file2");        
             mixArgs.setFirstInput(InputResource.createFile(file1));
             mixArgs.setSecondInput(InputResource.createFile(file2));   
+            mixArgs.addInput(InputResource.createFile(file1));
+            mixArgs.addInput(InputResource.createFile(file2));   
         } else {
             final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
             final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
             final InputStream input2 = extractZipEntry(zipFile, 2, "file2");
             mixArgs.setFirstInput(InputResource.createInputStream(input1));
             mixArgs.setSecondInput(InputResource.createInputStream(input2));
+            mixArgs.addInput(InputResource.createInputStream(file1));
+            mixArgs.addInput(InputResource.createInputStream(file2));
         }        
         return mixArgs;
     }
