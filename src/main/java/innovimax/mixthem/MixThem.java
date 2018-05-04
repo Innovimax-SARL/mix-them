@@ -109,7 +109,7 @@ public class MixThem {
                     final ICopy fileAddCopy = CopyFactory.newInstance(mode);
                     this.inputs.stream().forEach(input -> {
                         try {
-                            fileAddCopy.processFile(input, this.output)
+                            fileAddCopy.processFile(input, this.output);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
