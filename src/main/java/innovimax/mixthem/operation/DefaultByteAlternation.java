@@ -75,11 +75,11 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 				break;
 			case NORMAL:
 			default:
-				byte b = bytes[this.channel];
-				if (b == -1) {
-					b = nextByte(bytes, this.channel);
+				byte bn = bytes[this.channel];
+				if (bn == -1) {
+					bn = nextByte(bytes, this.channel);
 				}
-				array[0] = b;
+				array[0] = bn;
 				this.channel++;	
 				if (this.channel == bytes.length) {
 					this.channel = 0;
