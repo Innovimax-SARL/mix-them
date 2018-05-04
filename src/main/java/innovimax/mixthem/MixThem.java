@@ -22,17 +22,16 @@ public class MixThem {
     
     public final static Logger LOGGER = Logger.getLogger(MixThem.class.getName());
 
-    private final InputResource input1, input2;
-    private final OutputStream out;
+    private final List<InputResource> inputs;
+    private final OutputStream output;
     /**
      * Constructor
      * @param inputs The list of input resource to be mixed     
      * @param out The output stream to write mixing result
      */ 
-    public MixThem(List<InputResource> inputs, OutputStream out) {
-        this.input1 = inputs.get(0);
-        this.input2 = inputs.get(1);
-        this.out = out;        
+    public MixThem(List<InputResource> inputs, OutputStream output) {
+        this.inputs = inputs;        
+        this.output = output;
     }
     
     static void setLogging(Level level) {
@@ -100,56 +99,56 @@ public class MixThem {
             switch(rule) {
                 case FILE_1:
                     ICopy file1Copy = CopyFactory.newInstance(mode);
-                    file1Copy.processFile(this.input1, this.out);
+                    file1Copy.processFile(this.inputs.get(0), this.output);
                     break;
                 case FILE_2:
                     ICopy file2Copy = CopyFactory.newInstance(mode);
-                    file2Copy.processFile(this.input2, this.out);
+                    file2Copy.processFile(this.inputs.get(1), this.output);
                     break; 
                 case ADD:
                     ICopy fileAddCopy = CopyFactory.newInstance(mode);
-                    fileAddCopy.processFile(this.input1, this.out);
-                    fileAddCopy.processFile(this.input2, this.out);
+                    fileAddCopy.processFile(this.inputs.get(0), this.output);
+                    fileAddCopy.processFile(this.inputs.get(1), this.output);
                     break;
                 case ALT_CHAR:
                     IOperation altCharOp = new DefaultCharAlternation(AltMode.NORMAL, params);
-                    altCharOp.processFiles(this.input1, this.input2, this.out); 
+                    altCharOp.processFiles(this.inputs, this.output); 
                     break;
                 case ALT_BYTE:
                     IOperation altByteOp = new DefaultByteAlternation(AltMode.NORMAL, params);
-                    altByteOp.processFiles(this.input1, this.input2, this.out); 
+                    altByteOp.processFiles(this.inputs, this.output); 
                     break;
                 case ALT_LINE:
                     IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, params);
-                    altLineOp.processFiles(this.input1, this.input2, this.out);
+                    altLineOp.processFiles(this.inputs, this.output);
                     break;
                 case RANDOM_ALT_BYTE:
                     IOperation randomAltByteOp = new DefaultByteAlternation(AltMode.RANDOM, params);
-                    randomAltByteOp.processFiles(this.input1, this.input2, this.out); 
+                    randomAltByteOp.processFiles(this.inputs, this.output); 
                     break;
                 case RANDOM_ALT_CHAR:
                     IOperation randomAltCharOp = new DefaultCharAlternation(AltMode.RANDOM, params);
-                    randomAltCharOp.processFiles(this.input1, this.input2, this.out); 
+                    randomAltCharOp.processFiles(this.inputs, this.output); 
                     break;
                 case RANDOM_ALT_LINE:
                     IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, params);
-                    randomAltLineOp.processFiles(this.input1, this.input2, this.out); 
+                    randomAltLineOp.processFiles(this.inputs, this.output); 
                     break;
                 case JOIN:
                     IOperation joinLineOp = new DefaultLineJoining(params);
-                    joinLineOp.processFiles(this.input1, this.input2, this.out);
+                    joinLineOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_LINE:
                     IOperation zipLineOp = new DefaultLineZipping(ZipType.LINE, params);
-                    zipLineOp.processFiles(this.input1, this.input2, this.out);
+                    zipLineOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_CELL:
                     IOperation zipCellOp = new DefaultLineZipping(ZipType.CELL, params);
-                    zipCellOp.processFiles(this.input1, this.input2, this.out);
+                    zipCellOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_CHAR:
                     IOperation zipCharOp = new DefaultCharZipping(params);
-                    zipCharOp.processFiles(this.input1, this.input2, this.out);
+                    zipCharOp.processFiles(this.inputs, this.output);
                     /*break;
                 default:    
                    System.out.println("This rule has not been implemented yet.");*/
