@@ -15,8 +15,7 @@ public interface IInputByte {
 	*/
 	boolean hasByte() throws IOException;
 	/**
- 	* Reads a byte, or returns -1 if no more bytes.
- 	* @param type The type of reading expected
+ 	* Reads a byte.
  	* @return The byte or -1 if no more bytes
  	* @throws IOException - If an I/O error occurs
  	*/
