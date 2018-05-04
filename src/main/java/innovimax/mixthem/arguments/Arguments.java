@@ -89,11 +89,12 @@ public class Arguments {
             files.stream().forEach(file -> mixArgs.addInput(InputResource.createFile(file)));
         } else {
             List<InputStream> inputs = extractZipEntries(args, index);
-            final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
-            final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
-            final InputStream input2 = extractZipEntry(zipFile, 2, "file2");
-            mixArgs.addInput(InputResource.createInputStream(input1));
-            mixArgs.addInput(InputResource.createInputStream(input2));
+            inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createFile(input)));
+            //final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
+            //final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
+            //final InputStream input2 = extractZipEntry(zipFile, 2, "file2");
+            //mixArgs.addInput(InputResource.createInputStream(input1));
+            //mixArgs.addInput(InputResource.createInputStream(input2));
         }        
         return mixArgs;
     }
