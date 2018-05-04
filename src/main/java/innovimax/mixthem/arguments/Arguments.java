@@ -90,11 +90,7 @@ public class Arguments {
         } else {
             final ZipFile zipFile = new ZipFile(findZipFileArgument(args, ++index));
             final List<InputStream> inputs = extractZipEntries(zipFile);
-            inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createInputStream(input)));            
-            //final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
-            //final InputStream input2 = extractZipEntry(zipFile, 2, "file2");
-            //mixArgs.addInput(InputResource.createInputStream(input1));
-            //mixArgs.addInput(InputResource.createInputStream(input2));
+            inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createInputStream(input)));
         }        
         return mixArgs;
     }
@@ -191,28 +187,7 @@ public class Arguments {
         }
         return file;
     }
-    
-    /*private static InputStream extractZipEntry(final ZipFile zipFile, final int index, final String name) throws ArgumentException, IOException, ZipException {
-        InputStream input = null;
-        int i = 1;
-        final Enumeration entries = zipFile.entries();        
-        while (entries.hasMoreElements()) {
-            ZipEntry entry = (ZipEntry) entries.nextElement();
-            if (entry.getName().toUpperCase().startsWith("META-INF")) {
-                continue;        
-            }
-            if (i == index) {
-                input = zipFile.getInputStream(entry);
-                break;
-            }
-            i++;
-        }
-        if (input == null) {
-            throw new ArgumentException(name + " entry missing.");
-        }        
-        return input;
-    }*/
-    
+
     private static List<InputStream> extractZipEntries(final ZipFile zipFile) throws ArgumentException, IOException, ZipException {
         final List<InputStream> inputs = new ArrayList<InputStream>();        
         final Enumeration entries = zipFile.entries();        
