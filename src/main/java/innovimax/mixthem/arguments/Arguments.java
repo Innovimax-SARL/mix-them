@@ -86,10 +86,11 @@ public class Arguments {
         final String zipOption = findZipOptionArgument(args, index);
         if (zipOption == null) {
             List<File> files = findFilesArgument(args, index);
-            final File file1 = findFileArgument(args, index, "file1");
-            final File file2 = findFileArgument(args, ++index, "file2");
-            mixArgs.addInput(InputResource.createFile(file1));
-            mixArgs.addInput(InputResource.createFile(file2));   
+            //final File file1 = findFileArgument(args, index, "file1");
+            //final File file2 = findFileArgument(args, ++index, "file2");
+            //mixArgs.addInput(InputResource.createFile(file1));
+            //mixArgs.addInput(InputResource.createFile(file2));
+            files.stream().foreach(file -> mixArgs.addInput(InputResource.createFile(file)));
         } else {
             final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
             final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
@@ -160,7 +161,6 @@ public class Arguments {
         }
         return file;
     }
-    
     
     private static List<File> findFilesArgument(final String[] args, final int index) throws ArgumentException {
         final List<File> files = new ArrayList<File>();
