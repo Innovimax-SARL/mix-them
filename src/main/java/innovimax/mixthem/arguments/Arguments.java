@@ -90,7 +90,7 @@ public class Arguments {
         } else {
             final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
             final List<InputStream> inputs = extractZipEntries(zipFile);
-            inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createFile(input)));            
+            inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createInputStream(input)));            
             //final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
             //final InputStream input2 = extractZipEntry(zipFile, 2, "file2");
             //mixArgs.addInput(InputResource.createInputStream(input1));
@@ -195,7 +195,7 @@ public class Arguments {
     }*/
     
     private static List<InputStream> extractZipEntries(final ZipFile zipFile) throws ArgumentException, IOException, ZipException {
-        final List<InputSTream> inputs = new ArrayList<InputStream>();        
+        final List<InputStream> inputs = new ArrayList<InputStream>();        
         final Enumeration entries = zipFile.entries();        
         while (entries.hasMoreElements()) {
             ZipEntry entry = (ZipEntry) entries.nextElement();
