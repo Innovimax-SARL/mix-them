@@ -85,12 +85,12 @@ public class Arguments {
         mixArgs.setRuleParameters(ruleParams);        
         final String zipOption = findZipOptionArgument(args, index);
         if (zipOption == null) {
-            List<File> files = findFilesArgument(args, index);
+            final List<File> files = findFilesArgument(args, index);
             files.stream().forEach(file -> mixArgs.addInput(InputResource.createFile(file)));
         } else {
-            List<InputStream> inputs = extractZipEntries(args);
-            inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createFile(input)));
-            //final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
+            final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
+            final List<InputStream> inputs = extractZipEntries(zipFile);
+            inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createFile(input)));            
             //final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
             //final InputStream input2 = extractZipEntry(zipFile, 2, "file2");
             //mixArgs.addInput(InputResource.createInputStream(input1));
