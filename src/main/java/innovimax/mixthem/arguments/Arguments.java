@@ -88,7 +88,7 @@ public class Arguments {
             List<File> files = findFilesArgument(args, index);
             files.stream().forEach(file -> mixArgs.addInput(InputResource.createFile(file)));
         } else {
-            List<InputStream> inputs = extractZipEntries(args, index);
+            List<InputStream> inputs = extractZipEntries(args);
             inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createFile(input)));
             //final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
             //final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
@@ -139,25 +139,6 @@ public class Arguments {
             }            
         }     
         return map;
-    }
-
-    private static File findFileArgument(final String[] args, final int index, final String name) throws ArgumentException {
-        File file = null;
-        if (args.length > index) {
-            final String filepath = args[index];
-            file = new File(filepath);
-            final Path path = file.toPath();
-            if (Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
-                if (!Files.isReadable(path)) {                    
-                    throw new ArgumentException(name + " cannot be read: " + filepath);    
-                }
-            } else {
-                throw new ArgumentException(name + " not found: " + filepath);
-            }
-        } else {
-            throw new ArgumentException(name + " argument missing.");
-        }
-        return file;
     }
     
     private static List<File> findFilesArgument(final String[] args, int index) throws ArgumentException {
