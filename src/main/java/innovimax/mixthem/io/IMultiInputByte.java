@@ -16,7 +16,6 @@ public interface IMultiInputByte {
 	boolean hasByte() throws IOException;
 	/**
  	* Reads a byte from each channel.
- 	* @param type The type of reading expected
  	* @return The array of bytes (one byte per channel or -1 if no more bytes in the channel)
  	* @throws IOException - If an I/O error occurs
  	*/
