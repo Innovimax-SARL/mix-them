@@ -76,7 +76,7 @@ public class Arguments {
         this.inputs.add(input);
     }
 
-    public InputResource getInputs() {
+    public List<InputResource> getInputs() {
         return this.inputs;
     }
     
@@ -115,8 +115,8 @@ public class Arguments {
             final InputStream input2 = extractZipEntry(zipFile, 2, "file2");
             mixArgs.setFirstInput(InputResource.createInputStream(input1));
             mixArgs.setSecondInput(InputResource.createInputStream(input2));
-            mixArgs.addInput(InputResource.createInputStream(file1));
-            mixArgs.addInput(InputResource.createInputStream(file2));
+            mixArgs.addInput(InputResource.createInputStream(input1));
+            mixArgs.addInput(InputResource.createInputStream(input2));
         }        
         return mixArgs;
     }
