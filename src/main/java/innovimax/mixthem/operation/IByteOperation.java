@@ -14,4 +14,13 @@ interface IByteOperation extends IOperation {
 	* @see innovimax.mixthem.operation.ByteResult	
 	*/	
 	void process(byte b1, byte b2, ByteResult result) throws MixException;
+	/**
+ 	* Processes operation and set new result in the ByteResult parameter.
+	* @param bytes The array of bytes to mix	
+	* @param result The previous operation result
+ 	* @return The result of the operation (maybe null)
+ 	* @throws MixException - If an mixing error occurs
+	* @see innovimax.mixthem.operation.ByteResult	
+	*/	
+	void process(byte[] bytes, ByteResult result) throws MixException;
 }
