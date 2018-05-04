@@ -166,11 +166,11 @@ public class Arguments {
         final List<File> files = new ArrayList<File>();
         while (args.length > index) {
             final String filepath = args[index++];
-            final file = new File(filepath);
+            final File file = new File(filepath);
             final Path path = file.toPath();
             if (Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
                 if (Files.isReadable(path)) {
-                    files.add(file)
+                    files.add(file);
                 } else {
                     throw new ArgumentException("Input file cannot be read: " + filepath);    
                 }
