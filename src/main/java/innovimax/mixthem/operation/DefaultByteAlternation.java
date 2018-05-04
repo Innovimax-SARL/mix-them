@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
-* <p>Alternate two bytes.</p>
+* <p>Alternate two or more bytes.</p>
 * @see IByteOperation
 * @author Innovimax
 * @version 1.0
@@ -18,7 +18,8 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 	
 	private final AltMode mode;
 	private boolean odd;
-	private final Random random;
+	private int channel;
+	private final Random random;	
 	
 	/**
 	* Constructor
@@ -31,6 +32,7 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 		super(params);
 		this.mode = mode;
 		this.odd = true;
+		this.channel = 0;
 		this.random = new Random(params.getOrDefault(RuleParam.RANDOM_SEED, AltOperation.DEFAULT_RANDOM_SEED.getValue()).asInt());
 	}
 	
@@ -58,7 +60,50 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 	
 	@Override
 	public void process(byte[] bytes, ByteResult result) throws MixException {
-		//TODO
+		result.reset();
+		final int[] array = new int[1];
+		switch (this.mode) {
+			case RANDOM:
+				//TODO: manage more than 2 channels...
+				boolean first = this.random.nextBoolean();
+				byte b = first ? bytes[0] : bytes[1];
+				if (b == -1) {
+					array[0] = first ? bytes[1] : bytes[0];
+				} else {
+					array[0] = b;
+				}
+				break;
+			case NORMAL:
+			default:
+				byte b = bytes[this.channel];
+				if (b == -1) {
+					b = nextByte(bytes, this.channel);
+				}
+				array[0] = b;
+				this.channel++;	
+				if (this.channel == bytes.length) {
+					this.channel = 0;
+				}
+		}					
+		result.setResult(Arrays.stream(array));
+	}
+	
+	private byte nextByte(final byte[] bytes, final int channel) {		
+		int c = channel;
+		while (c < bytes.length) {
+			final byte b = bytes[c++];
+			if (b != -1) {
+				return b;
+			}
+		}
+		c = 0;
+		while (c < channel) {
+			final byte b = bytes[c++];
+			if (b != -1) {
+				return b;
+			}
+		}
+		return -1;
 	}
 
 }
