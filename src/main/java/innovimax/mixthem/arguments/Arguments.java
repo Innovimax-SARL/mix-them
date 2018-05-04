@@ -84,7 +84,8 @@ public class Arguments {
         mixArgs.setRule(rule);
         mixArgs.setRuleParameters(ruleParams);        
         final String zipOption = findZipOptionArgument(args, index);
-        if (zipOption == null) {                        
+        if (zipOption == null) {
+            List<File> files = findFilesArgument(args, index);
             final File file1 = findFileArgument(args, index, "file1");
             final File file2 = findFileArgument(args, ++index, "file2");
             mixArgs.addInput(InputResource.createFile(file1));
@@ -158,6 +159,33 @@ public class Arguments {
             throw new ArgumentException(name + " argument missing.");
         }
         return file;
+    }
+    
+    
+    private static List<File> findFilesArgument(final String[] args, final int index) throws ArgumentException {
+        final List<File> files = new ArrayList<File>();
+        while (args.length > index) {
+            final String filepath = args[index++];
+            final file = new File(filepath);
+            final Path path = file.toPath();
+            if (Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
+                if (Files.isReadable(path)) {
+                    files.add(file)
+                } else {
+                    throw new ArgumentException("Input file cannot be read: " + filepath);    
+                }
+            } else {
+                throw new ArgumentException(""Input file not found: " + filepath);
+            }
+        }
+        switch (files.size()) {
+            case 0: 
+                throw new ArgumentException("First input file argument missing.");
+                break;
+            case 1: 
+                throw new ArgumentException("Second input file argument missing.");
+        }
+        return files;
     }
     
     private static String findZipOptionArgument(final String[] args, final int index) {        
