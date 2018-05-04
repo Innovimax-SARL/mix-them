@@ -7,7 +7,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface IMultiInputByte {
+public interface IMultiChannelInputByte {
     /**
 	* Returns true if there is more bytes in one of the channels.
 	* @return Returns true if there is more bytes in one of the channels
