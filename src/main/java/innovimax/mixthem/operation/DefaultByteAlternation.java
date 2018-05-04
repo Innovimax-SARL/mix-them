@@ -55,5 +55,10 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 		}
 		result.setResult(Arrays.stream(array));
 	}
+	
+	@Override
+	public void process(byte[] bytes, ByteResult result) throws MixException {
+		//TODO
+	}
 
 }
