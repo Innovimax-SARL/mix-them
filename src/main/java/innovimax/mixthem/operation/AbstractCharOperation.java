@@ -11,6 +11,7 @@ import innovimax.mixthem.io.InputResource;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,10 +33,10 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 	}
 
 	@Override
-    	public void processFiles(final InputResource input1, final InputResource input2, final OutputStream out) throws MixException, IOException {		
-		final IInputChar reader1 = new DefaultCharReader(input1);
-		final IInputChar reader2 = new DefaultCharReader(input2);
-		final IOutputChar writer = new DefaultCharWriter(out);
+    	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {		
+		final IInputChar reader1 = new DefaultCharReader(inputs.get(0));
+		final IInputChar reader2 = new DefaultCharReader(inputs.get(1));
+		final IOutputChar writer = new DefaultCharWriter(output);
 		final CharResult result = new CharResult();
         	while (reader1.hasCharacter() || reader2.hasCharacter()) {
 			final int c1 = reader1.nextCharacter();
