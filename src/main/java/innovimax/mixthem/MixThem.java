@@ -14,19 +14,6 @@ import java.util.logging.Logger;
 
 /**
 * <p>Mix files together using variety of rules.</p>
-* <p>Here are the rules:</p>
-* <ul>
-* <li> 1: will output file1</li>
-* <li> 2: will output file2</li>
-* <li> +: will output file1+file2</li>
-* <li> alt-line: will output one line of each starting with first line of file1</li>
-* <li> alt-char: will output one char of each starting with first char of file1</li>
-* <li> alt-byte: will output one byte of each starting with first char of file1</li>
-* <li> random-alt-line[#seed]: will output one line of each code randomly based on a seed for reproducability</li>
-* <li> random-alt-char[#seed]: will output one char of each code randomly based on a seed for reproducability</li>
-* <li> random-alt-byte[#seed]: will output one byte of each code randomly based on a seed for reproducability</li>
-* <li> join[#col1][#col2]: will output merging of lines that have common occurrence</li>
-* </ul>
 * @author Innovimax
 * @version 1.0
 */
@@ -38,13 +25,12 @@ public class MixThem {
     private final OutputStream out;
     /**
      * Constructor
-     * @param input1 The first input resource to be mixed
-     * @param input2 The second input resource to be mixed
+     * @param inputs The list of input resource to be mixed     
      * @param out The output stream to write mixing result
      */ 
-    public MixThem(InputResource input1, InputResource input2, OutputStream out) {
-        this.input1 = input1;
-        this.input2 = input2;
+    public MixThem(List<InputResource> inputs, OutputStream out) {
+        this.input1 = inputs.get(0);
+        this.input2 = inputs.get(1);
         this.out = out;        
     }
     
@@ -77,7 +63,7 @@ public class MixThem {
             setLogging(Level.INFO);
             LOGGER.info("Started application");   
             Arguments mixArgs = Arguments.checkArguments(args);        
-            MixThem mixThem = new MixThem(mixArgs.getFirstInput(), mixArgs.getSecondInput(), System.out);
+            MixThem mixThem = new MixThem(mixArgs.getInputs(), System.out);
             mixThem.process(mixArgs.getMode(), mixArgs.getRule(), mixArgs.getRuleParameters());
             LOGGER.info("Exited application with no errors");
         } catch (ArgumentException e) {
