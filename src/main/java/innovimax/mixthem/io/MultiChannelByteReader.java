@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class MultiChannelByteReader implements IMultiInputByte {
+public class MultiChannelByteReader implements IMultiChannelInputByte {
 	
 	private final List<IInputByte> readers = new ArrayList<IInputByte>();
 	
