@@ -34,27 +34,27 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 
     @Override
     public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
-		final IInputByte reader1 = new DefaultByteReader(inputs.get(0));
-		final IInputByte reader2 = new DefaultByteReader(inputs.get(1));
-		final IOutputByte writer = new DefaultByteWriter(output);
-		final ByteResult result = new ByteResult();
-		while (reader1.hasByte() || reader2.hasByte()) {
-			final byte b1 = reader1.nextByte();
-			final byte b2 = reader2.nextByte();			
-			process(b1, b2, result);			
-			if (result.hasResult()) {
-				result.getResult().forEach(i -> {
-					try {						
-						writer.writeByte((byte) i);
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
-				});
-			}
-        }
-        reader1.close();
-        reader2.close();
-        writer.close();
+	    final IInputByte reader1 = new DefaultByteReader(inputs.get(0));
+	    final IInputByte reader2 = new DefaultByteReader(inputs.get(1));
+	    final IOutputByte writer = new DefaultByteWriter(output);
+	    final ByteResult result = new ByteResult();
+	    while (reader1.hasByte() || reader2.hasByte()) {
+		    final byte b1 = reader1.nextByte();
+		    final byte b2 = reader2.nextByte();
+		    process(b1, b2, result);
+		    if (result.hasResult()) {
+			    result.getResult().forEach(i -> {
+				    try {
+					    writer.writeByte((byte) i);
+				    } catch (IOException e) {
+					    throw new RuntimeException(e);
+				    }
+			    });
+		    }
+	    }
+	    reader1.close();
+	    reader2.close();
+	    writer.close();
     }
 
 }
