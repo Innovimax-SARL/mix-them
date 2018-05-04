@@ -175,7 +175,7 @@ public class Arguments {
                     throw new ArgumentException("Input file cannot be read: " + filepath);    
                 }
             } else {
-                throw new ArgumentException(""Input file not found: " + filepath);
+                throw new ArgumentException("Input file not found: " + filepath);
             }
         }
         switch (files.size()) {
