@@ -90,7 +90,7 @@ public class Arguments {
             //final File file2 = findFileArgument(args, ++index, "file2");
             //mixArgs.addInput(InputResource.createFile(file1));
             //mixArgs.addInput(InputResource.createFile(file2));
-            files.stream().foreach(file -> mixArgs.addInput(InputResource.createFile(file)));
+            files.stream().forEach(file -> mixArgs.addInput(InputResource.createFile(file)));
         } else {
             final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
             final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
