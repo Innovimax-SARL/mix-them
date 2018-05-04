@@ -11,6 +11,7 @@ import innovimax.mixthem.io.InputResource;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.LIst;
 import java.util.Map;
 
 /**
@@ -32,10 +33,10 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 	}
 
 	@Override
-	public void processFiles(final InputResource input1, final InputResource input2, final OutputStream out) throws MixException, IOException {
-		final IInputLine reader1 = new DefaultLineReader(input1);
-		final IInputLine reader2 = new DefaultLineReader(input2);
-		final IOutputLine writer = new DefaultLineWriter(out);
+	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
+		final IInputLine reader1 = new DefaultLineReader(inputs.get(0));
+		final IInputLine reader2 = new DefaultLineReader(inputs.get(1));
+		final IOutputLine writer = new DefaultLineWriter(output);
 		final LineResult result = new LineResult();
 		while (reader1.hasLine() || reader2.hasLine()) {
 			final String line1 = result.readingFirstFile() ? reader1.nextLine() : result.getFirstLine();
