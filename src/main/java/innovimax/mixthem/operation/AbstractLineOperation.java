@@ -11,7 +11,7 @@ import innovimax.mixthem.io.InputResource;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.LIst;
+import java.util.List;
 import java.util.Map;
 
 /**
