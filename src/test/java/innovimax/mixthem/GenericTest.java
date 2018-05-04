@@ -89,11 +89,14 @@ public class GenericTest {
 	   MixThem.LOGGER.info("Run and check result...");
 	   InputResource input1 = InputResource.createFile(file1);
 	   InputResource input2 = InputResource.createFile(file2);
+	   List<InputResource> inputs = new ArrayList<InputResource>();
+	   inputs.add(input1);
+	   inputs.add(input2);
 	   ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
-	   MixThem mixThem = new MixThem(input1, input2, baos_rule);
+	   MixThem mixThem = new MixThem(inputs, baos_rule);
            mixThem.process(mode, rule, params);
 	   MixThem.LOGGER.info("Run and print result...");
-	   mixThem = new MixThem(input1, input2, System.out);
+	   mixThem = new MixThem(inputs, System.out);
            mixThem.process(mode, rule, params);
 	   return checkFileEquals(expected, baos_rule.toByteArray());
    }
