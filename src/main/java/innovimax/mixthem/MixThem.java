@@ -107,7 +107,13 @@ public class MixThem {
                     break; 
                 case ADD:
                     final ICopy fileAddCopy = CopyFactory.newInstance(mode);
-                    this.inputs.stream().forEach(input -> fileAddCopy.processFile(input, this.output));                    
+                    this.inputs.stream().forEach(input -> {
+                        try {
+                            fileAddCopy.processFile(input, this.output)
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
                     break;
                 case ALT_CHAR:
                     final IOperation altCharOp = new DefaultCharAlternation(AltMode.NORMAL, params);
