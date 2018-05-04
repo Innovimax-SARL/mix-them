@@ -34,7 +34,7 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 
     @Override
     public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
-	    final IInputByte reader1 = new DefaultByteReader(inputs.get(0));
+	    /*final IInputByte reader1 = new DefaultByteReader(inputs.get(0));
 	    final IInputByte reader2 = new DefaultByteReader(inputs.get(1));
 	    final IOutputByte writer = new DefaultByteWriter(output);
 	    final ByteResult result = new ByteResult();
@@ -54,6 +54,24 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 	    }
 	    reader1.close();
 	    reader2.close();
+	    writer.close();*/
+	    final IMultiChannelInputByte reader = new MultiChannelByteReader(inputs);	    
+	    final IOutputByte writer = new DefaultByteWriter(output);
+	    final ByteResult result = new ByteResult();
+	    while (reader.hasByte()) {
+		    final byte[] bytes = reader.nextBytes();		    
+		    process(bytes, result);
+		    if (result.hasResult()) {
+			    result.getResult().forEach(i -> {
+				    try {
+					    writer.writeByte((byte) i);
+				    } catch (IOException e) {
+					    throw new RuntimeException(e);
+				    }
+			    });
+		    }
+	    }
+	    reader.close();	    
 	    writer.close();
     }
 
