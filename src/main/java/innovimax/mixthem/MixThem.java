@@ -98,56 +98,55 @@ public class MixThem {
             LOGGER.info("Started mixing for [" +  mode.getName() + "] rule '" + rule.getName() + "'...");
             switch(rule) {
                 case FILE_1:
-                    ICopy file1Copy = CopyFactory.newInstance(mode);
+                    final ICopy file1Copy = CopyFactory.newInstance(mode);
                     file1Copy.processFile(this.inputs.get(0), this.output);
                     break;
                 case FILE_2:
-                    ICopy file2Copy = CopyFactory.newInstance(mode);
+                    final ICopy file2Copy = CopyFactory.newInstance(mode);
                     file2Copy.processFile(this.inputs.get(1), this.output);
                     break; 
                 case ADD:
-                    ICopy fileAddCopy = CopyFactory.newInstance(mode);
-                    fileAddCopy.processFile(this.inputs.get(0), this.output);
-                    fileAddCopy.processFile(this.inputs.get(1), this.output);
+                    final ICopy fileAddCopy = CopyFactory.newInstance(mode);
+                    this.inputs.stream().forEach(input -> fileAddCopy.processFile(input, this.output));                    
                     break;
                 case ALT_CHAR:
-                    IOperation altCharOp = new DefaultCharAlternation(AltMode.NORMAL, params);
+                    final IOperation altCharOp = new DefaultCharAlternation(AltMode.NORMAL, params);
                     altCharOp.processFiles(this.inputs, this.output); 
                     break;
                 case ALT_BYTE:
-                    IOperation altByteOp = new DefaultByteAlternation(AltMode.NORMAL, params);
+                    final IOperation altByteOp = new DefaultByteAlternation(AltMode.NORMAL, params);
                     altByteOp.processFiles(this.inputs, this.output); 
                     break;
                 case ALT_LINE:
-                    IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, params);
+                    final IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, params);
                     altLineOp.processFiles(this.inputs, this.output);
                     break;
                 case RANDOM_ALT_BYTE:
-                    IOperation randomAltByteOp = new DefaultByteAlternation(AltMode.RANDOM, params);
+                    final IOperation randomAltByteOp = new DefaultByteAlternation(AltMode.RANDOM, params);
                     randomAltByteOp.processFiles(this.inputs, this.output); 
                     break;
                 case RANDOM_ALT_CHAR:
-                    IOperation randomAltCharOp = new DefaultCharAlternation(AltMode.RANDOM, params);
+                    final IOperation randomAltCharOp = new DefaultCharAlternation(AltMode.RANDOM, params);
                     randomAltCharOp.processFiles(this.inputs, this.output); 
                     break;
                 case RANDOM_ALT_LINE:
-                    IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, params);
+                    final IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, params);
                     randomAltLineOp.processFiles(this.inputs, this.output); 
                     break;
                 case JOIN:
-                    IOperation joinLineOp = new DefaultLineJoining(params);
+                    final IOperation joinLineOp = new DefaultLineJoining(params);
                     joinLineOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_LINE:
-                    IOperation zipLineOp = new DefaultLineZipping(ZipType.LINE, params);
+                    final IOperation zipLineOp = new DefaultLineZipping(ZipType.LINE, params);
                     zipLineOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_CELL:
-                    IOperation zipCellOp = new DefaultLineZipping(ZipType.CELL, params);
+                    final IOperation zipCellOp = new DefaultLineZipping(ZipType.CELL, params);
                     zipCellOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_CHAR:
-                    IOperation zipCharOp = new DefaultCharZipping(params);
+                    final IOperation zipCharOp = new DefaultCharZipping(params);
                     zipCharOp.processFiles(this.inputs, this.output);
                     /*break;
                 default:    
