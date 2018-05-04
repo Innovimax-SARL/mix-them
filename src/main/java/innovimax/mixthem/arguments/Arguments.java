@@ -206,10 +206,10 @@ public class Arguments {
         System.out.println("  ");    
         System.out.println("Usage:");
         System.out.println("  ");
-        System.out.println("  mix-them file1 file2");
-        System.out.println("  (will generate any file based on file1 and file2)");
+        System.out.println("  mix-them file1 file2... fileN");
+        System.out.println("  (will generate any file based on file1 and file2 to fileN)");
         System.out.println("  ");
-        System.out.println("  mix-them -[rule] file1 file2");
+        System.out.println("  mix-them -[rule] file1 file2... fileN");
         System.out.println("  (will generate a file based on the rule)");
         System.out.println("  ");
         System.out.println("  Here are the list of rules");
@@ -223,7 +223,7 @@ public class Arguments {
         System.out.println("  ");
         System.out.println("  mix-them --zip zipfile");
         System.out.println("  mix-them --jar jarfile");
-        System.out.println("  (will generate any entry based on zip/jar file first and second entries)");
+        System.out.println("  (will generate any entry based on zip/jar file first and second to nth entries)");
         System.out.println("  ");
         System.out.println("  mix-them -[rule] --zip zipFile");
         System.out.println("  mix-them -[rule] --jar jarFile");
