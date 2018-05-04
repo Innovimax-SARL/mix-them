@@ -76,7 +76,7 @@ public class Arguments {
         this.inputs.add(input);
     }
 
-    public InputResource getInput(int index)) {
+    public InputResource getInput(int index) {
         return this.inputs.get(index);
     }
     
