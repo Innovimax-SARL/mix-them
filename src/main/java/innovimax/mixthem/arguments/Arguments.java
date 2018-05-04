@@ -76,8 +76,8 @@ public class Arguments {
         this.inputs.add(input);
     }
 
-    public InputResource getInput(int index) {
-        return this.inputs.get(index);
+    public InputResource getInputs() {
+        return this.inputs;
     }
     
     public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException, ZipException { 
