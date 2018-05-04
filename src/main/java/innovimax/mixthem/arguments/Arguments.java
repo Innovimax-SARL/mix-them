@@ -173,7 +173,7 @@ public class Arguments {
         return null;
     }
     
-    private static InputStream extractZipEntry(final ZipFile zipFile, final int index, final String name) throws ArgumentException, IOException, ZipException {
+    /*private static InputStream extractZipEntry(final ZipFile zipFile, final int index, final String name) throws ArgumentException, IOException, ZipException {
         InputStream input = null;
         int i = 1;
         final Enumeration entries = zipFile.entries();        
@@ -192,7 +192,7 @@ public class Arguments {
             throw new ArgumentException(name + " entry missing.");
         }        
         return input;
-    }
+    }*/
     
     private static List<InputStream> extractZipEntries(final ZipFile zipFile) throws ArgumentException, IOException, ZipException {
         final List<InputSTream> inputs = new ArrayList<InputStream>();        
