@@ -7,7 +7,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface IOutputChar {
+public interface ICharOutput {
 	/**
  	* Writes a single character.
  	* @param c The character to be written
