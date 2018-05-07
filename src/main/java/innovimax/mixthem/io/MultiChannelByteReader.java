@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MultiChannelByteReader implements IMultiChannelByteInput {
 	
-	private final List<IByteInpu> readers = new ArrayList<IByteInput>();
+	private final List<IByteInput> readers = new ArrayList<IByteInput>();
 	
 	public MultiChannelByteReader(final List<InputResource> inputs) {
 		inputs.stream().forEach(input -> {
