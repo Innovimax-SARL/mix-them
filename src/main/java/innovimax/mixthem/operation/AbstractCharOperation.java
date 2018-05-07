@@ -34,9 +34,9 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 
 	@Override
     	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {		
-		final IInputChar reader1 = new DefaultCharReader(inputs.get(0));
-		final IInputChar reader2 = new DefaultCharReader(inputs.get(1));
-		final IOutputChar writer = new DefaultCharWriter(output);
+		final ICharInput reader1 = new DefaultCharReader(inputs.get(0));
+		final ICharInput reader2 = new DefaultCharReader(inputs.get(1));
+		final ICharOutput writer = new DefaultCharWriter(output);
 		final CharResult result = new CharResult();
         	while (reader1.hasCharacter() || reader2.hasCharacter()) {
 			final int c1 = reader1.nextCharacter();
