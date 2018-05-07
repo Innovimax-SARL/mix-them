@@ -63,26 +63,23 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 		result.reset();
 		final int[] array = new int[1];
 		switch (this.mode) {
-			case RANDOM:
-				//TODO: manage more than 2 channels...
-				boolean first = this.random.nextBoolean();
-				byte b = first ? bytes[0] : bytes[1];
-				if (b == -1) {
-					array[0] = first ? bytes[1] : bytes[0];
-				} else {
-					array[0] = b;
+			case RANDOM:				
+				int channel = this.random.nextInt(bytes.size());
+				byte br = bytes[channel];
+				if (br == -1) {
+					channel = nextChannel(bytes, channel);
+					br = bytes[channel];
 				}
+				array[0] = br;
 				break;
 			case NORMAL:
 			default:				
 				byte bn = bytes[this.channel];
-				System.out.println("BYTES="+Arrays.toString(bytes)+" CHANNEL="+channel+" BYTE="+bn);
 				if (bn == -1) {
 					this.channel = nextChannel(bytes, this.channel);
 					bn = bytes[this.channel];
-					System.out.println("NEW_CHANNEL="+channel+" BYTE="+bn);
 				}
-				array[0] = bn;				
+				array[0] = bn;
 				this.channel++;	
 				if (this.channel == bytes.length) {
 					this.channel = 0;
