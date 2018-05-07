@@ -43,11 +43,21 @@ public class GenericTest {
 	   while (true) {
 		   MixThem.LOGGER.info("TEST [" + mode.getName().toUpperCase() + "] N° " + testId + "***********************************************************");
 		   String prefix = "test" + String.format("%03d", testId) +"_";
-		   URL url1 = getClass().getResource(prefix + "file1.txt");
-		   URL url2 = getClass().getResource(prefix + "file2.txt");		   
-		   if( url1 == null || url2 == null) break;
-		   MixThem.LOGGER.info("File 1 : " + url1);
-		   MixThem.LOGGER.info("File 2 : " + url2);
+		   List<URL> urlF = new ArrayList<URL>();
+		   int index = 1;
+		   while (true) {
+			   final url = getClass().getResource(prefix + "file" + index + ".txt");
+			   if (url != null) {
+				   urlF.add(url);
+				   index++;
+			   } else {
+				   break;
+			   }
+		   }		   		   
+		   if( urlF.size() < 2) break;
+		   for (int i=0; i < urlF.size(); i++) {
+			   MixThem.LOGGER.info("File " + i + ": " + urlF.get(i));
+		   }
 		   for(Rule rule : Rule.values()) {			   
 			   if (rule.isImplemented() && rule.acceptMode(mode)) {
 				   String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
@@ -67,7 +77,7 @@ public class GenericTest {
 						   }
 						   MixThem.LOGGER.info("Result file : " + urlR);
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
-						   boolean res = check(new File(url1.getFile()), new File(url2.getFile()), new File(urlR.getFile()), mode, rule, run.getParams());
+						   boolean res = check(new File(urlF.get(0).getFile()), new File(urlF.get(1).getFile()), new File(urlR.getFile()), mode, rule, run.getParams());
 						   MixThem.LOGGER.info("Run " + (res ? "pass" : "FAIL") + " with params " + run.getParams().toString());
 						   result &= res;
 						   if (!res) {
