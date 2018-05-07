@@ -6,8 +6,8 @@ import innovimax.mixthem.arguments.ParamValue;
 //import innovimax.mixthem.io.DefaultByteReader;
 import innovimax.mixthem.io.DefaultByteWriter;
 //import innovimax.mixthem.io.IByteInput;
-import innovimax.mixthem.io.IMultiChannelByteInput;
 import innovimax.mixthem.io.IByteOutput;
+import innovimax.mixthem.io.IMultiChannelByteInput;
 import innovimax.mixthem.io.InputResource;
 import innovimax.mixthem.io.MultiChannelByteReader;
 
