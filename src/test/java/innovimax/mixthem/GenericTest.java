@@ -56,7 +56,7 @@ public class GenericTest {
 		   }		   		   
 		   if( urlF.size() < 2) break;
 		   for (int i=0; i < urlF.size(); i++) {
-			   MixThem.LOGGER.info("File " + i + ": " + urlF.get(i));
+			   MixThem.LOGGER.info("File " + (i+1) + ": " + urlF.get(i));
 		   }
 		   for(Rule rule : Rule.values()) {			   
 			   if (rule.isImplemented() && rule.acceptMode(mode)) {
@@ -77,7 +77,7 @@ public class GenericTest {
 						   }
 						   MixThem.LOGGER.info("Result file : " + urlR);
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
-						   boolean res = check(new File(urlF.get(0).getFile()), new File(urlF.get(1).getFile()), new File(urlR.getFile()), mode, rule, run.getParams());
+						   boolean res = check(urlF, urlR, mode, rule, run.getParams());
 						   MixThem.LOGGER.info("Run " + (res ? "pass" : "FAIL") + " with params " + run.getParams().toString());
 						   result &= res;
 						   if (!res) {
@@ -95,18 +95,20 @@ public class GenericTest {
 	   Assert.assertTrue(result);
    }	   
 
-   private final static boolean check(final File file1, final File file2, final File expected, final Mode mode, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
+   private final static boolean check(final List<URL> filesURL, final URL resultURL, final Mode mode, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
 	   MixThem.LOGGER.info("Run and check result...");	   
-	   List<InputResource> inputs = new ArrayList<InputResource>();
-	   inputs.add(InputResource.createFile(file1));
-	   inputs.add(InputResource.createFile(file2));
-	   ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
-	   MixThem mixThem = new MixThem(inputs, baos_rule);
+	   final List<InputResource> inputs = new ArrayList<InputResource>();
+	   for (URL url : filesURL) {
+	   	inputs.add(InputResource.createFile(url.getFile()));
+	   }
+	   final ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
+	   final MixThem mixThem = new MixThem(inputs, baos_rule);
            mixThem.process(mode, rule, params);
 	   MixThem.LOGGER.info("Run and print result...");
 	   mixThem = new MixThem(inputs, System.out);
            mixThem.process(mode, rule, params);
-	   return checkFileEquals(expected, baos_rule.toByteArray());
+	   final File result = new File(resultURL.getFile());
+	   return checkFileEquals(result, baos_rule.toByteArray());
    }
 
 	private static boolean checkFileEquals(final File fileExpected, final byte[] result) throws FileNotFoundException, IOException {
