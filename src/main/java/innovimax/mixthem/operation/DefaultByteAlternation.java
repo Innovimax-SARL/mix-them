@@ -77,7 +77,8 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 			default:				
 				byte bn = bytes[this.channel];
 				if (bn == -1) {
-					bn = nextByte(bytes, this.channel);
+					this.channel = nextChannel(bytes, this.channel);
+					bn = bytes[this.channel];
 				}
 				array[0] = bn;
 				System.out.println("BYTES="+Arrays.toString(bytes)+" CHANNEL="+channel+" BYTE="+bn);
@@ -89,19 +90,19 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 		result.setResult(Arrays.stream(array));
 	}
 	
-	private byte nextByte(final byte[] bytes, final int channel) {		
+	private int nextChannel(final byte[] bytes, final int channel) {
 		int c = channel+1;
 		while (c != channel) {
 			if (c < bytes.length) {
 				final byte b = bytes[c++];
 				if (b != -1) {
-					return b;
+					break;
 				}
 			} else {
 				c = 0;
 			}
 		}
-		return -1;
+		return c;
 	}
 
 }
