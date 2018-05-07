@@ -7,7 +7,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface IInputChar {
+public interface ICharInput {
 	/**
 	* Returns true if there is more characters.
 	* @return Returns true if there is more characters
