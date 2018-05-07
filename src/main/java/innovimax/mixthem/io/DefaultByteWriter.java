@@ -11,7 +11,7 @@ import java.io.OutputStream;
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultByteWriter implements IOutputByte {
+public class DefaultByteWriter implements IByteOutput {
 
 	private final BufferedOutputStream writer;
 
