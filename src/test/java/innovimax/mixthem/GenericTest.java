@@ -99,10 +99,10 @@ public class GenericTest {
 	   MixThem.LOGGER.info("Run and check result...");	   
 	   final List<InputResource> inputs = new ArrayList<InputResource>();
 	   for (URL url : filesURL) {
-	   	inputs.add(InputResource.createFile(url.getFile()));
+	   	inputs.add(InputResource.createFile(new File(url.getFile())));
 	   }
 	   final ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
-	   final MixThem mixThem = new MixThem(inputs, baos_rule);
+	   MixThem mixThem = new MixThem(inputs, baos_rule);
            mixThem.process(mode, rule, params);
 	   MixThem.LOGGER.info("Run and print result...");
 	   mixThem = new MixThem(inputs, System.out);
