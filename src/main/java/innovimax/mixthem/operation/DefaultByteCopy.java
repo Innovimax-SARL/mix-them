@@ -2,8 +2,8 @@ package innovimax.mixthem.operation;
 
 import innovimax.mixthem.io.DefaultByteReader;
 import innovimax.mixthem.io.DefaultByteWriter;
-import innovimax.mixthem.io.IInputByte;
-import innovimax.mixthem.io.IOutputByte;
+import innovimax.mixthem.io.IByteInput;
+import innovimax.mixthem.io.IByteOutput;
 import innovimax.mixthem.io.InputResource;
 
 import java.io.IOException;
@@ -20,8 +20,8 @@ public class DefaultByteCopy implements ICopy {
     
     public void processFile(InputResource input, OutputStream out) throws IOException {
         byte[] buffer = new byte[BYTE_BUFFER_SIZE];
-        IInputByte reader = new DefaultByteReader(input);
-        IOutputByte writer = new DefaultByteWriter(out);
+        IByteInput reader = new DefaultByteReader(input);
+        IByteOutput writer = new DefaultByteWriter(out);
         while (reader.hasByte()) {
             final int len = reader.nextBytes(buffer, BYTE_BUFFER_SIZE);
             writer.writeBytes(buffer, len);
