@@ -76,12 +76,13 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 			case NORMAL:
 			default:				
 				byte bn = bytes[this.channel];
+				System.out.println("BYTES="+Arrays.toString(bytes)+" CHANNEL="+channel+" BYTE="+bn);
 				if (bn == -1) {
 					this.channel = nextChannel(bytes, this.channel);
 					bn = bytes[this.channel];
+					System.out.println("NEW_CHANNEL="+channel+" BYTE="+bn);
 				}
-				array[0] = bn;
-				System.out.println("BYTES="+Arrays.toString(bytes)+" CHANNEL="+channel+" BYTE="+bn);
+				array[0] = bn;				
 				this.channel++;	
 				if (this.channel == bytes.length) {
 					this.channel = 0;
