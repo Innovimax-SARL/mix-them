@@ -99,6 +99,7 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 				if (b != -1) {
 					break;
 				}
+				c++;
 			} else {
 				c = 0;
 			}
