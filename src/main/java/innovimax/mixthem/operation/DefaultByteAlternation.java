@@ -94,7 +94,7 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 		int c = channel+1;
 		while (c != channel) {
 			if (c < bytes.length) {
-				final byte b = bytes[c++];
+				final byte b = bytes[c];
 				if (b != -1) {
 					break;
 				}
