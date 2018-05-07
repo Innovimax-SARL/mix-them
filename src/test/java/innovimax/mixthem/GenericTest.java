@@ -42,11 +42,11 @@ public class GenericTest {
 	   boolean result = true;
 	   while (true) {
 		   MixThem.LOGGER.info("TEST [" + mode.getName().toUpperCase() + "] N° " + testId + "***********************************************************");
-		   String prefix = "test" + String.format("%03d", testId) +"_";
-		   List<URL> urlF = new ArrayList<URL>();
+		   final String prefix = "test" + String.format("%03d", testId) +"_";
+		   final List<URL> urlF = new ArrayList<URL>();
 		   int index = 1;
 		   while (true) {
-			   final url = getClass().getResource(prefix + "file" + index + ".txt");
+			   final URL url = getClass().getResource(prefix + "file" + index + ".txt");
 			   if (url != null) {
 				   urlF.add(url);
 				   index++;
