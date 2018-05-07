@@ -80,7 +80,7 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 					bn = nextByte(bytes, this.channel);
 				}
 				array[0] = bn;
-				System.out.println("BYTES="+bytes+" CHANNEL="+channel+" BYTE="+bn);
+				System.out.println("BYTES="+Arrays.asList(bytes)+" CHANNEL="+channel+" BYTE="+bn);
 				this.channel++;	
 				if (this.channel == bytes.length) {
 					this.channel = 0;
