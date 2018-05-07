@@ -7,7 +7,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface IInputByte {
+public interface IByteInput {
     /**
 	* Returns true if there is more bytes.
 	* @return Returns true if there is more bytes
