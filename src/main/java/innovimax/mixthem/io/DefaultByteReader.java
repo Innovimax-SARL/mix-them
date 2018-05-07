@@ -5,12 +5,12 @@ import java.io.IOException;
 
 /**
 * <p>Reads bytes from a byte-input file.</p>
-* <p>This is the default implementation of IInputByte.</p>
-* @see IInputByte
+* <p>This is the default implementation of IByteInput.</p>
+* @see IByteInput
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultByteReader implements IInputByte {
+public class DefaultByteReader implements IByteInput {
 
 	private final BufferedInputStream reader;
 
