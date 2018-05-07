@@ -64,7 +64,7 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 		final int[] array = new int[1];
 		switch (this.mode) {
 			case RANDOM:				
-				int channel = this.random.nextInt(bytes.size());
+				int channel = this.random.nextInt(bytes.length);
 				byte br = bytes[channel];
 				if (br == -1) {
 					channel = nextChannel(bytes, channel);
