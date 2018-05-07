@@ -89,7 +89,7 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 				}
 		}
 		*/
-		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(channels);
+		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(bytes.length);
 		byte b = bytes[channel];
 		System.out.println("BYTES+"+Arrays.toString(bytes)+" CHANNEL="+channel+" BYTE="+b);
 		if (b == -1) {					
