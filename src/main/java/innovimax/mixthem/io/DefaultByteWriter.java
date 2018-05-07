@@ -6,8 +6,8 @@ import java.io.OutputStream;
 
 /**
 * <p>Writes bytes into an output stream.</p>
-* <p>This is the default implementation of IOutputByte.</p>
-* @see IOutputByte
+* <p>This is the default implementation of IByteOutput.</p>
+* @see IByteOutput
 * @author Innovimax
 * @version 1.0
 */
