@@ -5,8 +5,8 @@ import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.io.DefaultLineReader;
 import innovimax.mixthem.io.DefaultLineWriter;
-import innovimax.mixthem.io.IInputLine;
-import innovimax.mixthem.io.IOutputLine;
+import innovimax.mixthem.io.ILineInput;
+import innovimax.mixthem.io.ILineOutput;
 import innovimax.mixthem.io.InputResource;
 
 import java.io.IOException;
@@ -34,9 +34,9 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 
 	@Override
 	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
-		final IInputLine reader1 = new DefaultLineReader(inputs.get(0));
-		final IInputLine reader2 = new DefaultLineReader(inputs.get(1));
-		final IOutputLine writer = new DefaultLineWriter(output);
+		final ILineInput reader1 = new DefaultLineReader(inputs.get(0));
+		final ILineInput reader2 = new DefaultLineReader(inputs.get(1));
+		final ILineOutput writer = new DefaultLineWriter(output);
 		final LineResult result = new LineResult();
 		while (reader1.hasLine() || reader2.hasLine()) {
 			final String line1 = result.readingFirstFile() ? reader1.nextLine() : result.getFirstLine();
