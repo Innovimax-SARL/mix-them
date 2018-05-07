@@ -5,9 +5,9 @@ import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 //import innovimax.mixthem.io.DefaultByteReader;
 import innovimax.mixthem.io.DefaultByteWriter;
-//import innovimax.mixthem.io.IInputByte;
-import innovimax.mixthem.io.IMultiChannelInputByte;
-import innovimax.mixthem.io.IOutputByte;
+//import innovimax.mixthem.io.IByteInput;
+import innovimax.mixthem.io.IMultiChannelByteInput;
+import innovimax.mixthem.io.IByteOutput;
 import innovimax.mixthem.io.InputResource;
 import innovimax.mixthem.io.MultiChannelByteReader;
 
@@ -36,9 +36,9 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 
     @Override
     public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
-	    /*final IInputByte reader1 = new DefaultByteReader(inputs.get(0));
-	    final IInputByte reader2 = new DefaultByteReader(inputs.get(1));
-	    final IOutputByte writer = new DefaultByteWriter(output);
+	    /*final IByteInput reader1 = new DefaultByteReader(inputs.get(0));
+	    final IByteInput reader2 = new DefaultByteReader(inputs.get(1));
+	    final IByteOutput writer = new DefaultByteWriter(output);
 	    final ByteResult result = new ByteResult();
 	    while (reader1.hasByte() || reader2.hasByte()) {
 		    final byte b1 = reader1.nextByte();
@@ -57,8 +57,8 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 	    reader1.close();
 	    reader2.close();
 	    writer.close();*/
-	    final IMultiChannelInputByte reader = new MultiChannelByteReader(inputs);	    
-	    final IOutputByte writer = new DefaultByteWriter(output);
+	    final IMultiChannelByteInput reader = new MultiChannelByteReader(inputs);	    
+	    final IByteOutput writer = new DefaultByteWriter(output);
 	    final ByteResult result = new ByteResult();
 	    while (reader.hasByte()) {
 		    final byte[] bytes = reader.nextBytes();		    
