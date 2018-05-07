@@ -7,7 +7,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface IOutputByte {
+public interface IByteOutput {
 	/**
  	* Writes a single byte.
  	* @param b The byte to be written
