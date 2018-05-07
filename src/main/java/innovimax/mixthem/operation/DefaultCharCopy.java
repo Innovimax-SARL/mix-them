@@ -2,8 +2,8 @@ package innovimax.mixthem.operation;
 
 import innovimax.mixthem.io.DefaultCharReader;
 import innovimax.mixthem.io.DefaultCharWriter;
-import innovimax.mixthem.io.IInputChar;
-import innovimax.mixthem.io.IOutputChar;
+import innovimax.mixthem.io.ICharInput;
+import innovimax.mixthem.io.ICharOutput;
 import innovimax.mixthem.io.InputResource;
 
 import java.io.IOException;
@@ -20,8 +20,8 @@ public class DefaultCharCopy implements ICopy {
     
     public void processFile(InputResource input, OutputStream out) throws IOException {
         char[] buffer = new char[CHAR_BUFFER_SIZE];
-        IInputChar reader = new DefaultCharReader(input);
-        IOutputChar writer = new DefaultCharWriter(out);
+        ICharInput reader = new DefaultCharReader(input);
+        ICharOutput writer = new DefaultCharWriter(out);
         while (reader.hasCharacter()) {
             final int len = reader.nextCharacters(buffer, CHAR_BUFFER_SIZE);
             writer.writeCharacters(buffer, len);
