@@ -62,6 +62,7 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 	public void process(byte[] bytes, ByteResult result) throws MixException {
 		result.reset();
 		final int[] array = new int[1];
+		/*
 		switch (this.mode) {
 			case RANDOM:				
 				int channel = this.random.nextInt(bytes.length);
@@ -70,7 +71,7 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 				if (br == -1) {					
 					channel = nextChannel(bytes, channel);
 					br = bytes[channel];
-					System.out.println("NEW_CHANNEL="+channel+" BYTE+"+br);
+					System.out.println("NEW_CHANNEL="+channel+" BYTE="+br);
 				}
 				array[0] = br;
 				break;
@@ -86,7 +87,23 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 				if (this.channel == bytes.length) {
 					this.channel = 0;
 				}
-		}					
+		}
+		*/
+		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(channels);
+		byte b = bytes[channel];
+		System.out.println("BYTES+"+Arrays.toString(bytes)+" CHANNEL="+channel+" BYTE="+b);
+		if (b == -1) {					
+			channel = nextChannel(bytes, channel);
+			b = bytes[channel];
+			System.out.println("NEW_CHANNEL="+channel+" BYTE="+b);
+		}
+		array[0] = b;
+		if (this.mode == AltMode.NORMAL) {
+			this.channel = channel + 1;
+			if (this.channel == bytes.length) {
+				this.channel = 0;
+			}		
+		}
 		result.setResult(Arrays.stream(array));
 	}
 	
