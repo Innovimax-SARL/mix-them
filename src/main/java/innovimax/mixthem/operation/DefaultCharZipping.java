@@ -62,7 +62,7 @@ public class DefaultCharZipping extends AbstractCharOperation {
 		for (int i=0; i < charRange.length(); i++) {			
 			if (charRange[i] != -1) {
 				array[index++] = charRange[i];
-			} esle {
+			} else {
         			for (int j = 0; j < sep.length(); j++) {
 					array[index++] = (int) sep.charAt(j);
 				}				
