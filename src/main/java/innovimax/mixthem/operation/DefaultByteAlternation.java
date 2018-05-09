@@ -35,41 +35,41 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 	}
 	
 	@Override
-	public void process(byte[] bytes, ByteResult result) throws MixException {
+	public void process(byte[] byteRange, ByteResult result) throws MixException {
 		result.reset();
 		final int[] array = new int[1];
-		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(bytes.length);
-		byte b = bytes[channel];
+		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(byteRange.length);
+		byte b = byteRange[channel];
 		System.out.println("BYTES+"+Arrays.toString(bytes)+" CHANNEL="+channel+" BYTE="+b);
 		if (b == -1) {					
-			channel = nextChannel(bytes, channel);
-			b = bytes[channel];
+			channel = nextChannel(byteRange, channel);
+			b = byteRange[channel];
 			System.out.println("NEW_CHANNEL="+channel+" BYTE="+b);
 		}
 		array[0] = b;
 		if (this.mode == AltMode.NORMAL) {
 			this.channel = channel + 1;
-			if (this.channel == bytes.length) {
+			if (this.channel == byteRange.length) {
 				this.channel = 0;
 			}		
 		}
 		result.setResult(Arrays.stream(array));
 	}
 	
-	private int nextChannel(final byte[] bytes, final int channel) {
-		int c = channel+1;
-		while (c != channel) {
-			if (c < bytes.length) {
-				final byte b = bytes[c];
+	private int nextChannel(final byte[] byteRange, final int curChannel) {
+		int channel = curChannel+1;
+		while (channel != curChannel) {
+			if (channel < byteRange.length) {
+				final byte b = byteRange[channel];
 				if (b != -1) {
 					break;
 				}
-				c++;
+				channel++;
 			} else {
-				c = 0;
+				channel = 0;
 			}
 		}
-		return c;
+		return channel;
 	}
 
 }
