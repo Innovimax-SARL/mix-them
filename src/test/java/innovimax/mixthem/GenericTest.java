@@ -111,17 +111,19 @@ public class GenericTest {
 	   return checkFileEquals(result, baos_rule.toByteArray());
    }
 
-	private static boolean checkFileEquals(final File fileExpected, final byte[] result) throws FileNotFoundException, IOException {
+   private static boolean checkFileEquals(final File fileExpected, final byte[] result) throws FileNotFoundException, IOException {
 	   FileInputStream fisExpected = new FileInputStream(fileExpected);
 	   int c;
 	   int offset = 0;
 	   while ((c = fisExpected.read()) != -1) {
-		   if (offset >= result.length) return false;
+		   if (offset >= result.length) break;
 		   int d = result[offset++];
 		   if (c != d) return false;
 	   }
 	   if (offset < result.length) return false;
+	   if (offset > result.length) return false;
+	   if (c != 10) return false;
 	   return true;
-	}
+   }
 
 }
