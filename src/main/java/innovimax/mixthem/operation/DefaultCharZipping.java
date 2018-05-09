@@ -49,15 +49,15 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	public void process(final int[] charRange, final CharResult result) throws MixException {
 		result.reset();
 		int len = 0;
-		for (int i=0; i < charRange.length(); i++) {			
+		for (int i=0; i < charRange.length; i++) {			
 			if (charRange[i] != -1) {
 				len++;
 			}
 		}
-		len += (charRange.length() - 1) * sep.length;
+		len += (charRange.length - 1) * sep.length();
 		final int[] array = new int[len];
 		int index = 0;
-		for (int i=0; i < charRange.length(); i++) {			
+		for (int i=0; i < charRange.length; i++) {			
 			if (charRange[i] != -1) {
 				array[index++] = charRange[i];
 			} else {
