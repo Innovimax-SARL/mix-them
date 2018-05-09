@@ -46,7 +46,7 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	
 	@Override
 	public void close() throws IOException {
-		finla Iterator<IByteInput> iterator = this.readers.iterator();
+		final Iterator<IByteInput> iterator = this.readers.iterator();
 		while (iterator.hasNext()) {
 			final IByteInput reader = iterator.next();
 			reader.close();
