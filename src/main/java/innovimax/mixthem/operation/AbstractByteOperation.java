@@ -38,8 +38,8 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 	    final IByteOutput writer = new DefaultByteWriter(output);
 	    final ByteResult result = new ByteResult();
 	    while (reader.hasByte()) {
-		    final byte[] bytes = reader.nextBytes();		    
-		    process(bytes, result);
+		    final byte[] byteRange = reader.nextByteRange();		    
+		    process(byteRange, result);
 		    if (result.hasResult()) {
 			    result.getResult().forEach(i -> {
 				    try {
