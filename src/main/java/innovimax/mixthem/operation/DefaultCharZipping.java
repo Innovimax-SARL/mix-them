@@ -48,26 +48,26 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	@Override
 	public void process(final int[] charRange, final CharResult result) throws MixException {
 		result.reset();
-		int len = 0;
+		boolean zipable = true;
 		for (int i=0; i < charRange.length; i++) {			
-			if (charRange[i] != -1) {
-				len++;
+			if (charRange[i] == -1) {
+				zipable = false;
 			}
 		}
-		len += (charRange.length - 1) * sep.length();
-		final int[] array = new int[len];
-		int index = 0;
-		for (int i=0; i < charRange.length; i++) {			
-			if (charRange[i] != -1) {
-				array[index++] = charRange[i];
-			} 
-			if (index < array.length) {
-        			for (int j = 0; j < sep.length(); j++) {
-					array[index++] = (int) sep.charAt(j);
-				}				
+		if (zipable) {			
+			final int len = charRange.length + (charRange.length - 1) * sep.length();
+			final int[] array = new int[len];
+			int index = 0;
+			for (int i=0; i < charRange.length; i++) {
+				array[index++] = charRange[i];				
+				if (index < array.length) {
+        				for (int j = 0; j < sep.length(); j++) {
+						array[index++] = (int) sep.charAt(j);
+					}				
+				}
 			}
+			result.setResult(Arrays.stream(array));
 		}
-		result.setResult(Arrays.stream(array));
 	}
 	
 }
