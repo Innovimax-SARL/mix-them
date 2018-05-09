@@ -16,7 +16,6 @@ import java.util.Map;
 public class DefaultCharZipping extends AbstractCharOperation {
 	
 	private final String sep;
-	private int channel;
 
 	/**
 	* Constructor
@@ -27,7 +26,6 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	public DefaultCharZipping(Map<RuleParam, ParamValue> params) {
 		super(params);		
 		this.sep = params.getOrDefault(RuleParam.ZIP_SEP, ZipOperation.DEFAULT_ZIP_SEPARATOR.getValue()).asString();
-		this.channel = 0;
 	}
 	
 	@Override
