@@ -15,11 +15,11 @@ public interface IMultiChannelByteInput {
 	*/
 	boolean hasByte() throws IOException;
 	/**
- 	* Reads a byte from each channel.
+ 	* Reads byte range (one by channel, -1 if no more byte in channel)
  	* @return The array of bytes (one byte per channel or -1 if no more bytes in the channel)
  	* @throws IOException - If an I/O error occurs
  	*/
-	byte[] nextBytes() throws IOException;
+	byte[] nextByteRange() throws IOException;
 	/**
 	* Closes this input channels and releases any system resources associated with them.
 	* @throws IOException - If an I/O error occurs
