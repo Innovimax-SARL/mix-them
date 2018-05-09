@@ -18,6 +18,7 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	
 	private final AltMode mode;
 	private boolean odd;
+	private int channel;
 	private final Random random;
 	
 	/**
@@ -31,6 +32,7 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 		super(params);
 		this.mode = mode;
 		this.odd = true;
+		this.channel = 0;
 		this.random = new Random(params.getOrDefault(RuleParam.RANDOM_SEED, AltOperation.DEFAULT_RANDOM_SEED.getValue()).asInt());
 	}
 	
