@@ -32,7 +32,7 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 	}
 	
 	@Override
-	public int[] nextCharacters() throws IOException {
+	public int[] nextCharacterRange() throws IOException {
 		final int[] chars = new int[this.readers.size()];
 		int channel = 0;
 		final Iterator<ICharInput> iterator = this.readers.iterator();
