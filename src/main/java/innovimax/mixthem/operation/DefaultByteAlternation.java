@@ -40,7 +40,7 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 		final int[] array = new int[1];
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(byteRange.length);
 		byte b = byteRange[channel];
-		System.out.println("BYTES+"+Arrays.toString(bytes)+" CHANNEL="+channel+" BYTE="+b);
+		System.out.println("BYTES+"+Arrays.toString(byteRange)+" CHANNEL="+channel+" BYTE="+b);
 		if (b == -1) {					
 			channel = nextChannel(byteRange, channel);
 			b = byteRange[channel];
