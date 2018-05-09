@@ -16,6 +16,7 @@ import java.util.Map;
 public class DefaultCharZipping extends AbstractCharOperation {
 	
 	private final String sep;
+	private int channel;
 
 	/**
 	* Constructor
@@ -26,6 +27,7 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	public DefaultCharZipping(Map<RuleParam, ParamValue> params) {
 		super(params);		
 		this.sep = params.getOrDefault(RuleParam.ZIP_SEP, ZipOperation.DEFAULT_ZIP_SEPARATOR.getValue()).asString();
+		this.channel = 0;
 	}
 	
 	@Override
@@ -47,7 +49,26 @@ public class DefaultCharZipping extends AbstractCharOperation {
 
 	@Override
 	public void process(final int[] charRange, final CharResult result) throws MixException {
-		//TODO
+		result.reset();
+		int len = 0;
+		for (int i=0; i < charRange.length(); i++) {			
+			if (charRange[i] != -1) {
+				len++;
+			}
+		}
+		len += (charRange.length() - 1) * sep.length;
+		final int[] array = new int[len];
+		int index = 0;
+		for (int i=0; i < charRange.length(); i++) {			
+			if (charRange[i] != -1) {
+				array[index++] = charRange[i];
+			} esle {
+        			for (int j = 0; j < sep.length(); j++) {
+					array[index++] = (int) sep.charAt(j);
+				}				
+			}
+		}
+		result.setResult(Arrays.stream(array));
 	}
 	
 }
