@@ -116,15 +116,14 @@ public class GenericTest {
 	   int c;
 	   int offset = 0;
 	   while ((c = fisExpected.read()) != -1) {
-		   if (offset >= result.length) break;
+		   if (offset >= result.length) return false;
 		   int d = result[offset++];
 		   if (c != d) return false;
 	   }
 	   if (offset < result.length) {
-		   System.out.println("RESULT LONGER");
+		   System.out.println("RESULT LONGER "+result.length+"/"+offset+" LAST="+result[offset]);
 		   return false;
 	   }
-	   System.out.println("RESULT SMALLER/EQUALS - CHAR="+c);
 	   return true;
    }
 
