@@ -15,11 +15,11 @@ public interface IMultiChannelCharInput {
 	*/
 	boolean hasCharacter() throws IOException;
 	/**
- 	* Reads a character as an int from each channel.
+ 	* Reads character range (one by channel, -1 if no more character in channel)
  	* @return The array of characters as int (one character per channel or -1 if no more characters in the channel)
  	* @throws IOException - If an I/O error occurs
  	*/
-	int[] nextCharacters() throws IOException;
+	int[] nextCharacterRange() throws IOException;
 	/**
 	* Closes this input channels and releases any system resources associated with them.
 	* @throws IOException - If an I/O error occurs
