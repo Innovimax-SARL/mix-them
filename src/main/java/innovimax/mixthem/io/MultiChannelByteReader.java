@@ -32,7 +32,7 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	}
 	
 	@Override
-	public byte[] nextBytes() throws IOException {
+	public byte[] nextByteRange() throws IOException {
 		final byte[] bytes = new byte[this.readers.size()];
 		int channel = 0;
 		final Iterator<IByteInput> iterator = this.readers.iterator();
