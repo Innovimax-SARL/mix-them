@@ -122,7 +122,6 @@ public class GenericTest {
 	   }
 	   if (offset < result.length) return false;
 	   if (offset > result.length) return false;
-	   if (c != 10) return false;
 	   return true;
    }
 
