@@ -45,4 +45,9 @@ public class DefaultCharZipping extends AbstractCharOperation {
 		result.setResult(Arrays.stream(array));
 	}
 
+	@Override
+	public void process(final int[] charRange, final CharResult result) throws MixException {
+		//TODO
+	}
+	
 }
