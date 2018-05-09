@@ -22,5 +22,5 @@ interface ICharOperation extends IOperation {
  	* @throws MixException - If an mixing error occurs
 	* @see innovimax.mixthem.operation.CharResult	
 	*/	
-	void process(int[] characterRange, CharResult result) throws MixException;
+	void process(int[] charRange, CharResult result) throws MixException;
 }
