@@ -58,7 +58,40 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	
 	@Override
 	public void process(final int[] charRange, final CharResult result) throws MixException {
-		//TODO
+		result.reset();
+		final int[] array = new int[1];
+		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(charRange.length);
+		int c = charRange[channel];
+		System.out.println("RANGE=+"+Arrays.toString(charRange)+" CHANNEL="+channel+" CHAR="+c);
+		if (c == -1) {					
+			channel = nextChannel(charRange, channel);
+			c = charRange[channel];
+			System.out.println("NEW_CHANNEL="+channel+" CHAR="+c);
+		}
+		array[0] = c;
+		if (this.mode == AltMode.NORMAL) {
+			this.channel = channel + 1;
+			if (this.channel == charRange.length) {
+				this.channel = 0;
+			}		
+		}
+		result.setResult(Arrays.stream(array));
+	}
+	
+	private int nextChannel(final int[] charRange, final int curChannel) {
+		int channel = curChannel+1;
+		while (channel != curChannel) {
+			if (channel < charRange.length) {
+				final int c = charRange[channel];
+				if (c != -1) {
+					break;
+				}
+				channel++;
+			} else {
+				channel = 0;
+			}
+		}
+		return channel;
 	}
 
 }
