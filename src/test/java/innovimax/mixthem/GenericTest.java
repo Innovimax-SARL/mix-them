@@ -120,7 +120,7 @@ public class GenericTest {
 		   int d = result[offset++];
 		   if (c != d) return false;
 	   }
-	   if (offset > result.length) return false;
+	   if (offset < result.length) return false;
 	   return true;
 	}
 
