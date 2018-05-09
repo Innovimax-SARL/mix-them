@@ -44,4 +44,13 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 		return chars;
 	}
 
+	@Override
+	public void close() throws IOException {
+		final Iterator<ICharInput> iterator = this.readers.iterator();
+		while (iterator.hasNext()) {
+			final ICharInput reader = iterator.next();
+			reader.close();
+		}		
+	}
+	
 }
