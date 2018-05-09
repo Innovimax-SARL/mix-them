@@ -7,9 +7,9 @@ import innovimax.mixthem.io.DefaultCharReader;
 import innovimax.mixthem.io.DefaultCharWriter;
 import innovimax.mixthem.io.ICharInput;
 import innovimax.mixthem.io.ICharOutput;
-//import innovimax.mixthem.io.IMultiChannelCharInput;
+import innovimax.mixthem.io.IMultiChannelCharInput;
 import innovimax.mixthem.io.InputResource;
-//import innovimax.mixthem.io.MultiChannelCharReader;
+import innovimax.mixthem.io.MultiChannelCharReader;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -35,8 +35,8 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 	}
 
 	@Override
-    	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {		
-		final ICharInput reader1 = new DefaultCharReader(inputs.get(0));
+    	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {				
+		/*final ICharInput reader1 = new DefaultCharReader(inputs.get(0));
 		final ICharInput reader2 = new DefaultCharReader(inputs.get(1));
 		final ICharOutput writer = new DefaultCharWriter(output);
 		final CharResult result = new CharResult();
@@ -56,13 +56,13 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
         	}
         	reader1.close();
         	reader2.close();
-        	writer.close();
-		/*final IMultiChannelCharInput reader = new MultiChannelCharReader(inputs);
+        	writer.close();*/
+		final IMultiChannelCharInput reader = new MultiChannelCharReader(inputs);
 		final ICharOutput writer = new DefaultCharWriter(output);
 		final CharResult result = new CharResult();
 		while (reader.hasCharacter()) {
-			final int[] chars = reader.nextCharacterRange();
-			process(chars, result);
+			final int[] charRange = reader.nextCharacterRange();
+			process(charRange, result);
 			if (result.hasResult()) {
 				result.getResult().forEach(i -> {
 					try {
@@ -74,7 +74,7 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 			}
 		}
 		reader.close();
-		writer.close();*/
+		writer.close();
     	}
 
 }
