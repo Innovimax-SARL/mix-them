@@ -64,11 +64,11 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 		final int[] array = new int[1];
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(charRange.length);
 		int c = charRange[channel];
-		System.out.println("RANGE=+"+Arrays.toString(charRange)+" CHANNEL="+channel+" CHAR="+c);
+		//System.out.println("RANGE="+Arrays.toString(charRange)+" CHANNEL="+channel+" CHAR="+c);
 		if (c == -1) {					
 			channel = nextChannel(charRange, channel);
 			c = charRange[channel];
-			System.out.println("NEW_CHANNEL="+channel+" CHAR="+c);
+			//System.out.println("NEW_CHANNEL="+channel+" CHAR="+c);
 		}
 		array[0] = c;
 		if (this.mode == AltMode.NORMAL) {
