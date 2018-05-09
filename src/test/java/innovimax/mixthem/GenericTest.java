@@ -120,8 +120,11 @@ public class GenericTest {
 		   int d = result[offset++];
 		   if (c != d) return false;
 	   }
-	   if (offset < result.length) return false;
-	   if (offset > result.length) return false;
+	   if (offset < result.length) {
+		   System.out.println("RESULT LONGER");
+		   return false;
+	   }
+	   System.out.println("RESULT SMALLER/EQUALS - CHAR="+c);
 	   return true;
    }
 
