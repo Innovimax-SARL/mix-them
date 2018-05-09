@@ -21,9 +21,9 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	
 	@Override
 	public boolean hasByte() throws IOException {
-		Iterator<IByteInput> iterator = this.readers.iterator();
+		final Iterator<IByteInput> iterator = this.readers.iterator();
 		while (iterator.hasNext()) {
-			IByteInput reader = iterator.next();
+			final IByteInput reader = iterator.next();
 			if (reader.hasByte()) {
 				return true;
 			}
@@ -33,12 +33,12 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	
 	@Override
 	public byte[] nextBytes() throws IOException {
-		byte[] bytes = new byte[this.readers.size()];
+		final byte[] bytes = new byte[this.readers.size()];
 		int channel = 0;
-		Iterator<IByteInput> iterator = this.readers.iterator();
+		final Iterator<IByteInput> iterator = this.readers.iterator();
 		while (iterator.hasNext()) {
-			IByteInput reader = iterator.next();
-			byte b = reader.nextByte();
+			final IByteInput reader = iterator.next();
+			final byte b = reader.nextByte();
 			bytes[channel++] = b;
 		}
 		return bytes;
@@ -46,9 +46,9 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	
 	@Override
 	public void close() throws IOException {
-		Iterator<IByteInput> iterator = this.readers.iterator();
+		finla Iterator<IByteInput> iterator = this.readers.iterator();
 		while (iterator.hasNext()) {
-			IByteInput reader = iterator.next();
+			final IByteInput reader = iterator.next();
 			reader.close();
 		}		
 	}
