@@ -47,7 +47,7 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 	public void close() throws IOException {
 		final Iterator<LineInput> iterator = this.readers.iterator();
 		while (iterator.hasNext()) {
-			final ILineInput reader = iterator.next()
+			final ILineInput reader = iterator.next();
 			reader.close();
 		}		
 	}
