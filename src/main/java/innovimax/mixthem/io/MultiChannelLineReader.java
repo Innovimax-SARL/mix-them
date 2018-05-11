@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MultiChannelLineReader implements IMultiChannelLineInput {
 	
-	private final List<ILineInput> reader = new ArrayList<ILineInput>();
+	private final List<ILineInput> readers = new ArrayList<ILineInput>();
 	
 	public MultiChannelLineReader(final List<InputResource> inputs) {
 		inputs.stream().forEach(input -> {
