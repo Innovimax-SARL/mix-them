@@ -17,6 +17,7 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 
 	private final AltMode mode;
 	private boolean odd;
+	private int channel;
 	private final Random random;
 
 	/**
@@ -29,6 +30,7 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 		super(params);
 		this.mode = mode;
 		this.odd = true;
+		this.channel = 0;
 		this.random = new Random(params.getOrDefault(RuleParam.RANDOM_SEED, AltOperation.DEFAULT_RANDOM_SEED.getValue()).asInt());
 	}	
 
@@ -56,8 +58,39 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	
 	@Override
 	public void process(final String[] lineRange, final LineResult result) throws MixException {
-		//TODO
-		process(lineRange[0], lineRange[1], result);
+		result.reset();
+		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(lineRange.length);
+		String line = lineRange[channel];
+		System.out.println("RANGE="+Arrays.toString(lineRange));
+		System.out.println("CHANNEL="+channel+" LINE="+line);
+		if (line == null) {
+			channel = nextChannel(lineRange, channel);
+			line = lineRange[channel];
+			System.out.println("NEW_CHANNEL="+channel+" LINE="+line);
+		}		
+		if (this.mode == AltMode.NORMAL) {
+			this.channel = channel + 1;
+			if (this.channel == lineRange.length) {
+				this.channel = 0;
+			}		
+		}
+		result.setResult(line);
 	}
 
+	private int nextChannel(final String[] lineRange, final int curChannel) {
+		int channel = curChannel+1;
+		while (channel != curChannel) {
+			if (channel < lineRange.length) {
+				final String line = lineRange[channel];
+				if (line != null) {
+					break;
+				}
+				channel++;
+			} else {
+				channel = 0;
+			}
+		}
+		return channel;
+	}
+	
 }
