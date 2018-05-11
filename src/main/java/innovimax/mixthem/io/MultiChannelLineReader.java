@@ -33,7 +33,7 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 	
 	@Override
 	public String[] nextLineRange() throws IOException {
-		final string[] lines = new String[this.readers.size()];
+		final String[] lines = new String[this.readers.size()];
 		int channel = 0;
 		final Iterator<ILineInput> iterator = this.readers.iterator();
 		while (iterator.hasNext()) {
