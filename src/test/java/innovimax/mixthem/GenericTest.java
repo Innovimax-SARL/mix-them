@@ -130,9 +130,9 @@ public class GenericTest {
 	   if (offset < result.length) {
 		   System.out.println("RESULT LONGER "+result.length+"/"+offset);
 		   return false;
-	   } else if (offset > result.length) {
+	   } else if (offset-1 > result.length) {
 		   System.out.println("RESULT SMALLER "+result.length+"/"+offset);
-	   } else if (offset == result.length) {
+	   } else if (offset-1 == result.length) {
 		   System.out.println("RESULT SMALLER "+result.length+"/"+offset+" LAST="+last);
 	   }
 	   return true;
