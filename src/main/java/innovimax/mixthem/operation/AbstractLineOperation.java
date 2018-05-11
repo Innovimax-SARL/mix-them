@@ -3,11 +3,13 @@ package innovimax.mixthem.operation;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
-import innovimax.mixthem.io.DefaultLineReader;
+//import innovimax.mixthem.io.DefaultLineReader;
 import innovimax.mixthem.io.DefaultLineWriter;
-import innovimax.mixthem.io.ILineInput;
+//import innovimax.mixthem.io.ILineInput;
 import innovimax.mixthem.io.ILineOutput;
+import innovimax.mixthem.io.IMultiChannelLineInput;
 import innovimax.mixthem.io.InputResource;
+import innovimax.mixthem.io.MultiChannelLineReader;
 
 import java.io.IOException;
 import java.io.OutputStream;
