@@ -117,23 +117,23 @@ public class GenericTest {
 	   int last = -1;
 	   int offset = 0;
 	   while ((c = fisExpected.read()) != -1) {
-		   System.out.println("EXPECTED CHAR="+c+ "OFFSET="+offset+" LEN="+result.length);
 		   last = c;
 		   if (offset >= result.length) {
 			   offset++;
 			   continue;		   
 		   }
-		   int d = result[offset++];
-		   System.out.println("RESULT CHAR="+d);
+		   int d = result[offset++];		   
 		   if (c != d) return false;
 	   }
 	   if (offset < result.length) {
-		   System.out.println("RESULT LONGER "+result.length+"/"+offset);
+		   // result is longer than expected
 		   return false;
 	   } else if (offset-1 > result.length) {
-		   System.out.println("RESULT SMALLER "+result.length+"/"+offset);
-	   } else if (offset-1 == result.length) {
-		   System.out.println("RESULT SMALLER "+result.length+"/"+offset+" LAST="+last);
+		   // result is smaller than expected
+		   return false;
+	   } else if (offset-1 == result.length && last != 10) {
+		   // result is one char smaller than expected and last char expected isn't CR
+		   return false;
 	   }
 	   return true;
    }
