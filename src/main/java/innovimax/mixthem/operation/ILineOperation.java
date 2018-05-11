@@ -13,4 +13,13 @@ interface ILineOperation extends IOperation {
 	* @see innovimax.mixthem.operation.LineResult
  	*/
 	void process(String line1, String line2, LineResult result) throws MixException;
+	/**
+ 	* Processes operation and set new result in the LineResult parameter.
+	* @param lineRange The range of lines to mix	
+	* @param result The previous operation result
+ 	* @return The result of the operation (maybe null)
+ 	* @throws MixException - If an mixing error occurs
+	* @see innovimax.mixthem.operation.LineResult	
+	*/	
+	void process(String[] lineRange, LineResult result) throws MixException;
 }
