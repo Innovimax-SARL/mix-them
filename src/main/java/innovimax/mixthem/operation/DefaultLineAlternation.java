@@ -4,6 +4,7 @@ import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -57,11 +58,11 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	}
 	
 	@Override
-	public void process(final String[] lineRange, final LineResult result) throws MixException {
+	public void process(final List<String> lineRange, final LineResult result) throws MixException {
 		result.reset();
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(lineRange.length);
 		String line = lineRange[channel];
-		System.out.println("RANGE="+Arrays.toString(lineRange));
+		System.out.println("RANGE="+lineRange.toString());
 		System.out.println("CHANNEL="+channel+" LINE="+line);
 		if (line == null) {
 			channel = nextChannel(lineRange, channel);
