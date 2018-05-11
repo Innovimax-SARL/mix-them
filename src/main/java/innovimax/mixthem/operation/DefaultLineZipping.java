@@ -80,7 +80,8 @@ public class DefaultLineZipping extends AbstractLineOperation {
 							zip.append(this.sep);
 						}
 						zip.append(line);						
-					}					
+					}
+					result.setResult(zip.toString());
 					break;
 				case CELL:
 					//TODO					
