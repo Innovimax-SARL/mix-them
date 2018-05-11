@@ -2,6 +2,7 @@ package innovimax.mixthem.io;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class MultiChannelLineReader implements IMultiChannelLineInput {
@@ -40,7 +41,7 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 			final String line = reader.nextLine();
 			lines[channel++] = line;
 		}
-		return chars;
+		return lines;
 	}
 
 	@Override
