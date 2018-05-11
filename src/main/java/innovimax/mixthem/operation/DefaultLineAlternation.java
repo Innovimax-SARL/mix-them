@@ -53,5 +53,10 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 			result.setResult(line);
 		}
 	}
+	
+	@Override
+	public void process(String[] lineRange, LineResult result) throws MixException {
+		//TODO
+	}
 
 }
