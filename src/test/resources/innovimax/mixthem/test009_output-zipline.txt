@@ -1,3 +1,2 @@
 apple orangered blue gold
 bananagreen purple
-cherry lemon peach
