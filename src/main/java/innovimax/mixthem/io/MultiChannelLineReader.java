@@ -32,14 +32,13 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 	}
 	
 	@Override
-	public String[] nextLineRange() throws IOException {
-		final String[] lines = new String[this.readers.size()];
-		int channel = 0;
+	public List<String> nextLineRange() throws IOException {
+		final List<String> lines = new ArrayList<String>();		
 		final Iterator<ILineInput> iterator = this.readers.iterator();
 		while (iterator.hasNext()) {
 			final ILineInput reader = iterator.next();
 			final String line = reader.nextLine();
-			lines[channel++] = line;
+			lines.add(line);
 		}
 		return lines;
 	}
