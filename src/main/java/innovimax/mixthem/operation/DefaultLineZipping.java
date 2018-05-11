@@ -56,5 +56,10 @@ public class DefaultLineZipping extends AbstractLineOperation {
 				result.setResult(buf.toString());
 		}
 	}
+	
+	@Override
+	public void process(String[] lineRange, LineResult result) throws MixException {
+		//TODO
+	}
 
 }
