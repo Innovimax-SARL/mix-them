@@ -113,7 +113,8 @@ public class GenericTest {
 
    private static boolean checkFileEquals(final File fileExpected, final byte[] result) throws FileNotFoundException, IOException {
 	   FileInputStream fisExpected = new FileInputStream(fileExpected);
-	   int c, last;
+	   int c;
+	   int last = -1;
 	   int offset = 0;
 	   while ((c = fisExpected.read()) != -1) {
 		   System.out.println("EXPECTED CHAR="+c+ "OFFSET="+offset+" LEN="+result.length);
