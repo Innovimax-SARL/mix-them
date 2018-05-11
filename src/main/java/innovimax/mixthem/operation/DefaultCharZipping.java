@@ -48,7 +48,8 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	@Override
 	public void process(final int[] charRange, final CharResult result) throws MixException {
 		result.reset();
-		boolean zipable = true;
+		System.out.println("RANGE="+Arrays.toString(charRange));
+		boolean zipable = true;		
 		for (int i=0; i < charRange.length; i++) {			
 			if (charRange[i] == -1) {
 				zipable = false;
