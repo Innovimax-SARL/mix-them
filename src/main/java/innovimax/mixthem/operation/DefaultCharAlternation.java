@@ -37,28 +37,6 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	}
 	
 	@Override
-	public void process(final int c1, final int c2, final CharResult result) throws MixException {
-		result.reset();
-		final int[] array = new int[1];
-		if (c1 == -1) {
-			array[0] = c2;
-		} else if (c2 == -1) {
-			array[0] = c1;
-		} else {
-			switch (this.mode) {
-				case RANDOM:					
-					array[0] = this.random.nextBoolean() ? c1 : c2;
-					break;
-				case NORMAL:
-				default:
-					array[0] = this.odd ? c1 : c2;
-					this.odd = !this.odd;
-			}
-		}
-		result.setResult(Arrays.stream(array));
-	}
-	
-	@Override
 	public void process(final int[] charRange, final CharResult result) throws MixException {
 		result.reset();
 		final int[] array = new int[1];
