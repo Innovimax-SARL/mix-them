@@ -34,7 +34,7 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 
 	@Override
 	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
-		final ILineInput reader1 = new DefaultLineReader(inputs.get(0));
+		/*final ILineInput reader1 = new DefaultLineReader(inputs.get(0));
 		final ILineInput reader2 = new DefaultLineReader(inputs.get(1));
 		final ILineOutput writer = new DefaultLineWriter(output);
 		final LineResult result = new LineResult();
@@ -48,7 +48,19 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
         	}
         	reader1.close();
         	reader2.close();
-        	writer.close();				
+        	writer.close();	*/
+		final IMultiChannelLineInput reader = new MultiChannelLineReader(inputs);
+		final ILineOutput writer = new DefaultLineWriter(output);
+		final LineResult result = new LineResult();
+		while (reader.hasLine()) {
+			final List<String> lineRange = reader.nextLineRange();
+			process(lineRange, result);
+			if (result.hasResult()) {
+				writer.writeLine(result.getResult());
+			}
+		}
+		reader.close();
+		writer.close();
     	}
 
 }
