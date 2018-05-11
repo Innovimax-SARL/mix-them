@@ -2,6 +2,8 @@ package innovimax.mixthem.operation;
 
 import innovimax.mixthem.MixException;
 
+import java.util.List;
+
 interface ILineOperation extends IOperation {
 	/**
  	* Processes operation and set new result in the LineResult parameter.
