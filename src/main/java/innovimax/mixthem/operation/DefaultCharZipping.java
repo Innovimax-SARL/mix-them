@@ -36,6 +36,7 @@ public class DefaultCharZipping extends AbstractCharOperation {
 		for (int i=0; i < charRange.length; i++) {			
 			if (charRange[i] == -1) {
 				zipable = false;
+				break;
 			}
 		}
 		if (zipable) {			
