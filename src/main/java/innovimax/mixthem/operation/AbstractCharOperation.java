@@ -3,9 +3,7 @@ package innovimax.mixthem.operation;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
-//import innovimax.mixthem.io.DefaultCharReader;
 import innovimax.mixthem.io.DefaultCharWriter;
-//import innovimax.mixthem.io.ICharInput;
 import innovimax.mixthem.io.ICharOutput;
 import innovimax.mixthem.io.IMultiChannelCharInput;
 import innovimax.mixthem.io.InputResource;
@@ -36,27 +34,6 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 
 	@Override
     	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {				
-		/*final ICharInput reader1 = new DefaultCharReader(inputs.get(0));
-		final ICharInput reader2 = new DefaultCharReader(inputs.get(1));
-		final ICharOutput writer = new DefaultCharWriter(output);
-		final CharResult result = new CharResult();
-        	while (reader1.hasCharacter() || reader2.hasCharacter()) {
-			final int c1 = reader1.nextCharacter();
-			final int c2 = reader2.nextCharacter();			
-			process(c1, c2, result);
-			if (result.hasResult()) {
-				result.getResult().forEach(i -> {
-					try {
-						writer.writeCharacter((char) i);
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
-				});
-			}
-        	}
-        	reader1.close();
-        	reader2.close();
-        	writer.close();*/
 		final IMultiChannelCharInput reader = new MultiChannelCharReader(inputs);
 		final ICharOutput writer = new DefaultCharWriter(output);
 		final CharResult result = new CharResult();
