@@ -66,7 +66,7 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 		System.out.println("CHANNEL="+channel+" LINE="+line);
 		if (line == null) {
 			channel = nextChannel(lineRange, channel);
-			line = lineRange.get(hannel);
+			line = lineRange.get(channel);
 			System.out.println("NEW_CHANNEL="+channel+" LINE="+line);
 		}		
 		if (this.mode == AltMode.NORMAL) {
@@ -81,7 +81,7 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	private int nextChannel(final List<String> lineRange, final int curChannel) {
 		int channel = curChannel+1;
 		while (channel != curChannel) {
-			if (channel < lineRange.length) {
+			if (channel < lineRange.size()) {
 				final String line = lineRange.get(channel);
 				if (line != null) {
 					break;
