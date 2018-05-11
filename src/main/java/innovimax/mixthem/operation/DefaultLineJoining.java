@@ -89,9 +89,9 @@ public class DefaultLineJoining extends AbstractLineOperation {
   }
   
   @Override
-  public void process(final String[] lineRange, final LineResult result) throws MixException {
+  public void process(final List<String> lineRange, final LineResult result) throws MixException {
     //TODO
-    process(lineRange[0], lineRange[1], result);
+    process(lineRange.get(0), lineRange.get(1), result);
   }
 	
   private void joinLines(final List<String> list1, final List<String> list2, final LineResult result) {
