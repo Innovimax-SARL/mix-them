@@ -79,7 +79,8 @@ public class DefaultLineZipping extends AbstractLineOperation {
 						if (index > 0) {
 							zip.append(this.sep);
 						}
-						zip.append(line);						
+						zip.append(line);
+						index++;
 					}
 					result.setResult(zip.toString());
 					break;
