@@ -1,6 +1,7 @@
 package innovimax.mixthem.io;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
 * This interface provides for reading lines from a multi-channel line-input.
@@ -19,7 +20,7 @@ public interface IMultiChannelLineInput {
  	* @return The array of lines (one line per channel or null if no more lines in the channel)
  	* @throws IOException - If an I/O error occurs
  	*/
-	String[] nextLineRange() throws IOException;
+	List<String> nextLineRange() throws IOException;
 	/**
 	* Closes this input channels and releases any system resources associated with them.
 	* @throws IOException - If an I/O error occurs
