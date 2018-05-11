@@ -60,29 +60,29 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
 		result.reset();
-		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(lineRange.length);
-		String line = lineRange[channel];
+		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(lineRange.size());
+		String line = lineRange.get(channel);
 		System.out.println("RANGE="+lineRange.toString());
 		System.out.println("CHANNEL="+channel+" LINE="+line);
 		if (line == null) {
 			channel = nextChannel(lineRange, channel);
-			line = lineRange[channel];
+			line = lineRange.get(hannel);
 			System.out.println("NEW_CHANNEL="+channel+" LINE="+line);
 		}		
 		if (this.mode == AltMode.NORMAL) {
 			this.channel = channel + 1;
-			if (this.channel == lineRange.length) {
+			if (this.channel == lineRange.size()) {
 				this.channel = 0;
 			}		
 		}
 		result.setResult(line);
 	}
 
-	private int nextChannel(final String[] lineRange, final int curChannel) {
+	private int nextChannel(final List<String> lineRange, final int curChannel) {
 		int channel = curChannel+1;
 		while (channel != curChannel) {
 			if (channel < lineRange.length) {
-				final String line = lineRange[channel];
+				final String line = lineRange.get(channel);
 				if (line != null) {
 					break;
 				}
