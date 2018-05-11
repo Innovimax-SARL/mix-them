@@ -7,6 +7,7 @@ import innovimax.mixthem.arguments.ParamValue;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,9 +59,9 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	}
 	
 	@Override
-	public void process(final String[] lineRange, final LineResult result) throws MixException {
+	public void process(final List<String> lineRange, final LineResult result) throws MixException {
 		//TODO
-		process(lineRange[0], lineRange[1], result);
+		process(lineRange.get(0), lineRange.get(1), result);
 	}
 
 }
