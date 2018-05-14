@@ -54,7 +54,7 @@ public class DefaultLineZipping extends AbstractLineOperation {
 		}
 	}
 	
-	private boolean zipable(final List<String> lineRange) {		
+	protected boolean zipable(final List<String> lineRange) {		
 		for (int i=0; i < lineRange.size(); i++) {			
 			if (lineRange.get(i) == null) {
 				return false;				
