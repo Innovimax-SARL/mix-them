@@ -82,8 +82,8 @@ public class LineResult {
     * Set a line at specified position in current range.
     */
     void setRangeLine(final int index, final String line) {
-        if (this.keptLines.get(index) != null) {            
-            preserveRangeLine(index);
+        if (this.keptLineRange.get(index) != null) {            
+            setRangeLineReading(index, false);
             this.keptLineRange.set(index, null);
         } else {
             this.readLineRange.set(index, line);
