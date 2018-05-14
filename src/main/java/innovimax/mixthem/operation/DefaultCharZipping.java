@@ -8,7 +8,8 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
-* <p>Zips two characters.</p>
+* <p>Zips two or more characters.</p>
+* <p>Zipping stops when a character is missing.</p>
 * @see CharOperation
 * @author Innovimax
 * @version 1.0
