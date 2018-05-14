@@ -10,6 +10,7 @@ import java.util.Random;
 
 /**
 * <p>Alternate two or more bytes.</p>
+* <p>When a byte is missing then next available byte is selected.</p>
 * @see IByteOperation
 * @author Innovimax
 * @version 1.0
