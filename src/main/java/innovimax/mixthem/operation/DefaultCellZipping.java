@@ -50,13 +50,18 @@ public class DefaultCellZipping extends DefaultLineZipping {
 		//process(lineRange.get(0), lineRange.get(1), result);
 		result.reset();
 		System.out.println("RANGE="+lineRange.toString());
-		//if (cellZipable(lineRange)) {
+		if (zipable(lineRange)) {
 			//TODO
-		//}
+		}
 	}
 
-	/*private boolean cellZipable(final List<String> lineRange) {
+	@Override
+	protected boolean zipable(final List<String> lineRange) {
+		if (super.zipable(lineRange)) {
+			//TODO
+			return false;
+		}
 		return false;
-	}*/
+	}
 
 }
