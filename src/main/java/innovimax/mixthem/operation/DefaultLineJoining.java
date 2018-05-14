@@ -94,6 +94,11 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {		
 		//process(lineRange.get(0), lineRange.get(1), result);
 		System.out.println("RANGE="+lineRange.toString());
+		final List<Boolean> preservedLines = new ArrayList<Boolean>();        
+		for (int i=0; i < lineRange.size(); i++) {			
+			preservedLines.add(Boolean.valueOf(!result.readingRangeLine(i)));
+		}                 
+		result.reset();
 		if (joinable(lineRange)) {	
 			final List<List<String>> lineCellRange = new ArrayList<List<String>>();
 			for (String line : lineRange) {
