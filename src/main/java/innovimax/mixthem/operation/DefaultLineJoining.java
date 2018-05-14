@@ -83,7 +83,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 							result.setRangeLineReading(1, false);
 					}
 					result.setRangeLine(0, line1);
-					esult.setRangeLine(1, line2);
+					result.setRangeLine(1, line2);
 				}
 			}
 		}
