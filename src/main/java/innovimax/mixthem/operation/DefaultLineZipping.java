@@ -15,7 +15,7 @@ import java.util.Map;
 */
 public class DefaultLineZipping extends AbstractLineOperation {
 	
-	private final String sep;
+	protected final String sep;
 	
 	/**
 	* Constructor
