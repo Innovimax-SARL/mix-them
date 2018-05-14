@@ -61,7 +61,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 					joinLines(prevList1, list2, result);
 					result.setRangeLineReading(0, false);
 					result.keepRangeLine(0, line1);
-					result.setRangeLine(1, line2)
+					result.setRangeLine(1, line2);
 				} else if (cell1.equals(prevCell1) && !firstPreserved) {
 					//System.out.println("PREVIOUS 1");
 					joinLines(list1, prevList2, result);
