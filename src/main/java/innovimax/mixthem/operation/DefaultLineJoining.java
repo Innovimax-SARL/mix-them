@@ -19,88 +19,88 @@ import java.util.stream.Collectors;
 */
 public class DefaultLineJoining extends AbstractLineOperation {
   
-  private final int col1;
-  private final int col2;
-  
-  /**
-  * @param params The list of parameters (maybe empty)
-  * @see innovimax.mixthem.operation.RuleParam
-  * @see innovimax.mixthem.operation.ParamValue
-  */
-  public DefaultLineJoining(final Map<RuleParam, ParamValue> params) {
-    super(params);
-    this.col1 = this.params.getOrDefault(RuleParam.JOIN_COL1, JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
-    this.col2 = this.params.getOrDefault(RuleParam.JOIN_COL2, JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
-  } 
-
-  @Override
-  public void process(final String line1, final String line2, final LineResult result) throws MixException {
-    final boolean firstPreserved = !result.readingRangeLine(0);
-    final boolean secondPreserved = !result.readingRangeLine(1);
-    result.reset();
-    if (line1 != null && line2 != null) {
-      final List<String> list1 = Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));
-      final List<String> list2 = Arrays.asList(line2.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));   
-      final String cell1 = list1.size() >= this.col1 ? list1.get(this.col1 - 1) : null;
-      final String cell2 = list2.size() >= this.col2 ? list2.get(this.col2 - 1) : null;
-      if (cell1 != null && cell2 != null) {
-        final List<String> prevList1 = result.hasRangeLine(0) ?
-                        Arrays.asList(result.getRangeLine(0).split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
-                        Collections.emptyList();
-       final  List<String> prevList2 = result.hasRangeLine(1) ?
-                        Arrays.asList(result.getRangeLine(1).split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
-                        Collections.emptyList();    
-        final String prevCell1 = prevList1.size() >= this.col1 ? prevList1.get(this.col1 - 1) : null;
-        final String prevCell2 = prevList2.size() >= this.col2 ? prevList2.get(this.col2 - 1) : null;
-        /*System.out.println("LINE1=" + line1 + " / CELL1=" + cell1);
-        System.out.println("LINE2=" + line2 + " / CELL2=" + cell2);
-        System.out.println("PVLINE1=" + result.getRangeLine(0) + " / PVCELL1=" + prevCell1);
-        System.out.println("PVLINE2=" + result.getRangeLine(1) + " / PVCELL2=" + prevCell2);*/
-        if (cell2.equals(prevCell2) && !secondPreserved) {
-          //System.out.println("PREVIOUS 2");
-          joinLines(prevList1, list2, result);
-          result.setRangeLineReading(0, false);
-          result.keepRangeLine(0, line1);
-          result.setRangeLine(1, line2);
-        } else if (cell1.equals(prevCell1) && !firstPreserved) {
-          //System.out.println("PREVIOUS 1");
-          joinLines(list1, prevList2, result);
-          result.setRangeLineReading(1, false);
-          result.setRangeLine(0, line1);
-          result.keepRangeLine(1, line2);
-        } else {
-          switch (Integer.signum(cell1.compareTo(cell2))) {
-            case 0:
-              //System.out.println("EQUALS");
-              joinLines(list1, list2, result);            
-              break;
-            case 1:           
-              //System.out.println("PRESERVE 1");
-              result.setRangeLineReading(0, false);
-              break;
-            default:            
-              //System.out.println("PRESERVE 2");
-              result.setRangeLineReading(1, false);
-          }
-          result.setRangeLine(0, line1);
-          result.setRangeLine(1, line2);
-        }
-      }
-    }   
-  }
-  
-  @Override
-  public void process(final List<String> lineRange, final LineResult result) throws MixException {
-    //TODO
-    process(lineRange.get(0), lineRange.get(1), result);
-  }
+	private final int col1;
+	private final int col2;
 	
-  private void joinLines(final List<String> list1, final List<String> list2, final LineResult result) {
-    final String part1 = list1.get(this.col1 - 1);
-    final String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
-    final String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
-    result.setResult(part1 + CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()  + 
-         part2 + CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString() + part3);
-  }
+	/**
+	* @param params The list of parameters (maybe empty)
+	* @see innovimax.mixthem.operation.RuleParam
+	* @see innovimax.mixthem.operation.ParamValue
+	*/
+	public DefaultLineJoining(final Map<RuleParam, ParamValue> params) {
+		super(params);
+		this.col1 = this.params.getOrDefault(RuleParam.JOIN_COL1, JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
+		this.col2 = this.params.getOrDefault(RuleParam.JOIN_COL2, JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
+	} 
+
+	@Override
+	public void process(final String line1, final String line2, final LineResult result) throws MixException {
+		final boolean firstPreserved = !result.readingRangeLine(0);
+		final boolean secondPreserved = !result.readingRangeLine(1);
+		result.reset();
+		if (line1 != null && line2 != null) {
+			final List<String> list1 = Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));
+			final List<String> list2 = Arrays.asList(line2.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));   
+			final String cell1 = list1.size() >= this.col1 ? list1.get(this.col1 - 1) : null;
+			final String cell2 = list2.size() >= this.col2 ? list2.get(this.col2 - 1) : null;
+			if (cell1 != null && cell2 != null) {
+				final List<String> prevList1 = result.hasRangeLine(0) ?
+					Arrays.asList(result.getRangeLine(0).split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
+					Collections.emptyList();
+				final  List<String> prevList2 = result.hasRangeLine(1) ?
+					Arrays.asList(result.getRangeLine(1).split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
+					Collections.emptyList();
+				final String prevCell1 = prevList1.size() >= this.col1 ? prevList1.get(this.col1 - 1) : null;
+				final String prevCell2 = prevList2.size() >= this.col2 ? prevList2.get(this.col2 - 1) : null;
+				/*System.out.println("LINE1=" + line1 + " / CELL1=" + cell1);
+				System.out.println("LINE2=" + line2 + " / CELL2=" + cell2);
+				System.out.println("PVLINE1=" + result.getRangeLine(0) + " / PVCELL1=" + prevCell1);
+				System.out.println("PVLINE2=" + result.getRangeLine(1) + " / PVCELL2=" + prevCell2);*/
+				if (cell2.equals(prevCell2) && !secondPreserved) {
+					//System.out.println("PREVIOUS 2");
+					joinLines(prevList1, list2, result);
+					result.setRangeLineReading(0, false);
+					result.keepRangeLine(0, line1);
+					result.setRangeLine(1, line2)
+				} else if (cell1.equals(prevCell1) && !firstPreserved) {
+					//System.out.println("PREVIOUS 1");
+					joinLines(list1, prevList2, result);
+					result.setRangeLineReading(1, false);
+					result.setRangeLine(0, line1);
+					result.keepRangeLine(1, line2);
+				} else {
+					switch (Integer.signum(cell1.compareTo(cell2))) {
+						case 0:
+							//System.out.println("EQUALS");
+							joinLines(list1, list2, result);
+							break;
+						case 1:
+							//System.out.println("PRESERVE 1");
+							result.setRangeLineReading(0, false);
+							break;
+						default:
+							//System.out.println("PRESERVE 2");
+							result.setRangeLineReading(1, false);
+					}
+					result.setRangeLine(0, line1);
+					esult.setRangeLine(1, line2);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void process(final List<String> lineRange, final LineResult result) throws MixException {
+		//TODO
+		process(lineRange.get(0), lineRange.get(1), result);
+	}
+	
+	private void joinLines(final List<String> list1, final List<String> list2, final LineResult result) {
+		final String part1 = list1.get(this.col1 - 1);
+		final String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
+		final String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
+		result.setResult(part1 + CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()  + 
+				 part2 + CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString() + part3);
+	}
 
 }
