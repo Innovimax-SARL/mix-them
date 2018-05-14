@@ -144,11 +144,11 @@ public class MixThem {
                     joinLineOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_LINE:
-                    final IOperation zipLineOp = new DefaultLineZipping(ZipType.LINE, params);
+                    final IOperation zipLineOp = new DefaultLineZipping(params);
                     zipLineOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_CELL:
-                    final IOperation zipCellOp = new DefaultLineZipping(ZipType.CELL, params);
+                    final IOperation zipCellOp = new DefaultCellZipping(params);
                     zipCellOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_CHAR:
