@@ -99,7 +99,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 				lineCellRange.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())));
 			}				
 			if (hasJoinedCell(lineCellRange)) {
-				//TODO
+				System.out.println("--> JOIN="+lineCellRange.toString());
 			}			
 		}		
 	}
