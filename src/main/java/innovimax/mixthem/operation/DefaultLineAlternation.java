@@ -10,6 +10,7 @@ import java.util.Random;
 
 /**
 * <p>Alternates two or more lines.</p>
+* <p>When a line is missing then next available line is selected.</p>
 * @see ILineOperation
 * @author Innovimax
 * @version 1.0
@@ -62,12 +63,12 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 		result.reset();
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(lineRange.size());
 		String line = lineRange.get(channel);
-		System.out.println("RANGE="+lineRange.toString());
-		System.out.println("CHANNEL="+channel+" LINE="+line);
+		//System.out.println("RANGE="+lineRange.toString());
+		//System.out.println("CHANNEL="+channel+" LINE="+line);
 		if (line == null) {
 			channel = nextChannel(lineRange, channel);
 			line = lineRange.get(channel);
-			System.out.println("NEW_CHANNEL="+channel+" LINE="+line);
+			//System.out.println("NEW_CHANNEL="+channel+" LINE="+line);
 		}		
 		if (this.mode == AltMode.NORMAL) {
 			this.channel = channel + 1;
