@@ -25,7 +25,7 @@ public class LineResult {
         this.readLineRange = new ArrayList<String>();
         this.keptLineRange = new ArrayList<String>();
         for (int i=0; i < this.rangeSize; i++) {
-            this.nextLineRange.add(new Boolean(true));
+            this.nextLineRange.add(Boolean.TRUE);
             this.readLineRange.add(null);
             this.keptLineRange.add(null);
         }
@@ -38,7 +38,7 @@ public class LineResult {
     void reset() {
         this.result = null;
         for (int i=0; i < this.rangeSize; i++) {
-            this.nextLineRange.add(new Boolean(true));            
+            this.nextLineRange.add(Boolean.TRUE);            
         }
     }
     
@@ -102,7 +102,7 @@ public class LineResult {
     * Set if file reading is necessary at specified position of the current range.
     */
     void setRangeLineReading(final int index, final boolean reading) {
-        this.nextLineRange.set(index, new Boolean(reading));
+        this.nextLineRange.set(index, Boolean.valueOf(reading));
     }
    
     /**
