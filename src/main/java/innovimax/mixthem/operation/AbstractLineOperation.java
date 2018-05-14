@@ -53,7 +53,7 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
         	writer.close();	*/
 		final IMultiChannelLineInput reader = new MultiChannelLineReader(inputs);
 		final ILineOutput writer = new DefaultLineWriter(output);
-		final LineResult result = new LineResult();
+		final LineResult result = new LineResult(inputs.size());
 		while (reader.hasLine()) {
 			final List<String> lineRange = reader.nextLineRange();
 			process(lineRange, result);
