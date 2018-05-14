@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
 * <p>Zips two or more lines.</p>
+* <p>Zipping stops when a line is missing.</p>
 * @see ILineOperation
 * @author Innovimax
 * @version 1.0
@@ -37,9 +38,8 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	
 	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
-		//process(lineRange.get(0), lineRange.get(1), result);
 		result.reset();
-		System.out.println("RANGE="+lineRange.toString());
+		//System.out.println("RANGE="+lineRange.toString());
 		if (zipable(lineRange)) {	
 			StringBuilder zip = new StringBuilder();
 			int index = 0;
