@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
-* <p>Alternates two lines.</p>
+* <p>Alternates two or more lines.</p>
 * @see ILineOperation
 * @author Innovimax
 * @version 1.0
