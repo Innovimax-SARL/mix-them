@@ -57,8 +57,9 @@ public class DefaultCellZipping extends DefaultLineZipping {
 				cellIterators.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator());
 			}
 			while (hasCellRange(cellIterators)) {
-				final List<String> cells = nextCellRange(cellIterators);
+				final List<String> cellRange = nextCellRange(cellIterators);
 				//TODO
+				System.out.println("CELLS="+cellRange);
 			}
 		}
 	}
@@ -73,11 +74,11 @@ public class DefaultCellZipping extends DefaultLineZipping {
 	}
 	
 	private List<String> nextCellRange(List<Iterator<String>> cellIterators) {
-		final List<String> cells = new ArrayList<String>();
+		final List<String> cellRange = new ArrayList<String>();
 		for (Iterator<String> cellIterator : cellIterators) {
-			cells.add(cellIterator.next());
+			cellRange.add(cellIterator.next());
 		}
-		return cells;
+		return cellRange;
 	}
 	
 }
