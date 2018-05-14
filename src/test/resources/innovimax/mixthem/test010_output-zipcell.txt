@@ -1,3 +1,2 @@
-applered orangeblue gold
-bananagreen purple
-silver yellow
+applered orangeblue
+bananagreen
