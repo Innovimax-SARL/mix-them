@@ -79,9 +79,9 @@ public class DefaultLineZipping extends AbstractLineOperation {
 				}
 				break;
 			case CELL:
-				if (cellZipable(lineRange)) {	
+				//if (cellZipable(lineRange)) {	
 					//TODO
-				}
+				//}
 		}
 	}
 	
@@ -94,8 +94,8 @@ public class DefaultLineZipping extends AbstractLineOperation {
 		return true;	
 	}
 
-	private boolean cellZipable(final List<String> lineRange) {
+	/*private boolean cellZipable(final List<String> lineRange) {
 		return false;
-	}
+	}*/
 
 }
