@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 /**
 * <p>Joins two or more lines on a common field.</p>
+* <p>Joining stops when no common field is found.</p>
 * @see ILineOperation
 * @author Innovimax
 * @version 1.0
