@@ -9,7 +9,8 @@ import java.util.Map;
 import java.util.Random;
 
 /**
-* <p>Alternate two characters.</p>
+* <p>Alternate two or more characters.</p>
+* <p>When a character is missing then next available character is selected.</p>
 * @see ICharOperation
 * @author Innovimax
 * @version 1.0
