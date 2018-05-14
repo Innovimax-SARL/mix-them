@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* <p>Zips two lines cell by cell.</p>
+* <p>Zips two or more lines cell by cell.</p>
 * @see ILineOperation
 * @author Innovimax
 * @version 1.0
