@@ -52,14 +52,24 @@ public class DefaultCellZipping extends DefaultLineZipping {
 		System.out.println("RANGE="+lineRange.toString());
 		if (zipable(lineRange)) {
 			//TODO
+			System.out.println("--> Zipable!");
 		}
 	}
 
 	@Override
 	protected boolean zipable(final List<String> lineRange) {
 		if (super.zipable(lineRange)) {
-			//TODO
-			return false;
+			int count = 0;
+			for (int i=0; i < lineRange.size(); i++) {
+				final List<String> cells = Arrays.asList(lineRange.get(i).split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString()));
+				if (count == 0) {
+					count = cells.size();
+				}
+				if (cells.size() != count) {
+					return false;				
+				}
+			}
+			return true;
 		}
 		return false;
 	}
