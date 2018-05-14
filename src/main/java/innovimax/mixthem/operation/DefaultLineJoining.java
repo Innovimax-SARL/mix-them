@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
-* <p>Joins two lines on a common field.</p>
+* <p>Joins two or more lines on a common field.</p>
 * @see ILineOperation
 * @author Innovimax
 * @version 1.0
