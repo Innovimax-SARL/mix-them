@@ -35,8 +35,8 @@ public class DefaultLineJoining extends AbstractLineOperation {
 
   @Override
   public void process(final String line1, final String line2, final LineResult result) throws MixException {
-    final boolean firstPreserved = result.firstLinePreserved();
-    final boolean secondPreserved = result.secondLinePreserved();
+    final boolean firstPreserved = !result.readingRangeLine(0);
+    final boolean secondPreserved = !result.readingRangeLine(1);
     result.reset();
     if (line1 != null && line2 != null) {
       final List<String> list1 = Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));
@@ -44,30 +44,30 @@ public class DefaultLineJoining extends AbstractLineOperation {
       final String cell1 = list1.size() >= this.col1 ? list1.get(this.col1 - 1) : null;
       final String cell2 = list2.size() >= this.col2 ? list2.get(this.col2 - 1) : null;
       if (cell1 != null && cell2 != null) {
-        final List<String> prevList1 = result.hasFirstLine() ?
-                        Arrays.asList(result.getFirstLine().split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
+        final List<String> prevList1 = result.hasRangeLine(0) ?
+                        Arrays.asList(result.getRangeLine(0).split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
                         Collections.emptyList();
-       final  List<String> prevList2 = result.hasSecondLine() ?
-                        Arrays.asList(result.getSecondLine().split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
+       final  List<String> prevList2 = result.hasRangeLine(1) ?
+                        Arrays.asList(result.getRangeLine(1).split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
                         Collections.emptyList();    
         final String prevCell1 = prevList1.size() >= this.col1 ? prevList1.get(this.col1 - 1) : null;
         final String prevCell2 = prevList2.size() >= this.col2 ? prevList2.get(this.col2 - 1) : null;
         /*System.out.println("LINE1=" + line1 + " / CELL1=" + cell1);
         System.out.println("LINE2=" + line2 + " / CELL2=" + cell2);
-        System.out.println("PVLINE1=" + result.getFirstLine() + " / PVCELL1=" + prevCell1);
-        System.out.println("PVLINE2=" + result.getSecondLine() + " / PVCELL2=" + prevCell2);*/
+        System.out.println("PVLINE1=" + result.getRangeLine(0) + " / PVCELL1=" + prevCell1);
+        System.out.println("PVLINE2=" + result.getRangeLine(1) + " / PVCELL2=" + prevCell2);*/
         if (cell2.equals(prevCell2) && !secondPreserved) {
           //System.out.println("PREVIOUS 2");
           joinLines(prevList1, list2, result);
-          result.preserveFirstLine();
-          result.keepFirstLine(line1);
-          result.setSecondLine(line2);
+          result.setRangeLineReading(0, false);
+          result.keepRangeLine(0, line1);
+          result.setRangeLine(1, line2);
         } else if (cell1.equals(prevCell1) && !firstPreserved) {
           //System.out.println("PREVIOUS 1");
           joinLines(list1, prevList2, result);
-          result.preserveSecondLine();
-          result.setFirstLine(line1);
-          result.keepSecondLine(line2);
+          result.setRangeLineReading(1, false);
+          result.setRangeLine(0, line1);
+          result.keepRangeLine(1, line2);
         } else {
           switch (Integer.signum(cell1.compareTo(cell2))) {
             case 0:
@@ -76,14 +76,14 @@ public class DefaultLineJoining extends AbstractLineOperation {
               break;
             case 1:           
               //System.out.println("PRESERVE 1");
-              result.preserveFirstLine();
+              result.setRangeLineReading(0, false);
               break;
             default:            
               //System.out.println("PRESERVE 2");
-              result.preserveSecondLine();
+              result.setRangeLineReading(1, false);
           }
-          result.setFirstLine(line1);
-          result.setSecondLine(line2);
+          result.setRangeLine(0, line1);
+          result.setRangeLine(1, line2);
         }
       }
     }   
