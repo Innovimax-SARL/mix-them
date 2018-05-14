@@ -4,9 +4,6 @@ import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +19,6 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	
 	/**
 	* Constructor
-	* @param type The type of zip to process
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.operation.ZipType
 	* @see innovimax.mixthem.arguments.RuleParam
