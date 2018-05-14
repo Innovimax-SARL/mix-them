@@ -75,7 +75,7 @@ public class DefaultCellZipping extends DefaultLineZipping {
 	private List<String> nextCellRange(List<Iterator<String>> cellIterators) {
 		final List<String> cells = new ArrayList<String>();
 		for (Iterator<String> cellIterator : cellIterators) {
-			cells.add(cellIterator.next();
+			cells.add(cellIterator.next());
 		}
 		return cells;
 	}
