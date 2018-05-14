@@ -56,8 +56,18 @@ public class DefaultCellZipping extends DefaultLineZipping {
 			for (String line : lineRange) {
 				cellIterators.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator());
 			}
-			//TODO
+			while (hasCellRange(cellIterators)) {
+				//TODO
+			}
 		}
 	}
 
+	private boolean hasCellRange(List<Iterator<String>> cellIterators) {
+		for (Iterator<String> cellIterator : cellIterators) {
+			if (!cellIterator.hasNext()) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
