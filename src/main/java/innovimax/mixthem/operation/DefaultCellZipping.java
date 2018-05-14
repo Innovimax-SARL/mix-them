@@ -48,9 +48,8 @@ public class DefaultCellZipping extends DefaultLineZipping {
 	
 	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
-		//process(lineRange.get(0), lineRange.get(1), result);
 		result.reset();
-		System.out.println("RANGE="+lineRange.toString());
+		//System.out.println("RANGE="+lineRange.toString());
 		if (zipable(lineRange)) {
 			StringBuilder zip = new StringBuilder();
 			final List<Iterator<String>> cellIterators = new ArrayList<Iterator<String>>();
@@ -62,7 +61,7 @@ public class DefaultCellZipping extends DefaultLineZipping {
 					zip.append(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
 				}
 				final List<String> cellRange = nextCellRange(cellIterators);
-				System.out.println("CELLS="+cellRange);
+				//System.out.println("CELLS="+cellRange);
 				int index = 0;
 				for (String cell : cellRange) {
 					if (index > 0) {
@@ -71,8 +70,7 @@ public class DefaultCellZipping extends DefaultLineZipping {
 					zip.append(cell);
 					index++;
 				}
-			}
-			System.out.println("ZIP="+zip.toString());
+			}			
 			result.setResult(zip.toString());
 		}
 	}
