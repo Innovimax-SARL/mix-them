@@ -62,17 +62,10 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
 		//process(lineRange.get(0), lineRange.get(1), result);
 		result.reset();
-		System.out.println("RANGE="+lineRange.toString());
-		boolean zipable = true;		
-		for (int i=0; i < lineRange.size(); i++) {			
-			if (lineRange.get(i) == null) {
-				zipable = false;
-				break;
-			}
-		}
-		if (zipable) {			
-			switch (this.type) {
-				case LINE:
+		System.out.println("RANGE="+lineRange.toString());				
+		switch (this.type) {
+			case LINE:
+				if (lineZipable(lineRange)) {	
 					StringBuilder zip = new StringBuilder();
 					int index = 0;
 					for (String line : lineRange) {
@@ -83,10 +76,27 @@ public class DefaultLineZipping extends AbstractLineOperation {
 						index++;
 					}
 					result.setResult(zip.toString());
-					break;
-				case CELL:
-					//TODO					
+				}
+				break;
+			case CELL:
+				if (cellZipable(lineRange)) {	
+					//TODO
+				}
 			}
 		}
 	}
+	
+	private boolean lineZipable(final List<String> lineRange) {		
+		for (int i=0; i < lineRange.size(); i++) {			
+			if (lineRange.get(i) == null) {
+				return false;				
+			}
+		}
+		return true;	
+	}
+
+	private boolean cellZipable(final List<String> lineRange) {
+		return false;
+	}
+
 }
