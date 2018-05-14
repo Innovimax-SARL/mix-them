@@ -13,6 +13,7 @@ import java.util.Map;
 
 /**
 * <p>Zips two or more lines cell by cell.</p>
+* <p>Zipping stops when either a line is missing or a cell is missing.</p>
 * @see ILineOperation
 * @author Innovimax
 * @version 1.0
