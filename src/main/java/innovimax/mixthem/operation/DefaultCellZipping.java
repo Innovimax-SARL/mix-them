@@ -52,15 +52,25 @@ public class DefaultCellZipping extends DefaultLineZipping {
 		result.reset();
 		System.out.println("RANGE="+lineRange.toString());
 		if (zipable(lineRange)) {
+			StringBuilder zip = new StringBuilder();
 			final List<Iterator<String>> cellIterators = new ArrayList<Iterator<String>>();
 			for (String line : lineRange) {
 				cellIterators.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator());
-			}
+			}			
 			while (hasCellRange(cellIterators)) {
 				final List<String> cellRange = nextCellRange(cellIterators);
-				//TODO
 				System.out.println("CELLS="+cellRange);
+				int index = 0;
+				for (String cell : cellRange) {
+					if (index > 0) {
+						zip.append(this.sep);
+					}
+					zip.append(cell);
+					index++;
+				}				
 			}
+			System.out.println("ZIP="+zip.toString());
+			result.setResult(zip.toString());
 		}
 	}
 
