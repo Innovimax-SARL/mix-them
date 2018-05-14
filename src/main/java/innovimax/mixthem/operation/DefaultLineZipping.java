@@ -82,7 +82,6 @@ public class DefaultLineZipping extends AbstractLineOperation {
 				if (cellZipable(lineRange)) {	
 					//TODO
 				}
-			}
 		}
 	}
 	
