@@ -90,9 +90,45 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	}
 	
 	@Override
-	public void process(final List<String> lineRange, final LineResult result) throws MixException {
-		//TODO
-		process(lineRange.get(0), lineRange.get(1), result);
+	public void process(final List<String> lineRange, final LineResult result) throws MixException {		
+		//process(lineRange.get(0), lineRange.get(1), result);
+		System.out.println("RANGE="+lineRange.toString());
+		if (joinable(lineRange)) {	
+			final List<List<String>> lineCellRange = new ArrayList<List<String>>();
+			for (String line : lineRange) {
+				lineCellRange.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())));
+			}				
+			if (hasJoinedCell(lineCellRange)) {
+				//TODO
+			}			
+		}		
+	}
+	
+	private boolean joinable(final List<String> lineRange) {		
+		for (int i=0; i < lineRange.size(); i++) {			
+			if (lineRange.get(i) == null) {
+				return false;				
+			}
+		}
+		return true;	
+	}
+	
+	private boolean hasJoinedCell(final List<List<String>> lineCellRange) {
+		String join = null;
+		for (List<String> cellRange : lineCellRange) {
+			//TODO: manage joined coll index from params
+			if (cellRange.size() < this.col1) {
+				return false;
+			}			
+			final String cell = cellRange.get(this.col1 - 1);
+			if (join == null) {
+				join = cell;
+			}
+			if (!cell.equals(join)) {
+				return false;
+			}			
+		}
+		return true;
 	}
 	
 	private void joinLines(final List<String> list1, final List<String> list2, final LineResult result) {
