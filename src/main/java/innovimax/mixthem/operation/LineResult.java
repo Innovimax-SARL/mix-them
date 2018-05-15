@@ -83,7 +83,7 @@ public class LineResult {
     */
     void setRangeLine(final int index, final String line) {
         if (this.keptLineRange.get(index) != null) {            
-            setRangeLineReading(index, false);
+            setRangeLineReadingStatus(index, false);
             this.keptLineRange.set(index, null);
         } else {
             this.readLineRange.set(index, line);
