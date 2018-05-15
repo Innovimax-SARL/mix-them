@@ -109,9 +109,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			final List<List<String>> lineCellsRange = getLineCellsRange(lineRange);
 			if (linesComparable(lineCellsRange)) {
 				System.out.println("> COMPARABLE");
-				final List<Integer> lineComparaisonRange = getLineComparaisonRange(lineCellsRange);
-				System.out.println("COMPARAISON="+lineComparaisonRange.toString());
-				if (linesJoined(lineComparaisonRange)) {
+				if (linesJoined(lineCellsRange)) {
 					System.out.println("> JOINED");
 					joinLines(lineCellsRange, result);
 					System.out.println("RESULT="+result.getResult());
@@ -155,7 +153,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	private boolean linesComparable(final List<List<String>> lineCellsRange) {
 		int index = 1;
 		for (List<String> lineCells : lineCellsRange) {
-			//TODO: manage join index col from params			
+			//TODO: better manage join index col>2 from params
 			if (lineCells.size() < (index == 2 ? this.col2 : this.col1)) {
 				return false;
 			}
@@ -164,31 +162,24 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		return true;
 	}
 	
-	private List<Integer> getLineComparaisonRange(final List<List<String>> lineCellsRange) {
+	private boolean linesJoined(final List<List<String>> lineCellsRange) {
 		final List<Integer> lineComparaisonRange = new ArrayList<Integer>();        
 		String join = null;
 		int index = 1;
 		for (List<String> lineCells : lineCellsRange) {
-			//TODO: manage join index col from params
+			//TODO: better manage join index col>2 from params
 			final String cell = lineCells.get((index == 2 ? this.col2 : this.col1) - 1);
 			if (join == null) {
 				join = cell;
 			}
-			lineComparaisonRange.add(Integer.valueOf(Integer.signum(join.compareTo(cell))));
-			index++;
-		}
-		return lineComparaisonRange;
-	}
-				    
-	private boolean linesJoined(final List<Integer> lineComparaisonRange) {
-		for (Integer lineComparaison : lineComparaisonRange) {
-			if (lineComparaison.intValue() != 0) {
+			if (!cell.equals(join)) {
 				return false;
 			}
+			index++;
 		}
 		return true;
 	}
-	
+
 	private void joinLines(final List<List<String>> lineCellsRange, final LineResult result) {
 		final StringBuilder joinedCells = new StringBuilder();
 		String join = lineCellsRange.get(0).get(this.col1 - 1);
