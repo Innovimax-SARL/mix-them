@@ -107,21 +107,16 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		result.reset();		
 		if (linesJoinable(lineRange)) {
 			final List<List<String>> lineCellsRange = getLineCellsRange(lineRange);
-			if (linesComparable(lineCellsRange)) {
-				System.out.println("> COMPARABLE");
-				if (linesJoined(lineCellsRange)) {
-					System.out.println("> JOINED");
+			if (linesComparable(lineCellsRange)) {				
+				if (linesJoined(lineCellsRange)) {					
 					joinLines(lineCellsRange, result);					
-					System.out.println("RESULT="+result.getResult());				
-				} else {					
-					System.out.println("> NOT JOINED");
+					System.out.println("JOINED="+result.getResult());				
+				} else {										
 					setLinePreservation(lineCellsRange, result);
 				}				
 				for (int i=0; i < lineRange.size(); i++) {
 					result.setRangeLine(i, lineRange.get(i));
-				}	
-			} else {
-				System.out.println("> NOT COMPARABLE");
+				}			
 			}
 
 		}		
