@@ -36,8 +36,8 @@ public class DefaultLineJoining extends AbstractLineOperation {
 
 	@Override
 	public void process(final String line1, final String line2, final LineResult result) throws MixException {
-		final boolean firstPreserved = !result.readingRangeLine(0);
-		final boolean secondPreserved = !result.readingRangeLine(1);
+		final boolean firstPreserved = !result.getLineReadingRange.get(0).booleanValue;
+		final boolean secondPreserved = !result.getLineReadingRange.get(1).booleanValue;
 		result.reset();
 		if (line1 != null && line2 != null) {
 			final List<String> list1 = Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));
@@ -102,8 +102,8 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {		
 		//process(lineRange.get(0), lineRange.get(1), result);
 		System.out.println("LINES="+lineRange.toString());
-		final List<Boolean> linePreservationRange = getLinePreservationRange(result, lineRange.size());		
-		System.out.println("PRESERVED="+linePreservationRange.toString());
+		final List<Boolean> lineReadingRange = new ArrayList<Boolean>(result.getLineReadingRange());
+		System.out.println("READ="+lineReadingRange.toString());
 		result.reset();		
 		if (linesJoinable(lineRange)) {
 			final List<List<String>> lineCellsRange = getLineCellsRange(lineRange);
@@ -125,14 +125,6 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			}
 
 		}		
-	}
-	
-	private List<Boolean> getLinePreservationRange(final LineResult result, final int size) {
-		final List<Boolean> linePreservationRange = new ArrayList<Boolean>();        
-		for (int i=0; i < size; i++) {			
-			linePreservationRange.add(Boolean.valueOf(!result.readingRangeLine(i)));
-		}
-		return linePreservationRange;
 	}
 	
 	private boolean linesJoinable(final List<String> lineRange) {		
