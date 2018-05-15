@@ -101,15 +101,15 @@ public class LineResult {
     /**
     * Set if file reading is necessary at specified position of the current range.
     */
-    void setRangeLineReading(final int index, final boolean reading) {
+    void setRangeLineReadingStatus(final int index, final boolean reading) {
         this.nextLineRange.set(index, Boolean.valueOf(reading));
     }
    
     /**
-    * Has to read file at specified position of the current range?
+    * Get next line reading range
     */
-    boolean readingRangeLine(final int index) {
-        return this.nextLineRange.get(index).booleanValue();
+    List<Boolean> getLineReadingRange() {
+        return this.nextLineRange;
     }
 
 }
