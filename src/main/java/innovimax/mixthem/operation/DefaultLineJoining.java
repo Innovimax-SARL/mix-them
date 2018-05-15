@@ -98,11 +98,8 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		System.out.println("PRESERVED="+preservedLines.toString());
 		result.reset();		
 		if (joinable(lineRange)) {
-			final List<List<String>> cellsRange = getCellsRange(lineRange);
-			for (String line : lineRange) {
-				lineCellRange.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())));
-			}
-			if (comparable(lineCellRange)) {
+			final List<List<String>> lineCellsRange = getLineCellsRange(lineRange);
+			if (comparable(lineCellsRange)) {
 				System.out.println("> COMPARABLE");
 			}
 
@@ -126,21 +123,22 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		return true;	
 	}
 	
-	private List<List<String>> getCellsRange(final List<String> lineRange) {
-		final List<List<String>> cellsRange = new ArrayList<List<String>>();
+	private List<List<String>> getLineCellsRange(final List<String> lineCellsRange) {
+		final List<List<String>> lineCellsRange = new ArrayList<List<String>>();
 		for (String line : lineRange) {
-			cellsRange.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())));
+			lineCellsRange.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())));
 		}
-		return cellsRange;
+		return lineCellsRange;
 	}
 	
-	private List<Integer> comparable(final List<List<String>> lineCellRange) {
-		final List<Integer> joinCompRange = new ArrayList<Integer>();        
-		String join = null;
-		for (List<String> cellRange : lineCellRange) {
-			
+	private boolean comparable(final List<List<String>> lineCellsRange) {		
+		for (List<String> lineCells : lineCellsRange) {
+			//TODO: manage join index col from params
+			if (lineCells.size() < this.col1) {
+				return false;
+			}
 		}
-		return joinCompRange;
+		return true;
 	}
 	
 	private void joinLines(final List<String> list1, final List<String> list2, final LineResult result) {
