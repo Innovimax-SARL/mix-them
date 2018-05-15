@@ -153,11 +153,13 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	}
 	
 	private boolean linesComparable(final List<List<String>> lineCellsRange) {
+		int index = 1;
 		for (List<String> lineCells : lineCellsRange) {
-			//TODO: manage join index col from params
-			if (lineCells.size() < this.col1) {
+			//TODO: manage join index col from params			
+			if (lineCells.size() < (index == 2 ? this.col2 : this.col1)) {
 				return false;
 			}
+			index++;
 		}
 		return true;
 	}
@@ -165,13 +167,15 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	private List<Integer> getLineComparaisonRange(final List<List<String>> lineCellsRange) {
 		final List<Integer> lineComparaisonRange = new ArrayList<Integer>();        
 		String join = null;
+		int index = 1;
 		for (List<String> lineCells : lineCellsRange) {
 			//TODO: manage join index col from params
-			final String cell = lineCells.get(this.col1 - 1);
+			final String cell = lineCells.get((index == 2 ? this.col2 : this.col1) - 1);
 			if (join == null) {
 				join = cell;
 			}
 			lineComparaisonRange.add(Integer.valueOf(Integer.signum(join.compareTo(cell))));
+			index++;
 		}
 		return lineComparaisonRange;
 	}
