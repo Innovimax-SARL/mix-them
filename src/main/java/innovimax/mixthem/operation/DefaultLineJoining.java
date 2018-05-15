@@ -152,54 +152,50 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		return lineCellsRange;
 	}
 	
-	private boolean linesComparable(final List<List<String>> lineCellsRange) {
-		int col = 1;
-		for (List<String> lineCells : lineCellsRange) {
-			if (lineCells.size() < (col == 2 ? this.col2 : this.col1)) {
+	private boolean linesComparable(final List<List<String>> lineCellsRange) {		
+		for (int i=0; i < lineCellsRange.size(); i++) {
+			final List<String> lineCells = lineCellsRange.get(i);
+			if (lineCells.size() < (i == 1 ? this.col2 : this.col1)) {
 				return false;
-			}
-			col++;
+			}			
 		}
 		return true;
 	}
 	
 	private boolean linesJoined(final List<List<String>> lineCellsRange) {		
-		String joinCell = null;
-		int col = 1;
-		for (List<String> lineCells : lineCellsRange) {
-			final String cell = lineCells.get((col == 2 ? this.col2 : this.col1) - 1);
+		String joinCell = null;		
+		for (int i=0; i < lineCellsRange.size(); i++) {
+			final List<String> lineCells = lineCellsRange.get(i);
+			final String cell = lineCells.get((i == 1 ? this.col2 : this.col1) - 1);
 			if (joinCell == null) {
 				joinCell = cell;
 			}
 			if (!cell.equals(joinCell)) {
 				return false;
 			}
-			col++;
 		}
 		return true;
 	}
 	
 	private void setLinePreservation(final List<List<String>> lineCellsRange, final LineResult result) {
-		List<Sting> cellRange = new ArrayList<String>();
-		String greaterCell = null;
-		int col = 1;
-		for (List<String> lineCells : lineCellsRange) {
-			final String cell = lineCells.get((col == 2 ? this.col2 : this.col1) - 1);
+		List<String> cellRange = new ArrayList<String>();
+		String greaterCell = null;		
+		for (int i=0; i < lineCellsRange.size(); i++) {
+			final List<String> lineCells = lineCellsRange.get(i);
+			final String cell = lineCells.get((i == 1 ? this.col2 : this.col1) - 1);
 			if (greaterCell == null) {
 				greaterCell = cell;
 			}
 			if (cell.compareTo(greaterCell) > 0) {
 				greaterCell = cell;
 			}
-			cellRange.add(cell);
-			col++;
+			cellRange.add(cell);			
 		}		
-		int index = 0;
-		for (String cell : cellRange) {			
+		for (int i=0; i < cellRange.size(); i++) {
+			final String cell = cellRange.get(i);
 			if (cell.equals(greaterCell)) {
-				result.setRangeLineReading(index, false);
-			}			
-			index++;
+				result.setRangeLineReading(i, false);
+			}
 		}
 	}
 
