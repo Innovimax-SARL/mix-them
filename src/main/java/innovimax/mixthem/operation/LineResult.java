@@ -38,7 +38,7 @@ public class LineResult {
     void reset() {
         this.result = null;
         for (int i=0; i < this.rangeSize; i++) {
-            this.nextLineRange.add(Boolean.TRUE);            
+            this.nextLineRange.set(i, Boolean.TRUE);            
         }
     }
     
