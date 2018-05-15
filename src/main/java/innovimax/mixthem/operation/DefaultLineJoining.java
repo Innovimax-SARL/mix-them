@@ -103,7 +103,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 				System.out.println("> COMPARABLE");
 				final List<Integer> lineComparaisonRange = getLineComparaisonRange(lineCellsRange);
 				System.out.println("COMPARAISON="+lineComparaisonRange.toString());
-				if (linesJoined(lineComparaisonRange) {
+				if (linesJoined(lineComparaisonRange)) {
 					System.out.println("> JOINED");
 					//TODO
 				} else {
