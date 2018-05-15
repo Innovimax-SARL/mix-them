@@ -103,8 +103,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		//process(lineRange.get(0), lineRange.get(1), result);
 		System.out.println("LINES="+lineRange.toString());
 		final List<Boolean> lineReadingRange = new ArrayList<Boolean>(result.getLineReadingRange());
-		System.out.println("READ="+lineReadingRange.toString());
-		System.out.println("READ="+result.getLineReadingRange().toString());
+		System.out.println("READ="+lineReadingRange.toString());		
 		result.reset();		
 		if (linesJoinable(lineRange)) {
 			final List<List<String>> lineCellsRange = getLineCellsRange(lineRange);
