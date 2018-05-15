@@ -102,12 +102,19 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			for (String line : lineRange) {
 				lineCellRange.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())));
 			}
-		
-			if (hasJoinedCell(lineCellRange)) {
-				System.out.println("--> JOIN="+lineCellRange.toString());
+			if (comparable(lineCellRange)) {
+				System.out.println("> COMPARABLE");
 			}
 
 		}		
+	}
+	
+	private List<Boolean> getPreservedLineRange(final LineResult result, final int size) {
+		final List<Boolean> preservedLines = new ArrayList<Boolean>();        
+		for (int i=0; i < size; i++) {			
+			preservedLines.add(Boolean.valueOf(!result.readingRangeLine(i)));
+		}
+		return preservedLines;
 	}
 	
 	private boolean joinable(final List<String> lineRange) {		
@@ -119,14 +126,6 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		return true;	
 	}
 	
-	private List<Boolean> getPreservedLineRange(final LineResult result, final int size) {
-		final List<Boolean> preservedLines = new ArrayList<Boolean>();        
-		for (int i=0; i < size; i++) {			
-			preservedLines.add(Boolean.valueOf(!result.readingRangeLine(i)));
-		}
-		return preservedLines;
-	}
-	
 	private List<List<String>> getCellsRange(final List<String> lineRange) {
 		final List<List<String>> cellsRange = new ArrayList<List<String>>();
 		for (String line : lineRange) {
@@ -135,22 +134,13 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		return cellsRange;
 	}
 	
-	private boolean hasJoinedCell(final List<List<String>> lineCellRange) {
+	private List<Integer> comparable(final List<List<String>> lineCellRange) {
+		final List<Integer> joinCompRange = new ArrayList<Integer>();        
 		String join = null;
 		for (List<String> cellRange : lineCellRange) {
-			//TODO: manage joined coll index from params
-			if (cellRange.size() < this.col1) {
-				return false;
-			}			
-			final String cell = cellRange.get(this.col1 - 1);
-			if (join == null) {
-				join = cell;
-			}
-			if (!cell.equals(join)) {
-				return false;
-			}			
+			
 		}
-		return true;
+		return joinCompRange;
 	}
 	
 	private void joinLines(final List<String> list1, final List<String> list2, final LineResult result) {
