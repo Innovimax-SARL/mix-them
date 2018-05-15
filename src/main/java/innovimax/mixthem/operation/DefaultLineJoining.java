@@ -193,7 +193,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			joinedCells.append(
 				lineCells.stream()
 					.filter(s -> !s.equals(join))
-					.collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
+					.collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString())));
 		}
 		result.setResult(joinedCells.toString());		
 	}
