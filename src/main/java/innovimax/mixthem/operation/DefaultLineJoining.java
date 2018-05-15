@@ -155,7 +155,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			if (join == null) {
 				join = cell;
 			}
-			lineComparaisonRange.add(Integer.valueOf(Integer.signum(join.compareTo(cell)))) {
+			lineComparaisonRange.add(Integer.valueOf(Integer.signum(join.compareTo(cell))));
 		}
 		return lineComparaisonRange;
 	}
