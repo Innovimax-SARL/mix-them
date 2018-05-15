@@ -97,12 +97,14 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		final List<Boolean> linePreservationRange = getLinePreservationRange(result, lineRange.size());		
 		System.out.println("PRESERVED="+linePreservationRange.toString());
 		result.reset();		
-		if (joinable(lineRange)) {
+		if (linesJoinable(lineRange)) {
 			final List<List<String>> lineCellsRange = getLineCellsRange(lineRange);
-			if (comparable(lineCellsRange)) {
+			if (linesComparable(lineCellsRange)) {
 				System.out.println("> COMPARABLE");
 				final List<Integer> lineComparaisonRange = getLineComparaisonRange(lineCellsRange);
 				System.out.println("COMPARAISON="+lineComparaisonRange.toString());
+				
+				
 				//TODO
 			} else {
 				System.out.println("> NOT COMPARABLE");
@@ -119,7 +121,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		return linePreservationRange;
 	}
 	
-	private boolean joinable(final List<String> lineRange) {		
+	private boolean linesJoinable(final List<String> lineRange) {		
 		for (int i=0; i < lineRange.size(); i++) {			
 			if (lineRange.get(i) == null) {
 				return false;				
@@ -136,7 +138,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		return lineCellsRange;
 	}
 	
-	private boolean comparable(final List<List<String>> lineCellsRange) {
+	private boolean linesComparable(final List<List<String>> lineCellsRange) {
 		for (List<String> lineCells : lineCellsRange) {
 			//TODO: manage join index col from params
 			if (lineCells.size() < this.col1) {
