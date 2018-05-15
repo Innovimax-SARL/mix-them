@@ -36,8 +36,8 @@ public class DefaultLineJoining extends AbstractLineOperation {
 
 	@Override
 	public void process(final String line1, final String line2, final LineResult result) throws MixException {
-		final boolean firstPreserved = !result.getLineReadingRange().get(0).booleanValue;
-		final boolean secondPreserved = !result.getLineReadingRange().get(1).booleanValue;
+		final boolean firstPreserved = !result.getLineReadingRange().get(0).booleanValue();
+		final boolean secondPreserved = !result.getLineReadingRange().get(1).booleanValue();
 		result.reset();
 		if (line1 != null && line2 != null) {
 			final List<String> list1 = Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));
