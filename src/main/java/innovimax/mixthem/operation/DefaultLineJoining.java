@@ -113,10 +113,10 @@ public class DefaultLineJoining extends AbstractLineOperation {
 					System.out.println("> JOINED");
 					joinLines(lineCellsRange, result);					
 					System.out.println("RESULT="+result.getResult());				
-				} else {
-					System.out.println("> NOT JOINED");					
-				}
-				setLinePreservation(lineCellsRange, result);
+				} else {					
+					System.out.println("> NOT JOINED");
+					setLinePreservation(lineCellsRange, result);
+				}				
 				for (int i=0; i < lineRange.size(); i++) {
 					result.setRangeLine(i, lineRange.get(i));
 				}	
