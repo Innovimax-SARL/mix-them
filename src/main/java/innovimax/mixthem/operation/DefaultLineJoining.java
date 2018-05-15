@@ -89,6 +89,14 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			}
 		}
 	}
+
+	private void joinLines(final List<String> list1, final List<String> list2, final LineResult result) {
+		final String part1 = list1.get(this.col1 - 1);
+		final String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
+		final String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
+		result.setResult(part1 + CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()  + 
+				 part2 + CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString() + part3);
+	}
 	
 	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {		
@@ -105,6 +113,8 @@ public class DefaultLineJoining extends AbstractLineOperation {
 				System.out.println("COMPARAISON="+lineComparaisonRange.toString());
 				if (linesJoined(lineComparaisonRange)) {
 					System.out.println("> JOINED");
+					joinLines(lineCellsRange, result);
+					System.out.println("RESULT="+result.getResult());
 					//TODO
 				} else {
 					System.out.println("> NOT JOINED");
@@ -157,7 +167,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		String join = null;
 		for (List<String> lineCells : lineCellsRange) {
 			//TODO: manage join index col from params
-			final String cell = lineCells.get(this.col1);
+			final String cell = lineCells.get(this.col1 - 1);
 			if (join == null) {
 				join = cell;
 			}
@@ -175,12 +185,14 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		return true;
 	}
 	
-	private void joinLines(final List<String> list1, final List<String> list2, final LineResult result) {
-		final String part1 = list1.get(this.col1 - 1);
-		final String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
-		final String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
-		result.setResult(part1 + CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()  + 
-				 part2 + CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString() + part3);
+	private void joinLines(final List<List<String>> lineCellsRange, final LineResult result) {
+		StringBuilder joinedCells = new StringBuilder();
+		String join = lineCellsRange.get(0).get(this.col1 - 1);
+		joinedCells.append(join);
+		/*for (List<String> lineCells : lineCellsRange) {
+		
+		}*/			
+		result.setResult(joinedCells);		
 	}
 
 }
