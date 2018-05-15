@@ -103,9 +103,13 @@ public class DefaultLineJoining extends AbstractLineOperation {
 				System.out.println("> COMPARABLE");
 				final List<Integer> lineComparaisonRange = getLineComparaisonRange(lineCellsRange);
 				System.out.println("COMPARAISON="+lineComparaisonRange.toString());
-				
-				
-				//TODO
+				if (linesJoined(lineComparaisonRange) {
+					System.out.println("> JOINED");
+					//TODO
+				} else {
+					System.out.println("> NOT JOINED");
+					//TODO
+				}
 			} else {
 				System.out.println("> NOT COMPARABLE");
 			}
@@ -160,6 +164,15 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			lineComparaisonRange.add(Integer.valueOf(Integer.signum(join.compareTo(cell))));
 		}
 		return lineComparaisonRange;
+	}
+				    
+	private boolean linesJoined(final List<Integer> lineComparaisonRange) {
+		for (Integer lineComparaison : lineComparaisonRange) {
+			if (lineComparaison.intValue() != 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	private void joinLines(final List<String> list1, final List<String> list2, final LineResult result) {
