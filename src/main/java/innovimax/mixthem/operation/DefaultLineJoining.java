@@ -112,7 +112,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 					joinLines(lineCellsRange, result);					
 					System.out.println("JOINED="+result.getResult());				
 				} else {										
-					setLinePreservation(lineCellsRange, result);
+					setLineReadingPreservation(lineCellsRange, result);
 				}				
 				for (int i=0; i < lineRange.size(); i++) {
 					result.setRangeLine(i, lineRange.get(i));
@@ -164,7 +164,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		return true;
 	}
 	
-	private void setLinePreservation(final List<List<String>> lineCellsRange, final LineResult result) {
+	private void setLineReadingPreservation(final List<List<String>> lineCellsRange, final LineResult result) {
 		List<String> cellRange = new ArrayList<String>();
 		String greaterCell = null;		
 		for (int i=0; i < lineCellsRange.size(); i++) {
