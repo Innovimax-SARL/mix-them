@@ -192,7 +192,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		/*for (List<String> lineCells : lineCellsRange) {
 		
 		}*/			
-		result.setResult(joinedCells);		
+		result.setResult(joinedCells.toString());		
 	}
 
 }
