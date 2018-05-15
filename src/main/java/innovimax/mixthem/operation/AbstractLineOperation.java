@@ -55,7 +55,12 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 		final ILineOutput writer = new DefaultLineWriter(output);
 		final LineResult result = new LineResult(inputs.size());
 		while (reader.hasLine()) {
-			final List<String> lineRange = reader.nextLineRange();
+			final List<String> lineRange = reader.nextLineRange(result.getLineReadingRange());
+			for (int i=0; i < lineRange.size(); i++) {
+				if (!result.getLineReadingRange().get(i).booleanValue()) {
+					lineRange.set(i, result.getRangeLine(i));
+				}
+			}
 			process(lineRange, result);
 			if (result.hasResult()) {
 				writer.writeLine(result.getResult());
