@@ -190,12 +190,13 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		String join = lineCellsRange.get(0).get(this.col1 - 1);
 		joinedCells.append(join);
 		for (List<String> lineCells : lineCellsRange) {
+			joinedCells.append(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
 			joinedCells.append(
 				lineCells.stream()
 					.filter(s -> !s.equals(join))
 					.collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString())));
 		}
-		result.setResult(joinedCells.toString());		
+		result.setResult(joinedCells.toString());
 	}
 
 }
