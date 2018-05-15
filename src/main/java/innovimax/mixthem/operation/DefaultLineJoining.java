@@ -123,7 +123,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		return true;	
 	}
 	
-	private List<List<String>> getLineCellsRange(final List<String> lineCellsRange) {
+	private List<List<String>> getLineCellsRange(final List<String> lineRange) {
 		final List<List<String>> lineCellsRange = new ArrayList<List<String>>();
 		for (String line : lineRange) {
 			lineCellsRange.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())));
