@@ -60,13 +60,13 @@ public class DefaultLineJoining extends AbstractLineOperation {
 				if (cell2.equals(prevCell2) && !secondPreserved) {
 					//System.out.println("PREVIOUS 2");
 					joinLines(prevList1, list2, result);
-					result.setRangeLineReading(0, false);
+					result.setRangeLineReadingStatus(0, false);
 					result.keepRangeLine(0, line1);
 					result.setRangeLine(1, line2);
 				} else if (cell1.equals(prevCell1) && !firstPreserved) {
 					//System.out.println("PREVIOUS 1");
 					joinLines(list1, prevList2, result);
-					result.setRangeLineReading(1, false);
+					result.setRangeLineReadingStatus(1, false);
 					result.setRangeLine(0, line1);
 					result.keepRangeLine(1, line2);
 				} else {
@@ -77,11 +77,11 @@ public class DefaultLineJoining extends AbstractLineOperation {
 							break;
 						case 1:
 							//System.out.println("PRESERVE 1");
-							result.setRangeLineReading(0, false);
+							result.setRangeLineReadingStatus(0, false);
 							break;
 						default:
 							//System.out.println("PRESERVE 2");
-							result.setRangeLineReading(1, false);
+							result.setRangeLineReadingStatus(1, false);
 					}
 					result.setRangeLine(0, line1);
 					result.setRangeLine(1, line2);
@@ -194,7 +194,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		for (int i=0; i < cellRange.size(); i++) {
 			final String cell = cellRange.get(i);
 			if (cell.equals(greaterCell)) {
-				result.setRangeLineReading(i, false);
+				result.setRangeLineReadingStatus(i, false);
 			}
 		}
 	}
