@@ -162,8 +162,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		return true;
 	}
 	
-	private boolean linesJoined(final List<List<String>> lineCellsRange) {
-		final List<Integer> lineComparaisonRange = new ArrayList<Integer>();        
+	private boolean linesJoined(final List<List<String>> lineCellsRange) {		
 		String join = null;
 		int index = 1;
 		for (List<String> lineCells : lineCellsRange) {
