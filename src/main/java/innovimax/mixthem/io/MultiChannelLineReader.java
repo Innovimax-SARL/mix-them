@@ -49,10 +49,9 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 		int index = 0;
 		final Iterator<ILineInput> iterator = this.readers.iterator();
 		while (iterator.hasNext()) {
-			if (readingRange.get(index).booleanValue()) {
-				final ILineInput reader = iterator.next();
-				final String line = reader.nextLine();
-				lines.add(line);
+			final ILineInput reader = iterator.next();
+			if (readingRange.get(index).booleanValue()) {				
+				lines.add(reader.nextLine());
 			} else {
 				lines.add(null);
 			}
