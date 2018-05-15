@@ -93,20 +93,20 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {		
 		//process(lineRange.get(0), lineRange.get(1), result);
-		System.out.println("RANGE="+lineRange.toString());
-		final List<Boolean> preservedLines = new ArrayList<Boolean>();        
-		for (int i=0; i < lineRange.size(); i++) {			
-			preservedLines.add(Boolean.valueOf(!result.readingRangeLine(i)));
-		}                 
-		result.reset();
-		if (joinable(lineRange)) {	
-			final List<List<String>> lineCellRange = new ArrayList<List<String>>();
+		System.out.println("LINE_RANGE="+lineRange.toString());
+		final List<Boolean> preservedLines = getPreservedLineRange(result, lineRange.size());		
+		System.out.println("PRESERVED="+preservedLines.toString());
+		result.reset();		
+		if (joinable(lineRange)) {
+			final List<List<String>> cellsRange = getCellsRange(lineRange);
 			for (String line : lineRange) {
 				lineCellRange.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())));
-			}				
+			}
+		
 			if (hasJoinedCell(lineCellRange)) {
 				System.out.println("--> JOIN="+lineCellRange.toString());
-			}			
+			}
+
 		}		
 	}
 	
@@ -117,6 +117,22 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			}
 		}
 		return true;	
+	}
+	
+	private List<Boolean> getPreservedLineRange(final LineResult result, final int size) {
+		final List<Boolean> preservedLines = new ArrayList<Boolean>();        
+		for (int i=0; i < size; i++) {			
+			preservedLines.add(Boolean.valueOf(!result.readingRangeLine(i)));
+		}
+		return preservedLines;
+	}
+	
+	private List<List<String>> getCellsRange(final List<String> lineRange) {
+		final List<List<String>> cellsRange = new ArrayList<List<String>>();
+		for (String line : lineRange) {
+			cellsRange.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())));
+		}
+		return cellsRange;
 	}
 	
 	private boolean hasJoinedCell(final List<List<String>> lineCellRange) {
