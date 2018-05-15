@@ -186,12 +186,14 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	}
 	
 	private void joinLines(final List<List<String>> lineCellsRange, final LineResult result) {
-		StringBuilder joinedCells = new StringBuilder();
+		final StringBuilder joinedCells = new StringBuilder();
 		String join = lineCellsRange.get(0).get(this.col1 - 1);
 		joinedCells.append(join);
-		/*for (List<String> lineCells : lineCellsRange) {
-		
-		}*/			
+		for (List<String> lineCells : lineCellsRange) {
+			joinedCells.append(lineCells.stream()
+					   	.filter(s -> !s.equals(join))
+					   	.collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
+		}
 		result.setResult(joinedCells.toString());		
 	}
 
