@@ -19,7 +19,5 @@ interface ILineOperation extends IOperation {
 	* @param lineRange The range of lines to mix		
  	* @return True if mixing operation is possible 	
 	*/	
-	default boolean mixable(List<String> lineRange) {
-		return true;
-	}
+	boolean mixable(List<String> lineRange);
 }
