@@ -15,7 +15,7 @@ interface ILineOperation extends IOperation {
 	*/	
 	void process(List<String> lineRange, LineResult result) throws MixException;
 	/**
- 	* Is mixing oparation is  possible on line range?
+ 	* Is mixing operation is  possible on line range?
 	* @param lineRange The range of lines to mix		
  	* @return True if mixing operation is possible 	
 	*/	
