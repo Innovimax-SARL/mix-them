@@ -122,7 +122,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 
 		}*/		
 	}
-	
+/*
 	private boolean linesJoinable(final List<String> lineRange) {		
 		for (int i=0; i < lineRange.size(); i++) {			
 			if (lineRange.get(i) == null) {
@@ -200,5 +200,5 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		}
 		result.setResult(joinedCells.toString());
 	}
-
+*/
 }
