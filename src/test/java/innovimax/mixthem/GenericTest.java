@@ -16,6 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -153,7 +154,8 @@ public class GenericTest {
 	   final Set<Integer> locks = new HashSet<Integer>();
 	   final URL url = getClass().getResource("test_locks.txt");
 	   if (url != null) {
-		  final BufferedReader reader = Files.newBufferedReader(url.getFile().toPath(), StandardCharsets.UTF_8);
+		  final File file = new File(url.getFile());
+		  final BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
 		  final  List<String> ids = Arrays.asList(reader.readLine().split(" "));
 		   for (String id : ids) {
 			   try {
