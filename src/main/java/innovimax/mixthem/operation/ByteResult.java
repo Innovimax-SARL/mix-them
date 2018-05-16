@@ -1,6 +1,5 @@
 package innovimax.mixthem.operation;
 
-import java.util.EnumSet;
 import java.util.stream.IntStream;
 
 /**
@@ -10,14 +9,12 @@ import java.util.stream.IntStream;
 */
 public class ByteResult {
     
-    private final EnumSet<ResultType> types;
     private IntStream result;    
     
     /**
     * Creates a byte result.    
     */
     public ByteResult() {
-        this.types = EnumSet.noneOf(ResultType.class);
         this.result = null;        
     }
 
@@ -25,7 +22,6 @@ public class ByteResult {
     * Reset the result.
     */
     void reset() {        
-        this.types.clear();
         this.result = null;
     }
     
@@ -34,9 +30,6 @@ public class ByteResult {
     */
     void setResult(final IntStream result) {
         this.result = result;
-        if (result != null) {
-            this.types.add(ResultType.HAS_RESULT);
-        }
     }
 
     /**
@@ -50,7 +43,7 @@ public class ByteResult {
     * Has a result ?
     */
     boolean hasResult() {
-        return this.types.contains(ResultType.HAS_RESULT);     
+        return this.result != null;
     }
 
 }
