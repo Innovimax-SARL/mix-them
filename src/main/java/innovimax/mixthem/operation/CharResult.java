@@ -10,22 +10,19 @@ import java.util.stream.IntStream;
 */
 public class CharResult {
     
-    private final EnumSet<ResultType> types;
     private IntStream result;    
     
     /**
     * Creates a character result.    
     */
-    public CharResult() {
-        this.types = EnumSet.noneOf(ResultType.class);
+    public CharResult() {        
         this.result = null;        
     }
 
     /**
     * Reset the result.
     */
-    void reset() {        
-        this.types.clear();
+    void reset() {
         this.result = null;
     }
     
@@ -33,10 +30,7 @@ public class CharResult {
     * Set the result (maybe null).
     */
     void setResult(final IntStream result) {
-        this.result = result;
-        if (result != null) {
-            this.types.add(ResultType.HAS_RESULT);
-        }
+        this.result = result;        
     }
 
     /**
@@ -50,7 +44,7 @@ public class CharResult {
     * Has a result ?
     */
     boolean hasResult() {
-        return this.types.contains(ResultType.HAS_RESULT);     
+        return this.result != null;     
     }
 
 }
