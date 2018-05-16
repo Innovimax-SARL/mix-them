@@ -152,17 +152,19 @@ public class GenericTest {
 	
    private Set<Integer> getTestLocks() {
 	   final Set<Integer> locks = new HashSet<Integer>();
-	   final URL url = getClass().getResource("test_locks.txt");
-	   if (url != null) {
-		  final File file = new File(url.getFile());
-		  final BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
-		  final  List<String> ids = Arrays.asList(reader.readLine().split(" "));
-		   for (String id : ids) {
-			   try {
-			   	locks.add(Integer.valueOf(id));
-			   } catch (NumberFormatException ignored) {}
-		   }
-	   }
+	   try {
+	   	final URL url = getClass().getResource("test_locks.txt");
+	   	if (url != null) {
+			final File file = new File(url.getFile());
+		  	final BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
+		  	final  List<String> ids = Arrays.asList(reader.readLine().split(" "));
+		   	for (String id : ids) {
+				   try {
+			   		locks.add(Integer.valueOf(id));
+			   	} catch (NumberFormatException ignored) {}
+		   	}
+	   	}
+	   } catch (IOException ignored) {}
 	   return locks;
    }
 
