@@ -10,10 +10,9 @@ import java.util.List;
 */
 public class LineResult {
     
-    private final int rangeSize;    
-    private final List<Boolean> nextLineRange;
+    private final int rangeSize;
+    private final List<Boolean> lineReadingRange;
     private final List<String> readLineRange;
-    private final List<String> keptLineRange;    
     private String result;
     
     /**
@@ -21,13 +20,11 @@ public class LineResult {
     */
     public LineResult(final int rangeSize) {        
         this.rangeSize = rangeSize;
-        this.nextLineRange = new ArrayList<Boolean>();
+        this.lineReadingRange = new ArrayList<Boolean>();
         this.readLineRange = new ArrayList<String>();
-        this.keptLineRange = new ArrayList<String>();
         for (int i=0; i < this.rangeSize; i++) {
-            this.nextLineRange.add(Boolean.TRUE);
+            this.lineReadingRange.add(Boolean.TRUE);
             this.readLineRange.add(null);
-            this.keptLineRange.add(null);
         }
         this.result = null;
     }
@@ -38,7 +35,7 @@ public class LineResult {
     void reset() {
         this.result = null;
         for (int i=0; i < this.rangeSize; i++) {
-            this.nextLineRange.set(i, Boolean.TRUE);            
+            this.lineReadingRange.set(i, Boolean.TRUE);            
         }
     }
     
@@ -57,59 +54,38 @@ public class LineResult {
     }
 
     /**
-    * Has a result ?
+    * Has a non null result ?
     */
     boolean hasResult() {
         return this.result != null;
     }
 
     /**
-    * Get a line at specified position from current range.
+    * Get last read line at specified position from current range.
     */
-    String getRangeLine(final int index) {        
-        final String line = this.keptLineRange.get(index);
-        return line != null ? line : this.readLineRange.get(index);
-    }
-       
-    /**
-    * Has a line at specified position in current range?
-    */
-    boolean hasRangeLine(final int index) {
-        return getRangeLine(index) != null;
+    String getRangeLine(final int index) {
+        return this.readLineRange.get(index);
     }
 
     /**
-    * Set a line at specified position in current range.
+    * Set last read line at specified position in current range.
     */
     void setRangeLine(final int index, final String line) {
-        if (this.keptLineRange.get(index) != null) {            
-            setRangeLineReadingStatus(index, false);
-            this.keptLineRange.set(index, null);
-        } else {
-            this.readLineRange.set(index, line);
-        }
-    }
-
-    /**
-    * Keep previous line at specified position in current range and set future line for the same position.
-    */
-    void keepRangeLine(final int index, final String line) {
-        this.keptLineRange.set(index, this.readLineRange.get(index));
         this.readLineRange.set(index, line);
     }
     
     /**
-    * Set if file reading is necessary at specified position of the current range.
+    * Set if next line reading is necessary at specified position of the current range.
     */
     void setRangeLineReadingStatus(final int index, final boolean reading) {
-        this.nextLineRange.set(index, Boolean.valueOf(reading));
+        this.lineReadingRange.set(index, Boolean.valueOf(reading));
     }
    
     /**
     * Get next line reading range
     */
     List<Boolean> getLineReadingRange() {
-        return this.nextLineRange;
+        return this.lineReadingRange;
     }
 
 }
