@@ -19,7 +19,8 @@ public enum Rule {
     RANDOM_ALT_LINE("random-alt-line", "random-altline", "will output one line of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(Mode.CHAR)),
     RANDOM_ALT_CHAR("random-alt-char", "random-altchar", "will output one char of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(Mode.CHAR)),
     RANDOM_ALT_BYTE("random-alt-byte", "random-altbyte", "will output one byte of each code randomly based on a seed for reproducability", true, EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(Mode.BYTE)),
-    JOIN("join", "join", "will output merging of lines that have common occurrence", true, EnumSet.of(RuleParam.JOIN_COL1, RuleParam.JOIN_COL2), EnumSet.of(Mode.CHAR)),
+    //JOIN("join", "join", "will output merging of lines that have common occurrence", true, EnumSet.of(RuleParam.JOIN_COL1, RuleParam.JOIN_COL2), EnumSet.of(Mode.CHAR)),
+    JOIN("join", "join", "will output merging of lines that have common occurrence", true, EnumSet.of(RuleParam.JOIN_COLS), EnumSet.of(Mode.CHAR)),
     ZIP_LINE("zip-line", "zipline", "will output zip of line from file1 and file2 to fileN", true, EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(Mode.CHAR)),
     ZIP_CHAR("zip-char", "zipchar", "will output zip of char from file1 and file2 to fileN", true, EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(Mode.CHAR)),
     ZIP_CELL("zip-cell", "zipcell", "will output zip of cell from file1 and file2 to fileN", true, EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(Mode.CHAR));
