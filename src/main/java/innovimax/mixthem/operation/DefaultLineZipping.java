@@ -9,7 +9,6 @@ import java.util.Map;
 
 /**
 * <p>Zips two or more lines.</p>
-* <p>Zipping stops when a line is missing.</p>
 * @see ILineOperation
 * @author Innovimax
 * @version 1.0
