@@ -58,7 +58,13 @@ public class RuleRuns {
 							if (parts.length > 2) {
 								col = Integer.parseInt(parts[2]);
 								params.put(RuleParam.JOIN_COL2, ParamValue.createInt(col));
-							}	
+							}
+							/*String[] stringArray = parts[1].split(",");
+							int[] intArray = new int[stringArray.length];
+							for (int i=0; i < stringArray.length; i++) {
+								intArray[i] = Integer.parseInt(stringArray[i]);
+							}
+							params.put(RuleParam.JOIN_COLS, ParamValue.createIntArray(intArray));*/
 							break;
 						case ZIP_LINE:
 						case ZIP_CELL:
