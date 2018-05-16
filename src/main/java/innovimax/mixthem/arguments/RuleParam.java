@@ -9,7 +9,7 @@ public enum RuleParam {
 	RANDOM_SEED("seed", ParamType.INTEGER),
 	JOIN_COL1("col1", ParamType.INTEGER),
 	JOIN_COL2("col2", ParamType.INTEGER),
-	JOIN_COLS("col", ParamType.INTEGER_ARRAY),
+	JOIN_COLS("cols", ParamType.INTEGER_ARRAY),
 	ZIP_SEP("sep", ParamType.STRING);
 
 	private final String name;
@@ -26,6 +26,21 @@ public enum RuleParam {
 	*/
 	public String getName() {
 		return this.name;
+	}
+	
+	/**
+	* Returns the comment for this parameter.
+	* @return The comment for this parameter
+	*/
+	public String getComment() {
+		switch(this.type) {
+			case INTEGER:
+            			return this.name + " is an integer value";
+			case INTEGER_ARRAY:
+				return this.name + " is a list of integer separated by a comma";
+            		default:
+            			return this.name + " is a string value";
+		}		
 	}
 
 	/**
