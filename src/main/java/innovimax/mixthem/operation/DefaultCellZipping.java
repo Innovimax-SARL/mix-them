@@ -33,29 +33,27 @@ public class DefaultCellZipping extends DefaultLineZipping {
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
 		result.reset();
 		//System.out.println("RANGE="+lineRange.toString());
-		if (linesZipable(lineRange)) {
-			StringBuilder zip = new StringBuilder();
-			final List<Iterator<String>> cellIterators = new ArrayList<Iterator<String>>();
-			for (String line : lineRange) {
-				cellIterators.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator());
-			}				
-			while (hasCellRange(cellIterators)) {
-				if (zip.length() > 0) {
-					zip.append(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
+		StringBuilder zip = new StringBuilder();
+		final List<Iterator<String>> cellIterators = new ArrayList<Iterator<String>>();
+		for (String line : lineRange) {
+			cellIterators.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator());
+		}				
+		while (hasCellRange(cellIterators)) {
+			if (zip.length() > 0) {
+				zip.append(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
+			}
+			final List<String> cellRange = nextCellRange(cellIterators);
+			//System.out.println("CELLS="+cellRange);
+			int index = 0;
+			for (String cell : cellRange) {
+				if (index > 0) {
+					zip.append(this.sep);
 				}
-				final List<String> cellRange = nextCellRange(cellIterators);
-				//System.out.println("CELLS="+cellRange);
-				int index = 0;
-				for (String cell : cellRange) {
-					if (index > 0) {
-						zip.append(this.sep);
-					}
-					zip.append(cell);
-					index++;
-				}
-			}			
-			result.setResult(zip.toString());
-		}
+				zip.append(cell);
+				index++;
+			}
+		}			
+		result.setResult(zip.toString());
 	}
 
 	private boolean hasCellRange(List<Iterator<String>> cellIterators) {
