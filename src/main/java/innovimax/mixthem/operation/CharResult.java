@@ -1,6 +1,5 @@
 package innovimax.mixthem.operation;
 
-import java.util.EnumSet;
 import java.util.stream.IntStream;
 
 /**
