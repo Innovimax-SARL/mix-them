@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* <p>Describes the result of an line operation on two files.</p>
+* <p>Describes the result of a line operation on two or more files.</p>
 * @author Innovimax
 * @version 1.0
 */
