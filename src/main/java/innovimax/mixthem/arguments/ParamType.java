@@ -8,5 +8,5 @@ package innovimax.mixthem.arguments;
 public enum ParamType { 
 	STRING,
 	INTEGER,
-	INTEGER_LIST;
+	INTEGER_ARRAY;
 }
