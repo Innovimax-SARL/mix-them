@@ -54,6 +54,11 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 		}
 		result.setResult(line);
 	}
+	
+	@Override
+	public boolean mixable(final List<String> lineRange) {	
+		return true;	
+	}
 
 	private int nextChannel(final List<String> lineRange, final int curChannel) {
 		int channel = curChannel+1;
