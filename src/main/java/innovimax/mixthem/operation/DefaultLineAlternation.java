@@ -37,28 +37,6 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	}	
 
 	@Override
-	public void process(final String line1, final String line2, final LineResult result) throws MixException {		
-		result.reset();
-		if (line1 == null) {
-			result.setResult(line2);
-		} else if (line2 == null) {
-			result.setResult(line1);
-		} else {
-			String line = null;
-			switch (this.mode) {
-				case RANDOM:
-					line = this.random.nextBoolean() ? line1 : line2;
-					break;
-				case NORMAL:
-				default:
-					line = this.odd ? line1 : line2;
-					this.odd = !this.odd;
-			}
-			result.setResult(line);
-		}
-	}
-	
-	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
 		result.reset();
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(lineRange.size());
