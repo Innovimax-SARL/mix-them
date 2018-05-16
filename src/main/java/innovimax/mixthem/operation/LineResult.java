@@ -30,7 +30,7 @@ public class LineResult {
     }
 
     /**
-    * Reset the result.
+    * Reset the result (but keep last read lines).
     */
     void reset() {
         this.result = null;
