@@ -223,11 +223,10 @@ public class Arguments {
             for(RuleParam param : rule.getParams()) {                                
                 System.out.print(" [#" +  param.getName() + "]");
             }
-            System.out.print("(");
+            System.out.println(": " + rule.getDescription());            
             for(RuleParam param : rule.getParams()) {                                
-                System.out.print("    (#" +param.getName() + " " + param.getComment() + ")");
-            }
-            System.out.println(")");
+                System.out.println("    (#" +param.getName() + " " + param.getComment() + ")");
+            }            
         }
         System.out.println("  ");
         System.out.println("  mix-them --zip zipfile");
