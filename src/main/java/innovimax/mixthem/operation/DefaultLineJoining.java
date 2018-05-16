@@ -101,8 +101,8 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	
 	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {		
-		//process(lineRange.get(0), lineRange.get(1), result);
-		System.out.println("LINES="+lineRange.toString());
+		process(lineRange.get(0), lineRange.get(1), result);
+		/*System.out.println("LINES="+lineRange.toString());
 		final List<Boolean> lineReadingRange = new ArrayList<Boolean>(result.getLineReadingRange());
 		System.out.println("READ="+lineReadingRange.toString());		
 		result.reset();		
@@ -120,7 +120,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 				}			
 			}
 
-		}		
+		}*/		
 	}
 	
 	private boolean linesJoinable(final List<String> lineRange) {		
