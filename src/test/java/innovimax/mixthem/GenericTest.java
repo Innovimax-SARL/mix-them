@@ -47,11 +47,12 @@ public class GenericTest {
 
    private final void testRules(final Mode mode) throws MixException, FileNotFoundException, IOException, NumberFormatException {
 	   MixThem.setLogging(Level.FINE);
-	   int testId = 1;
+	   int testId = 0;
 	   final List<String> failed = new ArrayList<String>();
 	   final Set<Integer> locks = getTestLocks();	   
 	   boolean result = true;
 	   while (true) {
+		   testId++;
 		   MixThem.LOGGER.info("TEST [" + mode.getName().toUpperCase() + "] N° " + testId + "***********************************************************");
 		   final String prefix = "test" + String.format("%03d", testId) +"_";
 		   final List<URL> urlF = new ArrayList<URL>();
@@ -102,7 +103,6 @@ public class GenericTest {
 				   }
 			   }
 		   }
-		   testId++;
 	   }
 	   MixThem.LOGGER.info("*********************************************************************");
 	   MixThem.LOGGER.info("FAILED [" + mode.getName().toUpperCase() + "] TESTS : " + (failed.size() > 0 ? failed.toString() : "None"));
