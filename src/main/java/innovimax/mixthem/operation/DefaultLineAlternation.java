@@ -18,7 +18,6 @@ import java.util.Random;
 public class DefaultLineAlternation extends AbstractLineOperation {
 
 	private final AltMode mode;
-	private boolean odd;
 	private int channel;
 	private final Random random;
 
@@ -31,7 +30,6 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	public DefaultLineAlternation(final AltMode mode, final Map<RuleParam, ParamValue> params) {
 		super(params);
 		this.mode = mode;
-		this.odd = true;
 		this.channel = 0;
 		this.random = new Random(params.getOrDefault(RuleParam.RANDOM_SEED, AltOperation.DEFAULT_RANDOM_SEED.getValue()).asInt());
 	}	
