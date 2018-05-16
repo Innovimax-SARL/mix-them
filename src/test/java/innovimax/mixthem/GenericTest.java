@@ -6,12 +6,21 @@ import innovimax.mixthem.arguments.Rule;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.io.InputResource;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 
 import org.junit.Assert;
@@ -38,7 +47,9 @@ public class GenericTest {
    private final void testRules(final Mode mode) throws MixException, FileNotFoundException, IOException, NumberFormatException {
 	   MixThem.setLogging(Level.FINE);
 	   int testId = 1;
-	   List<String> failed = new ArrayList<String>();
+	   final List<String> failed = new ArrayList<String>();
+	   final Set<Integer> locks = getTestLocks();
+	   MixThem.LOGGER.info("LOCKS " + locks.toString());
 	   boolean result = true;
 	   while (true) {
 		   MixThem.LOGGER.info("TEST [" + mode.getName().toUpperCase() + "] N° " + testId + "***********************************************************");
@@ -136,6 +147,21 @@ public class GenericTest {
 		   return false;
 	   }
 	   return true;
+   }
+	
+   private Set<Integer> getTestLocks() {
+	   final Set<Integer> locks = new HashSet<Integer>();
+	   final URL url = getClass().getResource("test_locks.txt");
+	   if (url != null) {
+		  final BufferedReader reader = Files.newBufferedReader(url.getFile().toPath(), StandardCharsets.UTF_8);
+		  final  List<String> ids = Arrays.asList(reader.readLine().split(" "));
+		   for (String id : ids) {
+			   try {
+			   	locks.add(Integer.valueOf(id));
+			   } catch (NumberFormatException ignored) {}
+		   }
+	   }
+	   return locks;
    }
 
 }
