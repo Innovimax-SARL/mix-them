@@ -31,16 +31,10 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	}
 	
 	@Override
-	public void process(final String line1, final String line2, final LineResult result) throws MixException {
-		result.reset();
-		result.setResult((line1 != null ? line1 : "") + this.sep + (line2 != null ? line2 : ""));
-	}
-	
-	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
 		result.reset();
 		//System.out.println("RANGE="+lineRange.toString());
-		if (zipable(lineRange)) {	
+		if (linesZipable(lineRange)) {	
 			StringBuilder zip = new StringBuilder();
 			int index = 0;
 			for (String line : lineRange) {
@@ -54,7 +48,7 @@ public class DefaultLineZipping extends AbstractLineOperation {
 		}
 	}
 	
-	protected boolean zipable(final List<String> lineRange) {		
+	protected boolean linesZipable(final List<String> lineRange) {		
 		for (int i=0; i < lineRange.size(); i++) {			
 			if (lineRange.get(i) == null) {
 				return false;				
