@@ -14,4 +14,12 @@ interface ILineOperation extends IOperation {
 	* @see innovimax.mixthem.operation.LineResult	
 	*/	
 	void process(List<String> lineRange, LineResult result) throws MixException;
+	/**
+ 	* Is mixing oparation is  possible on line range?
+	* @param lineRange The range of lines to mix		
+ 	* @return True if mixing operation is possible 	
+	*/	
+	default boolean mixable(List<String> lineRange) {
+		return true;
+	}
 }
