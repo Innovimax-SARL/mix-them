@@ -39,6 +39,14 @@ public enum RuleParam {
 			case INTEGER:				
             			pv = ParamValue.createInt(Integer.parseInt(value));
             			break;
+			case INTEGER_ARRAY:
+				String[] stringArray = value.split(",");
+				int[] intArray = new int[stringArray.length];
+				for (int i=0; i < stringArray.length; i++) {
+					intArray[Integer.parseInt(stringArray[i])];
+				}
+            			pv = ParamValue.createIntArray(intArray);
+            			break;
             		default:
             			pv = ParamValue.createString(value);
 		}
