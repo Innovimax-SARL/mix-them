@@ -9,6 +9,7 @@ public enum RuleParam {
 	RANDOM_SEED("seed", ParamType.INTEGER),
 	JOIN_COL1("col1", ParamType.INTEGER),
 	JOIN_COL2("col2", ParamType.INTEGER),
+	JOIN_COL("col", ParamType.INTEGER),
 	ZIP_SEP("sep", ParamType.STRING);
 
 	private final String name;
