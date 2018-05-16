@@ -49,8 +49,7 @@ public class GenericTest {
 	   MixThem.setLogging(Level.FINE);
 	   int testId = 1;
 	   final List<String> failed = new ArrayList<String>();
-	   final Set<Integer> locks = getTestLocks();
-	   MixThem.LOGGER.info("LOCKS " + locks.toString());
+	   final Set<Integer> locks = getTestLocks();	   
 	   boolean result = true;
 	   while (true) {
 		   MixThem.LOGGER.info("TEST [" + mode.getName().toUpperCase() + "] N° " + testId + "***********************************************************");
@@ -67,6 +66,10 @@ public class GenericTest {
 			   }
 		   }		   		   
 		   if( urlF.size() < 2) break;
+		   if (locks.contains(Integer.valueOf(testId))) {
+			   MixThem.LOGGER.info("Locked!!!");
+			   continue;
+		   }
 		   for (int i=0; i < urlF.size(); i++) {
 			   MixThem.LOGGER.info("File " + (i+1) + ": " + urlF.get(i));
 		   }
@@ -103,6 +106,7 @@ public class GenericTest {
 	   }
 	   MixThem.LOGGER.info("*********************************************************************");
 	   MixThem.LOGGER.info("FAILED [" + mode.getName().toUpperCase() + "] TESTS : " + (failed.size() > 0 ? failed.toString() : "None"));
+	   MixThem.LOGGER.info("LOCKED [" + mode.getName().toUpperCase() + "] TESTS : " + locks.toString());	   
 	   MixThem.LOGGER.info("*********************************************************************");
 	   Assert.assertTrue(result);
    }	   
