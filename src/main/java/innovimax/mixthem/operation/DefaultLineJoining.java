@@ -34,7 +34,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		this.col2 = this.params.getOrDefault(RuleParam.JOIN_COL2, JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
 	} 
 
-	@Override
+	@Deprecated
 	public void process(final String line1, final String line2, final LineResult result) throws MixException {
 		final boolean firstPreserved = !result.getLineReadingRange().get(0).booleanValue();
 		final boolean secondPreserved = !result.getLineReadingRange().get(1).booleanValue();
@@ -90,6 +90,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		}
 	}
 
+	@Deprecated
 	private void joinLines(final List<String> list1, final List<String> list2, final LineResult result) {
 		final String part1 = list1.get(this.col1 - 1);
 		final String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
