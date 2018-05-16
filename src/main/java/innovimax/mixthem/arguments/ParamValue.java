@@ -62,15 +62,21 @@ public abstract class ParamValue {
 	}
 	
 	/**
-	* Returns the parameter value as a String.
-	* @return The parameter value as a String
+	* Returns the parameter value as a string.
+	* @return The parameter value as a string
 	*/
 	public abstract String asString();
 
 	/**
-	* Returns the parameter value as an Integer.
-	* @return The parameter value as an Integer
+	* Returns the parameter value as an integer.
+	* @return The parameter value as an integer
 	*/
 	public abstract int asInt();
+	
+	/**
+	* Returns the parameter value as an array of integer.
+	* @return The parameter value as an array of integer
+	*/
+	public abstract int[] asIntArray();
 	
 }
