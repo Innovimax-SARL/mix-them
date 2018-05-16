@@ -21,7 +21,6 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	/**
 	* Constructor
  	* @param params The list of parameters (maybe empty)
-	* @see innovimax.mixthem.operation.ZipType
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
