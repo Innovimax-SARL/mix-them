@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 
 /**
 * <p>Joins two or more lines on a common field.</p>
-* <p>Joining stops when no common field is found.</p>
+* <p>Joining doesn't operate when no common field is found for all lines.</p>
+* <p>In this case, we prevent bigger join field file(s) from beeing read, keeping current line(s).</p>
 * @see ILineOperation
 * @author Innovimax
 * @version 1.0
@@ -38,31 +39,19 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		System.out.println("LINES="+lineRange.toString());
 		final List<Boolean> lineReadingRange = new ArrayList<Boolean>(result.getLineReadingRange());
 		System.out.println("READ="+lineReadingRange.toString());		
-		result.reset();		
-		if (linesJoinable(lineRange)) {
-			final List<List<String>> lineCellsRange = getLineCellsRange(lineRange);
-			if (linesComparable(lineCellsRange)) {				
-				if (linesJoined(lineCellsRange)) {					
-					joinLines(lineCellsRange, result);					
-					System.out.println("JOINED="+result.getResult());				
-				} else {										
-					setLineReadingPreservation(lineCellsRange, result);
-				}				
-				for (int i=0; i < lineRange.size(); i++) {
-					result.setRangeLine(i, lineRange.get(i));
-				}			
+		result.reset();				
+		final List<List<String>> lineCellsRange = getLineCellsRange(lineRange);
+		if (linesComparable(lineCellsRange)) {				
+			if (linesJoined(lineCellsRange)) {					
+				joinLines(lineCellsRange, result);					
+				System.out.println("JOINED="+result.getResult());				
+			} else {										
+				setLineReadingPreservation(lineCellsRange, result);
 			}
-
+			for (int i=0; i < lineRange.size(); i++) {
+				result.setRangeLine(i, lineRange.get(i));
+			}
 		}		
-	}
-
-	private boolean linesJoinable(final List<String> lineRange) {		
-		for (int i=0; i < lineRange.size(); i++) {			
-			if (lineRange.get(i) == null) {
-				return false;				
-			}
-		}
-		return true;	
 	}
 	
 	private List<List<String>> getLineCellsRange(final List<String> lineRange) {
