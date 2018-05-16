@@ -47,14 +47,26 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 				}
 			}
 			// process mixing
-			process(lineRange, result);
-			// write mixing result if has one
-			if (result.hasResult()) {
-				writer.writeLine(result.getResult());
+			if (mixable(lineRange)) {
+				process(lineRange, result);
+				// write mixing result if has one
+				if (result.hasResult()) {
+					writer.writeLine(result.getResult());
+				}
 			}
 		}
 		reader.close();
 		writer.close();
     	}
+	
+	@Override
+	public boolean mixable(final List<String> lineRange) {		
+		for (int i=0; i < lineRange.size(); i++) {			
+			if (lineRange.get(i) == null) {
+				return false;				
+			}
+		}
+		return true;	
+	}
 
 }
