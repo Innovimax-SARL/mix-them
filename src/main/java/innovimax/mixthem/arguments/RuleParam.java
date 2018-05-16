@@ -35,11 +35,11 @@ public enum RuleParam {
 	public String getComment() {
 		switch(this.type) {
 			case INTEGER:
-            			return this.name + " is an integer value";
+            			return "is an integer value";
 			case INTEGER_ARRAY:
-				return this.name + " is a list of integer separated by a comma";
+				return "is a list of integer separated by a comma";
             		default:
-            			return this.name + " is a string value";
+            			return "is a string value";
 		}		
 	}
 
