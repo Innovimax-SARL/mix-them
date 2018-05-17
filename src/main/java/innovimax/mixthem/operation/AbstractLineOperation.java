@@ -36,21 +36,18 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
 		final IMultiChannelLineInput reader = new MultiChannelLineReader(inputs);
 		final ILineOutput writer = new DefaultLineWriter(output);
-		final LineResult result = new LineResult(inputs.size());
-		System.out.println("START");
+		final LineResult result = new LineResult(inputs.size());		
 		while (reader.hasLine()) {
-			System.out.println("READING="+result.getLineReadingRange());
 			// read next range lines depends on last result indicators
 			final List<String> lineRange = reader.nextLineRange(result.getLineReadingRange());
-			System.out.println("NEXT="+lineRange);
 			// set range preserved lines from last result
 			for (int i=0; i < lineRange.size(); i++) {
 				if (!result.getLineReadingRange().get(i).booleanValue()) {
 					lineRange.set(i, result.getRangeLine(i));
 				}
-			}
-			// process mixing
+			}			
 			if (mixable(lineRange)) {
+				// process mixing
 				process(lineRange, result);
 				// write mixing result if has one
 				if (result.hasResult()) {
@@ -60,7 +57,6 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 				result.reset();
 			}
 		}
-		System.out.println("STOP");
 		reader.close();
 		writer.close();
     	}
