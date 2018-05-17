@@ -53,12 +53,15 @@ public class RuleRuns {
 							params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(seed));
 							break;
 						case JOIN:
-							String[] stringArray = parts[1].split(",");
+							/*String[] stringArray = parts[1].split(",");
 							int[] intArray = new int[stringArray.length];
 							for (int i=0; i < stringArray.length; i++) {
 								intArray[i] = Integer.parseInt(stringArray[i]);
 							}
-							params.put(RuleParam.JOIN_COLS, ParamValue.createIntArray(intArray));
+							params.put(RuleParam.JOIN_COLS, ParamValue.createIntArray(intArray));*/
+							ParamValue value = RuleParam.JOIN_COLS.createValue(parts[1]);
+							params.put(RuleParam.JOIN_COLS, value);
+							
 							break;
 						case ZIP_LINE:
 						case ZIP_CELL:
