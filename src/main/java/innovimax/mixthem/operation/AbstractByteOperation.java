@@ -38,6 +38,7 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 	    final IByteOutput writer = new DefaultByteWriter(output);
 	    final ByteResult result = new ByteResult();
 	    while (reader.hasByte()) {
+		    result.reset();
 		    final byte[] byteRange = reader.nextByteRange();		    
 		    process(byteRange, result);
 		    if (result.hasResult()) {
@@ -48,8 +49,7 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 					    throw new RuntimeException(e);
 				    }
 			    });
-		    }
-		    result.reset();
+		    }		    
 	    }
 	    reader.close();	    
 	    writer.close();
