@@ -29,7 +29,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	*/
 	public DefaultLineJoining(final Map<RuleParam, ParamValue> params) {
 		super(params);		
-		if (this.params.constainsKey(RuleParam.JOIN_COLS)) {
+		if (this.params.containsKey(RuleParam.JOIN_COLS)) {
 			this.joinCols = this.params.get(RuleParam.JOIN_COLS).asIntArray();
 		} else {
 			this.joinCols = new int[1];
@@ -124,7 +124,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 
 	private void joinLines(final List<List<String>> lineCellsRange, final LineResult result) {
 		final StringBuilder joinedCells = new StringBuilder();
-		String join = lineCellsRange.get(0).get(this.col1 - 1);
+		String join = lineCellsRange.get(0).get(getJoinedColumn(0) - 1);
 		joinedCells.append(join);
 		for (List<String> lineCells : lineCellsRange) {
 			joinedCells.append(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
