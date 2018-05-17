@@ -37,9 +37,11 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 		final IMultiChannelLineInput reader = new MultiChannelLineReader(inputs);
 		final ILineOutput writer = new DefaultLineWriter(output);
 		final LineResult result = new LineResult(inputs.size());
+		System.out.println("START");
 		while (reader.hasLine()) {
 			// read next range lines depends on last result indicators
 			final List<String> lineRange = reader.nextLineRange(result.getLineReadingRange());
+			System.out.println("NEXT="+lineRange);
 			// set range preserved lines from last result
 			for (int i=0; i < lineRange.size(); i++) {
 				if (!result.getLineReadingRange().get(i).booleanValue()) {
@@ -55,6 +57,7 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 				}
 			}
 		}
+		System.out.println("STOP");
 		reader.close();
 		writer.close();
     	}
