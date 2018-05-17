@@ -3,6 +3,8 @@ package innovimax.mixthem.operation;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 
+import java.util.Map;
+
 /**
 * <p>Abstract class for all copy operation.</p>
 * @see ICopy
