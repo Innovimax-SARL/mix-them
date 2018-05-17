@@ -77,8 +77,9 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	
 	private boolean linesComparable(final List<List<String>> lineCellsRange) {		
 		for (int i=0; i < lineCellsRange.size(); i++) {
+			final int joinCol = getJoinedColumn(i);
 			final List<String> lineCells = lineCellsRange.get(i);
-			if (lineCells.size() < (i == 1 ? this.col2 : this.col1)) {
+			if (lineCells.size() < joinCol) {
 				return false;
 			}			
 		}
