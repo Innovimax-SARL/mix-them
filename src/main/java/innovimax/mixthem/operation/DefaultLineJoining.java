@@ -20,8 +20,7 @@ import java.util.stream.Collectors;
 */
 public class DefaultLineJoining extends AbstractLineOperation {
   
-	private final int col1;
-	private final int col2;
+	private final int[] cols;	
 	
 	/**
 	* @param params The list of parameters (maybe empty)
@@ -29,9 +28,13 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	* @see innovimax.mixthem.operation.ParamValue
 	*/
 	public DefaultLineJoining(final Map<RuleParam, ParamValue> params) {
-		super(params);
-		this.col1 = this.params.getOrDefault(RuleParam.JOIN_COL1, JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
-		this.col2 = this.params.getOrDefault(RuleParam.JOIN_COL2, JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
+		super(params);		
+		if (this.params.constainsKey(RuleParam.JOIN_COLS)) {
+			this.cols = this.params.get(RuleParam.JOIN_COLS).asIntArray();
+		} else {
+			this.cols = new int[1];
+			this.cols[0] = JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
+		}
 	} 
 
 	@Override
