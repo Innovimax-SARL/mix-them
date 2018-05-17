@@ -30,7 +30,6 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	
 	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
-		result.reset();
 		//System.out.println("RANGE="+lineRange.toString());		
 		StringBuilder zip = new StringBuilder();
 		int index = 0;
