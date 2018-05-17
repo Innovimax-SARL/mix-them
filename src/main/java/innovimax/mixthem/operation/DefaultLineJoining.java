@@ -65,6 +65,16 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		return lineCellsRange;
 	}
 	
+	private int getJoinedColumn(int index) {
+		if (this.joinCols.length == 1) {
+			return this.joinCols[0];
+		} else if (index < this.joinCols.length && this.joinCols[index] > 0) {
+			return this.joinCols[index];
+		} else {
+			return JoinOperation.DEFAULT_JOIN_COLUMN.getValue().asInt();
+		}
+	}
+	
 	private boolean linesComparable(final List<List<String>> lineCellsRange) {		
 		for (int i=0; i < lineCellsRange.size(); i++) {
 			final List<String> lineCells = lineCellsRange.get(i);
