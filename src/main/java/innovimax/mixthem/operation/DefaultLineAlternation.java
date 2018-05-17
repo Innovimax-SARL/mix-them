@@ -36,7 +36,6 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 
 	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
-		result.reset();
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(lineRange.size());
 		String line = lineRange.get(channel);
 		//System.out.println("RANGE="+lineRange.toString());
