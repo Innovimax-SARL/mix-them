@@ -14,10 +14,21 @@ import java.io.OutputStream;
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultCharCopy implements ICopy {
+public class DefaultCharCopy extends AbstractCopy {
 
     private final static int CHAR_BUFFER_SIZE = 1024;
     
+    /**
+	* Constructor	
+ 	* @param params The list of parameters (maybe empty)
+	* @see innovimax.mixthem.arguments.RuleParam
+	* @see innovimax.mixthem.arguments.ParamValue
+	*/
+	public DefaultCharCopy(final Map<RuleParam, ParamValue> params) {
+		super(params);		
+	}
+    
+    @Override
     public void processFile(InputResource input, OutputStream out) throws IOException {
         char[] buffer = new char[CHAR_BUFFER_SIZE];
         ICharInput reader = new DefaultCharReader(input);
