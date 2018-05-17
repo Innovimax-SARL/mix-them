@@ -37,7 +37,6 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 	
 	@Override
 	public void process(final byte[] byteRange, final ByteResult result) throws MixException {
-		result.reset();
 		final int[] array = new int[1];
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(byteRange.length);
 		byte b = byteRange[channel];
