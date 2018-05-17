@@ -31,7 +31,6 @@ public class DefaultCellZipping extends DefaultLineZipping {
 	
 	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
-		result.reset();
 		//System.out.println("RANGE="+lineRange.toString());
 		StringBuilder zip = new StringBuilder();
 		final List<Iterator<String>> cellIterators = new ArrayList<Iterator<String>>();
