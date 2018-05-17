@@ -39,6 +39,7 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 		final LineResult result = new LineResult(inputs.size());
 		System.out.println("START");
 		while (reader.hasLine()) {
+			System.out.println("READING="+result.getLineReadingRange());
 			// read next range lines depends on last result indicators
 			final List<String> lineRange = reader.nextLineRange(result.getLineReadingRange());
 			System.out.println("NEXT="+lineRange);
@@ -55,6 +56,8 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 				if (result.hasResult()) {
 					writer.writeLine(result.getResult());
 				}
+			} else {
+				result.reset();
 			}
 		}
 		System.out.println("STOP");
