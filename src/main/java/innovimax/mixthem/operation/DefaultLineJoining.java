@@ -77,9 +77,8 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	
 	private boolean linesComparable(final List<List<String>> lineCellsRange) {		
 		for (int i=0; i < lineCellsRange.size(); i++) {
-			final int joinCol = getJoinedColumn(i);
 			final List<String> lineCells = lineCellsRange.get(i);
-			if (lineCells.size() < joinCol) {
+			if (lineCells.size() < getJoinedColumn(i)) {
 				return false;
 			}			
 		}
@@ -88,9 +87,9 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	
 	private boolean linesJoined(final List<List<String>> lineCellsRange) {		
 		String joinCell = null;		
-		for (int i=0; i < lineCellsRange.size(); i++) {
+		for (int i=0; i < lineCellsRange.size(); i++) {			
 			final List<String> lineCells = lineCellsRange.get(i);
-			final String cell = lineCells.get((i == 1 ? this.col2 : this.col1) - 1);
+			final String cell = lineCells.get(getJoinedColumn(i) - 1);
 			if (joinCell == null) {
 				joinCell = cell;
 			}
@@ -106,7 +105,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		String greaterCell = null;		
 		for (int i=0; i < lineCellsRange.size(); i++) {
 			final List<String> lineCells = lineCellsRange.get(i);
-			final String cell = lineCells.get((i == 1 ? this.col2 : this.col1) - 1);
+			final String cell = lineCells.get(getJoinedColumn(i) - 1);
 			if (greaterCell == null) {
 				greaterCell = cell;
 			}
