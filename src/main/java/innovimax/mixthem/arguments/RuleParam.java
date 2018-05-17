@@ -35,7 +35,7 @@ public enum RuleParam {
 			case INTEGER:
             			return "is an integer value";
 			case INTEGER_ARRAY:
-				return "is a list of integer separated by a comma (starting by a comma or 2 consecutives commas mean a default value)";
+				return "is a list of integer separated by a comma; starting by a comma or 2 consecutives commas mean a default value";
             		default:
             			return "is a string value";
 		}		
