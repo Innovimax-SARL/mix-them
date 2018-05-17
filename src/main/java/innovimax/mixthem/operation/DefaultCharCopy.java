@@ -16,9 +16,9 @@ import java.io.OutputStream;
 */
 public class DefaultCharCopy extends AbstractCopy {
 
-    private final static int CHAR_BUFFER_SIZE = 1024;
-    
-    /**
+	private final static int CHAR_BUFFER_SIZE = 1024;
+	
+	/**
 	* Constructor	
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
@@ -27,18 +27,18 @@ public class DefaultCharCopy extends AbstractCopy {
 	public DefaultCharCopy(final Map<RuleParam, ParamValue> params) {
 		super(params);		
 	}
-    
-    @Override
-    public void processFile(InputResource input, OutputStream out) throws IOException {
-        char[] buffer = new char[CHAR_BUFFER_SIZE];
-        ICharInput reader = new DefaultCharReader(input);
-        ICharOutput writer = new DefaultCharWriter(out);
-        while (reader.hasCharacter()) {
-            final int len = reader.nextCharacters(buffer, CHAR_BUFFER_SIZE);
-            writer.writeCharacters(buffer, len);
-        }
-        reader.close();
-        writer.close();
-    }    
-    
+	
+	@Override
+	public void processFile(InputResource input, OutputStream out) throws IOException {
+		char[] buffer = new char[CHAR_BUFFER_SIZE];
+		ICharInput reader = new DefaultCharReader(input);
+		ICharOutput writer = new DefaultCharWriter(out);
+		while (reader.hasCharacter()) {
+			final int len = reader.nextCharacters(buffer, CHAR_BUFFER_SIZE);
+			writer.writeCharacters(buffer, len);
+		}
+		reader.close();
+		writer.close();
+	}    
+
 }
