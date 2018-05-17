@@ -45,7 +45,8 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 				if (!result.getLineReadingRange().get(i).booleanValue()) {
 					lineRange.set(i, result.getRangeLine(i));
 				}
-			}			
+			}
+			result.reset();
 			if (mixable(lineRange)) {
 				// process mixing
 				process(lineRange, result);
@@ -53,8 +54,7 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 				if (result.hasResult()) {
 					writer.writeLine(result.getResult());
 				}			
-			}
-			result.reset();
+			}			
 		}
 		reader.close();
 		writer.close();
