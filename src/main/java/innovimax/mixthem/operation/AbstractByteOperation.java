@@ -49,6 +49,7 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 				    }
 			    });
 		    }
+		    result.reset();
 	    }
 	    reader.close();	    
 	    writer.close();
