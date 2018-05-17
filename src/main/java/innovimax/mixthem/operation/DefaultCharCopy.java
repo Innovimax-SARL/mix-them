@@ -8,6 +8,8 @@ import innovimax.mixthem.io.ICharInput;
 import innovimax.mixthem.io.ICharOutput;
 import innovimax.mixthem.io.InputResource;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Map;
 
 /**
