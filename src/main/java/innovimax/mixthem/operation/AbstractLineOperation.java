@@ -52,10 +52,9 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 				// write mixing result if has one
 				if (result.hasResult()) {
 					writer.writeLine(result.getResult());
-				}
-			} else {
-				result.reset();
+				}			
 			}
+			result.reset();
 		}
 		reader.close();
 		writer.close();
