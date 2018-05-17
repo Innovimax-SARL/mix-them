@@ -53,14 +53,18 @@ public enum RuleParam {
             			pv = ParamValue.createInt(Integer.parseInt(value));
             			break;
 			case INTEGER_ARRAY:
-				String[] stringArray = value.split(",");
-				int[] intArray = new int[stringArray.length];
+				final String[] stringArray = value.split(",");
+				final int len = value.endsWith(",") ? stringArray.length+1 : stringArray.length;
+				final int[] intArray = new int[len];
 				for (int i=0; i < stringArray.length; i++) {
 					if (stringArray[i].equals("")) {
 						intArray[i] = -1;
 					} else {
 						intArray[i] = Integer.parseInt(stringArray[i]);
 					}
+				}
+				if (len > stringArray.length) {
+					intArray[stringArray.length] = -1;
 				}
             			pv = ParamValue.createIntArray(intArray);
             			break;
