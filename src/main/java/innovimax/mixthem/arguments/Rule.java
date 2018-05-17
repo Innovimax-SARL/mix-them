@@ -12,7 +12,7 @@ import java.util.EnumSet;
 public enum Rule { 
     FILE_1("1", "1", "will output file1", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR, Mode.BYTE)),
     FILE_2("2", "2", "will output file2", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR, Mode.BYTE)),
-    ADD("+", "add", "will output file1+file2+...+fileN", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR, Mode.BYTE)),
+    ADD("+", "add", "will output file1+file2+...+fileN", true, EnumSet.of(RuleParam.ADD_FILES), EnumSet.of(Mode.CHAR, Mode.BYTE)),
     ALT_LINE("alt-line", "altline", "will output one line of each starting with first line of file1", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR)), 
     ALT_CHAR("alt-char", "altchar", "will output one char of each starting with first char of file1", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.CHAR)),
     ALT_BYTE("alt-byte", "altbyte", "will output one byte of each starting with first byte of file1", true, EnumSet.noneOf(RuleParam.class), EnumSet.of(Mode.BYTE)),
