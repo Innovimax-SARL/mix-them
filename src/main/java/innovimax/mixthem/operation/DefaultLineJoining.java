@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 */
 public class DefaultLineJoining extends AbstractLineOperation {
   
-	private final int[] cols;	
+	private final int[] joinCols;	
 	
 	/**
 	* @param params The list of parameters (maybe empty)
@@ -30,10 +30,10 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	public DefaultLineJoining(final Map<RuleParam, ParamValue> params) {
 		super(params);		
 		if (this.params.constainsKey(RuleParam.JOIN_COLS)) {
-			this.cols = this.params.get(RuleParam.JOIN_COLS).asIntArray();
+			this.joinCols = this.params.get(RuleParam.JOIN_COLS).asIntArray();
 		} else {
-			this.cols = new int[1];
-			this.cols[0] = JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
+			this.joinCols = new int[1];
+			this.joinCols[0] = JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
 		}
 	} 
 
