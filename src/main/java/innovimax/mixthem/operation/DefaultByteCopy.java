@@ -14,10 +14,21 @@ import java.io.OutputStream;
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultByteCopy implements ICopy {
+public class DefaultByteCopy extends AbstractCopy {
 
     private final static int BYTE_BUFFER_SIZE = 1024;
     
+    /**
+	* Constructor	
+ 	* @param params The list of parameters (maybe empty)
+	* @see innovimax.mixthem.arguments.RuleParam
+	* @see innovimax.mixthem.arguments.ParamValue
+	*/
+	public DefaultByteCopy(final Map<RuleParam, ParamValue> params) {
+		super(params);		
+	}
+    
+    @Override
     public void processFile(InputResource input, OutputStream out) throws IOException {
         byte[] buffer = new byte[BYTE_BUFFER_SIZE];
         IByteInput reader = new DefaultByteReader(input);
