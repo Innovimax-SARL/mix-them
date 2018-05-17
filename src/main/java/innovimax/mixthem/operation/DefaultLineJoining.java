@@ -35,6 +35,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			this.joinCols = new int[1];
 			this.joinCols[0] = JoinOperation.DEFAULT_JOIN_COLUMN.getValue().asInt();
 		}
+		System.out.println("COLS="+Arrays.toString(this.joinCols));
 	} 
 
 	@Override
