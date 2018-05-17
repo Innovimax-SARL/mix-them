@@ -38,6 +38,7 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 		final ICharOutput writer = new DefaultCharWriter(output);
 		final CharResult result = new CharResult();
 		while (reader.hasCharacter()) {
+			result.reset();
 			final int[] charRange = reader.nextCharacterRange();
 			process(charRange, result);
 			if (result.hasResult()) {
@@ -48,8 +49,7 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 						throw new RuntimeException(e);
 					}
 				});
-			}
-			result.reset();
+			}			
 		}
 		reader.close();
 		writer.close();
