@@ -1,13 +1,14 @@
 package innovimax.mixthem.operation;
 
+import innovimax.mixthem.arguments.RuleParam;
+import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.io.DefaultCharReader;
 import innovimax.mixthem.io.DefaultCharWriter;
 import innovimax.mixthem.io.ICharInput;
 import innovimax.mixthem.io.ICharOutput;
 import innovimax.mixthem.io.InputResource;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.util.Map;
 
 /**
 * <p>Copy all characters.</p>
