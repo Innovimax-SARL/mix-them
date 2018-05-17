@@ -46,7 +46,7 @@ public enum RuleParam {
  	* @param value The value of the parameter on command line
  	* @return The {@link ParamValue} representation of the parameter value
  	*/
-	ParamValue createValue(final String value) throws NumberFormatException {
+	public ParamValue createValue(final String value) throws NumberFormatException {
 		ParamValue pv = null;
 		switch (this.type) {
 			case INTEGER:				
