@@ -33,7 +33,7 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			this.joinCols = this.params.get(RuleParam.JOIN_COLS).asIntArray();
 		} else {
 			this.joinCols = new int[1];
-			this.joinCols[0] = JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
+			this.joinCols[0] = JoinOperation.DEFAULT_JOIN_COLUMN.getValue().asInt();
 		}
 	} 
 
