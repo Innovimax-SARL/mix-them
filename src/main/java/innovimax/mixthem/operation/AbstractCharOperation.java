@@ -49,6 +49,7 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 					}
 				});
 			}
+			result.reset();
 		}
 		reader.close();
 		writer.close();
