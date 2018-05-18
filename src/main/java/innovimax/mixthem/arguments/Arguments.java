@@ -95,9 +95,9 @@ public class Arguments {
         return mixArgs;
     }
 
-    private static Mode findModeArgument(final String[] args, final int index) throws ArgumentException {        
+    private static Mode findFileModeArgument(final String[] args, final int index) throws ArgumentException {        
         if (args.length > index) {            
-            return Mode.findByName(args[index]);
+            return FileMode.findByName(args[index]);
         }
         return null;
     }
