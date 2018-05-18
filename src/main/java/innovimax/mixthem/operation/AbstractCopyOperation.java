@@ -34,6 +34,8 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 
 	@Override
 	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {		
+		//TODO
+		System.out.println("RULE="+rule);
 		inputs.stream().forEach(input -> {
 			try {
 		 		process(input, output);
