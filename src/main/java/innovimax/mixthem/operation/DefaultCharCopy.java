@@ -1,5 +1,6 @@
 package innovimax.mixthem.operation;
 
+import innovimax.mixthem.arguments.Rule;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.io.DefaultCharReader;
@@ -27,7 +28,7 @@ public class DefaultCharCopy extends AbstractCopyOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultCharCopy(final int index, final Map<RuleParam, ParamValue> params) {
+	public DefaultCharCopy(final Rule rule, final Map<RuleParam, ParamValue> params) {
 		super(params);		
 	}
 	
