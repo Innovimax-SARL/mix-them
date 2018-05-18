@@ -29,9 +29,9 @@ public enum FileMode {
     * @return The {@link FileMode} object
     */    
     public static FileMode findByName(final String name) {
-        for (Mode mode : values()) {
-            if (mode.getName().equals(name)) {
-                return mode;
+        for (FileMode fileMode : values()) {
+            if (fileMode.getName().equals(name)) {
+                return fileMode;
             }
         }
         return null;
