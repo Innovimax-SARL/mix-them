@@ -105,8 +105,8 @@ public class GenericTest {
 		   }
 	   }
 	   MixThem.LOGGER.info("*********************************************************************");
-	   MixThem.LOGGER.info("FAILED [" + mode.getName().toUpperCase() + "] TESTS : " + (failed.size() > 0 ? failed.toString() : "None"));
-	   MixThem.LOGGER.info("LOCKED [" + mode.getName().toUpperCase() + "] TESTS : " + locks.toString());	   
+	   MixThem.LOGGER.info("FAILED [" + fileMode.getName().toUpperCase() + "] TESTS : " + (failed.size() > 0 ? failed.toString() : "None"));
+	   MixThem.LOGGER.info("LOCKED [" + fileMode.getName().toUpperCase() + "] TESTS : " + locks.toString());	   
 	   MixThem.LOGGER.info("*********************************************************************");
 	   Assert.assertTrue(result);
    }	   
