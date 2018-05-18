@@ -21,7 +21,6 @@ import java.util.Map;
 public class DefaultByteCopy extends AbstractCopyOperation {
 
 	private final static int BYTE_BUFFER_SIZE = 1024;
-	private final Rule rule;
     
 	/**
 	* Constructor
@@ -30,9 +29,9 @@ public class DefaultByteCopy extends AbstractCopyOperation {
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
 	public DefaultByteCopy(final Rule rule, final Map<RuleParam, ParamValue> params) {
-		super(params);
-		this.rule = rule;
+		super(ruls, params);		
 	}
+	
 	@Override
 	public void process(InputResource input, OutputStream out) throws IOException {
 		byte[] buffer = new byte[BYTE_BUFFER_SIZE];
