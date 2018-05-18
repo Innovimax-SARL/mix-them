@@ -8,6 +8,7 @@ import innovimax.mixthem.io.InputResource;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
+import java.util.List;
 
 /**
 * <p>Abstract class for all character operation.</p>
