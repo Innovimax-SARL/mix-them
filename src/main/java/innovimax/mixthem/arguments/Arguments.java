@@ -95,19 +95,19 @@ public class Arguments {
         return mixArgs;
     }
 
-    private static Mode findFileModeArgument(final String[] args, final int index) throws ArgumentException {        
+    private static FileMode findFileModeArgument(final String[] args, final int index) throws ArgumentException {        
         if (args.length > index) {            
             return FileMode.findByName(args[index]);
         }
         return null;
     }
     
-    private static Rule findRuleArgument(final String[] args, final int index, final Mode mode) throws ArgumentException {        
+    private static Rule findRuleArgument(final String[] args, final int index, final FileMode fileMode) throws ArgumentException {        
         Rule rule = null;
         if (args.length > index) {
             final String ruleString = args[index];
             if (ruleString.startsWith("-") && !ruleString.startsWith("--")) {
-                rule = Rule.findByName(ruleString.substring(1), mode);
+                rule = Rule.findByName(ruleString.substring(1), fileMode);
                 if (rule == null) {
                     throw new ArgumentException("Rule argument is incorrect: " + ruleString);
                 }
