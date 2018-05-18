@@ -11,11 +11,11 @@ import java.util.EnumSet;
 */
 public enum Rule { 
     FILE_1("1", "1", "will output file1", true, 
-                EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR, Mode.BYTE)),
+                EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
     FILE_2("2", "2", "will output file2", true, 
-                EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR, Mode.BYTE)),
+                EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
     ADD("+", "add", "will output file1+file2+...+fileN", true, 
-                EnumSet.of(RuleParam.ADD_FILES), EnumSet.of(FileMode.CHAR, Mode.BYTE)),
+                EnumSet.of(RuleParam.ADD_FILES), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
     ALT_LINE("alt-line", "altline", "will output one line of each starting with first line of file1", true, 
                 EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR)), 
     ALT_CHAR("alt-char", "altchar", "will output one char of each starting with first char of file1", true, 
@@ -42,7 +42,7 @@ public enum Rule {
     private final EnumSet<RuleParam> params;
     private final EnumSet<FileMode> fileModes;
 
-    private Rule(final Sting name, final String extension, final String description, final boolean implemented, 
+    private Rule(final String name, final String extension, final String description, final boolean implemented, 
                  final EnumSet<RuleParam> params, final EnumSet<FileMode> fileModes) {
         this.name = name;
         this.extension = extension;
