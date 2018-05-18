@@ -13,11 +13,11 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
-* <p>Copy all bytes.</p>
+* <p>Copy all file bytes.</p>
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultByteCopy extends AbstractCopy {
+public class DefaultByteCopy extends AbstractCopyOperation {
 
 	private final static int BYTE_BUFFER_SIZE = 1024;
     
@@ -31,7 +31,7 @@ public class DefaultByteCopy extends AbstractCopy {
 		super(params);
 	}
 	@Override
-	public void processFile(InputResource input, OutputStream out) throws IOException {
+	public void process(InputResource input, OutputStream out) throws IOException {
 		byte[] buffer = new byte[BYTE_BUFFER_SIZE];
 		IByteInput reader = new DefaultByteReader(input);
 		IByteOutput writer = new DefaultByteWriter(out);
