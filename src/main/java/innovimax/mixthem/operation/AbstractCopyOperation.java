@@ -20,29 +20,30 @@ import java.util.List;
 public abstract class AbstractCopyOperation extends AbstractOperation implements ICopyOperation {
 	
 	protected final static int BUFFER_SIZE = 1024;	
-	private final Rule rule;
+	private final CopyMode mode;
 
 	/**
 	* Constructor
+	* @param mode The copy mode to process
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractCopyOperation(final Rule rule, final Map<RuleParam, ParamValue> params) {
+	public AbstractCopyOperation(final CopyMode mode, final Map<RuleParam, ParamValue> params) {
 		super(params);
-		this.rule = rule;
+		this.mode = mode;
 	}
 
 	@Override
 	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {		
-		switch(rule) {
-			case FILE_1:
+		switch(mode) {
+			case FIRST:
 				process(inputs.get(0), output);
 				break;
-			case FILE_2:
+			case SECOND:
 				process(inputs.get(1), output);
 				break;
-			case ADD:
+			case ALL:
 			default:  				
 				inputs.stream().forEach(input -> {
 					try {
