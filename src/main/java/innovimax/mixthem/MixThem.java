@@ -84,29 +84,29 @@ public class MixThem {
 
     /**
     * Mix files together using rules.
-    * @param mode The mode to be used for mixing
+    * @param fileMode The mode to be used for reading files
     * @param rule The rule to be used for mixing
     * @param params The rule parameters to be used for mixing
     * @throws MixException - If any error occurs during mixing
-    * @see innovimax.mixthem.Mode
+    * @see innovimax.mixthem.FileMode
     * @see innovimax.mixthem.Rule
     * @see innovimax.mixthem.RuleParam
     * @see innovimax.mixthem.ParamValue
     */  
-    public void process(Mode mode, Rule rule, Map<RuleParam, ParamValue> params) throws MixException {
+    public void process(FileMode fileMode, Rule rule, Map<RuleParam, ParamValue> params) throws MixException {
         try {
-            LOGGER.info("Started mixing for [" +  mode.getName() + "] rule '" + rule.getName() + "'...");
+            LOGGER.info("Started mixing for [" +  fileMode.getName() + "] rule '" + rule.getName() + "'...");
             switch(rule) {
                 case FILE_1:
-                    final IOperation copyFile1Op = CopyFactory.newInstance(mode, CopyMode.FIRST, params);
+                    final IOperation copyFile1Op = CopyFactory.newInstance(fileMode, CopyMode.FIRST, params);
                     copyFile1Op.processFiles(this.inputs, this.output);                    
                     break;
                 case FILE_2:
-                    final IOperation copyFile2Op = CopyFactory.newInstance(mode, CopyMode.SECOND, params);
+                    final IOperation copyFile2Op = CopyFactory.newInstance(fileMode, CopyMode.SECOND, params);
                     copyFile2Op.processFiles(this.inputs, this.output);          
                     break;
                 case ADD:                    
-                    final IOperation copyAddOp = CopyFactory.newInstance(mode, CopyMode.ALL, params);
+                    final IOperation copyAddOp = CopyFactory.newInstance(fileMode, CopyMode.ALL, params);
                     copyAddOp.processFiles(this.inputs, this.output);          
                     break;
                 case ALT_CHAR:
