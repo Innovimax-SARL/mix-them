@@ -1,17 +1,17 @@
 package innovimax.mixthem.arguments;
 
 /**
-* <p>This is a detailed enumeration of modes used to mix files.</p>
+* <p>This is a detailed enumeration of modes used for reading files.</p>
 * @author Innovimax
 * @version 1.0
 */
-public enum Mode {	
+public enum FileMode {	
     CHAR("char"),
     BYTE("byte");
     
     private final String name;
     
-    private Mode(final String name) {
+    private FileMode(final String name) {
         this.name = name;
     }
     
