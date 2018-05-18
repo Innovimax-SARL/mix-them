@@ -22,12 +22,13 @@ public class DefaultByteCopy extends AbstractCopyOperation {
 
 	/**
 	* Constructor
+	* @param mode The copy mode to process
 	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultByteCopy(final Rule rule, final Map<RuleParam, ParamValue> params) {
-		super(rule, params);		
+	public DefaultByteCopy(final CopyMode mode, final Map<RuleParam, ParamValue> params) {
+		super(mode, params);		
 	}
 	
 	@Override
