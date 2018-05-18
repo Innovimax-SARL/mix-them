@@ -29,7 +29,7 @@ public class DefaultCharCopy extends AbstractCopyOperation {
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
 	public DefaultCharCopy(final Rule rule, final Map<RuleParam, ParamValue> params) {
-		super(params, rule);			
+		super(rule, params);			
 	}
 	
 	@Override
