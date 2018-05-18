@@ -21,6 +21,7 @@ import java.util.Map;
 public class DefaultByteCopy extends AbstractCopyOperation {
 
 	private final static int BYTE_BUFFER_SIZE = 1024;
+	private final Rule rule;
     
 	/**
 	* Constructor
@@ -30,6 +31,7 @@ public class DefaultByteCopy extends AbstractCopyOperation {
 	*/
 	public DefaultByteCopy(final Rule rule, final Map<RuleParam, ParamValue> params) {
 		super(params);
+		this.rule = rule;
 	}
 	@Override
 	public void process(InputResource input, OutputStream out) throws IOException {
