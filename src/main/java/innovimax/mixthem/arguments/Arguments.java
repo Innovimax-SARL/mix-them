@@ -25,17 +25,17 @@ import java.util.zip.ZipFile;
 */
 public class Arguments {
     
-    private Mode mode = null;
+    private FileMode fileMode = null;
     private Rule rule = null;
     private Map<RuleParam, ParamValue> ruleParams = null;
     private final List<InputResource> inputs = new ArrayList<InputResource>();
     
-    private void setMode(final Mode mode) {
-        this.mode = mode;
+    private void setFileMode(final FileMode fileMode) {
+        this.fileMode = fileMode;
     }
 
-    public Mode getMode() {
-        return this.mode;
+    public FileMode getFileMode() {
+        return this.fileMode;
     }
     
     private void setRule(final Rule rule) {
@@ -65,11 +65,11 @@ public class Arguments {
     public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException, ZipException { 
         final Arguments mixArgs = new Arguments();
         int index = 0;
-        Mode mode = findModeArgument(args, index);
-        if (mode != null) {
+        FileMode fileMode = findFileModeArgument(args, index);
+        if (fileMode != null) {
             index++;
         } else {
-            mode = Mode.CHAR;
+            fileMode = FileMode.CHAR;
         }
         Rule rule = findRuleArgument(args, index, mode);
         Map<RuleParam, ParamValue> ruleParams = null;
@@ -80,7 +80,7 @@ public class Arguments {
         } else {
             rule = Rule.ADD;
         }
-        mixArgs.setMode(mode);
+        mixArgs.setFileMode(fileMode);
         mixArgs.setRule(rule);
         mixArgs.setRuleParameters(ruleParams);        
         final String zipOption = findZipOptionArgument(args, index);
