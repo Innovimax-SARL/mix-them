@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class CopyFactory {
   
-    public static ICopy newInstance(final Mode mode, final Map<RuleParam, ParamValue> params) {
-        return mode == Mode.CHAR ? new DefaultCharCopy(params) : new DefaultByteCopy(params);
+    public static ICopy newInstance(final Mode mode, final Rule rule, final Map<RuleParam, ParamValue> params) {
+        return mode == Mode.CHAR ? new DefaultCharCopy(rule, params) : new DefaultByteCopy(rule, params);
     }    
     
 }
