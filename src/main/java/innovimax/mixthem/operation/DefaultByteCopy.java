@@ -20,8 +20,6 @@ import java.util.Map;
 */
 public class DefaultByteCopy extends AbstractCopyOperation {
 
-	private final static int BYTE_BUFFER_SIZE = 1024;
-    
 	/**
 	* Constructor
 	* @param params The list of parameters (maybe empty)
@@ -34,11 +32,11 @@ public class DefaultByteCopy extends AbstractCopyOperation {
 	
 	@Override
 	public void process(InputResource input, OutputStream out) throws IOException {
-		byte[] buffer = new byte[BYTE_BUFFER_SIZE];
+		byte[] buffer = new byte[BUFFER_SIZE];
 		IByteInput reader = new DefaultByteReader(input);
 		IByteOutput writer = new DefaultByteWriter(out);
 		while (reader.hasByte()) {
-			final int len = reader.nextBytes(buffer, BYTE_BUFFER_SIZE);
+			final int len = reader.nextBytes(buffer, BUFFER_SIZE);
 			writer.writeBytes(buffer, len);
 		}
 		reader.close();
