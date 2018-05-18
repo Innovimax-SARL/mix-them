@@ -64,7 +64,7 @@ public class MixThem {
             LOGGER.info("Started application");   
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getInputs(), System.out);
-            mixThem.process(mixArgs.getMode(), mixArgs.getRule(), mixArgs.getRuleParameters());
+            mixThem.process(mixArgs.getFileMode(), mixArgs.getRule(), mixArgs.getRuleParameters());
             LOGGER.info("Exited application with no errors");
         } catch (ArgumentException e) {
             LOGGER.severe("Exited application with errors...");
@@ -152,7 +152,7 @@ public class MixThem {
                 default:    
                    System.out.println("This rule has not been implemented yet.");*/
             }
-            LOGGER.info("Ended mixing for [" +  mode.getName() + "] rule '" + rule.getName() + "'.");
+            LOGGER.info("Ended mixing for [" +  fileMode.getName() + "] rule '" + rule.getName() + "'.");
         } catch (IOException e) {
             throw new MixException("Unexpected file error", e);
         }
