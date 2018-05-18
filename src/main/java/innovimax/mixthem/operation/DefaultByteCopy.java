@@ -1,5 +1,6 @@
 package innovimax.mixthem.operation;
 
+import innovimax.mixthem.arguments.Rule;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.io.DefaultByteReader;
@@ -27,7 +28,7 @@ public class DefaultByteCopy extends AbstractCopyOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultByteCopy(final int index, final Map<RuleParam, ParamValue> params) {
+	public DefaultByteCopy(final Rule rule, final Map<RuleParam, ParamValue> params) {
 		super(params);
 	}
 	@Override
