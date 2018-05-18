@@ -29,7 +29,7 @@ public class DefaultByteCopy extends AbstractCopyOperation {
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
 	public DefaultByteCopy(final Rule rule, final Map<RuleParam, ParamValue> params) {
-		super(ruls, params);		
+		super(rule, params);		
 	}
 	
 	@Override
