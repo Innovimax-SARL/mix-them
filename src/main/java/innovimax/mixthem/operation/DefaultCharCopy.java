@@ -20,8 +20,6 @@ import java.util.Map;
 */
 public class DefaultCharCopy extends AbstractCopyOperation {
 
-	private final static int CHAR_BUFFER_SIZE = 1024;	
-	
 	/**
 	* Constructor	
  	* @param params The list of parameters (maybe empty)
@@ -34,11 +32,11 @@ public class DefaultCharCopy extends AbstractCopyOperation {
 	
 	@Override
 	public void process(InputResource input, OutputStream out) throws IOException {
-		char[] buffer = new char[CHAR_BUFFER_SIZE];
+		char[] buffer = new char[BUFFER_SIZE];
 		ICharInput reader = new DefaultCharReader(input);
 		ICharOutput writer = new DefaultCharWriter(out);
 		while (reader.hasCharacter()) {
-			final int len = reader.nextCharacters(buffer, CHAR_BUFFER_SIZE);
+			final int len = reader.nextCharacters(buffer, BUFFER_SIZE);
 			writer.writeCharacters(buffer, len);
 		}
 		reader.close();
