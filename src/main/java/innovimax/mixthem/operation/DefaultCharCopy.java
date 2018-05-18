@@ -20,7 +20,7 @@ import java.util.Map;
 */
 public class DefaultCharCopy extends AbstractCopyOperation {
 
-	private final static int CHAR_BUFFER_SIZE = 1024;
+	private final static int CHAR_BUFFER_SIZE = 1024;	
 	
 	/**
 	* Constructor	
@@ -29,7 +29,7 @@ public class DefaultCharCopy extends AbstractCopyOperation {
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
 	public DefaultCharCopy(final Rule rule, final Map<RuleParam, ParamValue> params) {
-		super(params);		
+		super(params, rule);			
 	}
 	
 	@Override
