@@ -1,6 +1,6 @@
 package innovimax.mixthem;
 
-import innovimax.mixthem.arguments.Mode;
+import innovimax.mixthem.arguments.FileMode;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.Rule;
 import innovimax.mixthem.arguments.RuleParam;
@@ -37,15 +37,15 @@ public class GenericTest {
 
    @Test
    public final void testCharRules() throws MixException, FileNotFoundException, IOException, NumberFormatException {
-	   testRules(Mode.CHAR);
+	   testRules(FileMode.CHAR);
    }
 
    @Test
    public final void testBytesRules() throws MixException, FileNotFoundException, IOException, NumberFormatException {
-	   testRules(Mode.BYTE);
+	   testRules(FileMode.BYTE);
    }
 
-   private final void testRules(final Mode mode) throws MixException, FileNotFoundException, IOException, NumberFormatException {
+   private final void testRules(final FileMode fileMode) throws MixException, FileNotFoundException, IOException, NumberFormatException {
 	   MixThem.setLogging(Level.FINE);
 	   int testId = 0;
 	   final List<String> failed = new ArrayList<String>();
@@ -53,7 +53,7 @@ public class GenericTest {
 	   boolean result = true;
 	   while (true) {
 		   testId++;
-		   MixThem.LOGGER.info("TEST [" + mode.getName().toUpperCase() + "] N° " + testId + "***********************************************************");
+		   MixThem.LOGGER.info("TEST [" + fileMode.getName().toUpperCase() + "] N° " + testId + "***********************************************************");
 		   final String prefix = "test" + String.format("%03d", testId) +"_";
 		   final List<URL> urlF = new ArrayList<URL>();
 		   int index = 1;
@@ -75,7 +75,7 @@ public class GenericTest {
 			   MixThem.LOGGER.info("File " + (i+1) + ": " + urlF.get(i));
 		   }
 		   for(Rule rule : Rule.values()) {			   
-			   if (rule.isImplemented() && rule.acceptMode(mode)) {
+			   if (rule.isImplemented() && rule.acceptFileMode(fileMode)) {
 				   String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
 				   URL urlP = getClass().getResource(paramsFile);
 				   List<RuleRun> runs = RuleRuns.getRuns(rule, urlP);
@@ -93,7 +93,7 @@ public class GenericTest {
 						   }
 						   MixThem.LOGGER.info("Result file : " + urlR);
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
-						   boolean res = check(urlF, urlR, mode, rule, run.getParams());
+						   boolean res = check(urlF, urlR, fileMode, rule, run.getParams());
 						   MixThem.LOGGER.info("Run " + (res ? "pass" : "FAIL") + " with params " + run.getParams().toString());
 						   result &= res;
 						   if (!res) {
@@ -111,7 +111,7 @@ public class GenericTest {
 	   Assert.assertTrue(result);
    }	   
 
-   private final static boolean check(final List<URL> filesURL, final URL resultURL, final Mode mode, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
+   private final static boolean check(final List<URL> filesURL, final URL resultURL, final FileMode fileMode, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
 	   MixThem.LOGGER.info("Run and check result...");	   
 	   final List<InputResource> inputs = new ArrayList<InputResource>();
 	   for (URL url : filesURL) {
@@ -119,10 +119,10 @@ public class GenericTest {
 	   }
 	   final ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
 	   MixThem mixThem = new MixThem(inputs, baos_rule);
-           mixThem.process(mode, rule, params);
+           mixThem.process(fileMode, rule, params);
 	   MixThem.LOGGER.info("Run and print result...");
 	   mixThem = new MixThem(inputs, System.out);
-           mixThem.process(mode, rule, params);
+           mixThem.process(fileMode, rule, params);
 	   final File result = new File(resultURL.getFile());
 	   return checkFileEquals(result, baos_rule.toByteArray());
    }
