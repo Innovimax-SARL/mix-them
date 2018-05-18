@@ -22,12 +22,13 @@ public class DefaultCharCopy extends AbstractCopyOperation {
 
 	/**
 	* Constructor	
+	* @param mode The copy mode to process
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultCharCopy(final Rule rule, final Map<RuleParam, ParamValue> params) {
-		super(rule, params);			
+	public DefaultCharCopy(final CopyMode mode, final Map<RuleParam, ParamValue> params) {
+		super(mode, params);			
 	}
 	
 	@Override
