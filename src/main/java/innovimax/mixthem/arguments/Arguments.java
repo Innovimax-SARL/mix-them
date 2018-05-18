@@ -71,7 +71,7 @@ public class Arguments {
         } else {
             fileMode = FileMode.CHAR;
         }
-        Rule rule = findRuleArgument(args, index, mode);
+        Rule rule = findRuleArgument(args, index, fileMode);
         Map<RuleParam, ParamValue> ruleParams = null;
         if (rule != null) {
             index++;
