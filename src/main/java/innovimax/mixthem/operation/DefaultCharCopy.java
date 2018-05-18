@@ -13,11 +13,11 @@ import java.io.OutputStream;
 import java.util.Map;
 
 /**
-* <p>Copy all characters.</p>
+* <p>Copy all file characters.</p>
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultCharCopy extends AbstractCopy {
+public class DefaultCharCopy extends AbstractCopyOperation {
 
 	private final static int CHAR_BUFFER_SIZE = 1024;
 	
@@ -32,7 +32,7 @@ public class DefaultCharCopy extends AbstractCopy {
 	}
 	
 	@Override
-	public void processFile(InputResource input, OutputStream out) throws IOException {
+	public void process(InputResource input, OutputStream out) throws IOException {
 		char[] buffer = new char[CHAR_BUFFER_SIZE];
 		ICharInput reader = new DefaultCharReader(input);
 		ICharOutput writer = new DefaultCharWriter(out);
