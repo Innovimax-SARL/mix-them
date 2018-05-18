@@ -20,7 +20,7 @@ import java.util.List;
 public abstract class AbstractCopyOperation extends AbstractOperation implements ICopyOperation {
 	
 	protected final static int BUFFER_SIZE = 1024;	
-	privat final private Rule rule;
+	private final Rule rule;
 
 	/**
 	* Constructor
