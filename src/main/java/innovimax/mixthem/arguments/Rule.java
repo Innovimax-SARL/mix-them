@@ -27,15 +27,15 @@ public enum Rule {
     private final String name, extension, description;
     private final boolean implemented;
     private final EnumSet<RuleParam> params;
-    private final EnumSet<Mode> modes;
+    private final EnumSet<FileMode> fileModes;
 
-    private Rule(final String name, final String extension, final String description, final boolean implemented, final EnumSet<RuleParam> params, final EnumSet<Mode> modes) {
+    private Rule(final String name, final String extension, final String description, final boolean implemented, final EnumSet<RuleParam> params, final EnumSet<Mode> fileModes) {
         this.name = name;
         this.extension = extension;
         this.description = description;
         this.implemented = implemented;
         this.params = params;
-        this.modes = modes;
+        this.fileModes = fileModes;
     }
 
     /**
@@ -79,11 +79,11 @@ public enum Rule {
     }
     
     /**
-    * Returns true if the rule accept the running mode.
-    * @return True if the rule accept the running mode
+    * Returns true if the rule accept the file mode.
+    * @return True if the rule accept the file mode
     */ 
-    public boolean acceptMode(final Mode mode) {
-        return modes.contains(mode);
+    public boolean acceptFileMode(final FileMode fileMode) {
+        return fileModes.contains(fileMode);
     }
     
     /**
@@ -92,9 +92,9 @@ public enum Rule {
     * @param mode The running {@link Mode) 
     * @return The {@link Rule} object
     */    
-    public static Rule findByName(final String name, final Mode mode) {
+    public static Rule findByName(final String name, final FileMode fileMode) {
         for(Rule rule : values()){
-            if (rule.getName().equals(name) && rule.acceptMode(mode)) {
+            if (rule.getName().equals(name) && rule.acceptFileMode(fileMode)) {
                 return rule;
             }
         }
