@@ -91,7 +91,8 @@ public class Arguments {
             final ZipFile zipFile = new ZipFile(findZipFileArgument(args, ++index));
             final List<InputStream> inputs = extractZipEntries(zipFile);
             inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createInputStream(input)));
-        }        
+        }
+        checkFileCount(mixArgs);
         return mixArgs;
     }
 
