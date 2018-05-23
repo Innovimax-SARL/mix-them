@@ -218,6 +218,16 @@ public class Arguments {
                 if (index > mixArgs.getInputs().size()) {
                     throw new ArgumentException("#index is greater than input file count.");
                 }
+                break;
+            case ADD:
+                if (mixArgs.getRuleParameters().conatins(RuleParam.FILE_LIST)) {                    
+                    int[] indexes = mixArgs.getRuleParameters().get(RuleParam.FILE_LIST).asIntArray();
+                    for (int index=0; index < indexes.length; index++) {
+                        if (index > mixArgs.getInputs().size()) {
+                            throw new ArgumentException("#files contains an index greater than input file count.");
+                        }
+                    }
+                }
         }
     }
     
