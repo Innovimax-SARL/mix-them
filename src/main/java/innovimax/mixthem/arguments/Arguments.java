@@ -129,9 +129,11 @@ public class Arguments {
                         final ParamValue value = param.createValue(paramString);
                         map.put(param, value);                        
                     } catch (NumberFormatException e) {
-                        throw new ArgumentException("[" + param.getName() + "] parameter is incorrect: " + paramString);                        
+                        throw new ArgumentException("#" + param.getName() + " parameter is incorrect: " + paramString);                        
                     }
                 }
+            } else if (param.isMandaory()) {
+                throw new ArgumentException("#" + param.getName() + " parameter is mandatory.");
             }            
         }     
         return map;
