@@ -79,6 +79,7 @@ public class Arguments {
             index += ruleParams.size();
         } else {
             rule = Rule.ADD;
+            ruleParams = Collections.emptyMap();
         }
         mixArgs.setFileMode(fileMode);
         mixArgs.setRule(rule);
