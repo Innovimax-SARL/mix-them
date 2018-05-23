@@ -36,7 +36,7 @@ script:
   - java -version
 #  - "mvn cobertura:cobertura"
   - "mvn test -B"
-  - "mvn sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=c4394ad3c81d462380472c50c03f805c7eca9f0b"
+#  - "mvn sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=c4394ad3c81d462380472c50c03f805c7eca9f0b"
   - "mvn org.pitest:pitest-maven:mutationCoverage"
 
 after_success:
