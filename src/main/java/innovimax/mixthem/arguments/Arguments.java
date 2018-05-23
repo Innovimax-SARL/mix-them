@@ -220,8 +220,12 @@ public class Arguments {
         System.out.println("  Here are the list of rules");
         for(Rule rule : Rule.values()) {
             System.out.print("  - " + rule.getName());
-            for(RuleParam param : rule.getParams()) {                                
-                System.out.print(" [#" +  param.getName() + "]");
+            for(RuleParam param : rule.getParams()) {
+                if (param.isMandatory()) {
+                    System.out.print(" #" +  param.getName());
+                } else {
+                    System.out.print(" [#" +  param.getName() + "]");
+                }
             }
             System.out.println(": " + rule.getDescription());            
             for(RuleParam param : rule.getParams()) {                                
