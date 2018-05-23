@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
 * <p>Abstract class for all character operation.</p>
@@ -49,26 +50,19 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 				break;
 			case ALL:
 			default:
-				if (params.containsKey(RuleParam.FILE_LIST)) {                    
-                    			Arrays.stream(params.get(RuleParam.FILE_LIST).asIntArray())
-						.mapToObj(i -> inputs.get(i-1))
-						.forEach(input -> {
-						try {
-			 				process(input, output);
-						} catch (IOException e) {
-							throw new RuntimeException(e);
-						}
-					});
-					
+				final IntStream indexes; 
+				if (params.containsKey(RuleParam.FILE_LIST)) {
+					indexes = Arrays.stream(params.get(RuleParam.FILE_LIST).asIntArray());
 				} else {
-					inputs.stream().forEach(input -> {
-						try {
-			 				process(input, output);
-						} catch (IOException e) {
-							throw new RuntimeException(e);
-						}
-					});
-				}
+					indexes = IntStream.range(1, inputs.size());
+				}				
+                    		indexes.mapToObj(i -> inputs.get(i-1)).forEach(input -> {
+					try {
+			 			process(input, output);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				});				
 		}
 	}
 
