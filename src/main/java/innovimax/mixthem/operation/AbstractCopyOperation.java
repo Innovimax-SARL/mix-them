@@ -47,14 +47,27 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 				process(inputs.get(index), output);
 				break;
 			case ALL:
-			default:  				
-				inputs.stream().forEach(input -> {
-					try {
-			 			process(input, output);
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
-				});
+			default:
+				if (params.containsKey(RuleParam.FILE_LIST)) {                    
+                    			Arrays.stream(params.get(RuleParam.FILE_LIST).asIntArray())
+						.mapToObj(i -> inputs.get(i-1))
+						.forEach(input -> {
+						try {
+			 				process(input, output);
+						} catch (IOException e) {
+							throw new RuntimeException(e);
+						}
+					});
+					
+				} else {
+					inputs.stream().forEach(input -> {
+						try {
+			 				process(input, output);
+						} catch (IOException e) {
+							throw new RuntimeException(e);
+						}
+					});
+				}
 		}
 	}
 
