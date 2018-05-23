@@ -42,6 +42,10 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 			case SECOND:
 				process(inputs.get(1), output);
 				break;
+			case UMPTEENTH:
+				int index = params.get(RuleParam.SEL_FILE).asInt();
+				process(inputs.get(index), output);
+				break;
 			case ALL:
 			default:  				
 				inputs.stream().forEach(input -> {
