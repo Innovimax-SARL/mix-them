@@ -10,11 +10,11 @@ import java.util.EnumSet;
 * @version 1.0
 */
 public enum Rule { 
-    FILE_1("1", "1", "will output file 1", true, 
+    FILE_1("1", "1", "will output first file", true, 
                 EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
-    FILE_2("2", "2", "will output file 2", true, 
+    FILE_2("2", "2", "will output second file", true, 
                 EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
-    FILE_N("file", "file", "will output file n", true, 
+    FILE_N("file", "file", "will output the selected file", true, 
                 EnumSet.of(RuleParam.SEL_FILE), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
     ADD("+", "add", "will output file1+file2+...+fileN", true, 
                 EnumSet.of(RuleParam.ADD_FILES), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
