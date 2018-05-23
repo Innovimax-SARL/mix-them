@@ -132,7 +132,8 @@ public class Arguments {
                         throw new ArgumentException("#" + param.getName() + " parameter is incorrect: " + paramString);                        
                     }
                 }
-            } else if (param.isMandaory()) {
+            } 
+            if (param.isMandatory() && !map.containsKey(param)) {
                 throw new ArgumentException("#" + param.getName() + " parameter is mandatory.");
             }            
         }     
