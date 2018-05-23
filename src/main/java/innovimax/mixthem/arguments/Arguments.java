@@ -117,17 +117,14 @@ public class Arguments {
     }
    
     private static Map<RuleParam, ParamValue> findRuleParameters(final String[] args, final int index, final Rule rule) throws ArgumentException {
-        System.out.println(">>> ARGS"+java.util.Arrays.toString(args));
         final Map<RuleParam, ParamValue> map = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
         final Iterator<RuleParam> iterator = rule.getParams().iterator();
         if (iterator.hasNext()) {
             final RuleParam param = iterator.next();
-            System.out.println(">>> PARAM="+param.getName());
             if (args.length > index) {
                 final String arg = args[index];
                 if (arg.startsWith("#")) {
                     final String paramString = arg.substring(1);
-                    System.out.println(">>> VALUE="+paramString);
                     try {
                         final ParamValue value = param.createValue(paramString);
                         map.put(param, value);                        
@@ -136,7 +133,6 @@ public class Arguments {
                     }
                 }
             } 
-            System.out.println(">>> MANDATORY="+param.isMandatory());
             if (param.isMandatory() && !map.containsKey(param)) {
                 throw new ArgumentException("#" + param.getName() + " parameter is mandatory.");
             }            
