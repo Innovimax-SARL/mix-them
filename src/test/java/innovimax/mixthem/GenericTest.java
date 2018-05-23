@@ -93,6 +93,8 @@ public class GenericTest {
 						   }
 						   MixThem.LOGGER.info("Result file : " + urlR);
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
+						   System.out.println("RULE="+rule.getName());
+						   System.out.println("PARAMS="+run.getParams().toString());
 						   boolean res = check(urlF, urlR, fileMode, rule, run.getParams());
 						   MixThem.LOGGER.info("Run " + (res ? "pass" : "FAIL") + " with params " + run.getParams().toString());
 						   result &= res;
