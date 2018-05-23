@@ -117,7 +117,7 @@ public class Arguments {
     }
    
     private static Map<RuleParam, ParamValue> findRuleParameters(final String[] args, final int index, final Rule rule) throws ArgumentException {
-        System.out.println(">>> ARGS"+javza.util.Arrays.toString(args));
+        System.out.println(">>> ARGS"+java.util.Arrays.toString(args));
         final Map<RuleParam, ParamValue> map = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
         final Iterator<RuleParam> iterator = rule.getParams().iterator();
         if (iterator.hasNext()) {
