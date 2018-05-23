@@ -211,6 +211,10 @@ public class Arguments {
         return inputs;
     }
     
+    private static void checkFileCount(Arguments mixArgs) throws ArgumentException {
+        //TODO
+    }
+    
     public static void printUsage() {    
         System.out.println("  ");    
         System.out.println("Usage:");
