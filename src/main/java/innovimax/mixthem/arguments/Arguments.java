@@ -220,7 +220,7 @@ public class Arguments {
                 }
                 break;
             case ADD:
-                if (mixArgs.getRuleParameters().contains(RuleParam.FILE_LIST)) {                    
+                if (mixArgs.getRuleParameters().containsKey(RuleParam.FILE_LIST)) {                    
                     int[] indexes = mixArgs.getRuleParameters().get(RuleParam.FILE_LIST).asIntArray();
                     for (int i=0; i < indexes.length; i++) {
                         if (i > mixArgs.getInputs().size()) {
