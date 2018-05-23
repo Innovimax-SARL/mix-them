@@ -212,7 +212,13 @@ public class Arguments {
     }
     
     private static void checkFileCount(Arguments mixArgs) throws ArgumentException {
-        //TODO
+        switch (mixArgs.getRule()) {
+            case FILE_N:
+                int index = mixArgs.getRuleParameters().get(RuleParam.FILE_INDEX).asInt();
+                if (index > mixArgs.getInputs().size()) {
+                    throw new ArgumentException("#index is greater than input file count.");
+                }
+        }
     }
     
     public static void printUsage() {    
