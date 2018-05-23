@@ -173,4 +173,15 @@ public class BasicTest {
         }
     }
     
+    @Test(expected=ArgumentException.class)
+    public final void testMandatoryParam() throws ArgumentException, IOException, ZipException {
+        try {
+            final String args[] = { "-file", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+            final Arguments mixArgs = Arguments.checkArguments(args);
+        } catch (ArgumentException e) {
+            System.out.println("testMandatoryParam: " + e.getMessage());
+            throw e;
+        }
+    }
+    
 }
