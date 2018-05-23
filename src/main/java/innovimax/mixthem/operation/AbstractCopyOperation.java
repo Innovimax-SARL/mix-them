@@ -54,7 +54,7 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 				if (params.containsKey(RuleParam.FILE_LIST)) {
 					indexes = Arrays.stream(params.get(RuleParam.FILE_LIST).asIntArray());
 				} else {
-					indexes = IntStream.range(1, inputs.size());
+					indexes = IntStream.range(1, inputs.size()+1);
 				}				
                     		indexes.mapToObj(i -> inputs.get(i-1)).forEach(input -> {
 					try {
