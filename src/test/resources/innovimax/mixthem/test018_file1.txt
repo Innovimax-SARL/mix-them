@@ -3,5 +3,6 @@ b B 1
 c C 1
 c C 2
 d D 1
+d D 2
 e E 1
 g G 1

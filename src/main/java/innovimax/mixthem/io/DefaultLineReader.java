@@ -5,12 +5,12 @@ import java.io.IOException;
 
 /**
 * <p>Reads lines from a character-input file.</p>
-* <p>This is the default implementation of IInputLine.</p>
-* @see IInputLine
+* <p>This is the default implementation of ILineInput.</p>
+* @see ILineInput
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultLineReader implements IInputLine {
+public class DefaultLineReader implements ILineInput {
 
 	private final BufferedReader reader;
 

@@ -5,12 +5,12 @@ import java.io.IOException;
 
 /**
 * <p>Reads characters from a character-input file.</p>
-* <p>This is the default implementation of IInputChar.</p>
-* @see IInputChar
+* <p>This is the default implementation of ICharInput.</p>
+* @see ICharInput
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultCharReader implements IInputChar {
+public class DefaultCharReader implements ICharInput {
 
 	private final BufferedReader reader;
 

@@ -5,7 +5,8 @@ import innovimax.mixthem.io.InputResource;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 public interface IOperation {
-  void processFiles(InputResource input1, InputResource input2, OutputStream out) throws MixException, IOException;
+  void processFiles(List<InputResource> inputs, OutputStream output) throws MixException, IOException;
 }

@@ -7,7 +7,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface IInputChar {
+public interface ICharInput {
 	/**
 	* Returns true if there is more characters.
 	* @return Returns true if there is more characters
@@ -15,9 +15,8 @@ public interface IInputChar {
 	*/
 	boolean hasCharacter() throws IOException;
 	/**
- 	* Reads a character, or returns -1 if no more characters.
- 	* @param type The type of reading expected
- 	* @return The character as an int, or -1 if more characters
+ 	* Reads a character.
+ 	* @return The character as an int or -1 if no more characters
  	* @throws IOException - If an I/O error occurs
  	*/
 	int nextCharacter() throws IOException;

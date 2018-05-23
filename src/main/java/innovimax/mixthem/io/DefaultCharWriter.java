@@ -7,12 +7,12 @@ import java.io.OutputStreamWriter;
 
 /**
 * <p>Writes characters into an output stream.</p>
-* <p>This is the default implementation of IOutputChar.</p>
-* @see IOutputLine
+* <p>This is the default implementation of ICharOutput.</p>
+* @see ICharOutput
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultCharWriter implements IOutputChar {
+public class DefaultCharWriter implements ICharOutput {
 
 	private final BufferedWriter writer;
 
@@ -26,7 +26,7 @@ public class DefaultCharWriter implements IOutputChar {
 	}
 
 	@Override
-	public void writeCharacter(final int c) throws IOException {		
+	public void writeCharacter(final char c) throws IOException {		
 		this.writer.write(c);
 	}
 

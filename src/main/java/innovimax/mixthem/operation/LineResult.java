@@ -1,39 +1,42 @@
 package innovimax.mixthem.operation;
 
-import java.util.EnumSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
-* <p>Describes the result of an line operation on two files.</p>
+* <p>Describes the result of a line operation on two or more files.</p>
 * @author Innovimax
 * @version 1.0
 */
 public class LineResult {
     
-    private final EnumSet<ResultType> types;
+    private final int rangeSize;
+    private final List<Boolean> lineReadingRange;
+    private final List<String> readLineRange;
     private String result;
-    private String readLine1;
-    private String readLine2;    
-    private String keptLine1;
-    private String keptLine2;    
     
     /**
     * Creates a line result.    
     */
-    public LineResult() {
-        this.types = EnumSet.noneOf(ResultType.class);
+    public LineResult(final int rangeSize) {        
+        this.rangeSize = rangeSize;
+        this.lineReadingRange = new ArrayList<Boolean>();
+        this.readLineRange = new ArrayList<String>();
+        for (int i=0; i < this.rangeSize; i++) {
+            this.lineReadingRange.add(Boolean.TRUE);
+            this.readLineRange.add(null);
+        }
         this.result = null;
-        this.readLine1 = null;
-        this.readLine2 = null;
-        this.keptLine1 = null;
-        this.keptLine2 = null;
     }
 
     /**
-    * Reset the result.
+    * Reset the result (but keep last read lines).
     */
-    void reset() {        
-        this.types.clear();
+    void reset() {
         this.result = null;
+        for (int i=0; i < this.rangeSize; i++) {
+            this.lineReadingRange.set(i, Boolean.TRUE);            
+        }
     }
     
     /**
@@ -41,9 +44,6 @@ public class LineResult {
     */
     void setResult(final String result) {
         this.result = result;
-        if (result != null) {
-            this.types.add(ResultType.HAS_RESULT);
-        }
     }
 
     /**
@@ -54,120 +54,38 @@ public class LineResult {
     }
 
     /**
-    * Has a result ?
+    * Has a non null result ?
     */
     boolean hasResult() {
-        return this.types.contains(ResultType.HAS_RESULT);     
+        return this.result != null;
     }
 
     /**
-    * Get the first line.
+    * Get last read line at specified position from current range.
     */
-    String getFirstLine() {        
-        return this.keptLine1 != null ? this.keptLine1 : this.readLine1;        
-    }
-       
-    /**
-    * Has first line?
-    */
-    boolean hasFirstLine() {
-        return getFirstLine() != null;
+    String getRangeLine(final int index) {
+        return this.readLineRange.get(index);
     }
 
     /**
-    * Set the first line.
+    * Set last read line at specified position in current range.
     */
-    void setFirstLine(final String line) {
-        if (this.keptLine1 != null) {            
-            preserveFirstLine();
-            this.keptLine1 = null;
-        } else {
-            this.readLine1 = line; 
-        }
-    }
-
-    /**
-    * Keep previous first line and set future first line.
-    */
-    void keepFirstLine(final String line) {
-        this.keptLine1 = this.readLine1;
-        this.readLine1 = line;
+    void setRangeLine(final int index, final String line) {
+        this.readLineRange.set(index, line);
     }
     
     /**
-    * Get the second line.
+    * Set if next line reading is necessary at specified position of the current range.
     */
-    String getSecondLine() {        
-        return this.keptLine2 != null ? this.keptLine2 : this.readLine2;        
+    void setRangeLineReadingStatus(final int index, final boolean reading) {
+        this.lineReadingRange.set(index, Boolean.valueOf(reading));
     }
-       
+   
     /**
-    * Has second line?
+    * Get next line reading range
     */
-    boolean hasSecondLine() {
-        return getSecondLine() != null;
-    }
-
-    /**
-    * Set the second line.
-    */
-    void setSecondLine(final String line) {
-        if (this.keptLine2 != null) {            
-            preserveSecondLine();
-            this.keptLine2 = null;
-        } else {
-            this.readLine2 = line; 
-        }
-    }
-    
-    /**
-    * Keep previous second line and set future second line.
-    */
-    void keepSecondLine(final String line) {
-        this.keptLine2 = this.readLine2;
-        this.readLine2 = line;
-    }
-    
-    /**
-    * Preserves first file from reading (keep line)
-    */
-    void preserveFirstLine() {        
-        this.types.add(ResultType.PRESERVE_FIRST_LINE);
-    }
-
-    /**
-    * First line preserved ?
-    */
-    boolean firstLinePreserved() {
-        return this.types.contains(ResultType.PRESERVE_FIRST_LINE);
-    }
-    
-    /**
-    * Has to read first file ?
-    */
-    boolean readingFirstFile() {
-        return !this.types.contains(ResultType.PRESERVE_FIRST_LINE);
-    }
-
-    /**
-    * Preserves second file from reading (keep line)
-    */
-    void preserveSecondLine() {
-        this.types.add(ResultType.PRESERVE_SECOND_LINE);        
-    }
-    
-    /**
-    * Second line preserved ?
-    */
-    boolean secondLinePreserved() {
-        return this.types.contains(ResultType.PRESERVE_SECOND_LINE);
-    }
-
-    /**
-    * Has to read second file ?
-    */
-    boolean readingSecondFile() {
-        return !this.types.contains(ResultType.PRESERVE_SECOND_LINE);
+    List<Boolean> getLineReadingRange() {
+        return this.lineReadingRange;
     }
 
 }

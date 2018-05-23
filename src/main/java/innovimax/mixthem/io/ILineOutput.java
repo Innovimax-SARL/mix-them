@@ -7,7 +7,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface IOutputLine {
+public interface ILineOutput {
 	/**
  	* Writes a line of characters.
  	* @param line The line of characters to be written

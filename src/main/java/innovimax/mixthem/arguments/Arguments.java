@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.EnumMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
@@ -23,11 +25,19 @@ import java.util.zip.ZipFile;
 */
 public class Arguments {
     
+    private FileMode fileMode = null;
     private Rule rule = null;
     private Map<RuleParam, ParamValue> ruleParams = null;
-    private InputResource input1 = null;
-    private InputResource input2 = null;
+    private final List<InputResource> inputs = new ArrayList<InputResource>();
+    
+    private void setFileMode(final FileMode fileMode) {
+        this.fileMode = fileMode;
+    }
 
+    public FileMode getFileMode() {
+        return this.fileMode;
+    }
+    
     private void setRule(final Rule rule) {
         this.rule = rule;
     }
@@ -44,26 +54,24 @@ public class Arguments {
         return this.ruleParams;
     }
 
-    void setFirstInput(final InputResource input) {
-        this.input1 = input;
+    void addInput(final InputResource input) {
+        this.inputs.add(input);
     }
 
-    public InputResource getFirstInput() {
-        return this.input1;
+    public List<InputResource> getInputs() {
+        return this.inputs;
     }
-
-    void setSecondInput(final InputResource input) {
-        this.input2 = input;
-    }
-
-    public InputResource getSecondInput() {
-        return this.input2;
-    }
-
+    
     public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException, ZipException { 
         final Arguments mixArgs = new Arguments();
         int index = 0;
-        Rule rule = findRuleArgument(args, index, "rule");
+        FileMode fileMode = findFileModeArgument(args, index);
+        if (fileMode != null) {
+            index++;
+        } else {
+            fileMode = FileMode.CHAR;
+        }
+        Rule rule = findRuleArgument(args, index, fileMode);
         Map<RuleParam, ParamValue> ruleParams = null;
         if (rule != null) {
             index++;
@@ -72,32 +80,36 @@ public class Arguments {
         } else {
             rule = Rule.ADD;
         }
+        mixArgs.setFileMode(fileMode);
         mixArgs.setRule(rule);
         mixArgs.setRuleParameters(ruleParams);        
         final String zipOption = findZipOptionArgument(args, index);
-        if (zipOption == null) {                        
-            final File file1 = findFileArgument(args, index, "file1");
-            final File file2 = findFileArgument(args, ++index, "file2");        
-            mixArgs.setFirstInput(InputResource.createFile(file1));
-            mixArgs.setSecondInput(InputResource.createFile(file2));   
+        if (zipOption == null) {
+            final List<File> files = findFilesArgument(args, index);
+            files.stream().forEach(file -> mixArgs.addInput(InputResource.createFile(file)));
         } else {
-            final ZipFile zipFile = new ZipFile(findFileArgument(args, ++index, zipOption));
-            final InputStream input1 = extractZipEntry(zipFile, 1, "file1");
-            final InputStream input2 = extractZipEntry(zipFile, 2, "file2");
-            mixArgs.setFirstInput(InputResource.createInputStream(input1));
-            mixArgs.setSecondInput(InputResource.createInputStream(input2));
+            final ZipFile zipFile = new ZipFile(findZipFileArgument(args, ++index));
+            final List<InputStream> inputs = extractZipEntries(zipFile);
+            inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createInputStream(input)));
         }        
         return mixArgs;
     }
 
-    private static Rule findRuleArgument(final String[] args, final int index, final String name) throws ArgumentException {        
+    private static FileMode findFileModeArgument(final String[] args, final int index) throws ArgumentException {        
+        if (args.length > index) {            
+            return FileMode.findByName(args[index]);
+        }
+        return null;
+    }
+    
+    private static Rule findRuleArgument(final String[] args, final int index, final FileMode fileMode) throws ArgumentException {        
         Rule rule = null;
         if (args.length > index) {
             final String ruleString = args[index];
             if (ruleString.startsWith("-") && !ruleString.startsWith("--")) {
-                rule = Rule.findByName(ruleString.substring(1));
+                rule = Rule.findByName(ruleString.substring(1), fileMode);
                 if (rule == null) {
-                    throw new ArgumentException(name + " argument is incorrect: " + ruleString);
+                    throw new ArgumentException("Rule argument is incorrect: " + ruleString);
                 }
             }
         }
@@ -124,24 +136,30 @@ public class Arguments {
         }     
         return map;
     }
-
-    private static File findFileArgument(final String[] args, final int index, final String name) throws ArgumentException {
-        File file = null;
-        if (args.length > index) {
-            final String filepath = args[index];
-            file = new File(filepath);
+    
+    private static List<File> findFilesArgument(final String[] args, int index) throws ArgumentException {
+        final List<File> files = new ArrayList<File>();
+        while (args.length > index) {
+            final String filepath = args[index++];
+            final File file = new File(filepath);
             final Path path = file.toPath();
             if (Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
-                if (!Files.isReadable(path)) {                    
-                    throw new ArgumentException(name + " cannot be read: " + filepath);    
+                if (Files.isReadable(path)) {
+                    files.add(file);
+                } else {
+                    throw new ArgumentException("Input file cannot be read: " + filepath);    
                 }
             } else {
-                throw new ArgumentException(name + " not found: " + filepath);
+                throw new ArgumentException("Input file not found: " + filepath);
             }
-        } else {
-            throw new ArgumentException(name + " argument missing.");
         }
-        return file;
+        switch (files.size()) {
+            case 0: 
+                throw new ArgumentException("First input file argument missing.");
+            case 1: 
+                throw new ArgumentException("Second input file argument missing.");
+        }
+        return files;
     }
     
     private static String findZipOptionArgument(final String[] args, final int index) {        
@@ -151,35 +169,52 @@ public class Arguments {
         return null;
     }
     
-    private static InputStream extractZipEntry(final ZipFile zipFile, final int index, final String name) throws ArgumentException, IOException, ZipException {
-        InputStream input = null;
-        int i = 1;
+    private static File findZipFileArgument(final String[] args, final int index) throws ArgumentException {
+        File file = null;
+        if (args.length > index) {
+            final String filepath = args[index];
+            file = new File(filepath);
+            final Path path = file.toPath();
+            if (Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
+                if (!Files.isReadable(path)) {                    
+                    throw new ArgumentException("Zip/Jar file cannot be read: " + filepath);    
+                }
+            } else {
+                throw new ArgumentException("Zip/Jar file not found: " + filepath);
+            }
+        } else {
+            throw new ArgumentException("Zip/Jar argument missing.");
+        }
+        return file;
+    }
+
+    private static List<InputStream> extractZipEntries(final ZipFile zipFile) throws ArgumentException, IOException, ZipException {
+        final List<InputStream> inputs = new ArrayList<InputStream>();        
         final Enumeration entries = zipFile.entries();        
         while (entries.hasMoreElements()) {
             ZipEntry entry = (ZipEntry) entries.nextElement();
             if (entry.getName().toUpperCase().startsWith("META-INF")) {
                 continue;        
-            }
-            if (i == index) {
-                input = zipFile.getInputStream(entry);
-                break;
-            }
-            i++;
+            }           
+            inputs.add(zipFile.getInputStream(entry));
         }
-        if (input == null) {
-            throw new ArgumentException(name + " entry missing.");
-        }        
-        return input;
+        switch (inputs.size()) {
+            case 0: 
+                throw new ArgumentException("First input entry missing.");
+            case 1: 
+                throw new ArgumentException("Second input entry missing.");
+        }
+        return inputs;
     }
     
     public static void printUsage() {    
         System.out.println("  ");    
         System.out.println("Usage:");
         System.out.println("  ");
-        System.out.println("  mix-them file1 file2");
-        System.out.println("  (will generate any file based on file1 and file2)");
+        System.out.println("  mix-them file1 file2... fileN");
+        System.out.println("  (will generate any file based on file1 and file2 to fileN)");
         System.out.println("  ");
-        System.out.println("  mix-them -[rule] file1 file2");
+        System.out.println("  mix-them -[rule] file1 file2... fileN");
         System.out.println("  (will generate a file based on the rule)");
         System.out.println("  ");
         System.out.println("  Here are the list of rules");
@@ -188,12 +223,15 @@ public class Arguments {
             for(RuleParam param : rule.getParams()) {                                
                 System.out.print(" [#" +  param.getName() + "]");
             }
-            System.out.println(": " + rule.getDescription());
+            System.out.println(": " + rule.getDescription());            
+            for(RuleParam param : rule.getParams()) {                                
+                System.out.println("    (#" +param.getName() + " " + param.getComment() + ")");
+            }            
         }
         System.out.println("  ");
         System.out.println("  mix-them --zip zipfile");
         System.out.println("  mix-them --jar jarfile");
-        System.out.println("  (will generate any entry based on zip/jar file first and second entries)");
+        System.out.println("  (will generate any entry based on zip/jar file first and second to nth entries)");
         System.out.println("  ");
         System.out.println("  mix-them -[rule] --zip zipFile");
         System.out.println("  mix-them -[rule] --jar jarFile");

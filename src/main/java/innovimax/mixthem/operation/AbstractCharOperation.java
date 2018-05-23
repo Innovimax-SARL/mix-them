@@ -3,19 +3,20 @@ package innovimax.mixthem.operation;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
-import innovimax.mixthem.io.DefaultCharReader;
 import innovimax.mixthem.io.DefaultCharWriter;
-import innovimax.mixthem.io.IInputChar;
-import innovimax.mixthem.io.IOutputChar;
+import innovimax.mixthem.io.ICharOutput;
+import innovimax.mixthem.io.IMultiChannelCharInput;
 import innovimax.mixthem.io.InputResource;
+import innovimax.mixthem.io.MultiChannelCharReader;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Map;
 
 /**
-* <p>Abstract class for all line operation.</p>
-* @see ILineOperation
+* <p>Abstract class for all character operation.</p>
+* @see ICharOperation
 * @author Innovimax
 * @version 1.0
 */
@@ -32,28 +33,26 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 	}
 
 	@Override
-    	public void processFiles(final InputResource input1, final InputResource input2, final OutputStream out) throws MixException, IOException {		
-		final IInputChar reader1 = new DefaultCharReader(input1);
-		final IInputChar reader2 = new DefaultCharReader(input2);
-		final IOutputChar writer = new DefaultCharWriter(out);
+    	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {				
+		final IMultiChannelCharInput reader = new MultiChannelCharReader(inputs);
+		final ICharOutput writer = new DefaultCharWriter(output);
 		final CharResult result = new CharResult();
-        	while (reader1.hasCharacter() || reader2.hasCharacter()) {
-			final int c1 = reader1.nextCharacter();
-			final int c2 = reader2.nextCharacter();
-			process(c1, c2, result);
+		while (reader.hasCharacter()) {
+			result.reset();
+			final int[] charRange = reader.nextCharacterRange();
+			process(charRange, result);
 			if (result.hasResult()) {
 				result.getResult().forEach(i -> {
 					try {
-						writer.writeCharacter(i);
+						writer.writeCharacter((char) i);
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
 				});
-			}
-        	}
-        	reader1.close();
-        	reader2.close();
-        	writer.close();
+			}			
+		}
+		reader.close();
+		writer.close();
     	}
 
 }

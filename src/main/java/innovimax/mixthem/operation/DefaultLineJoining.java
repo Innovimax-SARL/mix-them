@@ -4,96 +4,135 @@ import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
-* <p>Joins two lines on a common field.</p>
+* <p>Joins two or more lines on a common field.</p>
+* <p>Joining doesn't operate when no common field is found for all lines.</p>
+* <p>In this case, we prevent bigger join field file(s) from beeing read, keeping current line(s).</p>
 * @see ILineOperation
 * @author Innovimax
 * @version 1.0
 */
 public class DefaultLineJoining extends AbstractLineOperation {
   
-  private final int col1;
-  private final int col2;
-  
-  /**
-  * @param params The list of parameters (maybe empty)
-  * @see innovimax.mixthem.operation.RuleParam
-  * @see innovimax.mixthem.operation.ParamValue
-  */
-  public DefaultLineJoining(final Map<RuleParam, ParamValue> params) {
-    super(params);
-    this.col1 = this.params.getOrDefault(RuleParam.JOIN_COL1, JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
-    this.col2 = this.params.getOrDefault(RuleParam.JOIN_COL2, JoinOperation.DEFAULT_JOIN_COLUMN.getValue()).asInt();
-  } 
+	private final int[] joinCols;	
+	
+	/**
+	* @param params The list of parameters (maybe empty)
+	* @see innovimax.mixthem.operation.RuleParam
+	* @see innovimax.mixthem.operation.ParamValue
+	*/
+	public DefaultLineJoining(final Map<RuleParam, ParamValue> params) {
+		super(params);		
+		if (this.params.containsKey(RuleParam.JOIN_COLS)) {
+			this.joinCols = this.params.get(RuleParam.JOIN_COLS).asIntArray();
+		} else {
+			this.joinCols = new int[1];
+			this.joinCols[0] = JoinOperation.DEFAULT_JOIN_COLUMN.getValue().asInt();
+		}
+		System.out.println("COLS="+Arrays.toString(this.joinCols));
+	} 
 
-  @Override
-  public void process(final String line1, final String line2, final LineResult result) throws MixException {
-    final boolean firstPreserved = result.firstLinePreserved();
-    final boolean secondPreserved = result.secondLinePreserved();
-    result.reset();
-    if (line1 != null && line2 != null) {
-      final List<String> list1 = Arrays.asList(line1.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));
-      final List<String> list2 = Arrays.asList(line2.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.toString()));   
-      final String cell1 = list1.size() >= this.col1 ? list1.get(this.col1 - 1) : null;
-      final String cell2 = list2.size() >= this.col2 ? list2.get(this.col2 - 1) : null;
-      if (cell1 != null && cell2 != null) {
-        final List<String> prevList1 = result.hasFirstLine() ?
-                        Arrays.asList(result.getFirstLine().split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
-                        Collections.emptyList();
-       final  List<String> prevList2 = result.hasSecondLine() ?
-                        Arrays.asList(result.getSecondLine().split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())) :
-                        Collections.emptyList();    
-        final String prevCell1 = prevList1.size() >= this.col1 ? prevList1.get(this.col1 - 1) : null;
-        final String prevCell2 = prevList2.size() >= this.col2 ? prevList2.get(this.col2 - 1) : null;
-        System.out.println("LINE1=" + line1 + " / CELL1=" + cell1);
-        System.out.println("LINE2=" + line2 + " / CELL2=" + cell2);
-        System.out.println("PVLINE1=" + result.getFirstLine() + " / PVCELL1=" + prevCell1);
-        System.out.println("PVLINE2=" + result.getSecondLine() + " / PVCELL2=" + prevCell2);
-        if (cell2.equals(prevCell2) && !secondPreserved) {
-          System.out.println("PREVIOUS 2");
-          joinLines(prevList1, list2, result);
-          result.preserveFirstLine();
-          result.keepFirstLine(line1);
-          result.setSecondLine(line2);
-        } else if (cell1.equals(prevCell1) && !firstPreserved) {
-          System.out.println("PREVIOUS 1");
-          joinLines(list1, prevList2, result);
-          result.preserveSecondLine();
-          result.setFirstLine(line1);
-          result.keepSecondLine(line2);
-        } else {
-          switch (Integer.signum(cell1.compareTo(cell2))) {
-            case 0:
-              System.out.println("EQUALS");
-              joinLines(list1, list2, result);            
-              break;
-            case 1:           
-              System.out.println("PRESERVE 1");
-              result.preserveFirstLine();
-              break;
-            default:            
-              System.out.println("PRESERVE 2");
-              result.preserveSecondLine();
-          }
-          result.setFirstLine(line1);
-          result.setSecondLine(line2);
-        }
-      }
-    }   
-  }
+	@Override
+	public void process(final List<String> lineRange, final LineResult result) throws MixException {				
+		System.out.println("LINES="+lineRange.toString());		
+		System.out.println("READ="+result.getLineReadingRange().toString());			
+		final List<List<String>> lineCellsRange = getLineCellsRange(lineRange);
+		if (linesJoinable(lineCellsRange)) {				
+			if (linesJoined(lineCellsRange)) {					
+				joinLines(lineCellsRange, result);					
+				System.out.println("JOINED="+result.getResult());				
+			} else {										
+				setLineReadingPreservation(lineCellsRange, result);
+			}
+			for (int i=0; i < lineRange.size(); i++) {
+				result.setRangeLine(i, lineRange.get(i));
+			}
+		}		
+	}
+	
+	private List<List<String>> getLineCellsRange(final List<String> lineRange) {
+		final List<List<String>> lineCellsRange = new ArrayList<List<String>>();
+		for (String line : lineRange) {
+			lineCellsRange.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())));
+		}
+		return lineCellsRange;
+	}
+	
+	private int getJoinedColumn(int index) {
+		if (this.joinCols.length == 1) {
+			return this.joinCols[0];
+		} else if (index < this.joinCols.length && this.joinCols[index] > 0) {
+			return this.joinCols[index];
+		} else {
+			return JoinOperation.DEFAULT_JOIN_COLUMN.getValue().asInt();
+		}
+	}
+	
+	private boolean linesJoinable(final List<List<String>> lineCellsRange) {		
+		for (int i=0; i < lineCellsRange.size(); i++) {
+			final List<String> lineCells = lineCellsRange.get(i);
+			if (lineCells.size() < getJoinedColumn(i)) {
+				return false;
+			}			
+		}
+		return true;
+	}
+	
+	private boolean linesJoined(final List<List<String>> lineCellsRange) {		
+		String joinCell = null;		
+		for (int i=0; i < lineCellsRange.size(); i++) {			
+			final List<String> lineCells = lineCellsRange.get(i);
+			final String cell = lineCells.get(getJoinedColumn(i) - 1);
+			if (joinCell == null) {
+				joinCell = cell;
+			}
+			if (!cell.equals(joinCell)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private void setLineReadingPreservation(final List<List<String>> lineCellsRange, final LineResult result) {
+		List<String> cellRange = new ArrayList<String>();
+		String greaterCell = null;		
+		for (int i=0; i < lineCellsRange.size(); i++) {
+			final List<String> lineCells = lineCellsRange.get(i);
+			final String cell = lineCells.get(getJoinedColumn(i) - 1);
+			if (greaterCell == null) {
+				greaterCell = cell;
+			}
+			if (cell.compareTo(greaterCell) > 0) {
+				greaterCell = cell;
+			}
+			cellRange.add(cell);			
+		}		
+		for (int i=0; i < cellRange.size(); i++) {
+			final String cell = cellRange.get(i);
+			if (cell.equals(greaterCell)) {
+				result.setRangeLineReadingStatus(i, false);
+			}
+		}
+	}
 
-  private void joinLines(final List<String> list1, final List<String> list2, final LineResult result) {
-    final String part1 = list1.get(this.col1 - 1);
-    final String part2 = list1.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
-    final String part3 = list2.stream().filter(s -> !s.equals(part1)).collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()));
-    result.setResult(part1 + CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString()  + 
-         part2 + CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString() + part3);
-  }
+	private void joinLines(final List<List<String>> lineCellsRange, final LineResult result) {
+		final StringBuilder joinedCells = new StringBuilder();
+		String join = lineCellsRange.get(0).get(getJoinedColumn(0) - 1);
+		joinedCells.append(join);
+		for (List<String> lineCells : lineCellsRange) {
+			joinedCells.append(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
+			joinedCells.append(
+				lineCells.stream()
+					.filter(s -> !s.equals(join))
+					.collect(Collectors.joining(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString())));
+		}
+		result.setResult(joinedCells.toString());
+	}
 
 }

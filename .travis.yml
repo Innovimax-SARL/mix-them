@@ -2,9 +2,12 @@ language: java
 jdk:
   - oraclejdk8
   - oraclejdk9
+#  - openjdk10
+#  - oraclejdk11
   
 script: 
 #  - "mvn cobertura:cobertura"
+  - "mvn test -B"
   - "mvn sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=c4394ad3c81d462380472c50c03f805c7eca9f0b"
   - "mvn org.pitest:pitest-maven:mutationCoverage"
 

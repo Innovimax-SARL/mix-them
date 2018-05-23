@@ -8,7 +8,8 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
-* <p>Zips two characters.</p>
+* <p>Zips two or more characters.</p>
+* <p>Zipping stops when a character is missing.</p>
 * @see CharOperation
 * @author Innovimax
 * @version 1.0
@@ -29,20 +30,29 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	}
 	
 	@Override
-	public void process(final int c1, final int c2, final CharResult result) throws MixException {
-		result.reset();
-		final int len = (c1 != -1 ? 1 : 0) + sep.length() + (c2 != -1 ? 1 : 0);
-        	final int[] array = new int[len];
-		if (c1 != -1) { 
-			array[0] = c1; 
-		}		
-        	for (int i = 0; i < sep.length(); i++) {			
-			array[i + 1] = (int) sep.charAt(i);
-		}		
-		if (c2 != -1) { 
-			array[array.length - 1] = c2; 
-		}        	
-		result.setResult(Arrays.stream(array));
+	public void process(final int[] charRange, final CharResult result) throws MixException {
+		//System.out.println("RANGE="+Arrays.toString(charRange));
+		boolean zipable = true;		
+		for (int i=0; i < charRange.length; i++) {			
+			if (charRange[i] == -1) {
+				zipable = false;
+				break;
+			}
+		}
+		if (zipable) {			
+			final int len = charRange.length + (charRange.length - 1) * sep.length();
+			final int[] array = new int[len];
+			int index = 0;
+			for (int i=0; i < charRange.length; i++) {
+				array[index++] = charRange[i];				
+				if (index < array.length) {
+        				for (int j = 0; j < sep.length(); j++) {
+						array[index++] = (int) sep.charAt(j);
+					}				
+				}
+			}
+			result.setResult(Arrays.stream(array));
+		}
 	}
-
+	
 }

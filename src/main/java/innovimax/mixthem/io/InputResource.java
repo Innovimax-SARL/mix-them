@@ -1,5 +1,6 @@
 package innovimax.mixthem.io;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
@@ -24,6 +25,10 @@ public abstract class InputResource {
     public BufferedReader newBufferedReader() throws IOException {
       return Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);  
     }
+    @Override
+    public BufferedInputStream newBufferedInputStream() throws IOException {
+      return new BufferedInputStream(Files.newInputStream(file.toPath()));
+    }
   }
 
   private static class InputStreamResource extends InputResource {
@@ -34,6 +39,10 @@ public abstract class InputResource {
     @Override
     public BufferedReader newBufferedReader() throws IOException {
       return new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
+    }
+    @Override
+    public BufferedInputStream newBufferedInputStream() throws IOException {
+      return new BufferedInputStream(input);
     }
   }
   
@@ -55,5 +64,11 @@ public abstract class InputResource {
   * @return The BufferedReader for this input resource
   */
   public abstract BufferedReader newBufferedReader() throws IOException;
+  
+  /**
+  * Returns a new BufferedInputStream for this input resource.
+  * @return The BufferedInputStream for this input resource
+  */
+  public abstract BufferedInputStream newBufferedInputStream() throws IOException;
   
 }

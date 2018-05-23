@@ -7,7 +7,6 @@ import java.util.Map;
 
 /**
 * <p>Abstract class for all operation.</p>
-* @see ILineOperation
 * @author Innovimax
 * @version 1.0
 */

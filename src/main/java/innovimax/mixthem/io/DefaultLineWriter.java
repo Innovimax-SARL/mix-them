@@ -7,12 +7,12 @@ import java.io.OutputStreamWriter;
 
 /**
 * <p>Writes characters into an output stream.</p>
-* <p>This is the default implementation of IOutputLine.</p>
-* @see IOutputLine
+* <p>This is the default implementation of ILineOutput.</p>
+* @see ILineOutput
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultLineWriter implements IOutputLine {
+public class DefaultLineWriter implements ILineOutput {
 
 	private final BufferedWriter writer;
 

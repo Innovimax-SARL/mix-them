@@ -44,25 +44,21 @@ public class RuleRuns {
 				final String[] parts = entry.split("\\s");
 				if (parts.length > 1) {
 					final String suffix = parts[0];
+					final String value = parts[1];
 					final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
 					switch (rule) {
 						case RANDOM_ALT_LINE:
-							final int seed = Integer.parseInt(parts[1]);
-							params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(seed));
+						case RANDOM_ALT_CHAR:
+						case RANDOM_ALT_BYTE:							
+							params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(Integer.parseInt(value)));
 							break;
-						case JOIN:
-							int col = Integer.parseInt(parts[1]);
-							params.put(RuleParam.JOIN_COL1, ParamValue.createInt(col));
-							if (parts.length > 2) {
-								col = Integer.parseInt(parts[2]);
-								params.put(RuleParam.JOIN_COL2, ParamValue.createInt(col));
-							}	
+						case JOIN:							
+							params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(value));
 							break;
 						case ZIP_LINE:
 						case ZIP_CELL:
 						case ZIP_CHAR:
-							final String sep = parts[1];
-							params.put(RuleParam.ZIP_SEP, ParamValue.createString(sep));
+							params.put(RuleParam.ZIP_SEP, ParamValue.createString(value));
 					}
 					if (suffix.equals(DEFAULT_OUTPUT_FILE)) {
 						runs.add(new RuleRun(null, params));

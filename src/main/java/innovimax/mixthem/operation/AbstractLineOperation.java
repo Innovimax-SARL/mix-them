@@ -3,14 +3,15 @@ package innovimax.mixthem.operation;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
-import innovimax.mixthem.io.DefaultLineReader;
 import innovimax.mixthem.io.DefaultLineWriter;
-import innovimax.mixthem.io.IInputLine;
-import innovimax.mixthem.io.IOutputLine;
+import innovimax.mixthem.io.ILineOutput;
+import innovimax.mixthem.io.IMultiChannelLineInput;
 import innovimax.mixthem.io.InputResource;
+import innovimax.mixthem.io.MultiChannelLineReader;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,22 +33,41 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 	}
 
 	@Override
-	public void processFiles(final InputResource input1, final InputResource input2, final OutputStream out) throws MixException, IOException {
-		final IInputLine reader1 = new DefaultLineReader(input1);
-		final IInputLine reader2 = new DefaultLineReader(input2);
-		final IOutputLine writer = new DefaultLineWriter(out);
-		final LineResult result = new LineResult();
-		while (reader1.hasLine() || reader2.hasLine()) {
-			final String line1 = result.readingFirstFile() ? reader1.nextLine() : result.getFirstLine();
-			final String line2 = result.readingSecondFile() ? reader2.nextLine() : result.getSecondLine();
-			process(line1, line2, result);
-			if (result.hasResult()) {
-				writer.writeLine(result.getResult());
+	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
+		final IMultiChannelLineInput reader = new MultiChannelLineReader(inputs);
+		final ILineOutput writer = new DefaultLineWriter(output);
+		final LineResult result = new LineResult(inputs.size());		
+		while (reader.hasLine()) {
+			// read next range lines depends on last result indicators
+			final List<String> lineRange = reader.nextLineRange(result.getLineReadingRange());
+			// set range preserved lines from last result
+			for (int i=0; i < lineRange.size(); i++) {
+				if (!result.getLineReadingRange().get(i).booleanValue()) {
+					lineRange.set(i, result.getRangeLine(i));
+				}
 			}
-        	}
-        	reader1.close();
-        	reader2.close();
-        	writer.close();				
+			result.reset();
+			if (mixable(lineRange)) {
+				// process mixing
+				process(lineRange, result);
+				// write mixing result if has one
+				if (result.hasResult()) {
+					writer.writeLine(result.getResult());
+				}			
+			}			
+		}
+		reader.close();
+		writer.close();
     	}
+	
+	@Override
+	public boolean mixable(final List<String> lineRange) {		
+		for (int i=0; i < lineRange.size(); i++) {			
+			if (lineRange.get(i) == null) {
+				return false;				
+			}
+		}
+		return true;	
+	}
 
 }
