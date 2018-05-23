@@ -15,7 +15,7 @@ public enum Rule {
     FILE_2("2", "2", "will output second file", true, 
                 EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
     FILE_N("file", "file", "will output the selected file", true, 
-                EnumSet.of(RuleParam.SEL_FILE), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
+                EnumSet.of(RuleParam.FILE_INDEX), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
     ADD("+", "add", "will output file1+file2+...+fileN", true, 
                 EnumSet.of(RuleParam.ADD_FILES), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
     ALT_LINE("alt-line", "altline", "will output one line of each starting with first line of file1", true, 
