@@ -14,5 +14,6 @@ package innovimax.mixthem.operation;
 public enum CopyMode {	
 	FIRST,
 	SECOND,
+	UMPTEENTH,
 	ALL;
 }
