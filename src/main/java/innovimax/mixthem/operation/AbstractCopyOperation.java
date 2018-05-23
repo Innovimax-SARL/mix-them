@@ -43,7 +43,7 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 				process(inputs.get(1), output);
 				break;
 			case UMPTEENTH:
-				int index = params.get(RuleParam.SEL_FILE).asInt();
+				int index = params.get(RuleParam.FILE_INDEX).asInt();
 				process(inputs.get(index), output);
 				break;
 			case ALL:
