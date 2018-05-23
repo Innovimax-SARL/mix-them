@@ -2,21 +2,37 @@ sudo: false
 dist: trusty
 language: java
 
+before_install:
+  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
+
 matrix:
   include:
-    - jdk: openjdk-ea
-    - jdk: openjdk8
-    - jdk: openjdk9
-    - jdk: openjdk10
-    - jdk: openjdk11
-    - jdk: oraclejdk-ea
-    - jdk: oraclejdk8
-    - jdk: oraclejdk9
-    - jdk: oraclejdk10
-    - jdk: oraclejdk11
+# 8
+    - env: JDK='Oracle JDK 8'
+      jdk: oraclejdk8
+    - env: JDK='OpenJDK 8'
+      jdk: openjdk8
+# 9
+    - env: JDK='Oracle JDK 9'
+      jdk: oraclejdk9
+    - env: JDK='OpenJDK 9'
+      install: . ./install-jdk.sh -F 9
+# 10
+    - env: JDK='Oracle JDK 10'
+      jdk: oraclejdk10
+    - env: JDK='OpenJDK 10'
+      install: . ./install-jdk.sh -F 10 -L GPL
+# 11
+    - env: JDK='Oracle JDK 11'
+      install: . ./install-jdk.sh -F 11 -L BCL
+    - env: JDK='OpenJDK 11'
+      install: . ./install-jdk.sh -F 11 -L GPL
+  allow_failures:
+    - env: JDK='Oracle JDK 10'
 
-  
-script: 
+script:
+  - echo PATH = ${PATH}
+  - echo JAVA_HOME = ${JAVA_HOME}
 #  - "mvn cobertura:cobertura"
   - "mvn test -B"
   - "mvn sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=c4394ad3c81d462380472c50c03f805c7eca9f0b"
