@@ -12,20 +12,16 @@ Mix files togethers
   
     mix-them [char|byte] [-rule] <file1> <file2>[ <file3>... <fileN>]
   
-  will generate on standard out a file based on the mixing rule
+  will generate on standard out a file based on the rule
+  
+    mix-them [char|byte] [-rule] --sel <index1>,<index2>[,<index3>...] <file1> <file2>[ <file3>... <fileN>]
+  
+  will generate on standard out a file based on the rule and a selection of files designed by their index
   
   Here are the list of rules
-  - 1: will output first file
-  - 2: will output second file
-  - file #index: will output the file designed by his index
-      - **file #1** will output first file (same as -1)
-      - **file #5** will output fifth file
-  - \+ [#list]: will output all files in order or a selection of files designed by a list of index
-      - **+** will output all files in order
-      - **\+ #1** will ouput first file (same as -1)
-      - **\+ #3,5** will output third and fifth files in this order
-      - **\+ #4,2** will output fourth and second files in this order
-      - **\+ #1,3,5,6** will output first, third, fifth and sixth files in this order
+  - 1: will output first file (ignores --sel option)
+  - 2: will output second file (ignores --sel option)
+  - \+: will output all files in order
   - alt-line: will output one line of each starting with first line of file1
   - alt-char: will output one char of each starting with first char of file1
   - random-alt-line [#seed]: will output one line of each code randomly based on a seed for reproducability
@@ -37,12 +33,12 @@ Mix files togethers
       - **join #2,,3** will join on second column of first line, first colum of second line, third column of third line and first column of other lines
   - zip-line [#sep]: will output zip of char from file1 and file2 to fileN
   - zip-char [#sep]: will output zip of line from file1 and file2 to fileN 
-  - zip-cell [#sep]: will output zip of cell from file1 and file2 to fileN 
-
+  - zip-cell [#sep]: will output zip of cell from file1 and file2 to fileN   
+  
 Mix files togethers from a zip/jar file
 
     mix-them [char|byte] --zip zipfile 
-    mix-them [char|byte] --jar zipfile 
+    mix-them [char|byte] --jar jarfile 
   
   will generate on standard out any file based on entry1 to entryN of zip/jar file.
   by default it assumes zip/jar entries are character based (not binary)
@@ -51,3 +47,8 @@ Mix files togethers from a zip/jar file
     mix-them [char|byte] [-rule] --jar jarfile
   
   will generate on standard out a file based on the rule
+  
+    mix-them [char|byte] [-rule] --sel <index1>,<index2>[,<index3>...] --zip zipfile
+    mix-them [char|byte] [-rule] --sel <index1>,<index2>[,<index3>...] --jar jarfile
+  
+  will generate on standard out a file based on the rule and a selection of entries designed by their index
