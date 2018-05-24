@@ -20,8 +20,7 @@ Mix files togethers
   will generate on standard out a file based on the rule and a selection of files designed by their index
   
   Here are the list of rules
-  - 1: will output first file (ignores --sel option)
-  - 2: will output second file (ignores --sel option)
+  - file [#index]: will output the umpteenth file designed by his index (ignores --sel option)
   - \+: will output all files in order
   - alt-line: will output one line of each starting with first line of file1
   - alt-char: will output one char of each starting with first char of file1
