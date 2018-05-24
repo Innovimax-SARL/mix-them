@@ -38,12 +38,6 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 	@Override
 	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {		
 		switch(copyMode) {
-			case FIRST:
-				process(inputs.get(0), output);
-				break;
-			case SECOND:
-				process(inputs.get(1), output);
-				break;
 			case UMPTEENTH:
 				int index = params.get(RuleParam.FILE_INDEX).asInt() - 1;
 				process(inputs.get(index), output);
