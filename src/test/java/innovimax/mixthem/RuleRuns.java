@@ -33,8 +33,7 @@ public class RuleRuns {
     	*/	
 	public static List<RuleRun> getRuns(final Rule rule, final URL url) throws FileNotFoundException, IOException, NumberFormatException {
     		final List<RuleRun> runs = new LinkedList<RuleRun>();
-		int index = 1;
-    		runs.add(new RuleRun(index++, Collections.emptyMap()));
+    		runs.add(new RuleRun(1, Collections.emptyMap()));
 		if (url != null) {
 			final File file = new File(url.getFile());			
 			final BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
@@ -64,7 +63,7 @@ public class RuleRuns {
 						case ZIP_CHAR:
 							params.put(RuleParam.ZIP_SEP, ParamValue.createString(value));
 					}					
-					runs.add(new RuleRun(index++, params));
+					runs.add(new RuleRun(runs.size()+1, params));
 				}
 			});
 		}
