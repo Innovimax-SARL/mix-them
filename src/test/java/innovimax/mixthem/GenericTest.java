@@ -74,27 +74,29 @@ public class GenericTest {
 		   for (int i=0; i < urlF.size(); i++) {
 			   MixThem.LOGGER.info("File " + (i+1) + ": " + urlF.get(i));
 		   }
-		   for(Rule rule : Rule.values()) {			   
+		   for(Rule rule : Rule.values()) {
 			   if (rule.isImplemented() && rule.acceptFileMode(fileMode)) {
+				   System.out.println(">>> RULE="+rule.getName());
 				   String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
 				   URL urlP = getClass().getResource(paramsFile);
 				   List<RuleRun> runs = RuleRuns.getRuns(rule, urlP);
+				   System.out.println(">>> RUNS="+runs.size());
 				   for (RuleRun run : runs) {
-					   System.out.println(">>> RUN SUFFIX="+run.getSuffix());
-					   System.out.println(">>> RUN PARAMS="+run.getParams());
+					   System.out.println(">>> >>> RUN SUFFIX="+run.getSuffix());
+					   System.out.println(">>> >>> RUN PARAMS="+run.getParams());
 					   String resultFile = prefix + "output-" + rule.getExtension();
 					   if (run.hasSuffix()) {
 						   resultFile += "-" + run.getSuffix();
 					   }
 					   resultFile += ".txt";
 					   URL urlR = getClass().getResource(resultFile);
-					   System.out.println(">>> RESULT FILE="+resultFile);
-					   System.out.println(">>> RESULT URL="+urlR);
+					   System.out.println(">>> >>> RESULT FILE="+resultFile);
+					   System.out.println(">>> >>> RESULT URL="+urlR);
 					   if (urlR == null && run.hasSuffix()) {
 						   resultFile = prefix + "output-" + rule.getExtension() + ".txt";
 						   urlR = getClass().getResource(resultFile);
-						   System.out.println(">>> RESULT FILE="+resultFile);
-						   System.out.println(">>> RESULT URL="+urlR);
+						   System.out.println(">>> >>> >>> RESULT FILE="+resultFile);
+						   System.out.println(">>> >>> >>> RESULT URL="+urlR);
 					   }
 					   if (urlR != null) {
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
