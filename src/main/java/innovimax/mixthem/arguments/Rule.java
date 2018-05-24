@@ -30,7 +30,7 @@ public enum Rule {
                 EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(FileMode.CHAR)),
     RANDOM_ALT_BYTE("random-alt-byte", "random-altbyte", "will output one byte of each code randomly based on a seed for reproducability", true, 
                 EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(FileMode.BYTE)),
-    JOIN("join", "join", "will output merging of lines that have common occurrence", true,
+    JOIN("join", "join", "will output merging of lines that have common occurrence determined by a column index or first column by default", true,
                 EnumSet.of(RuleParam.JOIN_COLS), EnumSet.of(FileMode.CHAR)),
     ZIP_LINE("zip-line", "zipline", "will output zip of line from file1 and file2 to fileN", true, 
                 EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(FileMode.CHAR)),
