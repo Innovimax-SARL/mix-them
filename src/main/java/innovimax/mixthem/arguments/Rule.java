@@ -14,7 +14,7 @@ public enum Rule {
                 EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
     FILE_2("2", "2", "will output second file", true, 
                 EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
-    FILE_N("file", "file", "will output the file designed by his index", true, 
+    FILE_K("file", "file", "will output the file designed by his index", true, 
                 EnumSet.of(RuleParam.FILE_INDEX), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
     ADD("+", "add", "will output all files in order or a selection of files designed by a list of index", true, 
                 EnumSet.of(RuleParam.FILE_LIST), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
