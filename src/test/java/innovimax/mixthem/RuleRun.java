@@ -14,24 +14,16 @@ import java.util.Map;
 */
 public class RuleRun {
 
+  final private int index;
   final private Map<RuleParam, ParamValue> params;
-  final private String suffix;
-
-  /*
-  * Creates a rule run for a specific test.  
-  * @param params The list of parameter values for this run
-  */
-  public RuleRun(Map<RuleParam, ParamValue> params) {
-    this(null, params);
-  }
 
   /*
   * Creates a rule run for a specific test.
-  * @param suffix The specific suffix attached to the run (maybe null)
+  * @param index The position of the run
   * @param params The list of parameter values for this run
   */
-  public RuleRun(final String suffix, final Map<RuleParam, ParamValue> params) {    
-    this.suffix = suffix;
+  public RuleRun(final int index, final Map<RuleParam, ParamValue> params) {    
+    this.index = index;
     this.params = params;    
   }
   
@@ -40,7 +32,7 @@ public class RuleRun {
   * @return Returns true if the run has a specific suffix
   */
   public boolean hasSuffix() {    
-    return this.suffix != null;
+    return this.index > 1;
   }
   
   /*
@@ -48,7 +40,7 @@ public class RuleRun {
   * @return The specific suffix attached to the run
   */
   public String getSuffix() {    
-    return this.suffix;
+    return Itneger.toString(this.index);
   }
   
   /*
