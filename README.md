@@ -5,14 +5,14 @@
 Mix files togethers
 
 
-    mix-them [char|byte] file1 file2... fileN
+    mix-them [char|byte] <file1> <file2>[ <file3>... <fileN>]
  
-  will generate on standard out any file based on file1 and file2 to fileN.
-  by default it assumes file1 and file2 to fileN are character based (not binary)
+  will generate on standard out any file based on file1 to fileN
+  by default it assumes that all files are character based (not binary)
   
-    mix-them [char|byte] [-rule] file1 file2... fileN
+    mix-them [char|byte] [-rule] <file1> <file2>[ <file3>... <fileN>]
   
-  will generate on standard out a file based on the rule
+  will generate on standard out a file based on the mixing rule
   
   Here are the list of rules
   - 1: will output first file
@@ -44,7 +44,7 @@ Mix files togethers from a zip/jar file
     mix-them [char|byte] --zip zipfile 
     mix-them [char|byte] --jar zipfile 
   
-  will generate on standard out any file based on first entrie and second entrie to nth entrie of zip/jar file.
+  will generate on standard out any file based on entry1 to entryN of zip/jar file.
   by default it assumes zip/jar entries are character based (not binary)
   
     mix-them [char|byte] [-rule] --zip zipfile
