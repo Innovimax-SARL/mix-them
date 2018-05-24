@@ -17,11 +17,12 @@ Mix files togethers
   Here are the list of rules
   - 1: will output file1
   - 2: will output file2
-  - +: will output file1+file2+...+fileN
+  - file #index: will output the file designed by his index
+  - + [#list]: will output all files in order or a selection of files designed by a list of index
   - alt-line: will output one line of each starting with first line of file1
   - alt-char: will output one char of each starting with first char of file1
   - random-alt-line [#seed]: will output one line of each code randomly based on a seed for reproducability
-  - join [#col1] [#col2]: will output merging of lines that have common occurrence
+  - join [#cols]: will output merging of lines that have common occurrence determined by a column index or first column by default
   - zip-line [#sep]: will output zip of char from file1 and file2 to fileN
   - zip-char [#sep]: will output zip of line from file1 and file2 to fileN 
   - zip-cell [#sep]: will output zip of cell from file1 and file2 to fileN 
