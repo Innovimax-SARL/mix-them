@@ -5,8 +5,9 @@ package innovimax.mixthem.operation;
 * <p>Here are the modes:</p>
 * <ul>
 * <li>FIRST: copy first file</li>
-* <li>SECOND: copy second file</li>
-* <li>ALL: copy all files</li>
+* <li>SECOND: copy second file</li>* 
+* <li>UMPTEENTH: copy the umpteenth file</li>*
+* <li>SELECTION: copy a selection of files (maybe all by default)</li>
 * </ul>
 * @author Innovimax
 * @version 1.0
@@ -15,5 +16,5 @@ public enum CopyMode {
 	FIRST,
 	SECOND,
 	UMPTEENTH,
-	ALL;
+	SELECTION;
 }
