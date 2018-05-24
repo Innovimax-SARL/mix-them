@@ -110,7 +110,7 @@ public class MixThem {
                     copyFileNOp.processFiles(this.inputs, this.output);          
                     break;
                 case ADD:                    
-                    final IOperation copyAddOp = CopyFactory.newInstance(fileMode, CopyMode.ALL, params);
+                    final IOperation copyAddOp = CopyFactory.newInstance(fileMode, CopyMode.SELECTION, params);
                     copyAddOp.processFiles(this.inputs, this.output);          
                     break;
                 case ALT_CHAR:
