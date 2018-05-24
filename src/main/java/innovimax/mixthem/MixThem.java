@@ -105,9 +105,9 @@ public class MixThem {
                     final IOperation copyFile2Op = CopyFactory.newInstance(fileMode, CopyMode.SECOND, params);
                     copyFile2Op.processFiles(this.inputs, this.output);          
                     break;
-                case FILE_N:
-                    final IOperation copyFileNOp = CopyFactory.newInstance(fileMode, CopyMode.UMPTEENTH, params);
-                    copyFileNOp.processFiles(this.inputs, this.output);          
+                case FILE_K:
+                    final IOperation copyFileKOp = CopyFactory.newInstance(fileMode, CopyMode.UMPTEENTH, params);
+                    copyFileKOp.processFiles(this.inputs, this.output);          
                     break;
                 case ADD:                    
                     final IOperation copyAddOp = CopyFactory.newInstance(fileMode, CopyMode.SELECTION, params);
