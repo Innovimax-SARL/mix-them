@@ -15,10 +15,6 @@ Mix files togethers
   
   will generate on standard out a file based on the rule
   
-    mix-them [char|byte] [-rule] --sel <index1>,<index2>[,<index3>...] <file1> <file2>[ <file3>... <fileN>]
-  
-  will generate on standard out a file based on the rule and a selection of files designed by their index
-  
   Here are the list of rules
   - file [#index]: will output the umpteenth file designed by his index (ignores --sel option)
   - \+: will output all files in order
@@ -48,8 +44,3 @@ Mix files togethers from a zip/jar file
     mix-them [char|byte] [-rule] --jar jarfile
   
   will generate on standard out a file based on the rule
-  
-    mix-them [char|byte] [-rule] --sel <index1>,<index2>[,<index3>...] --zip zipfile
-    mix-them [char|byte] [-rule] --sel <index1>,<index2>[,<index3>...] --jar jarfile
-  
-  will generate on standard out a file based on the rule and a selection of entries designed by their index
