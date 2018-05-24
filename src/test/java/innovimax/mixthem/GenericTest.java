@@ -80,15 +80,21 @@ public class GenericTest {
 				   URL urlP = getClass().getResource(paramsFile);
 				   List<RuleRun> runs = RuleRuns.getRuns(rule, urlP);
 				   for (RuleRun run : runs) {
+					   System.out.println(">>> RUN SUFFIX="+run.getSuffix());
+					   System.out.println(">>> RUN PARAMS="+run.getParams());
 					   String resultFile = prefix + "output-" + rule.getExtension();
 					   if (run.hasSuffix()) {
 						   resultFile += "-" + run.getSuffix();
 					   }
 					   resultFile += ".txt";
 					   URL urlR = getClass().getResource(resultFile);
+					   System.out.println(">>> RESULT FILE="+resultFile);
+					   System.out.println(">>> RESULT URL="+urlR);
 					   if (urlR == null && run.hasSuffix()) {
 						   resultFile = prefix + "output-" + rule.getExtension() + ".txt";
 						   urlR = getClass().getResource(resultFile);
+						   System.out.println(">>> RESULT FILE="+resultFile);
+						   System.out.println(">>> RESULT URL="+urlR);
 					   }
 					   if (urlR != null) {
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
