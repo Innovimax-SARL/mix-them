@@ -8,6 +8,7 @@ Mix files togethers
     mix-them [char|byte] <file1> <file2>[ <file3>... <fileN>]
  
   will generate on standard out any file based on file1 to fileN
+  
   by default it assumes that all files are character based (not binary)
   
     mix-them [char|byte] [-rule] <file1> <file2>[ <file3>... <fileN>]
@@ -41,6 +42,7 @@ Mix files togethers from a zip/jar file
     mix-them [char|byte] --jar jarfile 
   
   will generate on standard out any file based on entry1 to entryN of zip/jar file.
+  
   by default it assumes zip/jar entries are character based (not binary)
   
     mix-them [char|byte] [-rule] --zip zipfile
