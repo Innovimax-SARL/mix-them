@@ -40,7 +40,7 @@ public class RuleRun {
   * @return The specific suffix attached to the run
   */
   public String getSuffix() {    
-    return Itneger.toString(this.index);
+    return Integer.toString(this.index);
   }
   
   /*
