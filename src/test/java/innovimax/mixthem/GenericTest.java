@@ -85,7 +85,11 @@ public class GenericTest {
 						   resultFile += "-" + run.getSuffix();
 					   }
 					   resultFile += ".txt";
-					   URL urlR = getClass().getResource(resultFile);					   
+					   URL urlR = getClass().getResource(resultFile);
+					   if (urlR == null && run.hasSuffix()) {
+						   resultFile = prefix + "output-" + rule.getExtension() + ".txt";
+						   urlR = getClass().getResource(resultFile);
+					   }
 					   if (urlR != null) {
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
 						   if (urlP != null) {
