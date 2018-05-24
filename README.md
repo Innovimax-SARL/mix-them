@@ -17,7 +17,7 @@ Mix files togethers
   
   Here are the list of rules
   - file [#index]: will output the umpteenth file designed by his index (ignores --sel option)
-  - \+: will output all files in order
+  - \+ [#list]: will output all files in order or a selection of files designed by a list of index
   - alt-line: will output one line of each starting with first line of file1
   - alt-char: will output one char of each starting with first char of file1
   - random-alt-line [#seed]: will output one line of each code randomly based on a seed for reproducability
