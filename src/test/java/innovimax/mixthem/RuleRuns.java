@@ -25,8 +25,6 @@ import java.util.stream.Stream;
 * @version 1.0
 */
 public class RuleRuns {
-	
-	final private static String DEFAULT_OUTPUT_FILE = "default";
 
   	/**
   	* Returns a list of test runs for the rule.
@@ -34,8 +32,9 @@ public class RuleRuns {
   	* @return Returns a list of test runs for the rule
     	*/	
 	public static List<RuleRun> getRuns(final Rule rule, final URL url) throws FileNotFoundException, IOException, NumberFormatException {
-    		final List<RuleRun> runs = new LinkedList<RuleRun>();		
-    		runs.add(new RuleRun(Collections.emptyMap()));
+    		final List<RuleRun> runs = new LinkedList<RuleRun>();
+		int index = 1;
+    		runs.add(new RuleRun(index++, Collections.emptyMap()));
 		if (url != null) {
 			final File file = new File(url.getFile());			
 			final BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
@@ -43,8 +42,7 @@ public class RuleRuns {
 			entries.forEach(entry -> {
 				final String[] parts = entry.split("\\s");
 				if (parts.length > 1) {
-					final String suffix = parts[0];
-					final String value = parts[1];
+					final String value = parts[0];
 					final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
 					switch (rule) {
 						case ADD:
@@ -65,12 +63,8 @@ public class RuleRuns {
 						case ZIP_CELL:
 						case ZIP_CHAR:
 							params.put(RuleParam.ZIP_SEP, ParamValue.createString(value));
-					}
-					if (suffix.equals(DEFAULT_OUTPUT_FILE)) {
-						runs.add(new RuleRun(null, params));
-					} else {
-						runs.add(new RuleRun(suffix, params));
-					}
+					}					
+					runs.add(new RuleRun(index++, params));
 				}
 			});
 		}
