@@ -15,8 +15,8 @@ Mix files togethers
   will generate on standard out a file based on the rule
   
   Here are the list of rules
-  - 1: will output file1
-  - 2: will output file2
+  - 1: will output first file
+  - 2: will output second file
   - file #index: will output the file designed by his index
   - +[#list]: will output all files in order or a selection of files designed by a list of index
   - alt-line: will output one line of each starting with first line of file1
