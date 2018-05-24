@@ -215,7 +215,7 @@ public class Arguments {
     
     private static void checkFileCount(Arguments mixArgs) throws ArgumentException {
         switch (mixArgs.getRule()) {
-            case FILE_N:
+            case FILE_K:
                 int index = mixArgs.getRuleParameters().get(RuleParam.FILE_INDEX).asInt();
                 if (index > mixArgs.getInputs().size()) {
                     throw new ArgumentException("#index is greater than input file count.");
