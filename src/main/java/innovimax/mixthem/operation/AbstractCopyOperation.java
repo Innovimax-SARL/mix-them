@@ -48,7 +48,7 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 				int index = params.get(RuleParam.FILE_INDEX).asInt() - 1;
 				process(inputs.get(index), output);
 				break;
-			case ALL:
+			case SELECTION:
 			default:
 				final IntStream indexes; 
 				if (params.containsKey(RuleParam.FILE_LIST)) {
