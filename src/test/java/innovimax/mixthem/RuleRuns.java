@@ -47,6 +47,12 @@ public class RuleRuns {
 					final String value = parts[1];
 					final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
 					switch (rule) {
+						case ADD:
+							params.put(RuleParam.FILE_LIST, RuleParam.FILE_LIST.createValue(value));
+							break;
+						case FILE_K:
+							params.put(RuleParam.FILE_INDEX, ParamValue.createInt(Integer.parseInt(value)));
+							break;
 						case RANDOM_ALT_LINE:
 						case RANDOM_ALT_CHAR:
 						case RANDOM_ALT_BYTE:							

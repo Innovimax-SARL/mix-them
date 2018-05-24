@@ -52,7 +52,7 @@ public class BasicTest {
     
     @Test
     public final void test1Rule() throws ArgumentException, IOException, ZipException {
-        final String args[] = { "-1", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+        final String args[] = { "-file", "#1", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
         final Arguments mixArgs = Arguments.checkArguments(args);
         Assert.assertTrue(true);
     }
@@ -71,7 +71,7 @@ public class BasicTest {
     @Test(expected=ArgumentException.class)
     public final void testUnexpectedParam() throws ArgumentException, IOException, ZipException {
         try {
-            final String args[] = { "-1", "#val", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+            final String args[] = { "alt-line", "#val", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
             final Arguments mixArgs = Arguments.checkArguments(args);
         } catch (ArgumentException e) {
             System.out.println("testUnexpectedParam: " + e.getMessage());
@@ -146,7 +146,7 @@ public class BasicTest {
     
     @Test
     public final void testJar1Rule() throws ArgumentException, IOException, ZipException {
-        final String args[] = { "-1", "--jar", getClass().getResource("zip/test001.jar").getFile() };
+        final String args[] = { "-file", "#1", "--jar", getClass().getResource("zip/test001.jar").getFile() };
         final Arguments mixArgs = Arguments.checkArguments(args);
         Assert.assertTrue(true);
     }
@@ -169,6 +169,28 @@ public class BasicTest {
             final Arguments mixArgs = Arguments.checkArguments(args);
         } catch (ArgumentException e) {
             System.out.println("testJarEmpty: " + e.getMessage());
+            throw e;
+        }
+    }
+    
+    @Test(expected=ArgumentException.class)
+    public final void testFileMandatoryParam() throws ArgumentException, IOException, ZipException {
+        try {
+            final String args[] = { "-file", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+            final Arguments mixArgs = Arguments.checkArguments(args);
+        } catch (ArgumentException e) {
+            System.out.println("testFileMandatoryParam: " + e.getMessage());
+            throw e;
+        }
+    }
+    
+    @Test(expected=ArgumentException.class)
+    public final void testFileWrongParam() throws ArgumentException, IOException, ZipException {
+        try {
+            final String args[] = { "-file", "#3", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+            final Arguments mixArgs = Arguments.checkArguments(args);
+        } catch (ArgumentException e) {
+            System.out.println("testFileWrongParam: " + e.getMessage());
             throw e;
         }
     }

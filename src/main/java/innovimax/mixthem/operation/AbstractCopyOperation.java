@@ -7,8 +7,10 @@ import innovimax.mixthem.io.InputResource;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
 * <p>Abstract class for all character operation.</p>
@@ -36,21 +38,25 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 	@Override
 	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {		
 		switch(copyMode) {
-			case FIRST:
-				process(inputs.get(0), output);
+			case UMPTEENTH:
+				int index = params.get(RuleParam.FILE_INDEX).asInt() - 1;
+				process(inputs.get(index), output);
 				break;
-			case SECOND:
-				process(inputs.get(1), output);
-				break;
-			case ALL:
-			default:  				
-				inputs.stream().forEach(input -> {
+			case SELECTION:
+			default:
+				final IntStream indexes; 
+				if (params.containsKey(RuleParam.FILE_LIST)) {
+					indexes = Arrays.stream(params.get(RuleParam.FILE_LIST).asIntArray());
+				} else {
+					indexes = IntStream.range(1, inputs.size()+1);
+				}				
+                    		indexes.mapToObj(i -> inputs.get(i-1)).forEach(input -> {
 					try {
 			 			process(input, output);
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
-				});
+				});				
 		}
 	}
 

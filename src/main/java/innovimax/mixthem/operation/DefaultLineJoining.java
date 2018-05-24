@@ -35,18 +35,18 @@ public class DefaultLineJoining extends AbstractLineOperation {
 			this.joinCols = new int[1];
 			this.joinCols[0] = JoinOperation.DEFAULT_JOIN_COLUMN.getValue().asInt();
 		}
-		System.out.println("COLS="+Arrays.toString(this.joinCols));
+		//System.out.println("COLS="+Arrays.toString(this.joinCols));
 	} 
 
 	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {				
-		System.out.println("LINES="+lineRange.toString());		
-		System.out.println("READ="+result.getLineReadingRange().toString());			
+		//System.out.println("LINES="+lineRange.toString());		
+		//System.out.println("READ="+result.getLineReadingRange().toString());			
 		final List<List<String>> lineCellsRange = getLineCellsRange(lineRange);
 		if (linesJoinable(lineCellsRange)) {				
 			if (linesJoined(lineCellsRange)) {					
 				joinLines(lineCellsRange, result);					
-				System.out.println("JOINED="+result.getResult());				
+				//System.out.println("JOINED="+result.getResult());				
 			} else {										
 				setLineReadingPreservation(lineCellsRange, result);
 			}

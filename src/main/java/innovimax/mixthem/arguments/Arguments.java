@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.EnumMap;
 import java.util.Iterator;
@@ -79,6 +80,7 @@ public class Arguments {
             index += ruleParams.size();
         } else {
             rule = Rule.ADD;
+            ruleParams = Collections.emptyMap();
         }
         mixArgs.setFileMode(fileMode);
         mixArgs.setRule(rule);
@@ -91,7 +93,8 @@ public class Arguments {
             final ZipFile zipFile = new ZipFile(findZipFileArgument(args, ++index));
             final List<InputStream> inputs = extractZipEntries(zipFile);
             inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createInputStream(input)));
-        }        
+        }
+        checkFileCount(mixArgs);
         return mixArgs;
     }
 
@@ -129,9 +132,12 @@ public class Arguments {
                         final ParamValue value = param.createValue(paramString);
                         map.put(param, value);                        
                     } catch (NumberFormatException e) {
-                        throw new ArgumentException("[" + param.getName() + "] parameter is incorrect: " + paramString);                        
+                        throw new ArgumentException("#" + param.getName() + " parameter is incorrect: " + paramString);                        
                     }
                 }
+            } 
+            if (param.isMandatory() && !map.containsKey(param)) {
+                throw new ArgumentException("#" + param.getName() + " parameter is mandatory.");
             }            
         }     
         return map;
@@ -207,6 +213,26 @@ public class Arguments {
         return inputs;
     }
     
+    private static void checkFileCount(Arguments mixArgs) throws ArgumentException {
+        switch (mixArgs.getRule()) {
+            case FILE_K:
+                int index = mixArgs.getRuleParameters().get(RuleParam.FILE_INDEX).asInt();
+                if (index > mixArgs.getInputs().size()) {
+                    throw new ArgumentException("#index is greater than input file count.");
+                }
+                break;
+            case ADD:
+                if (mixArgs.getRuleParameters().containsKey(RuleParam.FILE_LIST)) {                    
+                    int[] indexes = mixArgs.getRuleParameters().get(RuleParam.FILE_LIST).asIntArray();
+                    for (int i=0; i < indexes.length; i++) {
+                        if (i > mixArgs.getInputs().size()) {
+                            throw new ArgumentException("#files contains an index greater than input file count.");
+                        }
+                    }
+                }
+        }
+    }
+    
     public static void printUsage() {    
         System.out.println("  ");    
         System.out.println("Usage:");
@@ -220,8 +246,12 @@ public class Arguments {
         System.out.println("  Here are the list of rules");
         for(Rule rule : Rule.values()) {
             System.out.print("  - " + rule.getName());
-            for(RuleParam param : rule.getParams()) {                                
-                System.out.print(" [#" +  param.getName() + "]");
+            for(RuleParam param : rule.getParams()) {
+                if (param.isMandatory()) {
+                    System.out.print(" #" +  param.getName());
+                } else {
+                    System.out.print(" [#" +  param.getName() + "]");
+                }
             }
             System.out.println(": " + rule.getDescription());            
             for(RuleParam param : rule.getParams()) {                                

@@ -6,17 +6,20 @@ package innovimax.mixthem.arguments;
 * @version 1.0
 */
 public enum RuleParam { 
-	ADD_FILES("files", ParamType.INTEGER_ARRAY),
-	RANDOM_SEED("seed", ParamType.INTEGER),	
-	JOIN_COLS("cols", ParamType.INTEGER_ARRAY),
-	ZIP_SEP("sep", ParamType.STRING);
+	FILE_INDEX("index", ParamType.INTEGER, true),
+	FILE_LIST("list", ParamType.INTEGER_ARRAY, false),
+	RANDOM_SEED("seed", ParamType.INTEGER, false),	
+	JOIN_COLS("cols", ParamType.INTEGER_ARRAY, false),
+	ZIP_SEP("sep", ParamType.STRING, false);
 
 	private final String name;
 	private final ParamType type;
+	private final boolean mandatory;
 
-	private RuleParam(final String name, final ParamType type) {
+	private RuleParam(final String name, final ParamType type, final boolean mandatory) {
 		this.name = name;
 		this.type = type;
+		this.mandatory = mandatory;
 	}
 
 	/**
@@ -42,6 +45,13 @@ public enum RuleParam {
 		}		
 	}
 
+	/**
+	* Indicates if the parameter is mandatory
+	* @return True if the parameter is mandatory
+	*/
+	public boolean isMandatory() {
+		return this.mandatory;
+	}
 	/**
  	* Returns the {@link ParamValue} representation of the parameter value.
  	* @param value The value of the parameter on command line

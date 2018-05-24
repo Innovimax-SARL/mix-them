@@ -10,12 +10,10 @@ import java.util.EnumSet;
 * @version 1.0
 */
 public enum Rule { 
-    FILE_1("1", "1", "will output file1", true, 
-                EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
-    FILE_2("2", "2", "will output file2", true, 
-                EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
-    ADD("+", "add", "will output file1+file2+...+fileN", true, 
-                EnumSet.of(RuleParam.ADD_FILES), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
+    FILE_K("file", "file", "will output the file designed by his index", true, 
+                EnumSet.of(RuleParam.FILE_INDEX), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
+    ADD("+", "add", "will output all files in order or a selection of files designed by a list of index", true, 
+                EnumSet.of(RuleParam.FILE_LIST), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
     ALT_LINE("alt-line", "altline", "will output one line of each starting with first line of file1", true, 
                 EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR)), 
     ALT_CHAR("alt-char", "altchar", "will output one char of each starting with first char of file1", true, 
@@ -28,7 +26,7 @@ public enum Rule {
                 EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(FileMode.CHAR)),
     RANDOM_ALT_BYTE("random-alt-byte", "random-altbyte", "will output one byte of each code randomly based on a seed for reproducability", true, 
                 EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(FileMode.BYTE)),
-    JOIN("join", "join", "will output merging of lines that have common occurrence", true,
+    JOIN("join", "join", "will output merging of lines that have common occurrence determined by a column index or first column by default", true,
                 EnumSet.of(RuleParam.JOIN_COLS), EnumSet.of(FileMode.CHAR)),
     ZIP_LINE("zip-line", "zipline", "will output zip of line from file1 and file2 to fileN", true, 
                 EnumSet.of(RuleParam.ZIP_SEP), EnumSet.of(FileMode.CHAR)),

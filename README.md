@@ -5,33 +5,39 @@
 Mix files togethers
 
 
-    mix-them [char|byte] file1 file2... fileN
+    mix-them [char|byte] <file1> <file2>[ <file3>... <fileN>]
  
-  will generate on standard out any file based on file1 and file2 to fileN.
-  by default it assumes file1 and file2 to fileN are character based (not binary)
+  will generate on standard out any file based on file1 to fileN
   
-    mix-them [char|byte] [-rule] file1 file2... fileN
+  by default it assumes that all files are character based (not binary)
+  
+    mix-them [char|byte] [-rule] <file1> <file2>[ <file3>... <fileN>]
   
   will generate on standard out a file based on the rule
   
   Here are the list of rules
-  - 1: will output file1
-  - 2: will output file2
-  - +: will output file1+file2+...+fileN
+  - file [#index]: will output the umpteenth file designed by his index (ignores --sel option)
+  - \+: will output all files in order
   - alt-line: will output one line of each starting with first line of file1
   - alt-char: will output one char of each starting with first char of file1
   - random-alt-line [#seed]: will output one line of each code randomly based on a seed for reproducability
-  - join [#col1] [#col2]: will output merging of lines that have common occurrence
+  - join [#cols]: will output merging of lines that have common occurrence determined by a column index or first column by default
+      - **join** will join on first column of each line
+      - **join #2** will join on second column of each line
+      - **join #2,** will join on second column of first line and first colum of other lines
+      - **join #2,1** will join on second column of first line and first colum of other lines (same as previous)
+      - **join #2,,3** will join on second column of first line, first colum of second line, third column of third line and first column of other lines
   - zip-line [#sep]: will output zip of char from file1 and file2 to fileN
   - zip-char [#sep]: will output zip of line from file1 and file2 to fileN 
-  - zip-cell [#sep]: will output zip of cell from file1 and file2 to fileN 
-
+  - zip-cell [#sep]: will output zip of cell from file1 and file2 to fileN   
+  
 Mix files togethers from a zip/jar file
 
     mix-them [char|byte] --zip zipfile 
-    mix-them [char|byte] --jar zipfile 
+    mix-them [char|byte] --jar jarfile 
   
-  will generate on standard out any file based on first entrie and second entrie to nth entrie of zip/jar file.
+  will generate on standard out any file based on entry1 to entryN of zip/jar file.
+  
   by default it assumes zip/jar entries are character based (not binary)
   
     mix-them [char|byte] [-rule] --zip zipfile
