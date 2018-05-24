@@ -18,14 +18,14 @@ Mix files togethers
   - 1: will output first file
   - 2: will output second file
   - file #index: will output the file designed by his index
-      - **file #1** will ouput first file (same as -1)
-      - **file #5** will ouput fifth file
+      - **file #1** will output first file (same as -1)
+      - **file #5** will output fifth file
   - \+ [#list]: will output all files in order or a selection of files designed by a list of index
       - **+** will output all files in order
       - **\+ #1** will ouput first file (same as -1)
-      - **\+ #3,5** will ouput third and fifth files in this order
-      - **\+ #4,2** will ouput fourth and second files in this order
-      - **\+ #1,3,5,6** will ouput first, third, fifth and sixth files in this order
+      - **\+ #3,5** will output third and fifth files in this order
+      - **\+ #4,2** will output fourth and second files in this order
+      - **\+ #1,3,5,6** will output first, third, fifth and sixth files in this order
   - alt-line: will output one line of each starting with first line of file1
   - alt-char: will output one char of each starting with first char of file1
   - random-alt-line [#seed]: will output one line of each code randomly based on a seed for reproducability
