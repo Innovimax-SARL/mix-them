@@ -74,7 +74,7 @@ public class GenericTest {
 		   for (int i=0; i < urlF.size(); i++) {
 			   MixThem.LOGGER.info("File " + (i+1) + ": " + urlF.get(i));
 		   }
-		   for(Rule rule : Rule.values()) {			   
+		   for(Rule rule : Rule.values()) {
 			   if (rule.isImplemented() && rule.acceptFileMode(fileMode)) {
 				   String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
 				   URL urlP = getClass().getResource(paramsFile);
@@ -85,7 +85,11 @@ public class GenericTest {
 						   resultFile += "-" + run.getSuffix();
 					   }
 					   resultFile += ".txt";
-					   URL urlR = getClass().getResource(resultFile);					   
+					   URL urlR = getClass().getResource(resultFile);
+					   if (urlR == null && run.hasSuffix()) {
+						   resultFile = prefix + "output-" + rule.getExtension() + ".txt";
+						   urlR = getClass().getResource(resultFile);
+					   }
 					   if (urlR != null) {
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
 						   if (urlP != null) {
