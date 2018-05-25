@@ -20,14 +20,13 @@ import java.util.Map;
 public class DefaultCharCopy extends AbstractCopyOperation {
 
 	/**
-	* Constructor	
-	* @param mode The copy mode to process
+	* Constructor
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultCharCopy(final CopyMode mode, final Map<RuleParam, ParamValue> params) {
-		super(mode, params);			
+	public DefaultCharCopy(final Map<RuleParam, ParamValue> params) {
+		super(params);			
 	}
 	
 	@Override
