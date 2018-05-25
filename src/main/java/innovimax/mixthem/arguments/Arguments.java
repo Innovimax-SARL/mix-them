@@ -29,7 +29,8 @@ public class Arguments {
     private FileMode fileMode = null;
     private Rule rule = null;
     private Map<RuleParam, ParamValue> ruleParams = null;
-    private final List<InputResource> inputs = new ArrayList<InputResource>();
+    private Set<Integer> selection = null;
+    private final List<InputResource> inputs = new ArrayList<InputResource>();    
     
     private void setFileMode(final FileMode fileMode) {
         this.fileMode = fileMode;
@@ -54,6 +55,10 @@ public class Arguments {
     public Map<RuleParam, ParamValue> getRuleParameters() {
         return this.ruleParams;
     }
+    
+    public Set<Integer> getSelection() {
+        return this.selection;
+    }
 
     void addInput(final InputResource input) {
         this.inputs.add(input);
@@ -66,12 +71,15 @@ public class Arguments {
     public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException, ZipException { 
         final Arguments mixArgs = new Arguments();
         int index = 0;
+        // get file mode [char|byte]
         FileMode fileMode = findFileModeArgument(args, index);
         if (fileMode != null) {
             index++;
         } else {
             fileMode = FileMode.CHAR;
         }
+        mixArgs.setFileMode(fileMode);
+        // get rule & parameters
         Rule rule = findRuleArgument(args, index, fileMode);
         Map<RuleParam, ParamValue> ruleParams = null;
         if (rule != null) {
@@ -81,10 +89,13 @@ public class Arguments {
         } else {
             rule = Rule.ADD;
             ruleParams = Collections.emptyMap();
-        }
-        mixArgs.setFileMode(fileMode);
-        mixArgs.setRule(rule);
+        }        
+        mixArgs.setRule(rule);        
         mixArgs.setRuleParameters(ruleParams);        
+        // get selection
+        final Set<Integer> selection = findSelectionArgument(args, index);
+        mixArgs.setSelection(selection);
+        // get input files
         final String zipOption = findZipOptionArgument(args, index);
         if (zipOption == null) {
             final List<File> files = findFilesArgument(args, index);
@@ -93,7 +104,8 @@ public class Arguments {
             final ZipFile zipFile = new ZipFile(findZipFileArgument(args, ++index));
             final List<InputStream> inputs = extractZipEntries(zipFile);
             inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createInputStream(input)));
-        }
+        }        
+        // check input files count vs selection
         checkFileCount(mixArgs);
         return mixArgs;
     }
@@ -141,6 +153,12 @@ public class Arguments {
             }            
         }     
         return map;
+    }
+
+    private static Set<Integer> findSelectionArgument(final String[] args, int index) throws ArgumentException {
+        final Set<Integer> selection = new LinkedHashSet<Integer>();
+        //TODO
+        return selection;
     }
     
     private static List<File> findFilesArgument(final String[] args, int index) throws ArgumentException {
