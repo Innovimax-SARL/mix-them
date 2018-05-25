@@ -252,22 +252,12 @@ public class Arguments {
     }
     
     private static void checkFileCount(Arguments mixArgs) throws ArgumentException {
-        switch (mixArgs.getRule()) {
-            case FILE_K:
-                int index = mixArgs.getRuleParameters().get(RuleParam.FILE_INDEX).asInt();
-                if (index > mixArgs.getInputs().size()) {
-                    throw new ArgumentException("#index is greater than input file count.");
-                }
-                break;
-            case ADD:
-                if (mixArgs.getRuleParameters().containsKey(RuleParam.FILE_LIST)) {                    
-                    int[] indexes = mixArgs.getRuleParameters().get(RuleParam.FILE_LIST).asIntArray();
-                    for (int i=0; i < indexes.length; i++) {
-                        if (i > mixArgs.getInputs().size()) {
-                            throw new ArgumentException("#files contains an index greater than input file count.");
-                        }
-                    }
-                }
+        Iterator<Integer> iterator = mixArgs.getSelection().iterator();
+        while (iterator.hasNext()) {
+            Integer index = iterator.next();            
+            if (index.intValue() > mixArgs.getInputs().size()) {
+                throw new ArgumentException("Selection index is greater than file count: " + index.intValue());
+            }
         }
     }
     
