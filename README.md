@@ -14,13 +14,12 @@
   
   will generate on standard out a file based on the rule
   
-  `mix-them [char|byte] [-rule] --sel <index1>,<index2>[,<index3>...] <file1> <file2>[ <file3>... <fileN>]`
+  `mix-them [char|byte] <index1> <index2>[ <index3>...] [-rule] <file1> <file2>[ <file3>... <fileN>]`
   
   will generate on standard out a file based on the rule and a selection of files designed by their index
   
   > Here are the list of rules
-  - `file #index`: will output the umpteenth file designed by his index (ignores --sel option)
-  - `\+`: will output all files in order
+  - `\+`: will output selected files in order
   - `alt-line`: will output one line of each starting with first line of file1
   - `alt-char`: will output one char of each starting with first char of file1
   - `alt-byte`: will output one byte of each starting with first byte of file1
@@ -50,7 +49,7 @@
   
   will generate on standard out a file based on the rule
   
-  `mix-them [char|byte] [-rule] --sel <index1>,<index2>[,<index3>...] --zip zipfile`  
-  `mix-them [char|byte] [-rule] --sel <index1>,<index2>[,<index3>...] --jar jarfile`
+  `mix-them [char|byte] <index1> <index2>[ <index3>...] [-rule] --zip zipfile`  
+  `mix-them [char|byte] <index1> <index2>[ <index3>...] [-rule] --jar jarfile`
   
   will generate on standard out a file based on the rule and a selection of entries designed by their index
