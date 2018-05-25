@@ -127,6 +127,23 @@ public class Arguments {
         return null;
     }
     
+    private static Set<Integer> findSelectionArgument(final String[] args, int index) throws ArgumentException {
+        final Set<Integer> selection = new LinkedHashSet<Integer>();        
+        while (args.length > index) {
+            final int index;
+            try { 
+                index = Integer.parseInt(args[index++]); 
+                if (index <= 0) {
+                    throw new ArgumentException("Selection index is not valid: " + index);
+                }
+                selection.add(Integer.valueOf(index);
+            } catch(NumberFormatException e) { 
+                break;
+            }
+        }
+        return selection;
+    }
+    
     private static Rule findRuleArgument(final String[] args, final int index, final FileMode fileMode) throws ArgumentException {        
         Rule rule = null;
         if (args.length > index) {
@@ -163,14 +180,6 @@ public class Arguments {
             }            
         }     
         return map;
-    }
-
-    private static Set<Integer> findSelectionArgument(final String[] args, int index) throws ArgumentException {
-        final Set<Integer> selection = new LinkedHashSet<Integer>();
-        System.out.println(Arrays.toString(args));
-        System.out.println(Integer.toString(index));
-        //TODO
-        return selection;
     }
     
     private static List<File> findFilesArgument(final String[] args, int index) throws ArgumentException {
