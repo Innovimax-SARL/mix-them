@@ -114,8 +114,8 @@ public class Arguments {
             final List<InputStream> inputs = extractZipEntries(zipFile);
             inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createInputStream(input)));
         }        
-        // check input files count vs selection
-        checkFileCount(mixArgs);
+        // check selection vs input file count
+        checkSelection(mixArgs);
         return mixArgs;
     }
 
@@ -251,7 +251,7 @@ public class Arguments {
         return inputs;
     }
     
-    private static void checkFileCount(Arguments mixArgs) throws ArgumentException {
+    private static void checkSelection(Arguments mixArgs) throws ArgumentException {
         Iterator<Integer> iterator = mixArgs.getSelection().iterator();
         while (iterator.hasNext()) {
             Integer index = iterator.next();            
