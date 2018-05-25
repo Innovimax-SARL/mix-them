@@ -97,12 +97,8 @@ public class MixThem {
         try {
             LOGGER.info("Started mixing for [" +  fileMode.getName() + "] rule '" + rule.getName() + "'...");
             switch(rule) {
-                case FILE_K:
-                    final IOperation copyFileKOp = CopyFactory.newInstance(fileMode, CopyMode.UMPTEENTH, params);
-                    copyFileKOp.processFiles(this.inputs, this.output);          
-                    break;
                 case ADD:                    
-                    final IOperation copyAddOp = CopyFactory.newInstance(fileMode, CopyMode.SELECTION, params);
+                    final IOperation copyAddOp = CopyFactory.newInstance(fileMode, params);
                     copyAddOp.processFiles(this.inputs, this.output);          
                     break;
                 case ALT_CHAR:
