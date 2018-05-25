@@ -16,7 +16,7 @@ Mix files togethers
   will generate on standard out a file based on the rule
   
   Here are the list of rules
-  - file [#index]: will output the umpteenth file designed by his index (ignores --sel option)
+  - file #index: will output the umpteenth file designed by his index
   - \+ [#list]: will output all files in order or a selection of files designed by a list of index
   - alt-line: will output one line of each starting with first line of file1
   - alt-char: will output one char of each starting with first char of file1
