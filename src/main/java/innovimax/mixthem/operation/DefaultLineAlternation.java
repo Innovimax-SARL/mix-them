@@ -7,6 +7,7 @@ import innovimax.mixthem.arguments.RuleParam;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 /**
 * <p>Alternates two or more lines.</p>
@@ -23,12 +24,13 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 
 	/**
 	* @param mode The alternate mode to process
+	* @param selection The file index selection (maybe empty)
  	* @param params The list of parameters (maybe empty)	
 	* @see innovimax.mixthem.operation.RuleParam
 	* @see innovimax.mixthem.operation.ParamValue
 	*/
-	public DefaultLineAlternation(final AltMode mode, final Map<RuleParam, ParamValue> params) {
-		super(params);
+	public DefaultLineAlternation(final AltMode mode, final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
+		super(selection, params);
 		this.mode = mode;
 		this.channel = 0;
 		this.random = new Random(params.getOrDefault(RuleParam.RANDOM_SEED, AltOperation.DEFAULT_RANDOM_SEED.getValue()).asInt());
