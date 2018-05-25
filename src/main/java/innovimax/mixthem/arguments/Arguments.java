@@ -263,15 +263,34 @@ public class Arguments {
     
     public static void printUsage() {    
         System.out.println("  ");    
-        System.out.println("Usage:");
+        System.out.println("Usage 1:");
+        System.out.println("  mix-them [char|byte] <file1> <file2>[ <file3>... <fileN>]");
+        System.out.println("  (will generate on standard out any file based on file1 to fileN)");
         System.out.println("  ");
-        System.out.println("  mix-them file1 file2... fileN");
-        System.out.println("  (will generate any file based on file1 and file2 to fileN)");
+        System.out.println("Usage 2:");
+        System.out.println("  mix-them [char|byte] -[rule] <file1> <file2>[ <file3>... <fileN>]");
+        System.out.println("  (will generate on standard out a file based on the rule)");
         System.out.println("  ");
-        System.out.println("  mix-them -[rule] file1 file2... fileN");
-        System.out.println("  (will generate a file based on the rule)");
+        System.out.println("Usage 3:");
+        System.out.println("  mix-them [char|byte] <index1> <index2>[ <index3>...] -[rule] <file1> <file2>[ <file3>... <fileN>]");
+        System.out.println("  (will generate on standard out a file based on the rule and a selection of files designed by their index)");
         System.out.println("  ");
-        System.out.println("  Here are the list of rules");
+        System.out.println("Usage 4:");
+        System.out.println("  mix-them --zip zipfile");
+        System.out.println("  mix-them --jar jarfile");
+        System.out.println("  (will generate on standard out any file based on entry1 to entryN of zip/jar file)");
+        System.out.println("  ");
+        System.out.println("Usage 5:");
+        System.out.println("  mix-them -[rule] --zip zipFile");
+        System.out.println("  mix-them -[rule] --jar jarFile");
+        System.out.println("  (will generate on standard out a file based on the rule)");
+        System.out.println("  ");
+        System.out.println("Usage 6:");
+        System.out.println("  mix-them <index1> <index2>[ <index3>...] -[rule] --zip zipFile");
+        System.out.println("  mix-them <index1> <index2>[ <index3>...] -[rule] --jar jarFile");
+        System.out.println("  (will generate on standard out a file based on the rule and a selection of entries designed by their index)");
+        System.out.println("  ");
+        System.out.println("Here are the list of rules:");
         for(Rule rule : Rule.values()) {
             System.out.print("  - " + rule.getName());
             for(RuleParam param : rule.getParams()) {
@@ -286,14 +305,6 @@ public class Arguments {
                 System.out.println("    (#" +param.getName() + " " + param.getComment() + ")");
             }            
         }
-        System.out.println("  ");
-        System.out.println("  mix-them --zip zipfile");
-        System.out.println("  mix-them --jar jarfile");
-        System.out.println("  (will generate any entry based on zip/jar file first and second to nth entries)");
-        System.out.println("  ");
-        System.out.println("  mix-them -[rule] --zip zipFile");
-        System.out.println("  mix-them -[rule] --jar jarFile");
-        System.out.println("  (will generate a file based on the rule)");
         System.out.println("  ");
     }
 
