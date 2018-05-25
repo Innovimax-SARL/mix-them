@@ -2,13 +2,12 @@
 [![codecov.io](https://codecov.io/github/Innovimax-SARL/mix-them/coverage.svg?branch=master)](https://codecov.io/github/Innovimax-SARL/mix-them?branch=master)
 [![Code Climate](https://codeclimate.com/github/Innovimax-SARL/mix-them/badges/gpa.svg)](https://codeclimate.com/github/Innovimax-SARL/mix-them)
 # mix-them
-Mix files togethers
+## Mix files togethers
 
 
     mix-them [char|byte] <file1> <file2>[ <file3>... <fileN>]
  
-  will generate on standard out any file based on file1 to fileN
-  
+  will generate on standard out any file based on file1 to fileN    
   by default it assumes that all files are character based (not binary)
   
     mix-them [char|byte] [-rule] <file1> <file2>[ <file3>... <fileN>]
@@ -19,7 +18,7 @@ Mix files togethers
   
   will generate on standard out a file based on the rule and a selection of files designed by their index
   
-  Here are the list of rules
+  > Here are the list of rules
   - file #index: will output the umpteenth file designed by his index (ignores --sel option)
   - \+: will output all files in order
   - alt-line: will output one line of each starting with first line of file1
@@ -35,7 +34,7 @@ Mix files togethers
   - zip-char [#sep]: will output zip of line from file1 and file2 to fileN 
   - zip-cell [#sep]: will output zip of cell from file1 and file2 to fileN   
   
-Mix files togethers from a zip/jar file
+## Mix files togethers from a zip/jar file
 
     mix-them [char|byte] --zip zipfile 
     mix-them [char|byte] --jar jarfile 
