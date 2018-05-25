@@ -280,7 +280,7 @@ public class Arguments {
         System.out.println("  mix-them --zip <zipfile>");
         System.out.println("  mix-them --jar <jarfile>");
         System.out.println("  (will generate on standard out any file based on entry1 to entryN of zip/jar file)");
-        System.out.println("  (by default it assumes zip/jar entries are character based, not binary)";
+        System.out.println("  (by default it assumes zip/jar entries are character based, not binary)");
         System.out.println("  ");
         System.out.println("Usage 5:");
         System.out.println("  mix-them <rule> --zip <zipFile>");
