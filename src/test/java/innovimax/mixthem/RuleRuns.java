@@ -40,7 +40,7 @@ public class RuleRuns {
 			final Stream<String> entries = reader.lines();
 			entries.forEach(entry -> {
 				final String[] parts = entry.split("\\s");
-				if (parts.length > 1) {
+				if (parts.length > 0) {
 					final String value = parts[0];
 					final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
 					switch (rule) {
