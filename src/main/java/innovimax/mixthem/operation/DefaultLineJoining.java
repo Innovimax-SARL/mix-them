@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -23,12 +24,13 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	private final int[] joinCols;	
 	
 	/**
+	* @param selection The file index selection (maybe empty)
 	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.operation.RuleParam
 	* @see innovimax.mixthem.operation.ParamValue
 	*/
-	public DefaultLineJoining(final Map<RuleParam, ParamValue> params) {
-		super(params);		
+	public DefaultLineJoining(final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
+		super(selection, params);		
 		if (this.params.containsKey(RuleParam.JOIN_COLS)) {
 			this.joinCols = this.params.get(RuleParam.JOIN_COLS).asIntArray();
 		} else {
