@@ -79,7 +79,6 @@ public class GenericTest {
 				   String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
 				   URL urlP = getClass().getResource(paramsFile);
 				   List<RuleRun> runs = RuleRuns.getRuns(rule, urlP);
-				   System.out.println(">>> RUNS="+runs.size());
 				   for (RuleRun run : runs) {
 					   String resultFile = prefix + "output-" + rule.getExtension();
 					   if (run.hasSuffix()) {
