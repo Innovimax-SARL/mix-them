@@ -23,7 +23,10 @@
   - \+: will output all files in order
   - alt-line: will output one line of each starting with first line of file1
   - alt-char: will output one char of each starting with first char of file1
+  - alt-byte: will output one byte of each starting with first byte of file1
   - random-alt-line [#seed]: will output one line of each code randomly based on a seed for reproducability
+  - random-alt-char [#seed]: will output one char of each code randomly based on a seed for reproducability
+  - random-alt-byte [#seed]: will output one byte of each code randomly based on a seed for reproducability
   - join [#cols]: will output merging of lines that have common occurrence determined by a column index or first column by default
       - **join** will join on first column of each line
       - **join #2** will join on second column of each line
