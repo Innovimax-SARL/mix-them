@@ -136,7 +136,7 @@ public class Arguments {
                 if (index <= 0) {
                     throw new ArgumentException("Selection index is not valid: " + index);
                 }
-                selection.add(Integer.valueOf(index);
+                selection.add(Integer.valueOf(index));
             } catch(NumberFormatException e) { 
                 break;
             }
