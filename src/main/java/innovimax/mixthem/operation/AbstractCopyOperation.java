@@ -24,21 +24,22 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 
 	/**
 	* Constructor
+	* @param selection The file index selection (maybe empty)
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractCopyOperation(final Map<RuleParam, ParamValue> params) {
-		super(params);
+	public AbstractCopyOperation(final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
+		super(selection, params);
 	}
 
 	@Override
 	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {		
-		final IntStream indexes; 
-		if (params.containsKey(RuleParam.FILE_LIST)) {
-			indexes = Arrays.stream(params.get(RuleParam.FILE_LIST).asIntArray());
-		} else {
-			indexes = IntStream.range(1, inputs.size()+1);
+		final IntStream indexes; 		
+		if (this.selection.isEmpty()) {
+			indexes = IntStream.range(1, inputs.size()+1);			
+		} else {			
+			indexes = Arrays.stream(this.selection.stream().mapToInt(Number::intValue).toArray());
 		}				
                 indexes.mapToObj(i -> inputs.get(i-1)).forEach(input -> {
 			try {
