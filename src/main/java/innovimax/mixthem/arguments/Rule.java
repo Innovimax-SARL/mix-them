@@ -10,8 +10,6 @@ import java.util.EnumSet;
 * @version 1.0
 */
 public enum Rule { 
-    FILE_K("file", "file", "will output the file designed by his index", true, 
-                EnumSet.of(RuleParam.FILE_INDEX), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
     ADD("+", "add", "will output all files in order or a selection of files designed by a list of index", true, 
                 EnumSet.of(RuleParam.FILE_LIST), EnumSet.of(FileMode.CHAR, FileMode.BYTE)),
     ALT_LINE("alt-line", "altline", "will output one line of each starting with first line of file1", true, 
