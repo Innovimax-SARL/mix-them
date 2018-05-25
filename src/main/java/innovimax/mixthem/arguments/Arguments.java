@@ -59,6 +59,10 @@ public class Arguments {
         return this.ruleParams;
     }
     
+     public void setSelection(final Set<Integer> selection) {
+        this.selection = selection;
+    }
+    
     public Set<Integer> getSelection() {
         return this.selection;
     }
@@ -82,6 +86,12 @@ public class Arguments {
             fileMode = FileMode.CHAR;
         }
         mixArgs.setFileMode(fileMode);
+        // get selection
+        final Set<Integer> selection = findSelectionArgument(args, index);        
+        mixArgs.setSelection(selection);
+        if (!selection.isEmepty()) {
+            index += selection.size();
+        }
         // get rule & parameters
         Rule rule = findRuleArgument(args, index, fileMode);
         Map<RuleParam, ParamValue> ruleParams = null;
@@ -95,9 +105,6 @@ public class Arguments {
         }        
         mixArgs.setRule(rule);        
         mixArgs.setRuleParameters(ruleParams);        
-        // get selection
-        final Set<Integer> selection = findSelectionArgument(args, index);
-        mixArgs.setSelection(selection);
         // get input files
         final String zipOption = findZipOptionArgument(args, index);
         if (zipOption == null) {
