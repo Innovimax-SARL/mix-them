@@ -173,26 +173,4 @@ public class BasicTest {
         }
     }
     
-    @Test(expected=ArgumentException.class)
-    public final void testFileMandatoryParam() throws ArgumentException, IOException, ZipException {
-        try {
-            final String args[] = { "-file", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
-            final Arguments mixArgs = Arguments.checkArguments(args);
-        } catch (ArgumentException e) {
-            System.out.println("testFileMandatoryParam: " + e.getMessage());
-            throw e;
-        }
-    }
-    
-    @Test(expected=ArgumentException.class)
-    public final void testFileWrongParam() throws ArgumentException, IOException, ZipException {
-        try {
-            final String args[] = { "-file", "#3", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
-            final Arguments mixArgs = Arguments.checkArguments(args);
-        } catch (ArgumentException e) {
-            System.out.println("testFileWrongParam: " + e.getMessage());
-            throw e;
-        }
-    }
-    
 }
