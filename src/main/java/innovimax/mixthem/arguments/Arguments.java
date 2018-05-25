@@ -129,13 +129,13 @@ public class Arguments {
     private static Set<Integer> findSelectionArgument(final String[] args, int index) throws ArgumentException {
         final Set<Integer> selection = new LinkedHashSet<Integer>();        
         while (args.length > index) {
-            final int index;
+            final int fileIndex;
             try { 
-                index = Integer.parseInt(args[index++]); 
+                fileIndex = Integer.parseInt(args[index++]); 
                 if (index <= 0) {
-                    throw new ArgumentException("Selection index is not valid: " + index);
+                    throw new ArgumentException("Selection index is not valid: " + fileIndex);
                 }
-                selection.add(Integer.valueOf(index));
+                selection.add(Integer.valueOf(fileIndex));
             } catch(NumberFormatException e) { 
                 break;
             }
