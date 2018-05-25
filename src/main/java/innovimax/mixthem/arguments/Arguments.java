@@ -157,6 +157,8 @@ public class Arguments {
 
     private static Set<Integer> findSelectionArgument(final String[] args, int index) throws ArgumentException {
         final Set<Integer> selection = new LinkedHashSet<Integer>();
+        System.out.println(Arrays.toString(args));
+        System.out.println(Integer.toString(index));
         //TODO
         return selection;
     }
