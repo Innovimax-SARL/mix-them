@@ -15,9 +15,13 @@ Mix files togethers
   
   will generate on standard out a file based on the rule
   
+    mix-them [char|byte] [-rule] --sel <index1>,<index2>[,<index3>...] <file1> <file2>[ <file3>... <fileN>]
+  
+  will generate on standard out a file based on the rule and a selection of files designed by their index
+  
   Here are the list of rules
-  - file #index: will output the umpteenth file designed by his index
-  - \+ [#list]: will output all files in order or a selection of files designed by a list of index
+  - file #index: will output the umpteenth file designed by his index (ignores --sel option)
+  - \+: will output all files in order
   - alt-line: will output one line of each starting with first line of file1
   - alt-char: will output one char of each starting with first char of file1
   - random-alt-line [#seed]: will output one line of each code randomly based on a seed for reproducability
@@ -44,3 +48,8 @@ Mix files togethers from a zip/jar file
     mix-them [char|byte] [-rule] --jar jarfile
   
   will generate on standard out a file based on the rule
+  
+    mix-them [char|byte] [-rule] --sel <index1>,<index2>[,<index3>...] --zip zipfile
+    mix-them [char|byte] [-rule] --sel <index1>,<index2>[,<index3>...] --jar jarfile
+  
+  will generate on standard out a file based on the rule and a selection of entries designed by their index
