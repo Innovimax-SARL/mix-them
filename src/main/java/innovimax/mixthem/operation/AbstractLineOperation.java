@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
 * <p>Abstract class for all line operation.</p>
@@ -24,12 +25,13 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 	
 	/**
 	* Constructor
+	* @param selection The file index selection (maybe empty)
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractLineOperation(final Map<RuleParam, ParamValue> params) {
-		super(params);
+	public AbstractLineOperation(final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
+		super(selection, params);
 	}
 
 	@Override
