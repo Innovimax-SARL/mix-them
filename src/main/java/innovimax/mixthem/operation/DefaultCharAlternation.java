@@ -7,6 +7,7 @@ import innovimax.mixthem.arguments.ParamValue;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 /**
 * <p>Alternate two or more characters.</p>
@@ -24,12 +25,13 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	/**
 	* Constructor
 	* @param mode The alternate mode to process
+	* @param selection The file index selection (maybe empty)
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultCharAlternation(final AltMode mode, final Map<RuleParam, ParamValue> params) {
-		super(params);
+	public DefaultCharAlternation(final AltMode mode, final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
+		super(selection, params);
 		this.mode = mode;
 		this.channel = 0;
 		this.random = new Random(params.getOrDefault(RuleParam.RANDOM_SEED, AltOperation.DEFAULT_RANDOM_SEED.getValue()).asInt());
