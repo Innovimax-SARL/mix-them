@@ -89,7 +89,7 @@ public class Arguments {
         // get selection
         final Set<Integer> selection = findSelectionArgument(args, index);        
         mixArgs.setSelection(selection);
-        if (!selection.isEmepty()) {
+        if (!selection.isEmpty()) {
             index += selection.size();
         }
         // get rule & parameters
