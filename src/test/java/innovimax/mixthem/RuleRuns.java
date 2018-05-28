@@ -1,5 +1,8 @@
 package innovimax.mixthem;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.Rule;
 import innovimax.mixthem.arguments.RuleParam;
@@ -39,29 +42,52 @@ public class RuleRuns {
 			final BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
 			final Stream<String> entries = reader.lines();
 			entries.forEach(entry -> {
-				final String[] parts = entry.split("\\s");
-				if (parts.length > 0) {
-					final String value = parts[0];
-					final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
-					switch (rule) {
-						case ADD:
-							params.put(RuleParam.FILE_LIST, RuleParam.FILE_LIST.createValue(value));
-							break;
-						case RANDOM_ALT_LINE:
-						case RANDOM_ALT_CHAR:
-						case RANDOM_ALT_BYTE:							
-							params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(Integer.parseInt(value)));
-							break;
-						case JOIN:							
-							params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(value));
-							break;
-						case ZIP_LINE:
-						case ZIP_CELL:
-						case ZIP_CHAR:
-							params.put(RuleParam.ZIP_SEP, ParamValue.createString(value));
-					}					
-					runs.add(new RuleRun(runs.size()+1, params));
+				//final String[] parts = entry.split("\\s");
+				//if (parts.length > 0) {
+				//	final String value = parts[0];
+				final Set<Integer> selection = new LinkedHasSet<Integer>();
+				final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
+				final ObjectMapper jsonMapper = new ObjectMapper();
+				final JsonNode jsonParams = jsonMapper.readTree(entry);
+				System.out.println(">>> JSON=" + jsonMapper.writeValueAsString(jsonParams));
+				switch (rule) {
+					case ADD:
+						//params.put(RuleParam.FILE_LIST, RuleParam.FILE_LIST.createValue(value));
+						if (jsonParams.has("selection")) {
+							//TODO
+						}
+						break;
+					case RANDOM_ALT_LINE:
+					case RANDOM_ALT_CHAR:
+					case RANDOM_ALT_BYTE:
+						//params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(Integer.parseInt(value)));
+						if (jsonParams.has(RuleParam.RANDOM_SEED.getName())) {
+							final int seed = jsonParams.get(RuleParam.RANDOM_SEED.getName()).asInt();
+							params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(seed));
+						}
+						break;
+					case JOIN:
+						//params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(value));
+						if (jsonParams.has(RuleParam.JOIN_COLS.getName())) {
+							//TODO: get as array
+							final String cols = jsonParams.get(RuleParam.JOIN_COLS.getName()).asText();
+							params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(cols));
+						}
+						break;
+					case ZIP_LINE:
+					case ZIP_CELL:
+					case ZIP_CHAR:
+						//params.put(RuleParam.ZIP_SEP, ParamValue.createString(value));
+						if (jsonParams.has(RuleParam.ZIP_SEP.getName())) {
+							final String sep = jsonParams.get(RuleParam.RANDOM_SEED.getName()).asText();
+							params.put(RuleParam.ZIP_SEP, ParamValue.createString(sep));
+						}
 				}
+				if (!selection.isEmpty() || !params.isEmpty()) {
+					runs.add(new RuleRun(runs.size()+1, selection, params));
+				}					
+				//	runs.add(new RuleRun(runs.size()+1, params));
+				//}
 			});
 		}
     		return runs;
