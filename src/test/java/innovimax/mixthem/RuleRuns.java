@@ -61,7 +61,7 @@ public class RuleRuns {
 								.stream()
 								.filter(value -> value.isInt())
 								.mapToInt(value -> value.asInt())
-								.mapToObj(Integer::valueOf())
+								.mapToObj(index -> Integer.valueOf(index))
 								.forEach(index -> selection.add(index));
 						}
 					}
