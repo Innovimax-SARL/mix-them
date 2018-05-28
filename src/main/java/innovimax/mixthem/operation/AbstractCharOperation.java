@@ -41,7 +41,7 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 		final CharResult result = new CharResult();
 		while (reader.hasCharacter()) {
 			result.reset();
-			final int[] charRange = reader.nextCharacterRange();
+			final int[] charRange = reader.nextCharacterRange(this.selection);
 			process(charRange, result);
 			if (result.hasResult()) {
 				result.getResult().forEach(i -> {
