@@ -17,9 +17,11 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -45,7 +47,7 @@ public class RuleRuns {
 				//final String[] parts = entry.split("\\s");
 				//if (parts.length > 0) {
 				//	final String value = parts[0];
-				final Set<Integer> selection = new LinkedHasSet<Integer>();
+				final Set<Integer> selection = new LinkedHashSet<Integer>();
 				final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
 				final ObjectMapper jsonMapper = new ObjectMapper();
 				final JsonNode jsonParams = jsonMapper.readTree(entry);
