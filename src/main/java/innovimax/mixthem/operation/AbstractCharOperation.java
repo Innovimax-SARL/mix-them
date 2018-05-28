@@ -36,12 +36,12 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 
 	@Override
     	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {				
-		final IMultiChannelCharInput reader = new MultiChannelCharReader(inputs);
+		final IMultiChannelCharInput reader = new MultiChannelCharReader(inputs, this.selection);
 		final ICharOutput writer = new DefaultCharWriter(output);
 		final CharResult result = new CharResult();
 		while (reader.hasCharacter()) {
 			result.reset();
-			final int[] charRange = reader.nextCharacterRange(this.selection);
+			final int[] charRange = reader.nextCharacterRange();
 			process(charRange, result);
 			if (result.hasResult()) {
 				result.getResult().forEach(i -> {
