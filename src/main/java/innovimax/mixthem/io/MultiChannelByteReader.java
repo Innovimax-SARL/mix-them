@@ -17,7 +17,7 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	*/
 	public MultiChannelByteReader(final List<InputResource> inputs, final Set<Integer> selection) {		
 		IntStream.range(0, inputs.size())
-			.filter(index -> selection.contains(Integer.valueOf(index))
+			.filter(index -> selection.contains(Integer.valueOf(index)))
 			.mapToObj(index -> inputs.get(index))
 			.forEach(input -> {
 				try {
