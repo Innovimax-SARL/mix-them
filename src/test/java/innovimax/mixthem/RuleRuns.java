@@ -50,20 +50,24 @@ public class RuleRuns {
 				//if (parts.length > 0) {
 				//	final String value = parts[0];
 				try {
-					final Set<Integer> selection = new LinkedHashSet<Integer>();
-					final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
 					final ObjectMapper jsonMapper = new ObjectMapper();
-					final JsonNode jsonParams = jsonMapper.readTree(entry);
-					System.out.println(">>> JSON=" + jsonMapper.writeValueAsString(jsonParams));
+					final JsonNode jsonParams = jsonMapper.readTree(entry);					
+					// get selection
+					final Set<Integer> selection = new LinkedHashSet<Integer>();
+					if (jsonParams.has("selection")) {
+						final JsonNode node = jsonParams.get("selection");
+						if (node.isArray()) {
+							((ArrayNode) node).findValues().stream()
+								.mapToObj(Integer::valueOf())
+								.forEach(index -> selection.put(index));
+						}
+					}
+					// get rule parameters
+					final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
 					switch (rule) {
 						case ADD:
 							//params.put(RuleParam.FILE_LIST, RuleParam.FILE_LIST.createValue(value));
-							if (jsonParams.has("selection")) {
-								final JsonNode node = jsonParams.get("selection");
-								if (node.isArray()) {
-									//TODO
-								}
-							}
+							//DEPRECATED
 							break;
 						case RANDOM_ALT_LINE:
 						case RANDOM_ALT_CHAR:
@@ -97,6 +101,7 @@ public class RuleRuns {
 								}
 							}
 					}
+					// add a rule run
 					if (!selection.isEmpty() || !params.isEmpty()) {
 						runs.add(new RuleRun(runs.size()+1, selection, params));
 					}					
