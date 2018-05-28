@@ -46,13 +46,9 @@ public class RuleRuns {
 			final BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
 			final Stream<String> entries = reader.lines();
 			entries.forEach(entry -> {
-				//final String[] parts = entry.split("\\s");
-				//if (parts.length > 0) {
-				//	final String value = parts[0];
 				try {
 					final ObjectMapper jsonMapper = new ObjectMapper();
 					final JsonNode jsonParams = jsonMapper.readTree(entry);
-					System.out.println(">>> JSON=" + jsonMapper.writeValueAsString(jsonParams));
 					// get selection
 					final Set<Integer> selection = new LinkedHashSet<Integer>();
 					if (jsonParams.has("selection")) {
@@ -64,19 +60,13 @@ public class RuleRuns {
 								}
 							});
 						}
-						System.out.println(">>> SELECTION=" + selection.toString());
 					}
 					// get rule parameters
 					final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
 					switch (rule) {
-						case ADD:
-							//params.put(RuleParam.FILE_LIST, RuleParam.FILE_LIST.createValue(value));
-							//DEPRECATED
-							break;
 						case RANDOM_ALT_LINE:
 						case RANDOM_ALT_CHAR:
-						case RANDOM_ALT_BYTE:
-							//params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(Integer.parseInt(value)));
+						case RANDOM_ALT_BYTE:							
 							if (jsonParams.has(RuleParam.RANDOM_SEED.getName())) {
 								final JsonNode seed = jsonParams.get(RuleParam.RANDOM_SEED.getName());
 								if (seed.isInt()) {
@@ -84,11 +74,10 @@ public class RuleRuns {
 								}
 							}
 							break;
-						case JOIN:
-							//params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(value));
+						case JOIN:							
 							if (jsonParams.has(RuleParam.JOIN_COLS.getName())) {
 								final JsonNode cols = jsonParams.get(RuleParam.JOIN_COLS.getName());
-								//TODO: get as array
+								//TODO: get as an array ?
 								if (cols.isTextual()) {
 									params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(cols.asText()));
 								}
@@ -96,8 +85,7 @@ public class RuleRuns {
 							break;
 						case ZIP_LINE:
 						case ZIP_CELL:
-						case ZIP_CHAR:
-							//params.put(RuleParam.ZIP_SEP, ParamValue.createString(value));
+						case ZIP_CHAR:							
 							if (jsonParams.has(RuleParam.ZIP_SEP.getName())) {
 								final JsonNode sep = jsonParams.get(RuleParam.ZIP_SEP.getName());
 								if (sep.isTextual()) {
@@ -112,8 +100,6 @@ public class RuleRuns {
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
-				//	runs.add(new RuleRun(runs.size()+1, params));
-				//}
 			});
 		}
     		return runs;
