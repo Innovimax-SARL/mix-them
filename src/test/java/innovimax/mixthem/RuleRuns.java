@@ -57,12 +57,11 @@ public class RuleRuns {
 					if (jsonParams.has("selection")) {
 						final JsonNode node = jsonParams.get("selection");
 						if (node.isArray()) {
-							((ArrayNode) node).findValues()
-								.stream()
-								.filter(value -> value.isInt())
-								.mapToInt(value -> value.asInt())
-								.mapToObj(index -> Integer.valueOf(index))
-								.forEach(index -> selection.add(index));
+							((ArrayNode) node).elements().forEachRemaining(value -> {
+								if (value.isInt()) {									
+									selection.add(Integer.valueOf(value.asInt()));
+								}
+							});
 						}
 					}
 					// get rule parameters
