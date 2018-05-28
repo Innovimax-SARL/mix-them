@@ -37,7 +37,7 @@ public class RuleRuns {
   	* @param url The URL of rule additional parameters file
   	* @return Returns a list of test runs for the rule
     	*/	
-	public static List<RuleRun> getRuns(final Rule rule, final URL url) throws FileNotFoundException, IOException, NumberFormatException, JsonProcessingException {
+	public static List<RuleRun> getRuns(final Rule rule, final URL url) throws FileNotFoundException, IOException, NumberFormatException {
     		final List<RuleRun> runs = new LinkedList<RuleRun>();
     		runs.add(new RuleRun(1, Collections.emptySet(), Collections.emptyMap()));
 		if (url != null) {
@@ -48,53 +48,57 @@ public class RuleRuns {
 				//final String[] parts = entry.split("\\s");
 				//if (parts.length > 0) {
 				//	final String value = parts[0];
-				final Set<Integer> selection = new LinkedHashSet<Integer>();
-				final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
-				final ObjectMapper jsonMapper = new ObjectMapper();
-				final JsonNode jsonParams = jsonMapper.readTree(entry);
-				System.out.println(">>> JSON=" + jsonMapper.writeValueAsString(jsonParams));
-				switch (rule) {
-					case ADD:
-						//params.put(RuleParam.FILE_LIST, RuleParam.FILE_LIST.createValue(value));
-						if (jsonParams.has("selection")) {
-							//TODO
-						}
-						break;
-					case RANDOM_ALT_LINE:
-					case RANDOM_ALT_CHAR:
-					case RANDOM_ALT_BYTE:
-						//params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(Integer.parseInt(value)));
-						if (jsonParams.has(RuleParam.RANDOM_SEED.getName())) {
-							final JsonNode seed = jsonParams.get(RuleParam.RANDOM_SEED.getName());
-							if (seed.isInt()) {
-								params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(seed.asInt()));
+				try {
+					final Set<Integer> selection = new LinkedHashSet<Integer>();
+					final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
+					final ObjectMapper jsonMapper = new ObjectMapper();
+					final JsonNode jsonParams = jsonMapper.readTree(entry);
+					System.out.println(">>> JSON=" + jsonMapper.writeValueAsString(jsonParams));
+					switch (rule) {
+						case ADD:
+							//params.put(RuleParam.FILE_LIST, RuleParam.FILE_LIST.createValue(value));
+							if (jsonParams.has("selection")) {
+								//TODO
 							}
-						}
-						break;
-					case JOIN:
-						//params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(value));
-						if (jsonParams.has(RuleParam.JOIN_COLS.getName())) {
-							final JsonNode cols = jsonParams.get(RuleParam.JOIN_COLS.getName());
-							//TODO: get as array
-							if (cols.isTextual()) {
-								params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(cols.asText()));
+							break;
+						case RANDOM_ALT_LINE:
+						case RANDOM_ALT_CHAR:
+						case RANDOM_ALT_BYTE:
+							//params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(Integer.parseInt(value)));
+							if (jsonParams.has(RuleParam.RANDOM_SEED.getName())) {
+								final JsonNode seed = jsonParams.get(RuleParam.RANDOM_SEED.getName());
+								if (seed.isInt()) {
+									params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(seed.asInt()));
+								}
 							}
-						}
-						break;
-					case ZIP_LINE:
-					case ZIP_CELL:
-					case ZIP_CHAR:
-						//params.put(RuleParam.ZIP_SEP, ParamValue.createString(value));
-						if (jsonParams.has(RuleParam.ZIP_SEP.getName())) {
-							final JsonNode sep = jsonParams.get(RuleParam.ZIP_SEP.getName());
-							if (sep.isTextual()) {
-								params.put(RuleParam.ZIP_SEP, ParamValue.createString(sep.asText()));
+							break;
+						case JOIN:
+							//params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(value));
+							if (jsonParams.has(RuleParam.JOIN_COLS.getName())) {
+								final JsonNode cols = jsonParams.get(RuleParam.JOIN_COLS.getName());
+								//TODO: get as array
+								if (cols.isTextual()) {
+									params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(cols.asText()));
+								}
 							}
-						}
+							break;
+						case ZIP_LINE:
+						case ZIP_CELL:
+						case ZIP_CHAR:
+							//params.put(RuleParam.ZIP_SEP, ParamValue.createString(value));
+							if (jsonParams.has(RuleParam.ZIP_SEP.getName())) {
+								final JsonNode sep = jsonParams.get(RuleParam.ZIP_SEP.getName());
+								if (sep.isTextual()) {
+									params.put(RuleParam.ZIP_SEP, ParamValue.createString(sep.asText()));
+								}
+							}
+					}
+					if (!selection.isEmpty() || !params.isEmpty()) {
+						runs.add(new RuleRun(runs.size()+1, selection, params));
+					}					
+				} catch (IOException|JsonProcessingException e) {
+					throw new RuntimeException(e);
 				}
-				if (!selection.isEmpty() || !params.isEmpty()) {
-					runs.add(new RuleRun(runs.size()+1, selection, params));
-				}					
 				//	runs.add(new RuleRun(runs.size()+1, params));
 				//}
 			});
