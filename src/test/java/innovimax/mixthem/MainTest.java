@@ -19,8 +19,8 @@ public class MainTest {
     }
     
     @Test
-    public final void testMainRule1() throws ArgumentException {
-        final String args[] = { "-1", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
+    public final void testMainRuleAlt() throws ArgumentException {
+        final String args[] = { "-alt-line", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file1.txt").getFile() };
         MixThem.main(args);
         Assert.assertTrue(true);
     }
