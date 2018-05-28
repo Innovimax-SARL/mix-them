@@ -96,7 +96,7 @@ public class RuleRuns {
 					if (!selection.isEmpty() || !params.isEmpty()) {
 						runs.add(new RuleRun(runs.size()+1, selection, params));
 					}					
-				} catch (IOException|JsonProcessingException e) {
+				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
 				//	runs.add(new RuleRun(runs.size()+1, params));
