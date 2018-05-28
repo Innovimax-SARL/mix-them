@@ -5,7 +5,7 @@ import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 
 import java.util.Map;
-import java.util.set;
+import java.util.Set;
 
 public class CopyFactory {
   
