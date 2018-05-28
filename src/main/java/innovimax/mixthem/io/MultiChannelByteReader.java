@@ -12,21 +12,16 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	/**
 	* Constructor
 	* @param inputs The list of inputs as InputResource
-	* @param selection The input index selection (maybe empty)
 	* @see innovimax.mixthem.io.InputResource
 	*/
-	public MultiChannelByteReader(final List<InputResource> inputs, final Set<Integer> selection) {		
-		IntStream.range(0, inputs.size())
-			.filter(index -> selection.contains(Integer.valueOf(index)))
-			.mapToObj(index -> inputs.get(index))
-			.forEach(input -> {
-				try {
-					this.readers.add(new DefaultByteReader(input));
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
-			});
-			
+	public MultiChannelByteReader(final List<InputResource> inputs) {	
+		inputs.stream().forEach(input -> {
+			try {
+				this.readers.add(new DefaultByteReader(input));
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
 	}
 	
 	@Override
