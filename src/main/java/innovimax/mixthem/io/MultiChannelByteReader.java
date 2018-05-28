@@ -9,14 +9,18 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	
 	private final List<IByteInput> readers = new ArrayList<IByteInput>();
 	
-	public MultiChannelByteReader(final List<InputResource> inputs) {
-		inputs.stream().forEach(input -> {
-			try {
-				this.readers.add(new DefaultByteReader(input));
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});
+	public MultiChannelByteReader(final List<InputResource> inputs, final Set<Integer> selection) {
+		try {
+			IntStream.range(0, inputs.size())
+				.filter(index -> selection.contains(Integer.valueOf(index));
+				.mapToObj(index -> inputs.get(index))
+				.forEach(input -> {
+					try {
+						this.readers.add(new DefaultByteReader(input));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				});
 	}
 	
 	@Override
