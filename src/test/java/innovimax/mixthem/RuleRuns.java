@@ -51,7 +51,8 @@ public class RuleRuns {
 				//	final String value = parts[0];
 				try {
 					final ObjectMapper jsonMapper = new ObjectMapper();
-					final JsonNode jsonParams = jsonMapper.readTree(entry);					
+					final JsonNode jsonParams = jsonMapper.readTree(entry);
+					System.out.println(">>> JSON=" + jsonMapper.writeValueAsString(jsonParams));
 					// get selection
 					final Set<Integer> selection = new LinkedHashSet<Integer>();
 					if (jsonParams.has("selection")) {
@@ -63,6 +64,7 @@ public class RuleRuns {
 								}
 							});
 						}
+						System.out.println(">>> SELECTION=" + selection.toString());
 					}
 					// get rule parameters
 					final Map<RuleParam, ParamValue> params = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
