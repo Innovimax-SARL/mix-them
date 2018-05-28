@@ -97,7 +97,7 @@ public class GenericTest {
 						   }
 						   MixThem.LOGGER.info("Result file : " + urlR);
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
-						   boolean res = check(urlF, urlR, fileMode, rule, run.getParams());
+						   boolean res = check(urlF, urlR, fileMode, run.getSelection(), rule, run.getParams());
 						   MixThem.LOGGER.info("Run " + (res ? "pass" : "FAIL") + " with params " + run.getParams().toString());
 						   result &= res;
 						   if (!res) {
@@ -115,7 +115,7 @@ public class GenericTest {
 	   Assert.assertTrue(result);
    }	   
 
-   private final static boolean check(final List<URL> filesURL, final URL resultURL, final FileMode fileMode, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
+   private final static boolean check(final List<URL> filesURL, final URL resultURL, final FileMode fileMode, final Set<Integer> selection, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
 	   MixThem.LOGGER.info("Run and check result...");	   
 	   final List<InputResource> inputs = new ArrayList<InputResource>();
 	   for (URL url : filesURL) {
@@ -123,10 +123,10 @@ public class GenericTest {
 	   }
 	   final ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
 	   MixThem mixThem = new MixThem(inputs, baos_rule);
-           mixThem.process(fileMode, rule, params);
+           mixThem.process(fileMode, selection, rule, params);
 	   MixThem.LOGGER.info("Run and print result...");
 	   mixThem = new MixThem(inputs, System.out);
-           mixThem.process(fileMode, rule, params);
+           mixThem.process(fileMode, selection, rule, params);
 	   final File result = new File(resultURL.getFile());
 	   return checkFileEquals(result, baos_rule.toByteArray());
    }
