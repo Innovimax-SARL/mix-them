@@ -21,7 +21,7 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 		if (selection.isEmpty()) {
 			inputs.stream().forEach(input -> {
 				try {
-					this.readers.add(new DefaultByteReader(input));
+					this.readers.add(new DefaultCharReader(input));
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
