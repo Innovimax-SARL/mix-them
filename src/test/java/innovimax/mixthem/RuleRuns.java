@@ -38,7 +38,7 @@ public class RuleRuns {
     	*/	
 	public static List<RuleRun> getRuns(final Rule rule, final URL url) throws FileNotFoundException, IOException, NumberFormatException {
     		final List<RuleRun> runs = new LinkedList<RuleRun>();
-    		runs.add(new RuleRun(1, Collections.emptyMap()));
+    		runs.add(new RuleRun(1, Collections.emptySet(), Collections.emptyMap()));
 		if (url != null) {
 			final File file = new File(url.getFile());			
 			final BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
@@ -64,16 +64,20 @@ public class RuleRuns {
 					case RANDOM_ALT_BYTE:
 						//params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(Integer.parseInt(value)));
 						if (jsonParams.has(RuleParam.RANDOM_SEED.getName())) {
-							final int seed = jsonParams.get(RuleParam.RANDOM_SEED.getName()).asInt();
-							params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(seed));
+							final JsonNode seed = jsonParams.get(RuleParam.RANDOM_SEED.getName());
+							if (seed.isInt()) {
+								params.put(RuleParam.RANDOM_SEED, ParamValue.createInt(seed.asInt()));
+							}
 						}
 						break;
 					case JOIN:
 						//params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(value));
 						if (jsonParams.has(RuleParam.JOIN_COLS.getName())) {
+							final JsonNode cols = jsonParams.get(RuleParam.JOIN_COLS.getName());
 							//TODO: get as array
-							final String cols = jsonParams.get(RuleParam.JOIN_COLS.getName()).asText();
-							params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(cols));
+							if (cols.isTextual()) {
+								params.put(RuleParam.JOIN_COLS, RuleParam.JOIN_COLS.createValue(cols.asText()));
+							}
 						}
 						break;
 					case ZIP_LINE:
@@ -81,8 +85,10 @@ public class RuleRuns {
 					case ZIP_CHAR:
 						//params.put(RuleParam.ZIP_SEP, ParamValue.createString(value));
 						if (jsonParams.has(RuleParam.ZIP_SEP.getName())) {
-							final String sep = jsonParams.get(RuleParam.RANDOM_SEED.getName()).asText();
-							params.put(RuleParam.ZIP_SEP, ParamValue.createString(sep));
+							final JsonNode sep = jsonParams.get(RuleParam.ZIP_SEP.getName());
+							if (sep.isTextual()) {
+								params.put(RuleParam.ZIP_SEP, ParamValue.createString(sep.asText()));
+							}
 						}
 				}
 				if (!selection.isEmpty() || !params.isEmpty()) {
