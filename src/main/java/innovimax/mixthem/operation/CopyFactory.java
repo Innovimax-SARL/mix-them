@@ -11,6 +11,7 @@ public class CopyFactory {
   
   	/**
     * @param fileMode The file mode for reading files
+    * @param selection The file index selection (maybe empty)
     * @param params The list of parameters (maybe empty)
     * @see innovimax.mixthem.arguments.RulePara
     * @see innovimax.mixthem.arguments.ParamValue
