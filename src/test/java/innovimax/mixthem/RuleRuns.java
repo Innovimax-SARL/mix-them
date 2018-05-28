@@ -2,6 +2,7 @@ package innovimax.mixthem;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.Rule;
@@ -36,7 +37,7 @@ public class RuleRuns {
   	* @param url The URL of rule additional parameters file
   	* @return Returns a list of test runs for the rule
     	*/	
-	public static List<RuleRun> getRuns(final Rule rule, final URL url) throws FileNotFoundException, IOException, NumberFormatException {
+	public static List<RuleRun> getRuns(final Rule rule, final URL url) throws FileNotFoundException, IOException, NumberFormatException, JsonProcessingException {
     		final List<RuleRun> runs = new LinkedList<RuleRun>();
     		runs.add(new RuleRun(1, Collections.emptySet(), Collections.emptyMap()));
 		if (url != null) {
