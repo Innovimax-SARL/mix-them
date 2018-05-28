@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 public class MultiChannelCharReader implements IMultiChannelCharInput {
 	
@@ -22,7 +23,7 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 			.mapToObj(index -> inputs.get(index))
 			.forEach(input -> {
 				try {
-					this.readers.add(new DefaultByteReader(input));
+					this.readers.add(new DefaultCharReader(input));
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
