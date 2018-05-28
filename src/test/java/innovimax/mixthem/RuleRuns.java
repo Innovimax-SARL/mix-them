@@ -59,7 +59,10 @@ public class RuleRuns {
 						case ADD:
 							//params.put(RuleParam.FILE_LIST, RuleParam.FILE_LIST.createValue(value));
 							if (jsonParams.has("selection")) {
-								//TODO
+								final JsonNode node = jsonParams.get("selection");
+								if (node.isArray()) {
+									//TODO
+								}
 							}
 							break;
 						case RANDOM_ALT_LINE:
