@@ -18,16 +18,26 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 	* @see innovimax.mixthem.io.InputResource
 	*/
 	public MultiChannelCharReader(final List<InputResource> inputs, final Set<Integer> selection) {
-		IntStream.range(0, inputs.size())
-			.filter(index -> selection.contains(Integer.valueOf(index)))
-			.mapToObj(index -> inputs.get(index))
-			.forEach(input -> {
+		if (selection.isEmpty()) {
+			inputs.stream().forEach(input -> {
 				try {
-					this.readers.add(new DefaultCharReader(input));
+					this.readers.add(new DefaultByteReader(input));
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
 			});
+		} else {
+			IntStream.range(0, inputs.size())
+				.filter(index -> selection.contains(Integer.valueOf(index)))
+				.mapToObj(index -> inputs.get(index))
+				.forEach(input -> {
+					try {
+						this.readers.add(new DefaultCharReader(input));
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				});
+		}
 	}
 	
 	@Override
