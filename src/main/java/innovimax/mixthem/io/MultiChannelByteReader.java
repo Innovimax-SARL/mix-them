@@ -9,6 +9,12 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	
 	private final List<IByteInput> readers = new ArrayList<IByteInput>();
 	
+	/**
+	* Constructor
+	* @param inputs The list of inputs as InputResource
+	* @param selection The file index selection (maybe empty)
+	* @see innovimax.mixthem.io.InputResource
+	*/
 	public MultiChannelByteReader(final List<InputResource> inputs, final Set<Integer> selection) {
 		try {
 			IntStream.range(0, inputs.size())
