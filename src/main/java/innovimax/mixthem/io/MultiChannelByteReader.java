@@ -22,7 +22,7 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 			.mapToObj(index -> inputs.get(index-1))
 			.map(input -> {
 				try {
-					return new DefaultCharReader(input);
+					return new DefaultByteReader(input);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}})
