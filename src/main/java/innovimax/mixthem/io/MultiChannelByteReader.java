@@ -12,28 +12,32 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	/**
 	* Constructor
 	* @param inputs The list of inputs as InputResource
+	* @param selection The input index selection (maybe empty)
 	* @see innovimax.mixthem.io.InputResource
 	*/
-	public MultiChannelByteReader(final List<InputResource> inputs) {	
-		inputs.stream().forEach(input -> {
-			try {
-				this.readers.add(new DefaultByteReader(input));
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});
+	public MultiChannelByteReader(final List<InputResource> inputs, final Set<Integer> selection) {	
+		IntStream.rangeClosed(1, inputs.size())
+			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
+			.mapToObj(index -> inputs.get(index-1))
+			.forEach(input -> {
+				try {
+					this.readers.add(new DefaultByteReader(input));
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			});
 	}
 	
 	@Override
 	public boolean hasByte() throws IOException {
-		final Iterator<IByteInput> iterator = this.readers.iterator();
-		while (iterator.hasNext()) {
-			final IByteInput reader = iterator.next();
-			if (reader.hasByte()) {
-				return true;
-			}
-		}
-		return false;
+		return this.readers.stream()
+			.anyMatch(reader -> {
+				try {
+					return reader.hasByte();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}		
+			});
 	}
 	
 	@Override
@@ -51,11 +55,13 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	
 	@Override
 	public void close() throws IOException {
-		final Iterator<IByteInput> iterator = this.readers.iterator();
-		while (iterator.hasNext()) {
-			final IByteInput reader = iterator.next();
-			reader.close();
-		}		
+		this.readers.forEach(reader -> {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});		
 	}
 
 }
