@@ -39,8 +39,7 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 					return reader.hasLine();
 				} catch (IOException e) {
 					throw new RuntimeException(e);
-				}		
-			});
+				}});
 	}
 	
 	@Override
@@ -74,13 +73,13 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 
 	@Override
 	public void close() throws IOException {
-		this.readers.forEach(reader -> {
-			try {
-				reader.close();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});		
+		this.readers
+			.forEach(reader -> {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}});		
 	}
 	
 }
