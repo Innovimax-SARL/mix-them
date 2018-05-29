@@ -57,10 +57,10 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 			index++;
 		}
 		return lines;*/
-		return readers.stream()
-			.map(reader -> {
+		return IntStream.range(0, readers.size())
+			.mapToObj(index -> {
 				try {
-					return readingRange.get(index).booleanValue() ? reader.nextLine() : null;
+					return readingRange.get(index).booleanValue() ? readers.get(index).nextLine() : null;
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}})
