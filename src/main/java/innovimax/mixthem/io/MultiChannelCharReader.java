@@ -18,30 +18,21 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 	* @see innovimax.mixthem.io.InputResource
 	*/
 	public MultiChannelCharReader(final List<InputResource> inputs, final Set<Integer> selection) {		
-		/*if (selection.isEmpty()) {
-			inputs.stream().forEach(input -> {
+		IntStream.rangeClosed(1, inputs.size())
+			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
+			.mapToObj(index -> inputs.get(index-1))
+			.forEach(input -> {
 				try {
 					this.readers.add(new DefaultCharReader(input));
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
 			});
-		} else {*/
-			IntStream.rangeClosed(1, inputs.size())
-				.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
-				.mapToObj(index -> inputs.get(index-1))
-				.forEach(input -> {
-					try {
-						this.readers.add(new DefaultCharReader(input));
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
-				});
-		//}
 	}
 	
 	@Override
 	public boolean hasCharacter() throws IOException {
+		/*
 		final Iterator<ICharInput> iterator = this.readers.iterator();
 		while (iterator.hasNext()) {
 			final ICharInput reader = iterator.next();
@@ -50,6 +41,8 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 			}
 		}
 		return false;
+		*/
+		return this.readers.stream.anyMatch(reader -> reader.hasCharacter());
 	}
 	
 	@Override
