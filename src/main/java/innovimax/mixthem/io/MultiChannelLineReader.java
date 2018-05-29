@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MultiChannelLineReader implements IMultiChannelLineInput {
 	
-	private final List<ILineInput> readers = new ArrayList<ILineInput>();
+	private final List<ILineInput> readers;
 	
 	/**
 	* Constructor
@@ -18,16 +19,16 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 	* @see innovimax.mixthem.io.InputResource
 	*/
 	public MultiChannelLineReader(final List<InputResource> inputs, final Set<Integer> selection) {
-		IntStream.rangeClosed(1, inputs.size())
+		this.readers = IntStream.rangeClosed(1, inputs.size())
 			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
 			.mapToObj(index -> inputs.get(index-1))
-			.forEachOrdered(input -> {
+			.map(input -> {
 				try {
-					this.readers.add(new DefaultLineReader(input));
+					return new DefaultLineReader(input);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
-				}
-			});
+				}})
+			.collect(Collectors.toList());
 	}
 	
 	@Override
