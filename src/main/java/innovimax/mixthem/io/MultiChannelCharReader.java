@@ -45,13 +45,21 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 	@Override
 	public int[] nextCharacterRange() throws IOException {
 		final int[] chars = new int[this.readers.size()];
-		int channel = 0;
+		/*int channel = 0;
 		final Iterator<ICharInput> iterator = this.readers.iterator();
 		while (iterator.hasNext()) {
 			final ICharInput reader = iterator.next();
 			final int c = reader.nextCharacter();
 			chars[channel++] = c;
-		}
+		}*/
+		IntStream.range(0, readers.size())
+			.forEachOrdered(index -> {
+				try {
+					chars[index] = readers.get(index).nextCharacter();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			});
 		return chars;
 	}
 
