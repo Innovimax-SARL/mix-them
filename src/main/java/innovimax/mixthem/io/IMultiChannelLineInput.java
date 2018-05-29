@@ -16,12 +16,6 @@ public interface IMultiChannelLineInput {
 	*/
 	boolean hasLine() throws IOException;
 	/**
- 	* Reads line range (one by channel, null if no more line in channel)
- 	* @return The array of lines (one line per channel or null if no more lines in the channel)
- 	* @throws IOException - If an I/O error occurs
- 	*/
-	//List<String> nextLineRange() throws IOException;
-	/**
  	* Reads line range depends on indicators (one by channel, null if no more line in channel)
 	* @param readingRange indicates wich channel has to be effectivly read
  	* @return The array of lines (one line per channel or null if no more lines in the channel)
