@@ -62,7 +62,7 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 					throw new RuntimeException(e);
 				}	
 			})
-			.toArray();
+			.toArray(int[]::new);
 	}
 
 	@Override
