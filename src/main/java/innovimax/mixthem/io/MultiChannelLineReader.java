@@ -42,22 +42,9 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 				}});
 	}
 	
-	/*@Override
-	public List<String> nextLineRange() throws IOException {
-		return nextLineRange
-		final List<String> lines = new ArrayList<String>();		
-		final Iterator<ILineInput> iterator = this.readers.iterator();
-		while (iterator.hasNext()) {
-			final ILineInput reader = iterator.next();
-			final String line = reader.nextLine();
-			lines.add(line);
-		}
-		return lines;	
-	}*/
-	
 	@Override
-	public List<String> nextLineRange(List<Boolean> readingRange) throws IOException {
-		final List<String> lines = new ArrayList<String>();
+	public List<String> nextLineRange(List<Boolean> readingRange) throws IOException {		
+		/*final List<String> lines = new ArrayList<String>();
 		int index = 0;
 		final Iterator<ILineInput> iterator = this.readers.iterator();
 		while (iterator.hasNext()) {
@@ -69,7 +56,15 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 			}
 			index++;
 		}
-		return lines;		
+		return lines;*/
+		return readers.stream()
+			.map(reader -> {
+				try {
+					return readingRange.get(index).booleanValue() ? reader.nextLine() : null;
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}})
+			.collect(Collectors.toList());
 	}
 
 	@Override
