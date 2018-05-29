@@ -1,15 +1,14 @@
 package innovimax.mixthem.io;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
 public class MultiChannelByteReader implements IMultiChannelByteInput {
 	
-	private final List<IByteInput> readers = new ArrayList<IByteInput>();
+	private final List<IByteInput> readers;
 	
 	/**
 	* Constructor
@@ -18,16 +17,16 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	* @see innovimax.mixthem.io.InputResource
 	*/
 	public MultiChannelByteReader(final List<InputResource> inputs, final Set<Integer> selection) {	
-		IntStream.rangeClosed(1, inputs.size())
+		this.readers = IntStream.rangeClosed(1, inputs.size())
 			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
 			.mapToObj(index -> inputs.get(index-1))
-			.forEachOrdered(input -> {
+			.map(input -> {
 				try {
-					this.readers.add(new DefaultByteReader(input));
+					return new DefaultCharReader(input);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
-				}
-			});
+				}})
+			.collect(Collectors.toList());
 	}
 	
 	@Override
@@ -38,13 +37,12 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 					return reader.hasByte();
 				} catch (IOException e) {
 					throw new RuntimeException(e);
-				}		
-			});
+				}});
 	}
 	
 	@Override
 	public byte[] nextByteRange() throws IOException {
-		final byte[] bytes = new byte[this.readers.size()];
+		/*final byte[] bytes = new byte[this.readers.size()];
 		int channel = 0;
 		final Iterator<IByteInput> iterator = this.readers.iterator();
 		while (iterator.hasNext()) {
@@ -52,18 +50,31 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 			final byte b = reader.nextByte();
 			bytes[channel++] = b;
 		}
-		return bytes;
+		return bytes;*/
+		return readers.stream()
+			.map(reader -> {
+				try {
+					return Byte.valueOf(reader.nextByte());
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}	
+			})			
+			.collect(ByteArrayOutputStream::new, 
+				 (baos, b) -> baos.write(b.byteValue()), 
+				 (baos1, baos2) -> baos1.write(baos2.toByteArray(), 0, baos2.size())
+			)
+			.toByteArray();
 	}
 	
 	@Override
 	public void close() throws IOException {
-		this.readers.forEach(reader -> {
-			try {
-				reader.close();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});		
+		this.readers
+			.forEach(reader -> {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}});		
 	}
 
 }
