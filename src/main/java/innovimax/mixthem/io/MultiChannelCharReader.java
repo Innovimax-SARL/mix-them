@@ -32,16 +32,6 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 	
 	@Override
 	public boolean hasCharacter() throws IOException {
-		/*
-		final Iterator<ICharInput> iterator = this.readers.iterator();
-		while (iterator.hasNext()) {
-			final ICharInput reader = iterator.next();
-			if (reader.hasCharacter()) {
-				return true;
-			}
-		}
-		return false;
-		*/
 		return this.readers.stream()
 			.anyMatch(reader -> {
 				try {
@@ -67,11 +57,13 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 
 	@Override
 	public void close() throws IOException {
-		final Iterator<ICharInput> iterator = this.readers.iterator();
-		while (iterator.hasNext()) {
-			final ICharInput reader = iterator.next();
-			reader.close();
-		}		
+		this.readers.forEach(reader -> {
+			try {
+				reader.close());
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
 	}
 	
 }
