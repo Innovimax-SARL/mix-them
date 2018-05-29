@@ -35,7 +35,7 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 			.mapToObj(index -> inputs.get(index-1))
 			.mapToObj(input -> {
 				try {
-					return new DefaultCharReader(input));
+					return new DefaultCharReader(input);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
