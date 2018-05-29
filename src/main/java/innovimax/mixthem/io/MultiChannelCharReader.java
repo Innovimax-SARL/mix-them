@@ -27,7 +27,7 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 				}
 			});
 		} else {
-			IntStream.range(0, inputs.size())
+			IntStream.range(1, inputs.size()+1)
 				.filter(index -> selection.contains(Integer.valueOf(index)))
 				.mapToObj(index -> inputs.get(index))
 				.forEach(input -> {
