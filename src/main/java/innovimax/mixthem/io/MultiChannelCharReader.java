@@ -45,7 +45,7 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 		return this.readers.stream()
 			.anyMatch(reader -> {
 				try {
-					return reader.hasCharacter()
+					return reader.hasCharacter();
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}		
