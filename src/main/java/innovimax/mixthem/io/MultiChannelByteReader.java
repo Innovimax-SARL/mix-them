@@ -21,7 +21,7 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 		IntStream.rangeClosed(1, inputs.size())
 			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
 			.mapToObj(index -> inputs.get(index-1))
-			.forEach(input -> {
+			.forEachOrdered(input -> {
 				try {
 					this.readers.add(new DefaultByteReader(input));
 				} catch (IOException e) {
