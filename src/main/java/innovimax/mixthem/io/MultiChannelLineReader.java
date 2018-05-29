@@ -1,8 +1,6 @@
 package innovimax.mixthem.io;
 
 import java.io.IOException;
-//import java.util.ArrayList;
-//import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -44,19 +42,6 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 	
 	@Override
 	public List<String> nextLineRange(List<Boolean> readingRange) throws IOException {		
-		/*final List<String> lines = new ArrayList<String>();
-		int index = 0;
-		final Iterator<ILineInput> iterator = this.readers.iterator();
-		while (iterator.hasNext()) {
-			final ILineInput reader = iterator.next();
-			if (readingRange.get(index).booleanValue()) {				
-				lines.add(reader.nextLine());
-			} else {
-				lines.add(null);
-			}
-			index++;
-		}
-		return lines;*/
 		return IntStream.range(0, readers.size())
 			.mapToObj(index -> {
 				try {
