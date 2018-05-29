@@ -21,7 +21,7 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 		IntStream.rangeClosed(1, inputs.size())
 			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
 			.mapToObj(index -> inputs.get(index-1))
-			.forEach(input -> {
+			.forEachOrdered(input -> {
 				try {
 					this.readers.add(new DefaultLineReader(input));
 				} catch (IOException e) {
