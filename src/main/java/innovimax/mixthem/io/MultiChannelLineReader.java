@@ -4,31 +4,42 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.IntStream;
 
 public class MultiChannelLineReader implements IMultiChannelLineInput {
 	
 	private final List<ILineInput> readers = new ArrayList<ILineInput>();
 	
-	public MultiChannelLineReader(final List<InputResource> inputs) {
-		inputs.stream().forEach(input -> {
-			try {
-				this.readers.add(new DefaultLineReader(input));
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});
+	/**
+	* Constructor
+	* @param inputs The list of inputs as InputResource
+	* @param selection The input index selection (maybe empty)
+	* @see innovimax.mixthem.io.InputResource
+	*/
+	public MultiChannelLineReader(final List<InputResource> inputs, final Set<Integer> selection) {
+		IntStream.rangeClosed(1, inputs.size())
+			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
+			.mapToObj(index -> inputs.get(index-1))
+			.forEach(input -> {
+				try {
+					this.readers.add(new DefaultLineReader(input));
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			});
 	}
 	
 	@Override
 	public boolean hasLine() throws IOException {
-		final Iterator<ILineInput> iterator = this.readers.iterator();
-		while (iterator.hasNext()) {
-			final ILineInput reader = iterator.next();
-			if (reader.hasLine()) {
-				return true;
-			}
-		}
-		return false;
+		return this.readers.stream()
+			.anyMatch(reader -> {
+				try {
+					return reader.hasLine();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}		
+			});
 	}
 	
 	@Override
@@ -62,11 +73,13 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 
 	@Override
 	public void close() throws IOException {
-		final Iterator<ILineInput> iterator = this.readers.iterator();
-		while (iterator.hasNext()) {
-			final ILineInput reader = iterator.next();
-			reader.close();
-		}		
+		this.readers.forEach(reader -> {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});		
 	}
 	
 }
