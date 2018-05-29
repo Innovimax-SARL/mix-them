@@ -55,14 +55,14 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 			});
 		return chars;*/
 		return readers.stream()
-			.map(reader -> {
+			.mapToInt(reader -> {
 				try {
 					return reader.nextCharacter();
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}	
 			})
-			.toArray(size -> new int[size]);
+			.toArray();
 	}
 
 	@Override
