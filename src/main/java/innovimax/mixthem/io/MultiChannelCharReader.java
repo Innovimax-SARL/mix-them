@@ -59,7 +59,7 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 	public void close() throws IOException {
 		this.readers.forEach(reader -> {
 			try {
-				reader.close());
+				reader.close();
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
