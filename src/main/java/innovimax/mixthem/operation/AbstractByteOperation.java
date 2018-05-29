@@ -36,7 +36,7 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 
     @Override
     public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
-	    final IMultiChannelByteInput reader = new MultiChannelByteReader(inputs);	    
+	    final IMultiChannelByteInput reader = new MultiChannelByteReader(inputs, this.selection);	    
 	    final IByteOutput writer = new DefaultByteWriter(output);
 	    final ByteResult result = new ByteResult();
 	    while (reader.hasByte()) {
