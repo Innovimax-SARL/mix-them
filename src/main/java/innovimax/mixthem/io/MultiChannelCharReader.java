@@ -30,10 +30,10 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 					throw new RuntimeException(e);
 				}
 			});*/
-		this.reader = IntStream.rangeClosed(1, inputs.size())
+		this.readers = IntStream.rangeClosed(1, inputs.size())
 			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
 			.mapToObj(index -> inputs.get(index-1))
-			.mapToObj(input -> {
+			.map(input -> {
 				try {
 					return new DefaultCharReader(input);
 				} catch (IOException e) {
