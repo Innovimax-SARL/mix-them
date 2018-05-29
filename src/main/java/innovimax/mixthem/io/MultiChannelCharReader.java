@@ -25,8 +25,7 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 					return new DefaultCharReader(input);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
-				}
-			})
+				}})
 			.collect(Collectors.toList());
 	}
 	
@@ -38,8 +37,7 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 					return reader.hasCharacter();
 				} catch (IOException e) {
 					throw new RuntimeException(e);
-				}		
-			});
+				}});
 	}
 	
 	@Override
@@ -50,20 +48,19 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 					return reader.nextCharacter();
 				} catch (IOException e) {
 					throw new RuntimeException(e);
-				}	
-			})
+				}})
 			.toArray();
 	}
 
 	@Override
 	public void close() throws IOException {
-		this.readers.forEach(reader -> {
-			try {
-				reader.close();
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});
+		this.readers
+			.forEach(reader -> {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}});
 	}
 	
 }
