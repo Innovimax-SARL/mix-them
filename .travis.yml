@@ -22,13 +22,14 @@ matrix:
       jdk: oraclejdk10
     - env: JDK='OpenJDK 10'
       install: . ./install-jdk.sh -F 10 -L GPL
+allow_failures:
 # 11
     - env: JDK='Oracle JDK 11'
       install: . ./install-jdk.sh -F 11 -L BCL
     - env: JDK='OpenJDK 11'
       install: . ./install-jdk.sh -F 11 -L GPL
-  allow_failures:
-    - env: JDK='Oracle JDK 10'
+# 10
+    - env: JDK='Oracle JDK 10'  
 
 script:
   - echo PATH = ${PATH}
