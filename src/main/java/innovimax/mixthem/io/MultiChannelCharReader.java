@@ -42,7 +42,7 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 		}
 		return false;
 		*/
-		return this.readers.stream.anyMatch(reader -> reader.hasCharacter());
+		return this.readers.stream().anyMatch(reader -> reader.hasCharacter());
 	}
 	
 	@Override
