@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
 * <p>Zips two or more lines cell by cell.</p>
@@ -45,14 +47,20 @@ public class DefaultCellZipping extends DefaultLineZipping {
 			}
 			final List<String> cellRange = nextCellRange(cellIterators);
 			//System.out.println("CELLS="+cellRange);
-			int index = 0;
+			/*int index = 0;
 			for (String cell : cellRange) {
 				if (index > 0) {
 					zip.append(this.sep);
 				}
 				zip.append(cell);
 				index++;
-			}
+			}*/
+			IntStream.range(0, cellRange.size())
+				.mapToObj(index -> index > 0 ? 
+						Stream.of(this.sep, cellRange.get(index)) : 
+						Stream.of(cellRange.get(index)))					
+				.flatMap(stream -> stream)
+				.forEach(token -> zip.append(token));
 		}			
 		result.setResult(zip.toString());
 	}

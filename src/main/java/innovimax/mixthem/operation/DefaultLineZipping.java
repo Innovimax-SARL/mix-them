@@ -35,24 +35,10 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
 		//System.out.println("RANGE="+lineRange.toString())
-		/*StringBuilder zip = new StringBuilder();
-		int index = 0;
-		for (String line : lineRange) {
-			if (index > 0) {
-				zip.append(this.sep);
-			}
-			zip.append(line);
-			index++;
-		}
-		result.setResult(zip.toString());*/
 		final String zip = IntStream.range(0, lineRange.size())
-				.mapToObj(index -> {
-					if (index > 0) {
-						return Stream.of(this.sep, lineRange.get(index));
-					} else {
-						return Stream.of(lineRange.get(index));
-					}
-				})
+				.mapToObj(index -> index > 0 ? 
+						Stream.of(this.sep, lineRange.get(index)) :
+						Stream.of(lineRange.get(index)))					
 				.flatMap(stream -> stream)
 				.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
             			.toString();
