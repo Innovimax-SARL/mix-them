@@ -7,6 +7,8 @@ import innovimax.mixthem.arguments.ParamValue;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
 * <p>Zips two or more lines.</p>
@@ -43,7 +45,15 @@ public class DefaultLineZipping extends AbstractLineOperation {
 			index++;
 		}
 		result.setResult(zip.toString());*/
-		final String zip = lineRange.stream()
+		final String zip = IntStream.range(0, lineRange.size())
+				.mapToObj(index -> {
+					if (index > 0) {
+						return Stream.of(this.sep, lineRange.get(index));
+					} else {
+						return Stream.of(lineRange.get(index));
+					}
+				})
+				.flatMap(stream -> stream)
 				.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
             			.toString();
 		result.setResult(zip);
