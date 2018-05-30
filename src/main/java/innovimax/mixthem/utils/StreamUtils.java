@@ -2,6 +2,7 @@ package innovimax.mixthem.utils;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 
@@ -45,6 +46,17 @@ public class StreamUtils {
         		return arg -> {
             			try {
                 			return tife.applyAsInt(arg);
+            			} catch (Exception e) {
+                			throw new RuntimeException(e);
+            			}
+        		};
+	} 
+
+	static public <R, E extends Exception>
+    		IntFunction<R> applyToInt(IntFunctionWithException<R, E> ife) {
+        		return arg -> {
+            			try {
+                			return ife.apply(arg);
             			} catch (Exception e) {
                 			throw new RuntimeException(e);
             			}
