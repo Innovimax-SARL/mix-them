@@ -1,10 +1,12 @@
 package innovimax.mixthem.utils;
 
+import java.io.ByteArrayOutputStream;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
+import java.util.stream.Collector;
 
 public class StreamUtils {
 
@@ -63,4 +65,14 @@ public class StreamUtils {
         		};
 	} 
 
+	static public Collector<Byte, ?, ByteArrayOutputStream> byteCollector() {
+		return Collector.of(
+			ByteArrayOutputStream::new, 
+			(baos, b) -> baos.write(b.byteValue()), 
+			(baos1, baos2) -> { 
+				baos1.write(baos2.toByteArray(), 0, baos2.size());
+				return baos1;
+			}
+		);		 
+	}
 }
