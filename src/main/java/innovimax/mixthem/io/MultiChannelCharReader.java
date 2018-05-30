@@ -1,5 +1,7 @@
 package innovimax.mixthem.io;
 
+import innovimax.mixthem.utils.StreamUtils;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -20,47 +22,51 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 		this.readers = IntStream.rangeClosed(1, inputs.size())
 			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
 			.mapToObj(index -> inputs.get(index-1))
-			.map(input -> {
+			/*.map(input -> {
 				try {
 					return new DefaultCharReader(input);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
-				}})
+				}})*/
+			.map(StreamUtils.apply(input -> new DefaultCharReader(input)))
 			.collect(Collectors.toList());
 	}
 	
 	@Override
 	public boolean hasCharacter() throws IOException {
-		return this.readers.stream()
-			.anyMatch(reader -> {
+		return this.readers.stream()		
+			/*.anyMatch(reader -> {
 				try {
 					return reader.hasCharacter();
 				} catch (IOException e) {
 					throw new RuntimeException(e);
-				}});
+				}});*/
+			.anyMatch(StreamUtils.test(reader -> reader.hasCharacter()));
 	}
 	
 	@Override
 	public int[] nextCharacterRange() throws IOException {
 		return readers.stream()
-			.mapToInt(reader -> {
+			/*.mapToInt(reader -> {
 				try {
 					return reader.nextCharacter();
 				} catch (IOException e) {
 					throw new RuntimeException(e);
-				}})
+				}})*/
+			.mapToInt(StreamUtils.applyAsInt(reader -> reader.nextCharacter()))
 			.toArray();
 	}
 
 	@Override
 	public void close() throws IOException {
 		this.readers
-			.forEach(reader -> {
+			/*.forEach(reader -> {
 				try {
 					reader.close();
 				} catch (IOException e) {
 					throw new RuntimeException(e);
-				}});
+				}});*/
+			.forEach(StreamUtils.consume(reader -> reader.close()));
 	}
 	
 }
