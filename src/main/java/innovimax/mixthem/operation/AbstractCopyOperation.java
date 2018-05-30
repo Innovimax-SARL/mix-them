@@ -1,5 +1,7 @@
 package innovimax.mixthem.operation;
 
+import innovimax.mixthem.utils.StreamUtils;
+
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
@@ -40,15 +42,12 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 		if (this.selection.isEmpty()) {
 			indexes = IntStream.range(1, inputs.size()+1);			
 		} else {			
-			indexes = Arrays.stream(this.selection.stream().mapToInt(Number::intValue).toArray());
+			indexes = Arrays.stream(this.selection.stream()
+					.mapToInt(Number::intValue)
+					.toArray());
 		}				
-                indexes.mapToObj(i -> inputs.get(i-1)).forEach(input -> {
-			try {
-				process(input, output);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});
+                indexes.mapToObj(i -> inputs.get(i-1))
+                	.forEach(StreamUtils.consume(input -> process(input, output)));
 	}
 
 }

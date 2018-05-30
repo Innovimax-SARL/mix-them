@@ -1,5 +1,7 @@
 package innovimax.mixthem.operation;
 
+import innovimax.mixthem.utils.StreamUtils;
+
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
@@ -44,13 +46,8 @@ public abstract class AbstractByteOperation extends AbstractOperation implements
 		    final byte[] byteRange = reader.nextByteRange();		    
 		    process(byteRange, result);
 		    if (result.hasResult()) {
-			    result.getResult().forEach(i -> {
-				    try {
-					    writer.writeByte((byte) i);
-				    } catch (IOException e) {
-					    throw new RuntimeException(e);
-				    }
-			    });
+			    result.getResult()
+			    	.forEach(StreamUtils.consumeInt(i -> writer.writeByte((byte) i)));
 		    }		    
 	    }
 	    reader.close();	    
