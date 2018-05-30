@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 /**
 * <p>Abstract class for all line operation.</p>
@@ -43,11 +44,9 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
 			// read next range lines depends on last result indicators
 			final List<String> lineRange = reader.nextLineRange(result.getLineReadingRange());
 			// set range preserved lines from last result
-			for (int i=0; i < lineRange.size(); i++) {
-				if (!result.getLineReadingRange().get(i).booleanValue()) {
-					lineRange.set(i, result.getRangeLine(i));
-				}
-			}
+			IntStream.range(0, lineRange.size())
+				.filter(index -> !result.getLineReadingRange().get(index).booleanValue())
+				.forEach(index -> lineRange.set(index, result.getRangeLine(index)));
 			result.reset();
 			if (mixable(lineRange)) {
 				// process mixing
@@ -63,13 +62,9 @@ public abstract class AbstractLineOperation extends AbstractOperation implements
     	}
 	
 	@Override
-	public boolean mixable(final List<String> lineRange) {		
-		for (int i=0; i < lineRange.size(); i++) {			
-			if (lineRange.get(i) == null) {
-				return false;				
-			}
-		}
-		return true;	
+	public boolean mixable(final List<String> lineRange) {
+		return IntStream.range(0, lineRange.size())
+			.allMatch(index -> lineRange.get(index) != null);
 	}
 
 }
