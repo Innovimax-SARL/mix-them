@@ -3,6 +3,7 @@ package innovimax.mixthem.utils;
 import java.io.ByteArrayOutputStream;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.IntConsumer;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
@@ -14,7 +15,18 @@ public class StreamUtils {
     		Consumer<T> consume(ConsumerWithException<T, E> ce) {
         		return arg -> {
             			try {
-                			ce.apply(arg);
+                			ce.accept(arg);
+            			} catch (Exception e) {
+                			throw new RuntimeException(e);
+            			}
+        		};
+	} 
+
+	static public <E extends Exception>
+    		IntConsumer consumeInt(IntConsumerWithException<E> ice) {
+        		return arg -> {
+            			try {
+                			ice.accept(arg);
             			} catch (Exception e) {
                 			throw new RuntimeException(e);
             			}
