@@ -2,7 +2,7 @@ package innovimax.mixthem.io;
 
 import innovimax.mixthem.utils.StreamUtils;
 
-import java.io.ByteArrayOutputStream;
+//import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -37,11 +37,7 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	public byte[] nextByteRange() throws IOException {
 		return readers.stream()			
 			.map(StreamUtils.apply(reader -> Byte.valueOf(reader.nextByte())))
-			//TODO: create a functional interface...
-			.collect(ByteArrayOutputStream::new, 
-				 (baos, b) -> baos.write(b.byteValue()), 
-				 (baos1, baos2) -> baos1.write(baos2.toByteArray(), 0, baos2.size())
-			)
+			.collect(StreamUtils.byteCollector())
 			.toByteArray();
 	}
 	
