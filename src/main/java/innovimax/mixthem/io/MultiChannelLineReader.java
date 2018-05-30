@@ -1,5 +1,7 @@
 package innovimax.mixthem.io;
 
+import innovimax.mixthem.utils.StreamUtils;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -20,29 +22,20 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 		this.readers = IntStream.rangeClosed(1, inputs.size())
 			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
 			.mapToObj(index -> inputs.get(index-1))
-			.map(input -> {
-				try {
-					return new DefaultLineReader(input);
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}})
+			.map(StreamUtils.apply(input -> new DefaultLineReader(input)))
 			.collect(Collectors.toList());
 	}
 	
 	@Override
 	public boolean hasLine() throws IOException {
 		return this.readers.stream()
-			.anyMatch(reader -> {
-				try {
-					return reader.hasLine();
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}});
+			.anyMatch(StreamUtils.test(reader -> reader.hasLine()));
 	}
 	
 	@Override
 	public List<String> nextLineRange(List<Boolean> readingRange) throws IOException {		
 		return IntStream.range(0, readers.size())
+			//TODO: new functional interface IntFunctionException
 			.mapToObj(index -> {
 				try {
 					return readingRange.get(index).booleanValue() ? readers.get(index).nextLine() : null;
@@ -55,12 +48,7 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 	@Override
 	public void close() throws IOException {
 		this.readers
-			.forEach(reader -> {
-				try {
-					reader.close();
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}});		
+			.forEach(StreamUtils.consume(reader -> reader.close()));
 	}
 	
 }

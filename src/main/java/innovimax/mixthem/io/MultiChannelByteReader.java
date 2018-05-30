@@ -1,5 +1,7 @@
 package innovimax.mixthem.io;
 
+import innovimax.mixthem.utils.StreamUtils;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -21,36 +23,20 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 		this.readers = IntStream.rangeClosed(1, inputs.size())
 			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
 			.mapToObj(index -> inputs.get(index-1))
-			.map(input -> {
-				try {
-					return new DefaultByteReader(input);
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}})
+			.map(StreamUtils.apply(input -> new DefaultByteReader(input)))
 			.collect(Collectors.toList());
 	}
 	
 	@Override
 	public boolean hasByte() throws IOException {
 		return this.readers.stream()
-			.anyMatch(reader -> {
-				try {
-					return reader.hasByte();
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}});
+			.anyMatch(StreamUtils.test(reader -> reader.hasByte()));
 	}
 	
 	@Override
 	public byte[] nextByteRange() throws IOException {
-		return readers.stream()
-			.map(reader -> {
-				try {
-					return Byte.valueOf(reader.nextByte());
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}	
-			})			
+		return readers.stream()			
+			.map(StreamUtils.apply(reader -> Byte.valueOf(reader.nextByte())))			
 			.collect(ByteArrayOutputStream::new, 
 				 (baos, b) -> baos.write(b.byteValue()), 
 				 (baos1, baos2) -> baos1.write(baos2.toByteArray(), 0, baos2.size())
@@ -61,12 +47,7 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	@Override
 	public void close() throws IOException {
 		this.readers
-			.forEach(reader -> {
-				try {
-					reader.close();
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}});		
+			.forEach(StreamUtils.consume(reader -> reader.close()));
 	}
 
 }
