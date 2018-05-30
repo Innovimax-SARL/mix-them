@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
 * <p>Joins two or more lines on a common field.</p>
@@ -77,13 +78,15 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	}
 	
 	private boolean linesJoinable(final List<List<String>> lineCellsRange) {		
-		for (int i=0; i < lineCellsRange.size(); i++) {
+		/*for (int i=0; i < lineCellsRange.size(); i++) {
 			final List<String> lineCells = lineCellsRange.get(i);
 			if (lineCells.size() < getJoinedColumn(i)) {
 				return false;
 			}			
 		}
-		return true;
+		return true;*/
+		return IntStream.range(0, lineCellsRange.size())
+			.allMatch(index -> lineCellsRange.get(index).size() >= getJoinedColumn(index));
 	}
 	
 	private boolean linesJoined(final List<List<String>> lineCellsRange) {		
