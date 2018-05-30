@@ -35,13 +35,8 @@ public class MultiChannelLineReader implements IMultiChannelLineInput {
 	@Override
 	public List<String> nextLineRange(List<Boolean> readingRange) throws IOException {		
 		return IntStream.range(0, readers.size())
-			//TODO: new functional interface IntFunctionException
-			.mapToObj(index -> {
-				try {
-					return readingRange.get(index).booleanValue() ? readers.get(index).nextLine() : null;
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}})
+			.mapToObj(StreamUtils.applyToInt(index -> readingRange.get(index).booleanValue() ? 
+								readers.get(index).nextLine() : null))
 			.collect(Collectors.toList());
 	}
 

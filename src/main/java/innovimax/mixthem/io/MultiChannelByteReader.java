@@ -36,7 +36,8 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	@Override
 	public byte[] nextByteRange() throws IOException {
 		return readers.stream()			
-			.map(StreamUtils.apply(reader -> Byte.valueOf(reader.nextByte())))			
+			.map(StreamUtils.apply(reader -> Byte.valueOf(reader.nextByte())))
+			//TODO: create a functional interface...
 			.collect(ByteArrayOutputStream::new, 
 				 (baos, b) -> baos.write(b.byteValue()), 
 				 (baos1, baos2) -> baos1.write(baos2.toByteArray(), 0, baos2.size())
