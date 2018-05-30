@@ -2,7 +2,6 @@ package innovimax.mixthem.io;
 
 import innovimax.mixthem.utils.StreamUtils;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,20 +26,20 @@ public class MultiChannelCharReader implements IMultiChannelCharInput {
 	}
 	
 	@Override
-	public boolean hasCharacter() throws IOException {
+	public boolean hasCharacter() {
 		return this.readers.stream()					
 			.anyMatch(StreamUtils.test(reader -> reader.hasCharacter()));
 	}
 	
 	@Override
-	public int[] nextCharacterRange() throws IOException {
+	public int[] nextCharacterRange() {
 		return readers.stream()			
 			.mapToInt(StreamUtils.applyAsInt(reader -> reader.nextCharacter()))
 			.toArray();
 	}
 
 	@Override
-	public void close() throws IOException {
+	public void close() {
 		this.readers			
 			.forEach(StreamUtils.consume(reader -> reader.close()));
 	}

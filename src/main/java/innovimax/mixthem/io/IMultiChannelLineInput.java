@@ -1,6 +1,5 @@
 package innovimax.mixthem.io;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -11,20 +10,17 @@ import java.util.List;
 public interface IMultiChannelLineInput {
     /**
 	* Returns true if there is more lines in one of the channels.
-	* @return Returns true if there is more lines in one of the channels
-	* @throws IOException - If an I/O error occurs
+	* @return Returns true if there is more lines in one of the channel
 	*/
-	boolean hasLine() throws IOException;
+	boolean hasLine();
 	/**
  	* Reads line range depends on indicators (one by channel, null if no more line in channel)
 	* @param readingRange indicates wich channel has to be effectivly read
- 	* @return The array of lines (one line per channel or null if no more lines in the channel)
- 	* @throws IOException - If an I/O error occurs
+ 	* @return The array of lines (one line per channel or null if no more lines in the channel) 	
  	*/
-	List<String> nextLineRange(List<Boolean> readingRange) throws IOException;	
+	List<String> nextLineRange(List<Boolean> readingRange);	
 	/**
 	* Closes this input channels and releases any system resources associated with them.
-	* @throws IOException - If an I/O error occurs
 	*/
-	void close() throws IOException;	
+	void close();
 }

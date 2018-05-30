@@ -2,8 +2,6 @@ package innovimax.mixthem.io;
 
 import innovimax.mixthem.utils.StreamUtils;
 
-//import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,13 +26,13 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	}
 	
 	@Override
-	public boolean hasByte() throws IOException {
+	public boolean hasByte() {
 		return this.readers.stream()
 			.anyMatch(StreamUtils.test(reader -> reader.hasByte()));
 	}
 	
 	@Override
-	public byte[] nextByteRange() throws IOException {
+	public byte[] nextByteRange() {
 		return readers.stream()			
 			.map(StreamUtils.apply(reader -> Byte.valueOf(reader.nextByte())))
 			.collect(StreamUtils.byteCollector())
@@ -42,7 +40,7 @@ public class MultiChannelByteReader implements IMultiChannelByteInput {
 	}
 	
 	@Override
-	public void close() throws IOException {
+	public void close() {
 		this.readers
 			.forEach(StreamUtils.consume(reader -> reader.close()));
 	}
