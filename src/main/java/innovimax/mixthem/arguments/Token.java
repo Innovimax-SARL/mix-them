@@ -6,11 +6,11 @@ package innovimax.mixthem.arguments;
 * @version 1.0
 */
 public enum Token { 
-	BYTE("byte", "atombyte", "byte by byte"),
-	CHAR("char", "atomchar", "character by character"),
-	LINE("line", "linechar", "line by line (of characters)"),
-	FILEBYTE("filebyte", "filebyte", "file by file (of bytes)"),
-	FILECHAR("filechar", "filechar", "file by file (of characters)");
+	BYTE("byte", "atom-byte", "byte by byte"),
+	CHAR("char", "atom-char", "character by character"),
+	LINE("line", "line-char", "line by line (of characters)"),	
+	FILEBYTE("filebyte", "file-byte", "file by file (of bytes)"),
+	FILECHAR("filechar", "file-char", "file by file (of characters)");
 
 	private final String name, alias, description;
 
