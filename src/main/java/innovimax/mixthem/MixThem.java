@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -64,7 +65,7 @@ public class MixThem {
             LOGGER.info("Started application");   
             Arguments mixArgs = Arguments.checkArguments(args);        
             MixThem mixThem = new MixThem(mixArgs.getInputs(), System.out);
-            mixThem.process(mixArgs.getFileMode(), mixArgs.getRule(), mixArgs.getRuleParameters());
+            mixThem.process(mixArgs.getFileMode(), mixArgs.getSelection(), mixArgs.getRule(), mixArgs.getRuleParameters());
             LOGGER.info("Exited application with no errors");
         } catch (ArgumentException e) {
             LOGGER.severe("Exited application with errors...");
@@ -85,6 +86,7 @@ public class MixThem {
     /**
     * Mix files together using rules.
     * @param fileMode The mode to be used for reading files
+    * @param selection The file index selection (maybe empty)
     * @param rule The rule to be used for mixing
     * @param params The rule parameters to be used for mixing
     * @throws MixException - If any error occurs during mixing
@@ -93,56 +95,52 @@ public class MixThem {
     * @see innovimax.mixthem.RuleParam
     * @see innovimax.mixthem.ParamValue
     */  
-    public void process(FileMode fileMode, Rule rule, Map<RuleParam, ParamValue> params) throws MixException {
+    public void process(FileMode fileMode, Set<Integer> selection,  Rule rule, Map<RuleParam, ParamValue> params) throws MixException {
         try {
             LOGGER.info("Started mixing for [" +  fileMode.getName() + "] rule '" + rule.getName() + "'...");
             switch(rule) {
-                case FILE_K:
-                    final IOperation copyFileKOp = CopyFactory.newInstance(fileMode, CopyMode.UMPTEENTH, params);
-                    copyFileKOp.processFiles(this.inputs, this.output);          
-                    break;
                 case ADD:                    
-                    final IOperation copyAddOp = CopyFactory.newInstance(fileMode, CopyMode.SELECTION, params);
+                    final IOperation copyAddOp = CopyFactory.newInstance(fileMode, selection, params);
                     copyAddOp.processFiles(this.inputs, this.output);          
                     break;
                 case ALT_CHAR:
-                    final IOperation altCharOp = new DefaultCharAlternation(AltMode.NORMAL, params);
+                    final IOperation altCharOp = new DefaultCharAlternation(AltMode.NORMAL, selection, params);
                     altCharOp.processFiles(this.inputs, this.output); 
                     break;
                 case ALT_BYTE:
-                    final IOperation altByteOp = new DefaultByteAlternation(AltMode.NORMAL, params);
+                    final IOperation altByteOp = new DefaultByteAlternation(AltMode.NORMAL, selection, params);
                     altByteOp.processFiles(this.inputs, this.output); 
                     break;
                 case ALT_LINE:
-                    final IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, params);
+                    final IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, selection, params);
                     altLineOp.processFiles(this.inputs, this.output);
                     break;
                 case RANDOM_ALT_BYTE:
-                    final IOperation randomAltByteOp = new DefaultByteAlternation(AltMode.RANDOM, params);
+                    final IOperation randomAltByteOp = new DefaultByteAlternation(AltMode.RANDOM, selection, params);
                     randomAltByteOp.processFiles(this.inputs, this.output); 
                     break;
                 case RANDOM_ALT_CHAR:
-                    final IOperation randomAltCharOp = new DefaultCharAlternation(AltMode.RANDOM, params);
+                    final IOperation randomAltCharOp = new DefaultCharAlternation(AltMode.RANDOM, selection, params);
                     randomAltCharOp.processFiles(this.inputs, this.output); 
                     break;
                 case RANDOM_ALT_LINE:
-                    final IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, params);
+                    final IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, selection, params);
                     randomAltLineOp.processFiles(this.inputs, this.output); 
                     break;
                 case JOIN:
-                    final IOperation joinLineOp = new DefaultLineJoining(params);
+                    final IOperation joinLineOp = new DefaultLineJoining(selection, params);
                     joinLineOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_LINE:
-                    final IOperation zipLineOp = new DefaultLineZipping(params);
+                    final IOperation zipLineOp = new DefaultLineZipping(selection, params);
                     zipLineOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_CELL:
-                    final IOperation zipCellOp = new DefaultCellZipping(params);
+                    final IOperation zipCellOp = new DefaultCellZipping(selection, params);
                     zipCellOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_CHAR:
-                    final IOperation zipCharOp = new DefaultCharZipping(params);
+                    final IOperation zipCharOp = new DefaultCharZipping(selection, params);
                     zipCharOp.processFiles(this.inputs, this.output);
                     /*break;
                 default:    

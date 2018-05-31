@@ -11,6 +11,7 @@ import innovimax.mixthem.io.InputResource;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
+import java.util.Set;
 
 /**
 * <p>Copy all file characters.</p>
@@ -20,14 +21,14 @@ import java.util.Map;
 public class DefaultCharCopy extends AbstractCopyOperation {
 
 	/**
-	* Constructor	
-	* @param mode The copy mode to process
+	* Constructor
+	* @param selection The file index selection (maybe empty)
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultCharCopy(final CopyMode mode, final Map<RuleParam, ParamValue> params) {
-		super(mode, params);			
+	public DefaultCharCopy(final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
+		super(selection, params);			
 	}
 	
 	@Override

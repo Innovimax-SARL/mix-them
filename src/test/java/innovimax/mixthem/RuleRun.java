@@ -5,6 +5,7 @@ import innovimax.mixthem.arguments.Rule;
 import innovimax.mixthem.arguments.RuleParam;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
 * <p>Describes a specific test run for a rule.</p>
@@ -15,15 +16,18 @@ import java.util.Map;
 public class RuleRun {
 
   final private int index;
-  final private Map<RuleParam, ParamValue> params;
+  final private Set<Integer> selection;
+  final private Map<RuleParam, ParamValue> params;  
 
   /*
   * Creates a rule run for a specific test.
   * @param index The position of the run
-  * @param params The list of parameter values for this run
+  * @param The file index selection for this run (maybe empty)
+  * @param params The list of parameter values for this run (maybe empty)
   */
-  public RuleRun(final int index, final Map<RuleParam, ParamValue> params) {    
+  public RuleRun(final int index, final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {    
     this.index = index;
+    this.selection = selection;
     this.params = params;    
   }
   
@@ -42,10 +46,18 @@ public class RuleRun {
   public String getSuffix() {    
     return Integer.toString(this.index);
   }
+
+  /*
+  * Returns the file index selection for this run.
+  * @return The file index selection for this run
+  */
+  public Set<Integer> getSelection() {
+    return this.selection;
+  }
   
   /*
   * Returns the list of parameter values for this run.
-  * @return Returns the list of parameter values for this run
+  * @return The list of parameter values for this run
   */
   public Map<RuleParam, ParamValue> getParams() {
     return this.params;

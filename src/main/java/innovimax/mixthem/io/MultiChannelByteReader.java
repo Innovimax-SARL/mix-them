@@ -1,56 +1,48 @@
 package innovimax.mixthem.io;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
+import innovimax.mixthem.utils.StreamUtils;
+
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MultiChannelByteReader implements IMultiChannelByteInput {
 	
-	private final List<IByteInput> readers = new ArrayList<IByteInput>();
+	private final List<IByteInput> readers;
 	
-	public MultiChannelByteReader(final List<InputResource> inputs) {
-		inputs.stream().forEach(input -> {
-			try {
-				this.readers.add(new DefaultByteReader(input));
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		});
+	/**
+	* Constructor
+	* @param inputs The list of inputs as InputResource
+	* @param selection The input index selection (maybe empty)
+	* @see innovimax.mixthem.io.InputResource
+	*/
+	public MultiChannelByteReader(final List<InputResource> inputs, final Set<Integer> selection) {	
+		this.readers = IntStream.rangeClosed(1, inputs.size())
+			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
+			.mapToObj(index -> inputs.get(index-1))
+			.map(StreamUtils.apply(input -> new DefaultByteReader(input)))
+			.collect(Collectors.toList());
 	}
 	
 	@Override
-	public boolean hasByte() throws IOException {
-		final Iterator<IByteInput> iterator = this.readers.iterator();
-		while (iterator.hasNext()) {
-			final IByteInput reader = iterator.next();
-			if (reader.hasByte()) {
-				return true;
-			}
-		}
-		return false;
+	public boolean hasByte() {
+		return this.readers.stream()
+			.anyMatch(StreamUtils.test(reader -> reader.hasByte()));
 	}
 	
 	@Override
-	public byte[] nextByteRange() throws IOException {
-		final byte[] bytes = new byte[this.readers.size()];
-		int channel = 0;
-		final Iterator<IByteInput> iterator = this.readers.iterator();
-		while (iterator.hasNext()) {
-			final IByteInput reader = iterator.next();
-			final byte b = reader.nextByte();
-			bytes[channel++] = b;
-		}
-		return bytes;
+	public byte[] nextByteRange() {
+		return readers.stream()			
+			.map(StreamUtils.apply(reader -> Byte.valueOf(reader.nextByte())))
+			.collect(StreamUtils.byteCollector())
+			.toByteArray();
 	}
 	
 	@Override
-	public void close() throws IOException {
-		final Iterator<IByteInput> iterator = this.readers.iterator();
-		while (iterator.hasNext()) {
-			final IByteInput reader = iterator.next();
-			reader.close();
-		}		
+	public void close() {
+		this.readers
+			.forEach(StreamUtils.consume(reader -> reader.close()));
 	}
 
 }

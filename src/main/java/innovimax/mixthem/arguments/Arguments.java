@@ -13,8 +13,10 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.EnumMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -29,7 +31,8 @@ public class Arguments {
     private FileMode fileMode = null;
     private Rule rule = null;
     private Map<RuleParam, ParamValue> ruleParams = null;
-    private final List<InputResource> inputs = new ArrayList<InputResource>();
+    private Set<Integer> selection = null;
+    private final List<InputResource> inputs = new ArrayList<InputResource>();    
     
     private void setFileMode(final FileMode fileMode) {
         this.fileMode = fileMode;
@@ -54,6 +57,14 @@ public class Arguments {
     public Map<RuleParam, ParamValue> getRuleParameters() {
         return this.ruleParams;
     }
+    
+     public void setSelection(final Set<Integer> selection) {
+        this.selection = selection;
+    }
+    
+    public Set<Integer> getSelection() {
+        return this.selection;
+    }
 
     void addInput(final InputResource input) {
         this.inputs.add(input);
@@ -66,12 +77,21 @@ public class Arguments {
     public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException, ZipException { 
         final Arguments mixArgs = new Arguments();
         int index = 0;
+        // get file mode [char|byte]
         FileMode fileMode = findFileModeArgument(args, index);
         if (fileMode != null) {
             index++;
         } else {
             fileMode = FileMode.CHAR;
         }
+        mixArgs.setFileMode(fileMode);
+        // get selection
+        final Set<Integer> selection = findSelectionArgument(args, index);        
+        mixArgs.setSelection(selection);
+        if (!selection.isEmpty()) {
+            index += selection.size();
+        }
+        // get rule & parameters
         Rule rule = findRuleArgument(args, index, fileMode);
         Map<RuleParam, ParamValue> ruleParams = null;
         if (rule != null) {
@@ -81,10 +101,10 @@ public class Arguments {
         } else {
             rule = Rule.ADD;
             ruleParams = Collections.emptyMap();
-        }
-        mixArgs.setFileMode(fileMode);
-        mixArgs.setRule(rule);
+        }        
+        mixArgs.setRule(rule);        
         mixArgs.setRuleParameters(ruleParams);        
+        // get input files
         final String zipOption = findZipOptionArgument(args, index);
         if (zipOption == null) {
             final List<File> files = findFilesArgument(args, index);
@@ -93,8 +113,9 @@ public class Arguments {
             final ZipFile zipFile = new ZipFile(findZipFileArgument(args, ++index));
             final List<InputStream> inputs = extractZipEntries(zipFile);
             inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createInputStream(input)));
-        }
-        checkFileCount(mixArgs);
+        }        
+        // check selection vs input file count
+        checkSelection(mixArgs);
         return mixArgs;
     }
 
@@ -103,6 +124,23 @@ public class Arguments {
             return FileMode.findByName(args[index]);
         }
         return null;
+    }
+    
+    private static Set<Integer> findSelectionArgument(final String[] args, int index) throws ArgumentException {
+        final Set<Integer> selection = new LinkedHashSet<Integer>();        
+        while (args.length > index) {
+            final int fileIndex;
+            try { 
+                fileIndex = Integer.parseInt(args[index++]); 
+                if (index <= 0) {
+                    throw new ArgumentException("Selection index is not valid: " + fileIndex);
+                }
+                selection.add(Integer.valueOf(fileIndex));
+            } catch(NumberFormatException e) { 
+                break;
+            }
+        }
+        return selection;
     }
     
     private static Rule findRuleArgument(final String[] args, final int index, final FileMode fileMode) throws ArgumentException {        
@@ -213,23 +251,13 @@ public class Arguments {
         return inputs;
     }
     
-    private static void checkFileCount(Arguments mixArgs) throws ArgumentException {
-        switch (mixArgs.getRule()) {
-            case FILE_K:
-                int index = mixArgs.getRuleParameters().get(RuleParam.FILE_INDEX).asInt();
-                if (index > mixArgs.getInputs().size()) {
-                    throw new ArgumentException("#index is greater than input file count.");
-                }
-                break;
-            case ADD:
-                if (mixArgs.getRuleParameters().containsKey(RuleParam.FILE_LIST)) {                    
-                    int[] indexes = mixArgs.getRuleParameters().get(RuleParam.FILE_LIST).asIntArray();
-                    for (int i=0; i < indexes.length; i++) {
-                        if (i > mixArgs.getInputs().size()) {
-                            throw new ArgumentException("#files contains an index greater than input file count.");
-                        }
-                    }
-                }
+    private static void checkSelection(Arguments mixArgs) throws ArgumentException {
+        Iterator<Integer> iterator = mixArgs.getSelection().iterator();
+        while (iterator.hasNext()) {
+            Integer index = iterator.next();            
+            if (index.intValue() > mixArgs.getInputs().size()) {
+                throw new ArgumentException("Selection index is greater than file count: " + index.intValue());
+            }
         }
     }
     
@@ -237,15 +265,32 @@ public class Arguments {
         System.out.println("  ");    
         System.out.println("Usage:");
         System.out.println("  ");
-        System.out.println("  mix-them file1 file2... fileN");
-        System.out.println("  (will generate any file based on file1 and file2 to fileN)");
+        System.out.println("  mix-them [char|byte] <file1> <file2>[ <file3>... <fileN>]");
+        System.out.println("  (will generate on standard out any file based on file1 to fileN)");
+        System.out.println("  (by default it assumes that all files are character based, not binary)");
+        System.out.println("  ");        
+        System.out.println("  mix-them [char|byte] <rule> <file1> <file2>[ <file3>... <fileN>]");
+        System.out.println("  (will generate on standard out a file based on the rule)");
+        System.out.println("  ");        
+        System.out.println("  mix-them [char|byte] <index1> <index2>[ <index3>...] <rule> <file1> <file2>[ <file3>... <fileN>]");
+        System.out.println("  (will generate on standard out a file based on the rule and a selection of files designed by their index)");
+        System.out.println("  ");        
+        System.out.println("  mix-them --zip <zipfile>");
+        System.out.println("  mix-them --jar <jarfile>");
+        System.out.println("  (will generate on standard out any file based on entry1 to entryN of zip/jar file)");
+        System.out.println("  (by default it assumes zip/jar entries are character based, not binary)");
+        System.out.println("  ");        
+        System.out.println("  mix-them <rule> --zip <zipFile>");
+        System.out.println("  mix-them <rule> --jar <jarFile>");
+        System.out.println("  (will generate on standard out a file based on the rule)");
         System.out.println("  ");
-        System.out.println("  mix-them -[rule] file1 file2... fileN");
-        System.out.println("  (will generate a file based on the rule)");
+        System.out.println("  mix-them <index1> <index2>[ <index3>...] <rule> --zip <zipFile>");
+        System.out.println("  mix-them <index1> <index2>[ <index3>...] <rule> --jar <jarFile>");
+        System.out.println("  (will generate on standard out a file based on the rule and a selection of entries designed by their index)");
         System.out.println("  ");
-        System.out.println("  Here are the list of rules");
+        System.out.println("Here are the list of rules:");
         for(Rule rule : Rule.values()) {
-            System.out.print("  - " + rule.getName());
+            System.out.print("  -" + rule.getName());
             for(RuleParam param : rule.getParams()) {
                 if (param.isMandatory()) {
                     System.out.print(" #" +  param.getName());
@@ -258,14 +303,6 @@ public class Arguments {
                 System.out.println("    (#" +param.getName() + " " + param.getComment() + ")");
             }            
         }
-        System.out.println("  ");
-        System.out.println("  mix-them --zip zipfile");
-        System.out.println("  mix-them --jar jarfile");
-        System.out.println("  (will generate any entry based on zip/jar file first and second to nth entries)");
-        System.out.println("  ");
-        System.out.println("  mix-them -[rule] --zip zipFile");
-        System.out.println("  mix-them -[rule] --jar jarFile");
-        System.out.println("  (will generate a file based on the rule)");
         System.out.println("  ");
     }
 

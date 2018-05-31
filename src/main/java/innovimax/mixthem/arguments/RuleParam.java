@@ -5,9 +5,7 @@ package innovimax.mixthem.arguments;
 * @author Innovimax
 * @version 1.0
 */
-public enum RuleParam { 
-	FILE_INDEX("index", ParamType.INTEGER, true),
-	FILE_LIST("list", ParamType.INTEGER_ARRAY, false),
+public enum RuleParam {
 	RANDOM_SEED("seed", ParamType.INTEGER, false),	
 	JOIN_COLS("cols", ParamType.INTEGER_ARRAY, false),
 	ZIP_SEP("sep", ParamType.STRING, false);

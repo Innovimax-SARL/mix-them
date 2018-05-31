@@ -1,5 +1,7 @@
 package innovimax.mixthem.operation;
 
+import innovimax.mixthem.utils.StreamUtils;
+
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
 * <p>Abstract class for all character operation.</p>
@@ -24,17 +27,18 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 
 	/**
 	* Constructor
+	* @param selection The file index selection (maybe empty)
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractCharOperation(final Map<RuleParam, ParamValue> params) {
-		super(params);
+	public AbstractCharOperation(final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
+		super(selection, params);
 	}
 
 	@Override
     	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {				
-		final IMultiChannelCharInput reader = new MultiChannelCharReader(inputs);
+		final IMultiChannelCharInput reader = new MultiChannelCharReader(inputs, this.selection);
 		final ICharOutput writer = new DefaultCharWriter(output);
 		final CharResult result = new CharResult();
 		while (reader.hasCharacter()) {
@@ -42,13 +46,8 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 			final int[] charRange = reader.nextCharacterRange();
 			process(charRange, result);
 			if (result.hasResult()) {
-				result.getResult().forEach(i -> {
-					try {
-						writer.writeCharacter((char) i);
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
-				});
+				result.getResult()
+					.forEach(StreamUtils.consumeInt(i -> writer.writeCharacter((char) i)));
 			}			
 		}
 		reader.close();

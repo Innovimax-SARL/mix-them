@@ -6,6 +6,9 @@ import innovimax.mixthem.arguments.ParamValue;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
 * <p>Zips two or more lines.</p>
@@ -19,28 +22,27 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	
 	/**
 	* Constructor
+	* @param selection The file index selection (maybe empty)
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultLineZipping(final Map<RuleParam, ParamValue> params) {
-		super(params);
+	public DefaultLineZipping(final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
+		super(selection, params);
 		this.sep = params.getOrDefault(RuleParam.ZIP_SEP, ZipOperation.DEFAULT_ZIP_SEPARATOR.getValue()).asString();	
 	}
 	
 	@Override
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
-		//System.out.println("RANGE="+lineRange.toString());		
-		StringBuilder zip = new StringBuilder();
-		int index = 0;
-		for (String line : lineRange) {
-			if (index > 0) {
-				zip.append(this.sep);
-			}
-			zip.append(line);
-			index++;
-		}
-		result.setResult(zip.toString());
+		//System.out.println("RANGE="+lineRange.toString())
+		final String zip = IntStream.range(0, lineRange.size())
+				.mapToObj(index -> index > 0 ? 
+						Stream.of(this.sep, lineRange.get(index)) :
+						Stream.of(lineRange.get(index)))					
+				.flatMap(stream -> stream)
+				.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+            			.toString();
+		result.setResult(zip);
 	}
 
 }

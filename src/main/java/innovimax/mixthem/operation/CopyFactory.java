@@ -5,17 +5,19 @@ import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 
 import java.util.Map;
+import java.util.Set;
 
 public class CopyFactory {
   
   	/**
     * @param fileMode The file mode for reading files
-    * @param copyMode the copy mode to process
+    * @param selection The file index selection (maybe empty)
+    * @param params The list of parameters (maybe empty)
     * @see innovimax.mixthem.arguments.RulePara
     * @see innovimax.mixthem.arguments.ParamValue
     */
-    public static ICopyOperation newInstance(final FileMode fileMode, final CopyMode copyMode, final Map<RuleParam, ParamValue> params) {
-        return fileMode == FileMode.CHAR ? new DefaultCharCopy(copyMode, params) : new DefaultByteCopy(copyMode, params);
+    public static ICopyOperation newInstance(final FileMode fileMode, final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
+        return fileMode == FileMode.CHAR ? new DefaultCharCopy(selection, params) : new DefaultByteCopy(selection, params);
     }    
     
 }

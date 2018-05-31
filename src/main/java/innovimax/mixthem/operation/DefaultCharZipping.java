@@ -6,6 +6,8 @@ import innovimax.mixthem.arguments.ParamValue;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.IntStream;
 
 /**
 * <p>Zips two or more characters.</p>
@@ -20,26 +22,20 @@ public class DefaultCharZipping extends AbstractCharOperation {
 
 	/**
 	* Constructor
+	* @param selection The file index selection (maybe empty)
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultCharZipping(Map<RuleParam, ParamValue> params) {
-		super(params);		
+	public DefaultCharZipping(final Set<Integer> selection, Map<RuleParam, ParamValue> params) {
+		super(selection, params);		
 		this.sep = params.getOrDefault(RuleParam.ZIP_SEP, ZipOperation.DEFAULT_ZIP_SEPARATOR.getValue()).asString();
 	}
 	
 	@Override
 	public void process(final int[] charRange, final CharResult result) throws MixException {
-		//System.out.println("RANGE="+Arrays.toString(charRange));
-		boolean zipable = true;		
-		for (int i=0; i < charRange.length; i++) {			
-			if (charRange[i] == -1) {
-				zipable = false;
-				break;
-			}
-		}
-		if (zipable) {			
+		//System.out.println("RANGE="+Arrays.toString(charRange));	
+		if (IntStream.range(0, charRange.length).allMatch(index -> charRange[index] != -1)) {			
 			final int len = charRange.length + (charRange.length - 1) * sep.length();
 			final int[] array = new int[len];
 			int index = 0;
