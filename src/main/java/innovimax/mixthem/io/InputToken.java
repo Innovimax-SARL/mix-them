@@ -20,7 +20,7 @@ public abstract class InputToken {
 			return this.b;
 		}
 		@Override
-		public char asCharacter() {
+		public int asCharacter() {
 			throw new UnsupportedOperationException("ByteToken does not have a character representation");
 		}
 		@Override
@@ -38,8 +38,8 @@ public abstract class InputToken {
 	}
 	
 	private static class CharToken extends InputToken {
-		private final char c;
-		private CharToken(final char c) {
+		private final int c;
+		private CharToken(final int c) {
 			this.c = c;
 		}
 		@Override
@@ -47,7 +47,7 @@ public abstract class InputToken {
 			throw new UnsupportedOperationException("CharToken does not have a byte representation");
 		}
 		@Override
-		public char asCharacter() {
+		public int asCharacter() {
 			return this.c;
 		}
 		@Override
@@ -74,7 +74,7 @@ public abstract class InputToken {
 			throw new UnsupportedOperationException("LineToken does not have a byte representation");
 		}
 		@Override
-		public char asCharacter() {
+		public int asCharacter() {
 			throw new UnsupportedOperationException("LineToken does not have a character representation");
 		}
 		@Override
@@ -101,7 +101,7 @@ public abstract class InputToken {
 			throw new UnsupportedOperationException("FileByteToken does not have a byte representation");
 		}
 		@Override
-		public char asCharacter() {
+		public int asCharacter() {
 			throw new UnsupportedOperationException("FileByteToken does not have a character representation");
 		}
 		@Override
@@ -128,7 +128,7 @@ public abstract class InputToken {
 			throw new UnsupportedOperationException("FileCharToken does not have a byte representation");
 		}
 		@Override
-		public char asCharacter() {
+		public int asCharacter() {
 			throw new UnsupportedOperationException("FileCharToken does not have a character representation");
 		}
 		@Override
@@ -154,7 +154,7 @@ public abstract class InputToken {
 		return new ByteToken(b);
 	}
 	
-	public static InputToken createCharToken(final char c) {
+	public static InputToken createCharToken(final int c) {
 		return new CharToken(c);
 	}
 	
@@ -180,7 +180,7 @@ public abstract class InputToken {
 	* Returns the token value as a character.
 	* @return The token value as a character
 	*/
-	public abstract char asCharacter();
+	public abstract int asCharacter();
 
 	/**
 	* Returns the token value as a string.
