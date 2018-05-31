@@ -35,9 +35,7 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	@Override
 	public void process(final int[] charRange, final CharResult result) throws MixException {
 		//System.out.println("RANGE="+Arrays.toString(charRange));	
-		final boolean zipable = IntStream.range(0, charRange.length)
-				.allMatch(index -> charRange[index] != -1);
-		if (zipable) {			
+		if (IntStream.range(0, charRange.length).allMatch(index -> charRange[index] != -1)) {			
 			final int len = charRange.length + (charRange.length - 1) * sep.length();
 			final int[] array = new int[len];
 			int index = 0;

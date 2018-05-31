@@ -4,7 +4,7 @@ import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -45,26 +45,20 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {				
 		//System.out.println("LINES="+lineRange.toString());		
 		//System.out.println("READ="+result.getLineReadingRange().toString());			
-		final List<List<String>> lineCellsRange = getLineCellsRange(lineRange);
-		if (linesJoinable(lineCellsRange)) {				
+		final List<List<String>> lineCellsRange = lineRange.stream()
+				.map(line -> Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())))
+				.collect(Collectors.toList());
+		if (IntStream.range(0, lineCellsRange.size())
+				.allMatch(index -> lineCellsRange.get(index).size() >= getJoinedColumn(index))) {				
 			if (linesJoined(lineCellsRange)) {					
 				joinLines(lineCellsRange, result);					
 				//System.out.println("JOINED="+result.getResult());				
 			} else {										
 				setLineReadingPreservation(lineCellsRange, result);
 			}
-			for (int i=0; i < lineRange.size(); i++) {
-				result.setRangeLine(i, lineRange.get(i));
-			}
+			IntStream.range(0, lineRange.size())
+				.forEach(index -> result.setRangeLine(index, lineRange.get(index)));			
 		}		
-	}
-	
-	private List<List<String>> getLineCellsRange(final List<String> lineRange) {
-		final List<List<String>> lineCellsRange = new ArrayList<List<String>>();
-		for (String line : lineRange) {
-			lineCellsRange.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())));
-		}
-		return lineCellsRange;
 	}
 	
 	private int getJoinedColumn(int index) {
@@ -75,11 +69,6 @@ public class DefaultLineJoining extends AbstractLineOperation {
 		} else {
 			return JoinOperation.DEFAULT_JOIN_COLUMN.getValue().asInt();
 		}
-	}
-	
-	private boolean linesJoinable(final List<List<String>> lineCellsRange) {		
-		return IntStream.range(0, lineCellsRange.size())
-			.allMatch(index -> lineCellsRange.get(index).size() >= getJoinedColumn(index));
 	}
 	
 	private boolean linesJoined(final List<List<String>> lineCellsRange) {		
@@ -98,25 +87,27 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	}
 	
 	private void setLineReadingPreservation(final List<List<String>> lineCellsRange, final LineResult result) {
-		List<String> cellRange = new ArrayList<String>();
-		String greaterCell = null;		
-		for (int i=0; i < lineCellsRange.size(); i++) {
-			final List<String> lineCells = lineCellsRange.get(i);
-			final String cell = lineCells.get(getJoinedColumn(i) - 1);
+		final List<String> cellRange = IntStream.range(0, lineCellsRange.size())
+				.mapToObj(index -> lineCellsRange.get(index).get(getJoinedColumn(index) - 1))
+				.collect(Collectors.toList());
+		final String greaterCell = searchGreaterCell(lineCellsRange);
+		IntStream.range(0, cellRange.size())
+				.filter(index -> cellRange.get(index).equals(greaterCell))
+				.forEach(index -> result.setRangeLineReadingStatus(index, false));
+	}
+
+	private String searchGreaterCell(final List<List<String>> lineCellsRange) {
+		String greaterCell = null;
+		for (int i=0; i < lineCellsRange.size(); i++) {			
+			final String cell = lineCellsRange.get(i).get(getJoinedColumn(i) - 1);
 			if (greaterCell == null) {
 				greaterCell = cell;
 			}
 			if (cell.compareTo(greaterCell) > 0) {
 				greaterCell = cell;
 			}
-			cellRange.add(cell);			
-		}		
-		for (int i=0; i < cellRange.size(); i++) {
-			final String cell = cellRange.get(i);
-			if (cell.equals(greaterCell)) {
-				result.setRangeLineReadingStatus(i, false);
-			}
-		}
+		}	
+		return greaterCell;
 	}
 
 	private void joinLines(final List<List<String>> lineCellsRange, final LineResult result) {
