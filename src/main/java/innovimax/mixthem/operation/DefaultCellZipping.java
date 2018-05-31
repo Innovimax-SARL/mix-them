@@ -5,7 +5,7 @@ import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 
 import java.util.Arrays;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -38,10 +38,9 @@ public class DefaultCellZipping extends DefaultLineZipping {
 	public void process(final List<String> lineRange, final LineResult result) throws MixException {
 		//System.out.println("RANGE="+lineRange.toString());
 		StringBuilder zip = new StringBuilder();
-		final List<Iterator<String>> cellIterators = new ArrayList<Iterator<String>>();
-		for (String line : lineRange) {
-			cellIterators.add(Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator());
-		}				
+		final List<Iterator<String>> cellIterators = lineRange.stream()
+			.map(line -> Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator())
+			.collect(Collectors.toList());
 		while (cellIterators.stream().allMatch(iterator -> iterator.hasNext())) {
 			if (zip.length() > 0) {
 				zip.append(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
