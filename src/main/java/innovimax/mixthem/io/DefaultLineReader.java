@@ -38,6 +38,16 @@ public class DefaultLineReader implements ILineInput {
 	}
 
 	@Override
+	public boolean hasMoreTokens() throws IOException {
+		return this.reader.ready();
+	}
+	
+	@Override
+	public Token nextToken() throws IOException {
+		return Token.createLineToken(hasMoreTokens() ? this.reader.readLine() : null);		
+	}
+
+	@Override
 	public void close() throws IOException {
 		this.reader.close();
 	}

@@ -43,6 +43,16 @@ public class DefaultCharReader implements ICharInput {
 	}
 
 	@Override
+	public boolean hasMoreTokens() throws IOException {
+		return this.reader.ready();
+	}
+	
+	@Override
+	public Token nextToken() throws IOException {
+		return Token.createCharToken(hasMoreTokens() ? this.reader.read() : -1);		
+	}
+
+	@Override
 	public void close() throws IOException {
 		this.reader.close();
 	}

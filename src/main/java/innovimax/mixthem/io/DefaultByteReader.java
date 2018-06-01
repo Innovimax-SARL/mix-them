@@ -43,6 +43,16 @@ public class DefaultByteReader implements IByteInput {
 	}
 
 	@Override
+	public boolean hasMoreTokens() throws IOException {
+		return this.reader.available() > 0;
+	}
+	
+	@Override
+	public Token nextToken() throws IOException {
+		return Token.createByteToken(hasMoreTokens() ? (byte) this.reader.read() : (byte) -1);
+	}
+
+	@Override
 	public void close() throws IOException {
 		this.reader.close();
 	}
