@@ -10,7 +10,7 @@ import java.io.Reader;
 */
 public abstract class Token {
 	
-	private static class ByteToken extends InputToken {
+	private static class ByteToken extends Token {
 		private final byte b;
 		private ByteToken(final byte b) {
 			this.b = b;
@@ -37,7 +37,7 @@ public abstract class Token {
 		}
 	}
 	
-	private static class CharToken extends InputToken {
+	private static class CharToken extends Token {
 		private final int c;
 		private CharToken(final int c) {
 			this.c = c;
@@ -64,7 +64,7 @@ public abstract class Token {
 		}
 	}
 
-	private static class LineToken extends InputToken {
+	private static class LineToken extends Token {
 		private final String line;
 		private LineToken(final String line) {
 			this.line = line;
@@ -91,7 +91,7 @@ public abstract class Token {
 		}
 	}
 
-	private static class FileByteToken extends InputToken {
+	private static class FileByteToken extends Token {
 		private final InputStream file;
 		private FileByteToken(final InputStream file) {
 			this.file = file;
@@ -118,7 +118,7 @@ public abstract class Token {
 		}
 	}
 
-	private static class FileCharToken extends InputToken {
+	private static class FileCharToken extends Token {
 		private final Reader file;
 		private FileCharToken(final Reader file) {
 			this.file = file;
