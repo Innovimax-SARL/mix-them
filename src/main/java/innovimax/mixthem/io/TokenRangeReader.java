@@ -15,7 +15,6 @@ import java.util.stream.IntStream;
 */
 public class TokenRangeReader implements ITokenRange {
 
-	private final TokenType tokenType;
 	private final List<IToken> readers;
 	
 	/**
@@ -26,12 +25,11 @@ public class TokenRangeReader implements ITokenRange {
 	* @see innovimax.mixthem.io.InputResource
 	*/
 	public TokenRangeReader(final List<InputResource> inputs, final Set<Integer> selection, final TokenType tokenType) {
-		this.tokenType = tokenType;
 		this.readers = IntStream.rangeClosed(1, inputs.size())
 			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
 			.mapToObj(index -> inputs.get(index-1))
 			.map(StreamUtils.apply(input -> {
-				switch(this.tokenType) {
+				switch(tokenType) {
 					case BYTE: return new DefaultByteReader(input);
 					case CHAR: return new DefaultCharReader(input);
 					case LINE: return new DefaultLineReader(input);
@@ -44,48 +42,17 @@ public class TokenRangeReader implements ITokenRange {
 	}
 
 	@Override
-	public boolean hasMoreTokens() {
-		//TODO: remove switch !!!
-		//	see below...
+	public boolean hasMoreTokens() {		
 		return this.readers.stream()
-			.anyMatch(StreamUtils.test(reader -> {
-				switch(this.tokenType) {
-					case BYTE: return ((IByteInput) reader).hasByte();
-					case CHAR: return ((ICharInput) reader).hasCharacter();
-					case LINE: return ((ILineInput) reader).hasLine();
-					case FILEBYTE: /*((IFileInput) reader).hasFile()*/ throw new RuntimeException("TODO");
-					case FILECHAR: /*((IFileInput) reader).hasFile()*/ throw new RuntimeException("TODO");
-					default: throw new UnsupportedOperationException("Token not expected: " + tokenType.getName());
-				}
-			}));
+			.anyMatch(StreamUtils.test(reader -> reader.hasMoreTokens()));
 	}
 
 	@Override
 	public List<Token> nextTokenRange(List<Boolean> readingRange) {
-		//TODO: remove switch !!!
-		//	replace nextByte, nextChar, nextLine by nextToken
-		//	add hasMoreTokens, nextToken in ITokenInput
-		//	remove IByteInput, ICharInput, ILineInput
-		//	DefaultByteReader, DefaultCharReader, DefaultLineReader directly implements ITokenInput
-		switch(this.tokenType) {
-			case BYTE: return readers.stream()
-					.map(StreamUtils.apply(reader -> ((IByteInput) reader).nextByte()))
-					.map(b -> Token.createByteToken(b))
-					.collect(Collectors.toList());
-			case CHAR: return readers.stream()
-					.map(StreamUtils.apply(reader -> ((ICharInput) reader).nextCharacter()))
-					.map(c -> Token.createCharToken(c))
-					.collect(Collectors.toList());
-			case LINE: return IntStream.range(0, readers.size())
-					.mapToObj(StreamUtils.applyToInt(index -> 
-						readingRange.get(index).booleanValue() ? 
-						((ILineInput) readers.get(index)).nextLine() : null))
-					.map(line -> Token.createLineToken(line))
-					.collect(Collectors.toList());
-			case FILEBYTE: /*((IFileInput) reader).hasFile()*/ throw new RuntimeException("TODO");
-			case FILECHAR: /*((IFileInput) reader).hasFile()*/ throw new RuntimeException("TODO");
-			default: throw new UnsupportedOperationException("Token not expected: " + tokenType.getName());
-		}
+		return IntStream.range(0, readers.size())
+			.mapToObj(StreamUtils.applyToInt(index -> 
+				readingRange.get(index).booleanValue() ? readers.get(index).nextToken() : null))
+			.collect(Collectors.toList());
 	}
 	
 	@Override
