@@ -61,7 +61,7 @@ public class TokenRangeReader implements ITokenRange {
 	}
 
 	@Override
-	public List<InputToken> nextTokenRange(List<Boolean> readingRange) {
+	public List<Token> nextTokenRange(List<Boolean> readingRange) {
 		//TODO: remove switch !!!
 		//	replace nextByte, nextChar, nextLine by nextToken
 		//	add hasMoreTokens, nextToken in ITokenInput
@@ -70,17 +70,17 @@ public class TokenRangeReader implements ITokenRange {
 		switch(this.tokenType) {
 			case BYTE: return readers.stream()
 					.map(StreamUtils.apply(reader -> ((IByteInput) reader).nextByte()))
-					.map(b -> InputToken.createByteToken(b))
+					.map(b -> Token.createByteToken(b))
 					.collect(Collectors.toList());
 			case CHAR: return readers.stream()
 					.map(StreamUtils.apply(reader -> ((ICharInput) reader).nextCharacter()))
-					.map(c -> InputToken.createCharToken(c))
+					.map(c -> Token.createCharToken(c))
 					.collect(Collectors.toList());
 			case LINE: return IntStream.range(0, readers.size())
 					.mapToObj(StreamUtils.applyToInt(index -> 
 						readingRange.get(index).booleanValue() ? 
 						((ILineInput) readers.get(index)).nextLine() : null))
-					.map(line -> InputToken.createLineToken(line))
+					.map(line -> Token.createLineToken(line))
 					.collect(Collectors.toList());
 			case FILEBYTE: /*((IFileInput) reader).hasFile()*/ throw new RuntimeException("TODO");
 			case FILECHAR: /*((IFileInput) reader).hasFile()*/ throw new RuntimeException("TODO");
