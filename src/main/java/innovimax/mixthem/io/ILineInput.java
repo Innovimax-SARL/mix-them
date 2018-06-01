@@ -7,7 +7,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface ILineInput extends ITokenInput {
+public interface ILineInput extends IToken {
 	/**
 	* Returns true if there is more lines.
 	* @return Returns true if there is more lines
