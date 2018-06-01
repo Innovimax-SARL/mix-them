@@ -8,7 +8,7 @@ import java.io.Reader;
 * @author Innovimax
 * @version 1.0
 */
-public abstract class InputToken {
+public abstract class Token {
 	
 	private static class ByteToken extends InputToken {
 		private final byte b;
@@ -148,25 +148,25 @@ public abstract class InputToken {
 	/**
 	* private Constructor
 	*/ 	
-	public InputToken() {}
+	public Token() {}
 	
-	public static InputToken createByteToken(final byte b) {
+	public static Token createByteToken(final byte b) {
 		return new ByteToken(b);
 	}
 	
-	public static InputToken createCharToken(final int c) {
+	public static Token createCharToken(final int c) {
 		return new CharToken(c);
 	}
 	
-	public static InputToken createLineToken(final String line) {
+	public static Token createLineToken(final String line) {
 		return new LineToken(line);
 	}
 	
-	public static InputToken createFileByteToken(final InputStream file) {
+	public static Token createFileByteToken(final InputStream file) {
 		return new FileByteToken(file);
 	}
 
-	public static InputToken createFileCharToken(final Reader file) {
+	public static Token createFileCharToken(final Reader file) {
 		return new FileCharToken(file);
 	}
 
