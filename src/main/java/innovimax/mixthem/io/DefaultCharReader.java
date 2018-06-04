@@ -23,11 +23,13 @@ public class DefaultCharReader implements ICharInput {
 		this.reader = input.newBufferedReader();
 	}
 
+	// Will be deprecated in future version !!!
 	@Override
 	public boolean hasCharacter() throws IOException {
 		return this.reader.ready();
 	}
 
+	// Will be deprecated in future version !!!
 	@Override
 	public int nextCharacter() throws IOException {		
 		int c = -1;
@@ -37,6 +39,7 @@ public class DefaultCharReader implements ICharInput {
 		return c;
 	}
 
+	// Will be deprecated in future version !!!
 	@Override
 	public int nextCharacters(final char[] buffer, final int len) throws IOException {
 		return this.reader.read(buffer, 0, len);		

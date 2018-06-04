@@ -23,11 +23,13 @@ public class DefaultByteReader implements IByteInput {
 		this.reader = input.newBufferedInputStream();
 	}
 
-	@Override
+	// Will be deprecated in future version !!!
+	@Override	
 	public boolean hasByte() throws IOException {
 		return this.reader.available() > 0;
 	}
 
+	// Will be deprecated in future version !!!
 	@Override
 	public byte nextByte() throws IOException {		
 		byte b = -1;
@@ -37,6 +39,7 @@ public class DefaultByteReader implements IByteInput {
 		return b;
 	}
 
+	// Will be deprecated in future version !!!
 	@Override
 	public int nextBytes(final byte[] buffer, final int len) throws IOException {
 		return this.reader.read(buffer, 0, len);		
