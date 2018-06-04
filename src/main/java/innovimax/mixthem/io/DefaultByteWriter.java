@@ -24,15 +24,22 @@ public class DefaultByteWriter implements IByteOutput {
 		this.writer = new BufferedOutputStream(output);
 	}
 
+	// Will be deprecated in future version !!!
 	@Override
 	public void writeByte(final byte b) throws IOException {		
 		this.writer.write(b);
 	}
 
+	// Will be deprecated in future version !!!
 	@Override
 	public void writeBytes(final byte[] buffer, final int len) throws IOException {      
 		this.writer.write(buffer, 0, len);
 		this.writer.flush(); // WHY ?	
+	}
+
+	@Override
+	public void writeToken(Token token) throws IOException {		
+		this.writer.write(token.asByte());
 	}
 
 	@Override

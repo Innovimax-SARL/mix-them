@@ -14,13 +14,13 @@ public class TokenSerializer implements ISerialize {
 	* Constructor
 	* @param output The output stream for tokens to be written.	
 	* @param tokenType The output tokenization type
-	* @see innovimax.mixthem.io.InputResource
+	* @throws IOException - If an I/O error occurs
 	*/
-	public TokenSerializer(final OutputStream output, final TokenType tokenType) {		
+	public TokenSerializer(final OutputStream output, final TokenType tokenType) throws IOException {		
 		switch(tokenType) {
-			case BYTE: this.writer = new DefaultByteWriter(output);
-			case CHAR: this.writer = new DefaultCharWriter(output);
-			case LINE: this.writer = new DefaultLineWriter(output);
+			case BYTE: this.writer = new DefaultByteWriter(output); break;
+			case CHAR: this.writer = new DefaultCharWriter(output); break;
+			case LINE: this.writer = new DefaultLineWriter(output); break;
 			case FILEBYTE: /*this.writer = new DefaultFileByteWriter(output)*/ throw new RuntimeException("TODO");
 			case FILECHAR: /*this.writer = new DefaultByteCharWriter(output)*/ throw new RuntimeException("TODO");
 			default: throw new UnsupportedOperationException("Token not expected: " + tokenType.getName());
@@ -28,8 +28,8 @@ public class TokenSerializer implements ISerialize {
 	}
 
 	@Override
-	public void writeToken(IToken token) throws IOException {		
-		throw new RuntimeException("TODO");
+	public void writeToken(Token token) throws IOException {		
+		this.writer.writeToken(token);
 	}
 	
 	@Override
