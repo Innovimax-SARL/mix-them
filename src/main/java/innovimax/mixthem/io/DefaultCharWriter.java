@@ -39,7 +39,8 @@ public class DefaultCharWriter implements ICharOutput {
 	}
 
 	@Override
-	public void writeToken(Token token) throws IOException {		
+	public void writeToken(Token token) throws IOException {
+		//TODO: think about a bufferisation before writing
 		this.writer.write(token.asCharacter());
 	}
 
