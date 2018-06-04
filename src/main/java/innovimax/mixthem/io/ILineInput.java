@@ -3,11 +3,12 @@ package innovimax.mixthem.io;
 import java.io.IOException;
 
 /**
+* Will be deprecated in future version !!!
 * This interface provides for reading lines from an character-input.
 * @author Innovimax
 * @version 1.0
 */
-public interface ILineInput {
+public interface ILineInput extends IToken {
 	/**
 	* Returns true if there is more lines.
 	* @return Returns true if there is more lines
@@ -20,9 +21,4 @@ public interface ILineInput {
  	* @throws IOException - If an I/O error occurs
  	*/	
 	String nextLine() throws IOException;
-	/**
-	* Closes this input and releases any system resources associated with it.
-	* @throws IOException - If an I/O error occurs
-	*/
-	void close() throws IOException;
 }

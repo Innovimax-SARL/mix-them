@@ -23,11 +23,13 @@ public class DefaultLineReader implements ILineInput {
 		this.reader = input.newBufferedReader();
 	}
 	
+	// Will be deprecated in future version !!!
 	@Override
 	public boolean hasLine() throws IOException {
 		return this.reader.ready();
 	}
 
+	// Will be deprecated in future version !!!
 	@Override
 	public String nextLine() throws IOException {
 		String line = null;
@@ -35,6 +37,16 @@ public class DefaultLineReader implements ILineInput {
 			line = this.reader.readLine();
 		}
 		return line;
+	}
+
+	@Override
+	public boolean hasMoreTokens() throws IOException {
+		return this.reader.ready();
+	}
+	
+	@Override
+	public Token nextToken() throws IOException {
+		return Token.createLineToken(hasMoreTokens() ? this.reader.readLine() : null);		
 	}
 
 	@Override

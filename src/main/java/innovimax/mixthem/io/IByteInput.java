@@ -3,11 +3,12 @@ package innovimax.mixthem.io;
 import java.io.IOException;
 
 /**
+* Will be deprecated in future version !!!
 * This interface provides for reading bytes from an byte-input.
 * @author Innovimax
 * @version 1.0
 */
-public interface IByteInput {
+public interface IByteInput extends IToken {
     /**
 	* Returns true if there is more bytes.
 	* @return Returns true if there is more bytes
@@ -28,9 +29,4 @@ public interface IByteInput {
  	* @throws IOException - If an I/O error occurs
  	*/
 	int nextBytes(byte[] buffer, int len) throws IOException;
-	/**
-	* Closes this input and releases any system resources associated with it.
-	* @throws IOException - If an I/O error occurs
-	*/
-	void close() throws IOException;	
 }
