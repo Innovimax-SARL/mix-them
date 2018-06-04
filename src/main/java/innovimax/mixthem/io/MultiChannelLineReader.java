@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+// Will be deprecated in future version !!!
 public class MultiChannelLineReader implements IMultiChannelLineInput {
 	
 	private final List<ILineInput> readers;
