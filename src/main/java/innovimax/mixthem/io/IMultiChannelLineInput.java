@@ -3,6 +3,7 @@ package innovimax.mixthem.io;
 import java.util.List;
 
 /**
+* Will be deprecated in future version !!!
 * This interface provides for reading lines from a multi-channel line-input.
 * @author Innovimax
 * @version 1.0

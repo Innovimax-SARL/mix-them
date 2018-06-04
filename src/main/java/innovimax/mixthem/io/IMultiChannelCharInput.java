@@ -1,6 +1,7 @@
 package innovimax.mixthem.io;
 
 /**
+* Will be deprecated in future version !!!
 * This interface provides for reading bytes from a multi-channel char-input.
 * @author Innovimax
 * @version 1.0

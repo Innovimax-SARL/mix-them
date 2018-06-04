@@ -25,10 +25,16 @@ public class DefaultLineWriter implements ILineOutput {
 		this.writer = new BufferedWriter(new OutputStreamWriter(output));
 	}
 
+	// Will be deprecated in future version !!!
 	@Override
 	public void writeLine(final String line) throws IOException {
 		this.writer.write(line);
 		this.writer.newLine();
+	}
+
+	@Override
+	public void writeToken(Token token) throws IOException {		
+		this.writer.write(token.asString());
 	}
 
 	@Override

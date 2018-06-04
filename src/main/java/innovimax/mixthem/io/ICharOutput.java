@@ -3,11 +3,12 @@ package innovimax.mixthem.io;
 import java.io.IOException;
 
 /**
+* Will be deprecated in future version !!!
 * This interface provides for writing characters in an output stream.
 * @author Innovimax
 * @version 1.0
 */
-public interface ICharOutput {
+public interface ICharOutput extends ISerialize {
 	/**
  	* Writes a single character.
  	* @param c The character to be written
@@ -20,10 +21,5 @@ public interface ICharOutput {
  	* @param len Number of characters to write
  	* @throws IOException - If an I/O error occurs
  	*/	
-	void writeCharacters(char[] buffer, int len) throws IOException;	
-	/**
-	* Closes this output and releases any system resources associated with it.
- 	* @throws IOException - If an I/O error occurs	
-	*/
-	void close() throws IOException;		
+	void writeCharacters(char[] buffer, int len) throws IOException;			
 }

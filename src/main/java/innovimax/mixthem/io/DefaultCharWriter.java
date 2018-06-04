@@ -25,15 +25,23 @@ public class DefaultCharWriter implements ICharOutput {
 		this.writer = new BufferedWriter(new OutputStreamWriter(output));
 	}
 
+	// Will be deprecated in future version !!!
 	@Override
 	public void writeCharacter(final char c) throws IOException {		
 		this.writer.write(c);
 	}
 
+	// Will be deprecated in future version !!!
 	@Override
 	public void writeCharacters(final char[] buffer, final int len) throws IOException {      
 		this.writer.write(buffer, 0, len);
 		this.writer.flush(); // WHY ?	
+	}
+
+	@Override
+	public void writeToken(Token token) throws IOException {
+		//TODO: think about a bufferisation before writing
+		this.writer.write(token.asCharacter());
 	}
 
 	@Override
