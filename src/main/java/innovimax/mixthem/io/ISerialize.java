@@ -10,7 +10,7 @@ import java.io.IOException;
 public interface ISerialize {
 	/**
  	* Writes a token.
- 	* @param c The token to be written
+ 	* @param token The token to be written
  	* @throws IOException - If an I/O error occurs
  	*/	
 	void writeToken(IToken token) throws IOException;
