@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+* Will be deprecated in future version !!!
+* Some functions has been yet deprecated to avoid CPD failures
 * <p>Describes the result of a line operation on two or more files.</p>
 * @author Innovimax
 * @version 1.0
@@ -18,6 +20,7 @@ public class LineResult {
     /**
     * Creates a line result.    
     */
+    @Deprecated
     public LineResult(final int rangeSize) {        
         this.rangeSize = rangeSize;
         this.lineReadingRange = new ArrayList<Boolean>();
@@ -32,6 +35,7 @@ public class LineResult {
     /**
     * Reset the result (but keep last read lines).
     */
+    @Deprecated
     void reset() {
         this.result = null;
         for (int i=0; i < this.rangeSize; i++) {
@@ -49,6 +53,7 @@ public class LineResult {
     /**
     * Returns the result (maybe null).
     */
+    @Deprecated
     String getResult() {
         return this.result;
     }
@@ -56,6 +61,7 @@ public class LineResult {
     /**
     * Has a non null result ?
     */
+    @Deprecated
     boolean hasResult() {
         return this.result != null;
     }
@@ -63,6 +69,7 @@ public class LineResult {
     /**
     * Get last read line at specified position from current range.
     */
+    @Deprecated
     String getRangeLine(final int index) {
         return this.readLineRange.get(index);
     }
@@ -70,6 +77,7 @@ public class LineResult {
     /**
     * Set last read line at specified position in current range.
     */
+    @Deprecated
     void setRangeLine(final int index, final String line) {
         this.readLineRange.set(index, line);
     }
@@ -77,6 +85,7 @@ public class LineResult {
     /**
     * Set if next line reading is necessary at specified position of the current range.
     */
+    @Deprecated
     void setRangeLineReadingStatus(final int index, final boolean reading) {
         this.lineReadingRange.set(index, Boolean.valueOf(reading));
     }
@@ -84,6 +93,7 @@ public class LineResult {
     /**
     * Get next line reading range
     */
+    @Deprecated
     List<Boolean> getLineReadingRange() {
         return this.lineReadingRange;
     }

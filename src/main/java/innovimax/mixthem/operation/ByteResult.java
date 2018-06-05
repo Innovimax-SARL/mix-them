@@ -3,6 +3,7 @@ package innovimax.mixthem.operation;
 import java.util.stream.IntStream;
 
 /**
+* Will be deprecated in future version !!!
 * <p>Describes the result of a byte operation on two files.</p>
 * @author Innovimax
 * @version 1.0

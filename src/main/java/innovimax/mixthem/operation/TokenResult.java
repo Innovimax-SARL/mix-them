@@ -15,7 +15,7 @@ public class TokenResult {
     private final int rangeSize;
     private final List<Boolean> lineReadingRange;
     private final List<String> readLineRange;
-    private final List<Token> result;
+    private List<Token> result;
     
     /**
     * Creates a token result.    
