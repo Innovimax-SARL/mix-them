@@ -16,4 +16,10 @@ interface ITokenOperation extends IOperation {
 	* @see innovimax.mixthem.operation.TokenResult	
 	*/	
 	void process(List<Token> tokenRange, TokenResult result) throws MixException;
+	/**
+ 	* Is mixing operation is  possible on token range?
+	* @param tokenRange The range of tokens to mix		
+ 	* @return True if mixing operation is possible 	
+	*/	
+	boolean mixable(List<Token> tokenRange);
 }
