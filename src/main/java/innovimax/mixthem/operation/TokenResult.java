@@ -13,8 +13,8 @@ import java.util.List;
 public class TokenResult {
     
     private final int rangeSize;
-    private final List<Boolean> lineReadingRange;
-    private final List<String> readLineRange;
+    private final List<Boolean> readingRange;
+    private final List<Token> tokenRange;
     private List<Token> result;
     
     /**
@@ -22,11 +22,11 @@ public class TokenResult {
     */
     public TokenResult(final int rangeSize) {        
         this.rangeSize = rangeSize;
-        this.lineReadingRange = new ArrayList<Boolean>();
-        this.readLineRange = new ArrayList<String>();
+        this.readingRange = new ArrayList<Boolean>();
+        this.tokenRange = new ArrayList<Token>();
         for (int i=0; i < this.rangeSize; i++) {
-            this.lineReadingRange.add(Boolean.TRUE);
-            this.readLineRange.add(null);
+            this.readingRange.add(Boolean.TRUE);
+            this.tokenRange.add(null);
         }
         this.result = null;
     }
@@ -37,7 +37,7 @@ public class TokenResult {
     void reset() {
         this.result = null;
         for (int i=0; i < this.rangeSize; i++) {
-            this.lineReadingRange.set(i, Boolean.TRUE);            
+            this.readingRange.set(i, Boolean.TRUE);            
         }
     }
     
@@ -71,31 +71,31 @@ public class TokenResult {
     }
 
     /**
-    * Get last read line at specified position from current range.
+    * Get last read token at specified position from current range.
     */
-    String getRangeLine(final int index) {
-        return this.readLineRange.get(index);
+    Token getRangeToken(final int index) {
+        return this.tokenRange.get(index);
     }
 
     /**
     * Set last read line at specified position in current range.
     */
-    void setRangeLine(final int index, final String line) {
-        this.readLineRange.set(index, line);
+    void setRangeToken(final int index, final Token token) {
+        this.tokenRange.set(index, token);
     }
     
     /**
-    * Set if next line reading is necessary at specified position of the current range.
+    * Set if next reading is necessary at specified position of the current range.
     */
-    void setRangeLineReadingStatus(final int index, final boolean reading) {
-        this.lineReadingRange.set(index, Boolean.valueOf(reading));
+    void setRangeReading(final int index, final boolean reading) {
+        this.readingRange.set(index, Boolean.valueOf(reading));
     }
    
     /**
-    * Get next line reading range
+    * Get next reading range
     */
-    List<Boolean> getLineReadingRange() {
-        return this.lineReadingRange;
+    List<Boolean> getReadingRange() {
+        return this.readingRange;
     }
 
 }
