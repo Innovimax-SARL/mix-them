@@ -1,6 +1,5 @@
 package innovimax.mixthem.operation;
 
-//import innovimax.mixthem.arguments.TokenType;
 import innovimax.mixthem.utils.StreamUtils;
 
 import innovimax.mixthem.MixException;
@@ -51,18 +50,6 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 					.forEach(StreamUtils.consumeInt(i -> writer.writeCharacter((char) i)));
 			}			
 		}
-		/*final ITokenRange reader = new TokenRangeReader(inputs, this.selection, TokenType.CHAR);
-		final ISerialize writer = new TokenSerializer(output);
-		final TokenResult result = new TokenResult();
-		while (reader.hasMoreTokens()) {
-			result.reset();
-			final List<Token> tokenRange = reader.nextTokenRange();
-			process(tokenRange, result);
-			if (result.hasResult()) {
-				result.getResult()
-					.forEach(StreamUtils.consume(token -> writer.writeToken(token)));
-			}			
-		}*/
 		reader.close();
 		writer.close();
     	}
