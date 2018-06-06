@@ -5,6 +5,7 @@ import innovimax.mixthem.utils.StreamUtils;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
+import innovimax.mixthem.arguments.TokenType;
 import innovimax.mixthem.io.DefaultCharWriter;
 import innovimax.mixthem.io.ICharOutput;
 import innovimax.mixthem.io.IMultiChannelCharInput;
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+* Will be deprecated in future version !!!
 * <p>Abstract class for all character operation.</p>
 * @see ICharOperation
 * @author Innovimax
@@ -28,12 +30,13 @@ public abstract class AbstractCharOperation extends AbstractOperation implements
 	/**
 	* Constructor
 	* @param selection The file index selection (maybe empty)
+	* @param tokenType The input tokenization type
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractCharOperation(final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
-		super(selection, params);
+	public AbstractCharOperation(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+		super(selection, tokenType, params);
 	}
 
 	@Override

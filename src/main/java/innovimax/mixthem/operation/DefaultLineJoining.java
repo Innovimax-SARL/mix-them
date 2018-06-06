@@ -3,6 +3,7 @@ package innovimax.mixthem.operation;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
+import innovimax.mixthem.arguments.TokenType;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,8 +30,8 @@ public class DefaultLineJoining extends AbstractLineOperation {
 	* @see innovimax.mixthem.operation.RuleParam
 	* @see innovimax.mixthem.operation.ParamValue
 	*/
-	public DefaultLineJoining(final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
-		super(selection, params);		
+	public DefaultLineJoining(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+		super(selection, tokenType, params);		
 		if (this.params.containsKey(RuleParam.JOIN_COLS)) {
 			this.joinCols = this.params.get(RuleParam.JOIN_COLS).asIntArray();
 		} else {

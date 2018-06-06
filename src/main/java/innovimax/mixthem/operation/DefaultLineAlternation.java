@@ -3,6 +3,7 @@ package innovimax.mixthem.operation;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
+import innovimax.mixthem.arguments.TokenType;
 
 import java.util.List;
 import java.util.Map;
@@ -29,8 +30,8 @@ public class DefaultLineAlternation extends AbstractLineOperation {
 	* @see innovimax.mixthem.operation.RuleParam
 	* @see innovimax.mixthem.operation.ParamValue
 	*/
-	public DefaultLineAlternation(final AltMode mode, final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
-		super(selection, params);
+	public DefaultLineAlternation(final AltMode mode, final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+		super(selection, tokenType, params);
 		this.mode = mode;
 		this.channel = 0;
 		this.random = new Random(params.getOrDefault(RuleParam.RANDOM_SEED, AltOperation.DEFAULT_RANDOM_SEED.getValue()).asInt());

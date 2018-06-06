@@ -1,8 +1,9 @@
 package innovimax.mixthem.operation;
 
 import innovimax.mixthem.MixException;
-import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
+import innovimax.mixthem.arguments.RuleParam;
+import innovimax.mixthem.arguments.TokenType;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -27,8 +28,8 @@ public class DefaultCharZipping extends AbstractCharOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultCharZipping(final Set<Integer> selection, Map<RuleParam, ParamValue> params) {
-		super(selection, params);		
+	public DefaultCharZipping(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+		super(selection, tokenType, params);		
 		this.sep = params.getOrDefault(RuleParam.ZIP_SEP, ZipOperation.DEFAULT_ZIP_SEPARATOR.getValue()).asString();
 	}
 	

@@ -1,8 +1,9 @@
 package innovimax.mixthem.operation;
 
 import innovimax.mixthem.MixException;
-import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
+import innovimax.mixthem.arguments.RuleParam;
+import innovimax.mixthem.arguments.TokenType;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -30,8 +31,8 @@ public class DefaultByteAlternation extends AbstractByteOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultByteAlternation(final AltMode mode, final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
-		super(selection, params);
+	public DefaultByteAlternation(final AltMode mode, final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+		super(selection, tokenType, params);
 		this.mode = mode;
 		this.channel = 0;
 		this.random = new Random(params.getOrDefault(RuleParam.RANDOM_SEED, AltOperation.DEFAULT_RANDOM_SEED.getValue()).asInt());

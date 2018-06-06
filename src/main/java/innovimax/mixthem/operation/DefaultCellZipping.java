@@ -1,11 +1,11 @@
 package innovimax.mixthem.operation;
 
 import innovimax.mixthem.MixException;
-import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
+import innovimax.mixthem.arguments.RuleParam;
+import innovimax.mixthem.arguments.TokenType;
 
 import java.util.Arrays;
-//import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -30,8 +30,8 @@ public class DefaultCellZipping extends DefaultLineZipping {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public DefaultCellZipping(final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
-		super(selection, params);		
+	public DefaultCellZipping(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+		super(selection, tokenType, params);		
 	}
 	
 	@Override
