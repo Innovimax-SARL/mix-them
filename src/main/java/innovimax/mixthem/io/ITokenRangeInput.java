@@ -7,7 +7,7 @@ import java.util.List;
 * @author Innovimax
 * @version 1.0
 */
-public interface ITokenRange {
+public interface ITokenRangeInput {
     /**
 	* Returns true if there is more tokens in one of the channels.
 	* @return Returns true if there is more tokens in one of the channels
