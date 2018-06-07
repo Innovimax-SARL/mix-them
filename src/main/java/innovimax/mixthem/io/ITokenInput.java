@@ -7,7 +7,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface IToken {
+public interface ITokenInput {
 	/**
 	* Returns true if there is more tokens.
 	* @return Returns true if there is more tokens
