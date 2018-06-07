@@ -20,12 +20,12 @@ public class TokenRange implements ITokenRange {
 		return this.range.size();
 	}
 	
-	public IToken getToken(final int index) {
-		return this.range.get(index);
+	public IToken getToken(final int channel) {
+		return this.range.get(channel);
 	}
 	
-	public void setToken(final int index, final IToken token) {
-		this.range.set(index, token);
+	public void setToken(final int channel, final IToken token) {
+		this.range.set(channel, token);
 	}
 
 }
