@@ -6,7 +6,7 @@ import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
 import innovimax.mixthem.io.InputResource;
 import innovimax.mixthem.io.ITokenRange;
-import innovimax.mixthem.io.ISerialize;
+import innovimax.mixthem.io.ITokenOutput;
 import innovimax.mixthem.io.IToken;
 import innovimax.mixthem.io.TokenRangeReader;
 import innovimax.mixthem.io.TokenSerializer;
@@ -42,7 +42,7 @@ abstract class AbstractTokenOperation extends AbstractOperation implements IToke
 	@Override
 	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
 		final ITokenRange reader = new TokenRangeReader(inputs, this.selection, this.tokenType);
-		final ISerialize writer = new TokenSerializer(output, this.tokenType);
+		final ITokenOutput writer = new TokenSerializer(output, this.tokenType);
 		final TokenResult result = new TokenResult(inputs.size());		
 		while (reader.hasMoreTokens()) {
 			// read next token range depends on last result indicators

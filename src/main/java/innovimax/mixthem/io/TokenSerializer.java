@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 
-public class TokenSerializer implements ISerialize {
+public class TokenSerializer implements ITokenOutput {
 
-	private final ISerialize writer;
+	private final ITokenOutput writer;
 	
 	/**
 	* Constructor

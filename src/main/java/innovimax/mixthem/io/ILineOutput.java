@@ -8,7 +8,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface ILineOutput extends ISerialize {
+public interface ILineOutput extends ITokenOutput {
 	/**
  	* Writes a line of characters.
  	* @param line The line of characters to be written

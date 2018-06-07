@@ -8,7 +8,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface ICharOutput extends ISerialize {
+public interface ICharOutput extends ITokenOutput {
 	/**
  	* Writes a single character.
  	* @param c The character to be written

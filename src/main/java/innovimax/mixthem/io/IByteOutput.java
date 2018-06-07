@@ -8,7 +8,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface IByteOutput extends ISerialize {
+public interface IByteOutput extends ITokenOutput {
 	/**
  	* Writes a single byte.
  	* @param b The byte to be written
