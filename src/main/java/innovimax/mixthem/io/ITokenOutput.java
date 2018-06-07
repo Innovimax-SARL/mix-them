@@ -7,7 +7,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface ISerialize {
+public interface ITokenOutput {
 	/**
  	* Writes a token.
  	* @param token The token to be written
