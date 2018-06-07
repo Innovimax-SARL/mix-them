@@ -8,7 +8,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface ICharInput extends IToken {
+public interface ICharInput extends ITokenInput {
 	/**
 	* Returns true if there is more characters.
 	* @return Returns true if there is more characters

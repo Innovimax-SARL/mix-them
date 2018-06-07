@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 */
 public class TokenRangeReader implements ITokenRange {
 
-	private final List<IToken> readers;
+	private final List<ITokenInput> readers;
 	
 	/**
 	* Constructor

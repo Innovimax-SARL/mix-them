@@ -8,7 +8,7 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface IByteInput extends IToken {
+public interface IByteInput extends ITokenInput {
     /**
 	* Returns true if there is more bytes.
 	* @return Returns true if there is more bytes
