@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
-* This is the implementation of ITokenRange interface.
+* This is the implementation of ITokenRangeInput interface.
 * @author Innovimax
 * @version 1.0
 */
-public class TokenRangeReader implements ITokenRange {
+public class TokenRangeReader implements ITokenRangeInput {
 
 	private final List<ITokenInput> readers;
 	
