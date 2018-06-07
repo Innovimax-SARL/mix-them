@@ -14,11 +14,11 @@ public interface ITokenRangeInput {
 	*/
 	boolean hasMoreTokens();
 	/**
- 	* Reads next token range (one by channel, <code>null</code> if no more token in channel)
+ 	* Reads next token range (one token by channel, <code>null</code> if no more token in channel)
  	* @param readingRange indicates wich channel has to be effectivly read
  	* @return The list of tokens (may contains <code>null</code> values)
  	*/
-	List<IToken> nextTokenRange(List<Boolean> readingRange);
+	TokenRange nextTokenRange(List<Boolean> readingRange);
 	/**
 	* Closes this input channels and releases any system resources associated with them.
 	*/

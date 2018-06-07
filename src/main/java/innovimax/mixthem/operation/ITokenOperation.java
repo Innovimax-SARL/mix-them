@@ -2,9 +2,7 @@
 package innovimax.mixthem.operation;
 
 import innovimax.mixthem.MixException;
-import innovimax.mixthem.io.IToken;
-
-import java.util.List;
+import innovimax.mixthem.io.ITokenRange;
 
 interface ITokenOperation extends IOperation {
 	/**
@@ -15,11 +13,11 @@ interface ITokenOperation extends IOperation {
  	* @throws MixException - If an mixing error occurs
 	* @see innovimax.mixthem.operation.TokenResult	
 	*/	
-	void process(List<IToken> tokenRange, TokenResult result) throws MixException;
+	void process(ITokenRange tokenRange, TokenResult result) throws MixException;
 	/**
  	* Is mixing operation is  possible on token range?
 	* @param tokenRange The range of tokens to mix		
  	* @return True if mixing operation is possible 	
 	*/	
-	boolean mixable(List<IToken> tokenRange);
+	boolean mixable(ITokenRange tokenRange);
 }

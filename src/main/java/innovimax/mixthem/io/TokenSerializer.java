@@ -5,7 +5,12 @@ import innovimax.mixthem.arguments.TokenType;
 import java.io.IOException;
 import java.io.OutputStream;
 
-
+/**
+* This is the implementation of ITokenOutput interface.
+* @see ITokenOutput
+* @author Innovimax
+* @version 1.0
+*/
 public class TokenSerializer implements ITokenOutput {
 
 	private final ITokenOutput writer;

@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
 
 /**
 * This is the implementation of ITokenRangeInput interface.
+* @see ITokenRangeInput
 * @author Innovimax
 * @version 1.0
 */
@@ -48,11 +49,12 @@ public class TokenRangeReader implements ITokenRangeInput {
 	}
 
 	@Override
-	public List<IToken> nextTokenRange(List<Boolean> readingRange) {
-		return IntStream.range(0, readers.size())
+	public TokenRange nextTokenRange(List<Boolean> readingRange) {
+		final List<IToken> tokenRange = IntStream.range(0, readers.size())
 			.mapToObj(StreamUtils.applyToInt(index -> 
 				readingRange.get(index).booleanValue() ? readers.get(index).nextToken() : null))
 			.collect(Collectors.toList());
+		return new TokenRange(tokenRange);
 	}
 	
 	@Override

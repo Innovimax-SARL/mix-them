@@ -4,7 +4,8 @@ import java.io.InputStream;
 import java.io.Reader;
 
 /**
-* <p>This is the representation of an input token.</p>
+* This is the implementation of IToken interface.
+* @see IToken
 * @author Innovimax
 * @version 1.0
 */

@@ -5,9 +5,9 @@ import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
 import innovimax.mixthem.io.InputResource;
-import innovimax.mixthem.io.ITokenRangeInput;
 import innovimax.mixthem.io.ITokenOutput;
-import innovimax.mixthem.io.IToken;
+import innovimax.mixthem.io.ITokenRange;
+import innovimax.mixthem.io.ITokenRangeInput;
 import innovimax.mixthem.io.TokenRangeReader;
 import innovimax.mixthem.io.TokenSerializer;
 import innovimax.mixthem.utils.StreamUtils;
@@ -46,11 +46,11 @@ abstract class AbstractTokenOperation extends AbstractOperation implements IToke
 		final TokenResult result = new TokenResult(inputs.size());		
 		while (reader.hasMoreTokens()) {
 			// read next token range depends on last result indicators
-			final List<IToken> tokenRange = reader.nextTokenRange(result.getReadingRange());
+			final ITokenRange tokenRange = reader.nextTokenRange(result.getReadingRange());
 			// set range preserved lines from last result
 			IntStream.range(0, tokenRange.size())
 				.filter(index -> !result.getReadingRange().get(index).booleanValue())
-				.forEach(index -> tokenRange.set(index, result.getRangeToken(index)));
+				.forEach(index -> tokenRange.setToken(index, result.getRangeToken(index)));
 			result.reset();
 			if (mixable(tokenRange)) {
 				// process mixing
@@ -67,9 +67,9 @@ abstract class AbstractTokenOperation extends AbstractOperation implements IToke
     	}
 	
 	@Override
-	public boolean mixable(final List<IToken> tokenRange) {
+	public boolean mixable(final ITokenRange tokenRange) {
 		return IntStream.range(0, tokenRange.size())
-			.allMatch(index -> tokenRange.get(index) != null);
+			.allMatch(index -> tokenRange.getToken(index) != null);
 	}
 
 }
