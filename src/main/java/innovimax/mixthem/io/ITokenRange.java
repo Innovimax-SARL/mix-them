@@ -7,10 +7,10 @@ package innovimax.mixthem.io;
 */
 public interface ITokenRange {
     	/**
-	* Indicates the count of tokens.
-	* @return Returns the token count
+	* Indicates the count of tokens in the range.
+	* @return Returns the range size
 	*/
-	int countTokens();
+	int size();
 	/**
  	* Get a token at the given position.
  	* @param index The position of the token
