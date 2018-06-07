@@ -1,5 +1,6 @@
 package innovimax.mixthem.io;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +16,10 @@ public class TokenRange implements ITokenRange {
 	public TokenRange(List<IToken> range) {
 		this.range = range;
 	}
+
+	public TokenRange() {
+		this(new ArrayList<IToken>());
+	}
 	
 	public int size(){
 		return this.range.size();
@@ -26,6 +31,10 @@ public class TokenRange implements ITokenRange {
 	
 	public void setToken(final int channel, final IToken token) {
 		this.range.set(channel, token);
+	}
+
+	public void addToken(final IToken token) {
+		this.range.add(token);
 	}
 
 }

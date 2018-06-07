@@ -24,4 +24,9 @@ public interface ITokenRange {
  	* @param token The token
  	*/
 	void setToken(int channel, IToken token);
+	/**
+ 	* Add a token in the range. 	
+ 	* @param token The token
+ 	*/
+	void addToken(IToken token);
 }
