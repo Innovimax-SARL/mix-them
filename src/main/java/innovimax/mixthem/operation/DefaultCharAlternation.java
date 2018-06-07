@@ -4,6 +4,7 @@ import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
+import innovimax.mixthem.io.IToken;
 import innovimax.mixthem.io.Token;
 
 import java.util.List;
@@ -18,7 +19,6 @@ import java.util.Set;
 */
 public class DefaultCharAlternation extends AbstractTokenAlternation {
 
-	
 	/**
 	* Constructor
 	* @param mode The alternate mode to process
@@ -32,24 +32,7 @@ public class DefaultCharAlternation extends AbstractTokenAlternation {
 	}
 	
 	@Override
-	public void process(final List<Token> tokenRange, final TokenResult result) throws MixException {
-		/*final int[] array = new int[1];
-		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(charRange.length);
-		int c = charRange[channel];
-		//System.out.println("RANGE="+Arrays.toString(charRange)+" CHANNEL="+channel+" CHAR="+c);
-		if (c == -1) {					
-			channel = nextChannel(charRange, channel);
-			c = charRange[channel];
-			//System.out.println("NEW_CHANNEL="+channel+" CHAR="+c);
-		}
-		array[0] = c;
-		if (this.mode == AltMode.NORMAL) {
-			this.channel = channel + 1;
-			if (this.channel == charRange.length) {
-				this.channel = 0;
-			}		
-		}
-		result.setResult(Arrays.stream(array));*/
+	public void process(final List<IToken> tokenRange, final TokenResult result) throws MixException {
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(tokenRange.size());
 		int c = tokenRange.get(channel).asCharacter();
 		//System.out.println("RANGE="+tokenRange.toString()+" CHANNEL="+channel+" CHAR="+c);

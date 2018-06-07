@@ -51,7 +51,7 @@ public class DefaultCharReader implements ICharInput {
 	}
 	
 	@Override
-	public Token nextToken() throws IOException {
+	public IToken nextToken() throws IOException {
 		return Token.createCharToken(hasMoreTokens() ? this.reader.read() : -1);		
 	}
 

@@ -8,7 +8,7 @@ import java.io.Reader;
 * @author Innovimax
 * @version 1.0
 */
-public abstract class Token {
+public abstract class Token implements IToken {
 	
 	private static class ByteToken extends Token {
 		private final byte b;
@@ -170,60 +170,24 @@ public abstract class Token {
 	*/ 	
 	public Token() {}
 	
-	public static Token createByteToken(final byte b) {
+	public static IToken createByteToken(final byte b) {
 		return new ByteToken(b);
 	}
 	
-	public static Token createCharToken(final int c) {
+	public static IToken createCharToken(final int c) {
 		return new CharToken(c);
 	}
 	
-	public static Token createLineToken(final String line) {
+	public static IToken createLineToken(final String line) {
 		return new LineToken(line);
 	}
 	
-	public static Token createFileByteToken(final InputStream file) {
+	public static IToken createFileByteToken(final InputStream file) {
 		return new FileByteToken(file);
 	}
 
-	public static Token createFileCharToken(final Reader file) {
+	public static IToken createFileCharToken(final Reader file) {
 		return new FileCharToken(file);
 	}
 
-	/**
-	* Indicates if token is empty.
-	* @return True if token is empty
-	*/
-	public abstract boolean isEmpty();
-
-	/**
-	* Returns the token value as a byte.
-	* @return The token value as a byte
-	*/
-	public abstract byte asByte();
-
-	/**
-	* Returns the token value as a character.
-	* @return The token value as a character
-	*/
-	public abstract int asCharacter();
-
-	/**
-	* Returns the token value as a string.
-	* @return The token value as a string
-	*/
-	public abstract String asString();
-
-	/**
-	* Returns the parameter value as a file input stream.
-	* @return The parameter value as a file input stream
-	*/
-	public abstract InputStream asInputStream();
-	
-	/**
-	* Returns the parameter value as a file reader.
-	* @return The parameter value as a file reader
-	*/
-	public abstract Reader asReader();
-	
 }

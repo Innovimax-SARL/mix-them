@@ -19,7 +19,7 @@ public interface ITokenInput {
  	* @return The input token or null if no more tokens
  	* @throws IOException - If an I/O error occurs
  	*/
-	Token nextToken() throws IOException;
+	IToken nextToken() throws IOException;
 	/**
 	* Closes this input and releases any system resources associated with it.
 	* @throws IOException - If an I/O error occurs

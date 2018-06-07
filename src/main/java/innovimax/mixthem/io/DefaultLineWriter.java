@@ -33,7 +33,7 @@ public class DefaultLineWriter implements ILineOutput {
 	}
 
 	@Override
-	public void writeToken(Token token) throws IOException {		
+	public void writeToken(IToken token) throws IOException {		
 		this.writer.write(token.asString());
 	}
 

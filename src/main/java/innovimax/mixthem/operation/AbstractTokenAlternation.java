@@ -3,7 +3,7 @@ package innovimax.mixthem.operation;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
-import innovimax.mixthem.io.Token;
+import innovimax.mixthem.io.IToken;
 
 import java.util.List;
 import java.util.Map;
@@ -36,7 +36,7 @@ abstract class AbstractTokenAlternation extends AbstractTokenOperation {
 		this.random = new Random(params.getOrDefault(RuleParam.RANDOM_SEED, AltOperation.DEFAULT_RANDOM_SEED.getValue()).asInt());
 	}
 	
-	protected int nextChannel(List<Token> tokenRange, final int curChannel) {
+	protected int nextChannel(List<IToken> tokenRange, final int curChannel) {
 		int channel = curChannel+1;
 		while (channel != curChannel) {
 			if (channel < tokenRange.size()) {				

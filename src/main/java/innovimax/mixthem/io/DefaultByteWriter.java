@@ -38,7 +38,7 @@ public class DefaultByteWriter implements IByteOutput {
 	}
 
 	@Override
-	public void writeToken(Token token) throws IOException {
+	public void writeToken(IToken token) throws IOException {
 		//TODO: think about a bufferisation before writing
 		this.writer.write(token.asByte());
 	}

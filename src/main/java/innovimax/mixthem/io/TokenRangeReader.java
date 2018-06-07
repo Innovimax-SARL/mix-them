@@ -48,7 +48,7 @@ public class TokenRangeReader implements ITokenRange {
 	}
 
 	@Override
-	public List<Token> nextTokenRange(List<Boolean> readingRange) {
+	public List<IToken> nextTokenRange(List<Boolean> readingRange) {
 		return IntStream.range(0, readers.size())
 			.mapToObj(StreamUtils.applyToInt(index -> 
 				readingRange.get(index).booleanValue() ? readers.get(index).nextToken() : null))

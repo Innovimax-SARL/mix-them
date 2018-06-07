@@ -1,6 +1,6 @@
 package innovimax.mixthem.operation;
 
-import innovimax.mixthem.io.Token;
+import innovimax.mixthem.io.IToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,8 @@ public class TokenResult {
     
     private final int rangeSize;
     private final List<Boolean> readingRange;
-    private final List<Token> tokenRange;
-    private List<Token> result;
+    private final List<IToken> tokenRange;
+    private List<IToken> result;
     
     /**
     * Creates a token result.    
@@ -23,7 +23,7 @@ public class TokenResult {
     public TokenResult(final int rangeSize) {        
         this.rangeSize = rangeSize;
         this.readingRange = new ArrayList<Boolean>();
-        this.tokenRange = new ArrayList<Token>();
+        this.tokenRange = new ArrayList<IToken>();
         for (int i=0; i < this.rangeSize; i++) {
             this.readingRange.add(Boolean.TRUE);
             this.tokenRange.add(null);
@@ -44,22 +44,22 @@ public class TokenResult {
     /**
     * Set the result (maybe null).
     */
-    void setResult(final List<Token> tokens) {
+    void setResult(final List<IToken> tokens) {
         this.result = tokens;
     }
 
     /**
     * Set the result (maybe null).
     */
-    void setResult(final Token token) {
-        this.result = new ArrayList<Token>();
+    void setResult(final IToken token) {
+        this.result = new ArrayList<IToken>();
         this.result.add(token);
     }
 
     /**
     * Returns the result (maybe null).
     */
-    List<Token> getResult() {
+    List<IToken> getResult() {
         return this.result;
     }
 
@@ -73,14 +73,14 @@ public class TokenResult {
     /**
     * Get last read token at specified position from current range.
     */
-    Token getRangeToken(final int index) {
+    IToken getRangeToken(final int index) {
         return this.tokenRange.get(index);
     }
 
     /**
     * Set last read line at specified position in current range.
     */
-    void setRangeToken(final int index, final Token token) {
+    void setRangeToken(final int index, final IToken token) {
         this.tokenRange.set(index, token);
     }
     

@@ -28,7 +28,7 @@ public class TokenSerializer implements ISerialize {
 	}
 
 	@Override
-	public void writeToken(Token token) throws IOException {		
+	public void writeToken(IToken token) throws IOException {		
 		this.writer.writeToken(token);
 	}
 	

@@ -18,7 +18,7 @@ public interface ITokenRange {
  	* @param readingRange indicates wich channel has to be effectivly read
  	* @return The list of tokens (may contains <code>null</code> values)
  	*/
-	List<Token> nextTokenRange(List<Boolean> readingRange);
+	List<IToken> nextTokenRange(List<Boolean> readingRange);
 	/**
 	* Closes this input channels and releases any system resources associated with them.
 	*/

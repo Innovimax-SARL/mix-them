@@ -45,7 +45,7 @@ public class DefaultLineReader implements ILineInput {
 	}
 	
 	@Override
-	public Token nextToken() throws IOException {
+	public IToken nextToken() throws IOException {
 		return Token.createLineToken(hasMoreTokens() ? this.reader.readLine() : null);		
 	}
 
