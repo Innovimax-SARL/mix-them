@@ -12,7 +12,7 @@ import java.util.Set;
 * @author Innovimax
 * @version 1.0
 */
-public abstract class AbstractOperation {
+abstract class AbstractOperation {
 	
 	protected final Set<Integer> selection;
 	protected final TokenType tokenType;

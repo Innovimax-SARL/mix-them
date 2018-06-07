@@ -25,7 +25,7 @@ import java.util.stream.IntStream;
 * @author Innovimax
 * @version 1.0
 */
-public abstract class AbstractTokenOperation extends AbstractOperation implements ITokenOperation {
+abstract class AbstractTokenOperation extends AbstractOperation implements ITokenOperation {
 	
 	/**
 	* Constructor
