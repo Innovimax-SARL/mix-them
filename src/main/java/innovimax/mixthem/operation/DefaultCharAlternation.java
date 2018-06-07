@@ -4,24 +4,20 @@ import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
+import innovimax.mixthem.io.Token;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 /**
 * <p>Alternate two or more characters.</p>
 * <p>When a character is missing then next available character is selected.</p>
-* @see ICharOperation
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultCharAlternation extends AbstractCharOperation {
-	
-	private final AltMode mode;
-	private int channel;
-	private final Random random;
+public class DefaultCharAlternation extends AbstractTokenAlternation {
+
 	
 	/**
 	* Constructor
@@ -32,15 +28,12 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
 	public DefaultCharAlternation(final AltMode mode, final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
-		super(selection, tokenType, params);
-		this.mode = mode;
-		this.channel = 0;
-		this.random = new Random(params.getOrDefault(RuleParam.RANDOM_SEED, AltOperation.DEFAULT_RANDOM_SEED.getValue()).asInt());
+		super(mode, selection, tokenType, params);		
 	}
 	
 	@Override
-	public void process(final int[] charRange, final CharResult result) throws MixException {
-		final int[] array = new int[1];
+	public void process(final List<Token> tokenRange, final TokenResult result) throws MixException {
+		/*final int[] array = new int[1];
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(charRange.length);
 		int c = charRange[channel];
 		//System.out.println("RANGE="+Arrays.toString(charRange)+" CHANNEL="+channel+" CHAR="+c);
@@ -56,23 +49,22 @@ public class DefaultCharAlternation extends AbstractCharOperation {
 				this.channel = 0;
 			}		
 		}
-		result.setResult(Arrays.stream(array));
-	}
-	
-	private int nextChannel(final int[] charRange, final int curChannel) {
-		int channel = curChannel+1;
-		while (channel != curChannel) {
-			if (channel < charRange.length) {
-				final int c = charRange[channel];
-				if (c != -1) {
-					break;
-				}
-				channel++;
-			} else {
-				channel = 0;
-			}
+		result.setResult(Arrays.stream(array));*/
+		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(tokenRange.size());
+		int c = tokenRange.get(channel).asCharacter();
+		//System.out.println("RANGE="+tokenRange.toString()+" CHANNEL="+channel+" CHAR="+c);
+		if (c == -1) {					
+			channel = nextChannel(tokenRange, channel);
+			c = tokenRange.get(channel).asCharacter();
+			//System.out.println("NEW_CHANNEL="+channel+" CHAR="+c);
+		}		
+		if (this.mode == AltMode.NORMAL) {
+			this.channel = channel + 1;
+			if (this.channel == tokenRange.size()) {
+				this.channel = 0;
+			}		
 		}
-		return channel;
+		result.setResult(Token.createCharToken(c));
 	}
 
 }
