@@ -39,10 +39,9 @@ abstract class AbstractTokenAlternation extends AbstractTokenOperation {
 	protected int nextChannel(List<Token> tokenRange, final int curChannel) {
 		int channel = curChannel+1;
 		while (channel != curChannel) {
-			if (channel < tokenRange.size()) {
-				final byte b = tokenRange.get(channel).asByte();
-				if (b != -1) {
-					break;
+			if (channel < tokenRange.size()) {				
+				if (!tokenRange.get(channel).isEmpty()) {
+					break;				
 				}
 				channel++;
 			} else {

@@ -16,6 +16,10 @@ public abstract class Token {
 			this.b = b;
 		}
 		@Override
+		public boolean isEmpty() {
+			return this.b == -1;
+		}
+		@Override
 		public byte asByte() {
 			return this.b;
 		}
@@ -41,6 +45,10 @@ public abstract class Token {
 		private final int c;
 		private CharToken(final int c) {
 			this.c = c;
+		}
+		@Override
+		public boolean isEmpty() {
+			return this.c == -1;
 		}
 		@Override
 		public byte asByte() {
@@ -70,6 +78,10 @@ public abstract class Token {
 			this.line = line;
 		}
 		@Override
+		public boolean isEmpty() {
+			return this.line == null;
+		}
+		@Override
 		public byte asByte() {
 			throw new UnsupportedOperationException("LineToken does not have a byte representation");
 		}
@@ -97,6 +109,10 @@ public abstract class Token {
 			this.file = file;
 		}
 		@Override
+		public boolean isEmpty() {
+			return this.file == null;
+		}
+		@Override
 		public byte asByte() {
 			throw new UnsupportedOperationException("FileByteToken does not have a byte representation");
 		}
@@ -122,6 +138,10 @@ public abstract class Token {
 		private final Reader file;
 		private FileCharToken(final Reader file) {
 			this.file = file;
+		}
+		@Override
+		public boolean isEmpty() {
+			return this.file == null;
 		}
 		@Override
 		public byte asByte() {
@@ -169,6 +189,12 @@ public abstract class Token {
 	public static Token createFileCharToken(final Reader file) {
 		return new FileCharToken(file);
 	}
+
+	/**
+	* Indicates if token is empty.
+	* @return True if token is empty
+	*/
+	public abstract boolean isEmpty();
 
 	/**
 	* Returns the token value as a byte.
