@@ -52,6 +52,7 @@ abstract class AbstractTokenOperation extends AbstractOperation implements IToke
 				// process mixing
 				process(tokenRange, result);
 				// write mixing result if has one
+				//System.out.println("RESULT="+result.getResult().toString());
 				if (result.hasResult()) {
 					result.getResult()
 						.forEach(StreamUtils.consume(token -> writer.writeToken(token)));
