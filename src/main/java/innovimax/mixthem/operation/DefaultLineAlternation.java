@@ -61,7 +61,7 @@ public class DefaultLineAlternation extends AbstractTokenAlternation /*AbstractL
 		result.setResult(line);*/
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(tokenRange.size());
 		String line = tokenRange.getToken(channel).asString();
-		System.out.println("RANGE="+lineRange.toString());
+		System.out.println("RANGE="+tokenRange.toString());
 		System.out.println("CHANNEL="+channel+" LINE="+line);
 		if (line == null) {					
 			channel = nextChannel(tokenRange, channel);

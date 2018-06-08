@@ -20,6 +20,11 @@ public class TokenRange implements ITokenRange {
 	public TokenRange() {
 		this(new ArrayList<IToken>());
 	}
+
+	@Override
+	public String toString() {
+		return range.toString();
+	}
 	
 	public int size(){
 		return this.range.size();
