@@ -7,9 +7,7 @@ import innovimax.mixthem.arguments.TokenType;
 import innovimax.mixthem.io.ITokenRange;
 import innovimax.mixthem.io.Token;
 
-//import java.util.List;
 import java.util.Map;
-//import java.util.Random;
 import java.util.Set;
 
 /**
@@ -19,11 +17,7 @@ import java.util.Set;
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultLineAlternation extends AbstractTokenAlternation /*AbstractLineOperation*/ {
-
-	/*private final AltMode mode;
-	private int channel;
-	private final Random random;*/
+public class DefaultLineAlternation extends AbstractTokenAlternation  {
 
 	/**
 	* @param mode The alternate mode to process
@@ -37,7 +31,6 @@ public class DefaultLineAlternation extends AbstractTokenAlternation /*AbstractL
 	}	
 
 	@Override
-	/*public void process(final List<String> lineRange, final LineResult result) throws MixException {*/
 	public void process(final ITokenRange tokenRange, final ITokenResult result) throws MixException {
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(tokenRange.size());
 		String line = tokenRange.getToken(channel).asString();
@@ -55,11 +48,6 @@ public class DefaultLineAlternation extends AbstractTokenAlternation /*AbstractL
 			}		
 		}
 		result.setResult(Token.createLineToken(line));
-	}
-	
-	@Override
-	public boolean mixable(final ITokenRange tokenRange) {
-		return true;	
 	}
 
 }

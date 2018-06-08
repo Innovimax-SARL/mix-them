@@ -66,7 +66,7 @@ abstract class AbstractTokenOperation extends AbstractOperation implements IToke
 	@Override
 	public boolean mixable(final ITokenRange tokenRange) {
 		return IntStream.range(0, tokenRange.size())
-			.allMatch(index -> tokenRange.getToken(index) != null);
+			.allMatch(index -> !tokenRange.getToken(index).isEmpty());
 	}
 
 }

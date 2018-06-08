@@ -50,4 +50,9 @@ abstract class AbstractTokenAlternation extends AbstractTokenOperation {
 		return channel;
 	}
 
+	@Override
+	public boolean mixable(final ITokenRange tokenRange) {
+		return true;	
+	}
+
 }
