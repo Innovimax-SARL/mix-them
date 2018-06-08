@@ -31,7 +31,7 @@ public class DefaultCharAlternation extends AbstractTokenAlternation {
 	}
 	
 	@Override
-	public void process(final ITokenRange tokenRange, final TokenResult result) throws MixException {
+	public void process(final ITokenRange tokenRange, final ITokenResult result) throws MixException {
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(tokenRange.size());
 		int c = tokenRange.getToken(channel).asCharacter();
 		//System.out.println("RANGE="+tokenRange.toString()+" CHANNEL="+channel+" CHAR="+c);

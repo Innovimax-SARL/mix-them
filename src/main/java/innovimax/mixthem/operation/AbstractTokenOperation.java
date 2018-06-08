@@ -43,14 +43,10 @@ abstract class AbstractTokenOperation extends AbstractOperation implements IToke
 	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
 		final ITokenRangeInput reader = new TokenRangeReader(inputs, this.selection, this.tokenType);
 		final ITokenOutput writer = new TokenSerializer(output, this.tokenType);
-		final TokenResult result = new TokenResult(inputs.size());		
+		final ITokenResult result = new TokenResult(inputs.size());		
 		while (reader.hasMoreTokens()) {
 			// read next token range (depends on last result indicators)
 			final ITokenRange tokenRange = reader.nextTokenRange(result.getTokenStatusRange());
-			// set range preserved lines from last result
-			/*IntStream.range(0, tokenRange.size())
-				.filter(index -> !result.getTokenStatusRange().readingToken(index))
-				.forEach(index -> tokenRange.setToken(index, result.getRangeToken(index)));*/
 			result.reset();
 			if (mixable(tokenRange)) {
 				// process mixing

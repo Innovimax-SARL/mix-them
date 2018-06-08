@@ -31,7 +31,7 @@ public class DefaultByteAlternation extends AbstractTokenAlternation {
 	}
 
 	@Override
-	public void process(ITokenRange tokenRange, TokenResult result) throws MixException {		
+	public void process(ITokenRange tokenRange, ITokenResult result) throws MixException {		
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(tokenRange.size());
 		byte b = tokenRange.getToken(channel).asByte();
 		//System.out.println("RANGE="+tokenRange.toString()+" CHANNEL="+channel+" BYTE="+b);
