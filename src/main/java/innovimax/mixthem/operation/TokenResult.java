@@ -1,9 +1,14 @@
 package innovimax.mixthem.operation;
 
 import innovimax.mixthem.io.IToken;
+import innovimax.mixthem.io.ITokenRange;
+import innovimax.mixthem.io.ITokenStatusRange;
+import innovimax.mixthem.io.TokenRange;
+import innovimax.mixthem.io.TokenStatusRange;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
 * <p>Describes the result of an operation on two or more files.</p>
@@ -13,8 +18,8 @@ import java.util.List;
 public class TokenResult {
     
     private final int rangeSize;
-    private final List<Boolean> readingRange;
-    private final List<IToken> tokenRange;
+    private final ITokenStatusRange tokenStatusRange;
+    private final ITokenRange tokenRange;
     private List<IToken> result;
     
     /**
@@ -22,12 +27,13 @@ public class TokenResult {
     */
     public TokenResult(final int rangeSize) {        
         this.rangeSize = rangeSize;
-        this.readingRange = new ArrayList<Boolean>();
-        this.tokenRange = new ArrayList<IToken>();
-        for (int i=0; i < this.rangeSize; i++) {
-            this.readingRange.add(Boolean.TRUE);
-            this.tokenRange.add(null);
-        }
+        this.tokenStatusRange = new TokenStatusRange();
+        this.tokenRange = new TokenRange();
+        IntStream.range(0, this.rangeSize)
+            .forEach(channel -> {
+                this.tokenStatusRange.addTokenStatus(true);
+                this.tokenRange.addToken(null);    
+            });      
         this.result = null;
     }
 
@@ -36,9 +42,8 @@ public class TokenResult {
     */
     void reset() {
         this.result = null;
-        for (int i=0; i < this.rangeSize; i++) {
-            this.readingRange.set(i, Boolean.TRUE);            
-        }
+        IntStream.range(0, this.rangeSize)
+            .forEach(channel -> this.tokenStatusRange.setTokenStatus(channel, true));       
     }
     
     /**
@@ -71,31 +76,31 @@ public class TokenResult {
     }
 
     /**
-    * Get last read token at specified position from current range.
+    * Get last read token at specified channel from current range.
     */
-    IToken getRangeToken(final int index) {
-        return this.tokenRange.get(index);
+    IToken getRangeToken(final int channel) {
+        return this.tokenRange.getToken(channel);
     }
 
     /**
-    * Set last read line at specified position in current range.
+    * Set last read line at specified channel in current range.
     */
-    void setRangeToken(final int index, final IToken token) {
-        this.tokenRange.set(index, token);
+    void setRangeToken(final int channel, final IToken token) {
+        this.tokenRange.setToken(channel, token);
     }
     
     /**
-    * Set if next reading is necessary at specified position of the current range.
+    * Set if next reading is necessary at specified channel of the current range.
     */
-    void setRangeReading(final int index, final boolean reading) {
-        this.readingRange.set(index, Boolean.valueOf(reading));
+    void setRangeTokenStatus(final int channel, final boolean reading) {
+        this.tokenStatusRange.setTokenStatus(channel, reading);
     }
    
     /**
     * Get next reading range
     */
-    List<Boolean> getReadingRange() {
-        return this.readingRange;
+    ITokenStatusRange getTokenStatusRange() {
+        return this.tokenStatusRange;
     }
 
 }
