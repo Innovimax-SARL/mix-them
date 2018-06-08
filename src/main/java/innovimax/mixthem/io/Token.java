@@ -17,6 +17,10 @@ public abstract class Token implements IToken {
 			this.b = b;
 		}
 		@Override
+		public String toString() {
+			return Byte.toString(this.b);
+		}
+		@Override
 		public boolean isEmpty() {
 			return this.b == -1;
 		}
@@ -48,6 +52,10 @@ public abstract class Token implements IToken {
 			this.c = c;
 		}
 		@Override
+		public String toString() {
+			return Integer.toString(this.c);
+		}
+		@Override
 		public boolean isEmpty() {
 			return this.c == -1;
 		}
@@ -77,6 +85,10 @@ public abstract class Token implements IToken {
 		private final String line;
 		private LineToken(final String line) {
 			this.line = line;
+		}
+		@Override
+		public String toString() {
+			return this.line;
 		}
 		@Override
 		public boolean isEmpty() {
