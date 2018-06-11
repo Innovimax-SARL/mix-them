@@ -36,8 +36,8 @@ public class DefaultLineZipping extends AbstractTokenZipping {
 		//System.out.println("RANGE="+tokenRange.toString())
 		final String zip = IntStream.range(0, tokenRange.size())
 				.mapToObj(channel -> channel > 0 ? 
-						Stream.of(this.sep, tokenRange.getToken(channel).asString()) :
-						Stream.of(tokenRange.getToken(channel).asString()))
+					Stream.of(this.sep, tokenRange.getToken(channel).asString()) :
+					Stream.of(tokenRange.getToken(channel).asString()))
 				.flatMap(stream -> stream)
 				.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
             			.toString();

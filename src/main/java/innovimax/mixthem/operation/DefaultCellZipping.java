@@ -55,8 +55,8 @@ public class DefaultCellZipping extends AbstractTokenZipping {
 			//System.out.println("CELLS="+cellRange);
 			IntStream.range(0, cellRange.size())
 				.mapToObj(index -> index > 0 ? 
-						Stream.of(this.sep, cellRange.get(index)) : 
-						Stream.of(cellRange.get(index)))					
+					Stream.of(this.sep, cellRange.get(index)) : 
+					Stream.of(cellRange.get(index)))					
 				.flatMap(stream -> stream)
 				.forEach(token -> zip.append(token));
 		}			
