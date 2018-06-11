@@ -4,8 +4,9 @@ import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
+import innovimax.mixthem.io.ITokenRange;
+import innovimax.mixthem.io.Token;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -13,13 +14,11 @@ import java.util.stream.Stream;
 
 /**
 * <p>Zips two or more lines.</p>
-* @see ILineOperation
+* <p>Zipping stops when a line is missing.</p>
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultLineZipping extends AbstractLineOperation {
-	
-	protected final String sep;
+public class DefaultLineZipping extends AbstractTokenZipping {
 	
 	/**
 	* Constructor
@@ -29,21 +28,21 @@ public class DefaultLineZipping extends AbstractLineOperation {
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
 	public DefaultLineZipping(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
-		super(selection, tokenType, params);
-		this.sep = params.getOrDefault(RuleParam.ZIP_SEP, ZipOperation.DEFAULT_ZIP_SEPARATOR.getValue()).asString();	
+		super(selection, tokenType, params);		
 	}
 	
-	@Override
-	public void process(final List<String> lineRange, final LineResult result) throws MixException {
-		//System.out.println("RANGE="+lineRange.toString())
-		final String zip = IntStream.range(0, lineRange.size())
-				.mapToObj(index -> index > 0 ? 
-						Stream.of(this.sep, lineRange.get(index)) :
-						Stream.of(lineRange.get(index)))					
+	@Override	
+	public void process(final ITokenRange tokenRange, final ITokenResult result) throws MixException {
+		//System.out.println("RANGE="+tokenRange.toString())
+		final String zip = IntStream.range(0, tokenRange.size())
+				.mapToObj(channel -> channel > 0 ? 
+						Stream.of(this.sep, tokenRange.getToken(channel).asString()) :
+						Stream.of(tokenRange.getToken(channel).asString()))
 				.flatMap(stream -> stream)
 				.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
             			.toString();
-		result.setResult(zip);
+		result.setResult(Token.createLineToken(zip));
 	}
+
 
 }

@@ -4,6 +4,8 @@ import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
+import innovimax.mixthem.io.ITokenRange;
+import innovimax.mixthem.io.Token;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -16,12 +18,11 @@ import java.util.stream.Stream;
 
 /**
 * <p>Zips two or more lines cell by cell.</p>
-* <p>Zipping doesn't operate when a cell is missing in one oh the lines.</p>
-* @see ILineOperation
+* <p>Zipping doesn't operate when a cell is missing in one of the lines.</p>
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultCellZipping extends DefaultLineZipping {
+public class DefaultCellZipping extends AbstractTokenZipping {
 	
 	/**
 	* Constructor	
@@ -35,11 +36,14 @@ public class DefaultCellZipping extends DefaultLineZipping {
 	}
 	
 	@Override
-	public void process(final List<String> lineRange, final LineResult result) throws MixException {
-		//System.out.println("RANGE="+lineRange.toString());
+	public void process(final ITokenRange tokenRange, final ITokenResult result) throws MixException {
+		//System.out.println("RANGE="+tokenRange.toString());
 		StringBuilder zip = new StringBuilder();
-		final List<Iterator<String>> cellIterators = lineRange.stream()
-			.map(line -> Arrays.asList(line.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString())).iterator())
+		final List<Iterator<String>> cellIterators = tokenRange.asList().stream()
+			.map(token -> Arrays.asList(
+				token.asString()
+					.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString()))
+					.iterator())
 			.collect(Collectors.toList());
 		while (cellIterators.stream().allMatch(iterator -> iterator.hasNext())) {
 			if (zip.length() > 0) {
@@ -56,7 +60,7 @@ public class DefaultCellZipping extends DefaultLineZipping {
 				.flatMap(stream -> stream)
 				.forEach(token -> zip.append(token));
 		}			
-		result.setResult(zip.toString());
+		result.setResult(Token.createLineToken(zip.toString()));
 	}
 	
 }

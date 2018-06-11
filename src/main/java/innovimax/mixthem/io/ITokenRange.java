@@ -1,5 +1,7 @@
 package innovimax.mixthem.io;
 
+import java.util.List;
+
 /**
 * <p>This interface provides for token range representation.</p>
 * <p>A range represents the list of tokens read for each input channel.</p>
@@ -12,6 +14,11 @@ public interface ITokenRange {
 	* @return Returns the range size
 	*/
 	int size();
+	/**
+ 	* Get the list of tokens. 	
+ 	* @return The list of tokens
+ 	*/
+	List<IToken> asList();
 	/**
  	* Get a token at the given position.
  	* @param channel The channel of the token

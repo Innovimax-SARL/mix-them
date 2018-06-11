@@ -29,6 +29,10 @@ public class TokenRange implements ITokenRange {
 	public int size(){
 		return this.range.size();
 	}
+
+	public List<IToken> asList() {
+		return this.range;
+	}
 	
 	public IToken getToken(final int channel) {
 		return this.range.get(channel);

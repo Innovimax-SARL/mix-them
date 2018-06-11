@@ -17,7 +17,6 @@ import java.util.stream.IntStream;
 /**
 * <p>Zips two or more characters.</p>
 * <p>Zipping stops when a character is missing.</p>
-* @see CharOperation
 * @author Innovimax
 * @version 1.0
 */
