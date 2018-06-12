@@ -24,19 +24,6 @@ public class DefaultByteWriter implements IByteOutput {
 		this.writer = new BufferedOutputStream(output);
 	}
 
-	// Will be deprecated in future version !!!
-	@Override
-	public void writeByte(final byte b) throws IOException {		
-		this.writer.write(b);
-	}
-
-	// Will be deprecated in future version !!!
-	@Override
-	public void writeBytes(final byte[] buffer, final int len) throws IOException {      
-		this.writer.write(buffer, 0, len);
-		this.writer.flush(); // WHY ?	
-	}
-
 	@Override
 	public void writeToken(IToken token) throws IOException {
 		//TODO: think about a bufferisation before writing
@@ -46,6 +33,12 @@ public class DefaultByteWriter implements IByteOutput {
 	@Override
 	public void close() throws IOException {
 		this.writer.close();
+	}
+
+	@Override
+	public void writeBytes(final byte[] buffer, final int len) throws IOException {      
+		this.writer.write(buffer, 0, len);
+		this.writer.flush(); // WHY ?	
 	}
 
 }

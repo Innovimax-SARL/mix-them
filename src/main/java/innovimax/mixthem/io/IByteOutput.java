@@ -10,12 +10,6 @@ import java.io.IOException;
 */
 public interface IByteOutput extends ITokenOutput {
 	/**
- 	* Writes a single byte.
- 	* @param b The byte to be written
- 	* @throws IOException - If an I/O error occurs
- 	*/	
-	void writeByte(byte b) throws IOException;
-	/**
  	* Writes a portion of an array of bytes.
  	* @param buffer Buffer of bytes
  	* @param len Number of bytes to write

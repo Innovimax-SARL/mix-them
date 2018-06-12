@@ -12,7 +12,7 @@ import java.io.OutputStreamWriter;
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultLineWriter implements ILineOutput {
+public class DefaultLineWriter implements ITokenOutput {
 
 	private final BufferedWriter writer;
 
@@ -23,13 +23,6 @@ public class DefaultLineWriter implements ILineOutput {
  	*/
 	public DefaultLineWriter(final OutputStream output) throws IOException {
 		this.writer = new BufferedWriter(new OutputStreamWriter(output));
-	}
-
-	// Will be deprecated in future version !!!
-	@Override
-	public void writeLine(final String line) throws IOException {
-		this.writer.write(line);
-		this.writer.newLine();
 	}
 
 	@Override

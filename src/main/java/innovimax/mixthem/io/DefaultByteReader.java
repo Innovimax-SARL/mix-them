@@ -23,28 +23,6 @@ public class DefaultByteReader implements IByteInput {
 		this.reader = input.newBufferedInputStream();
 	}
 
-	// Will be deprecated in future version !!!
-	@Override	
-	public boolean hasByte() throws IOException {
-		return this.reader.available() > 0;
-	}
-
-	// Will be deprecated in future version !!!
-	@Override
-	public byte nextByte() throws IOException {		
-		byte b = -1;
-		if (hasByte()) {
-			b = (byte) this.reader.read();
-		}
-		return b;
-	}
-
-	// Will be deprecated in future version !!!
-	@Override
-	public int nextBytes(final byte[] buffer, final int len) throws IOException {
-		return this.reader.read(buffer, 0, len);		
-	}
-
 	@Override
 	public boolean hasMoreTokens() throws IOException {
 		return this.reader.available() > 0;
@@ -58,6 +36,16 @@ public class DefaultByteReader implements IByteInput {
 	@Override
 	public void close() throws IOException {
 		this.reader.close();
+	}
+
+	@Override	
+	public boolean hasByte() throws IOException {
+		return hasMoreTokens();
+	}
+
+	@Override
+	public int nextBytes(final byte[] buffer, final int len) throws IOException {
+		return this.reader.read(buffer, 0, len);		
 	}
 
 }
