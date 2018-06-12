@@ -39,12 +39,11 @@ public class DefaultCellZipping extends AbstractTokenZipping {
 	public void process(final ITokenRange tokenRange, final ITokenResult result) throws MixException {
 		//System.out.println("RANGE="+tokenRange.toString());
 		StringBuilder zip = new StringBuilder();
-		final List<Iterator<String>> cellIterators = tokenRange.asList().stream()
-			.map(token -> Arrays.asList(
-				token.asString()
-					.split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString()))
-					.iterator())
-			.collect(Collectors.toList());
+		final List<Iterator<String>> cellIterators = 
+			tokenRange.asList().stream()
+				.map(token -> Arrays.asList(token.asString().split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString()))
+						.iterator())
+				.collect(Collectors.toList());
 		while (cellIterators.stream().allMatch(iterator -> iterator.hasNext())) {
 			if (zip.length() > 0) {
 				zip.append(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
