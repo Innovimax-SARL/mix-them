@@ -7,8 +7,7 @@ import java.io.OutputStreamWriter;
 
 /**
 * <p>Writes characters into an output stream.</p>
-* <p>This is the default implementation of ILineOutput.</p>
-* @see ILineOutput
+* @see ITokenOutput
 * @author Innovimax
 * @version 1.0
 */

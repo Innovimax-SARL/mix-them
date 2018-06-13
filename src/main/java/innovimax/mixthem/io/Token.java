@@ -2,6 +2,7 @@ package innovimax.mixthem.io;
 
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.Arrays;
 
 /**
 * This is the implementation of IToken interface.
@@ -31,6 +32,14 @@ public abstract class Token implements IToken {
 		@Override
 		public int asCharacter() {
 			throw new UnsupportedOperationException("ByteToken does not have a character representation");
+		}
+		@Override
+		public byte[] asByteArray() {
+			throw new UnsupportedOperationException("ByteToken does not have a byte array representation");
+		}
+		@Override
+		public char[] asCharacterArray() {
+			throw new UnsupportedOperationException("ByteToken does not have a character array representation");
 		}
 		@Override
 		public String asString() {
@@ -68,6 +77,14 @@ public abstract class Token implements IToken {
 			return this.c;
 		}
 		@Override
+		public byte[] asByteArray() {
+			throw new UnsupportedOperationException("CharToken does not have a byte array representation");
+		}
+		@Override
+		public char[] asCharacterArray() {
+			throw new UnsupportedOperationException("CharToken does not have a character array representation");
+		}
+		@Override
 		public String asString() {
 			throw new UnsupportedOperationException("CharToken does not have a String representation");
 		}
@@ -78,6 +95,96 @@ public abstract class Token implements IToken {
 		@Override
 		public Reader asReader() {
 			throw new UnsupportedOperationException("CharToken does not have a Reader representation");
+		}
+	}
+
+	private static class ByteArrayToken extends Token {
+		private final byte[] array;
+		private final int len;
+		private ByteArrayToken(final byte[] array, final int len) {
+			this.array = array;
+			this.len = len;
+		}
+		@Override
+		public String toString() {
+			return Arrays.toString(this.array);
+		}
+		@Override
+		public boolean isEmpty() {
+			return this.array == null;
+		}
+		@Override
+		public byte asByte() {
+			throw new UnsupportedOperationException("ByteArrayToken does not have a byte representation");
+		}
+		@Override
+		public int asCharacter() {
+			throw new UnsupportedOperationException("ByteArrayToken does not have a character representation");
+		}
+		@Override
+		public byte[] asByteArray() {
+			return Arrays.copyOfRange(this.array, 0, this.len);
+		}
+		@Override
+		public char[] asCharacterArray() {
+			throw new UnsupportedOperationException("ByteArrayToken does not have a character array representation");
+		}
+		@Override
+		public String asString() {
+			throw new UnsupportedOperationException("ByteArrayToken does not have a String representation");
+		}
+		@Override
+		public InputStream asInputStream() {
+			throw new UnsupportedOperationException("ByteArrayToken does not have a InputStream representation");
+		}
+		@Override
+		public Reader asReader() {
+			throw new UnsupportedOperationException("ByteArrayToken does not have a Reader representation");
+		}
+	}
+
+	private static class CharArrayToken extends Token {
+		private final char[] array;
+		private final int len;
+		private CharArrayToken(final char[] array, final int len) {
+			this.array = array;
+			this.len = len;
+		}
+		@Override
+		public String toString() {
+			return Arrays.toString(this.array);
+		}
+		@Override
+		public boolean isEmpty() {
+			return this.array == null;
+		}
+		@Override
+		public byte asByte() {
+			throw new UnsupportedOperationException("CharArrayToken does not have a byte representation");
+		}
+		@Override
+		public int asCharacter() {
+			throw new UnsupportedOperationException("CharArrayToken does not have a character representation");
+		}
+		@Override
+		public byte[] asByteArray() {
+			throw new UnsupportedOperationException("CharArrayToken does not have a byte array representation");
+		}
+		@Override
+		public char[] asCharacterArray() {
+			return Arrays.copyOfRange(this.array, 0, this.len);
+		}
+		@Override
+		public String asString() {
+			throw new UnsupportedOperationException("CharArrayToken does not have a String representation");
+		}
+		@Override
+		public InputStream asInputStream() {
+			throw new UnsupportedOperationException("CharArrayToken does not have a InputStream representation");
+		}
+		@Override
+		public Reader asReader() {
+			throw new UnsupportedOperationException("CharArrayToken does not have a Reader representation");
 		}
 	}
 
@@ -101,6 +208,14 @@ public abstract class Token implements IToken {
 		@Override
 		public int asCharacter() {
 			throw new UnsupportedOperationException("LineToken does not have a character representation");
+		}
+		@Override
+		public byte[] asByteArray() {
+			throw new UnsupportedOperationException("LineToken does not have a byte array representation");
+		}
+		@Override
+		public char[] asCharacterArray() {
+			throw new UnsupportedOperationException("LineToken does not have a character array representation");
 		}
 		@Override
 		public String asString() {
@@ -134,6 +249,14 @@ public abstract class Token implements IToken {
 			throw new UnsupportedOperationException("FileByteToken does not have a character representation");
 		}
 		@Override
+		public byte[] asByteArray() {
+			throw new UnsupportedOperationException("FileByteToken does not have a byte array representation");
+		}
+		@Override
+		public char[] asCharacterArray() {
+			throw new UnsupportedOperationException("FileByteToken does not have a character array representation");
+		}
+		@Override
 		public String asString() {
 			throw new UnsupportedOperationException("FileByteToken does not have a String representation");
 		}
@@ -143,7 +266,7 @@ public abstract class Token implements IToken {
 		}
 		@Override
 		public Reader asReader() {
-			throw new UnsupportedOperationException("FileByteToken does not have a Reader representation");
+			throw new UnsupportedOperationException("FileCharToken does not have a Reader representation");
 		}
 	}
 
@@ -163,6 +286,14 @@ public abstract class Token implements IToken {
 		@Override
 		public int asCharacter() {
 			throw new UnsupportedOperationException("FileCharToken does not have a character representation");
+		}
+		@Override
+		public byte[] asByteArray() {
+			throw new UnsupportedOperationException("FileCharToken does not have a byte array representation");
+		}
+		@Override
+		public char[] asCharacterArray() {
+			throw new UnsupportedOperationException("FileCharToken does not have a character array representation");
 		}
 		@Override
 		public String asString() {
@@ -189,6 +320,14 @@ public abstract class Token implements IToken {
 	
 	public static IToken createCharToken(final int c) {
 		return new CharToken(c);
+	}
+
+	public static IToken createByteArrayToken(final byte[] array, final int len) {
+		return new ByteArrayToken(array, len);
+	}
+	
+	public static IToken createCharArrayToken(final char[] array, final int len) {
+		return new CharArrayToken(array, len);
 	}
 	
 	public static IToken createLineToken(final String line) {

@@ -7,14 +7,25 @@ import java.io.OutputStreamWriter;
 
 /**
 * <p>Writes characters into an output stream.</p>
-* <p>This is the default implementation of ICharOutput.</p>
-* @see ICharOutput
+* @see ITokenOutput
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultCharWriter implements ICharOutput {
+public class DefaultCharWriter implements ITokenOutput {
 
 	private final BufferedWriter writer;
+	private final boolean buffering;
+
+	/**
+ 	* Creates a character writer.
+ 	* @param output The output stream for characters to be written.
+ 	* @param buffering The buffering indicator
+ 	* @throws IOException - If an I/O error occurs
+ 	*/
+	public DefaultCharWriter(final OutputStream output, final boolean buffering) throws IOException {
+		this.writer = new BufferedWriter(new OutputStreamWriter(output));
+		this.buffering = buffering;
+	}
 
 	/**
  	* Creates a character writer.
@@ -22,24 +33,21 @@ public class DefaultCharWriter implements ICharOutput {
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultCharWriter(final OutputStream output) throws IOException {
-		this.writer = new BufferedWriter(new OutputStreamWriter(output));
+		this(output, false);
 	}
 
 	@Override
 	public void writeToken(IToken token) throws IOException {
-		//TODO: think about a bufferisation before writing
-		this.writer.write(token.asCharacter());
+		if (this.buffering) {
+			this.writer.write(token.asCharacterArray(), 0, token.asCharacterArray().length);
+		} else {
+			this.writer.write(token.asCharacter());
+		}
 	}
 
 	@Override
 	public void close() throws IOException {
 		this.writer.close();
-	}
-
-	@Override
-	public void writeCharacters(final char[] buffer, final int len) throws IOException {      
-		this.writer.write(buffer, 0, len);
-		this.writer.flush(); // WHY ?	
 	}
 
 }

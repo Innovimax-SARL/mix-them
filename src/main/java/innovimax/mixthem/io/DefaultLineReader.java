@@ -5,8 +5,7 @@ import java.io.IOException;
 
 /**
 * <p>Reads lines from a character-input file.</p>
-* <p>This is the default implementation of ILineInput.</p>
-* @see ILineInput
+** @see ITokenInput
 * @author Innovimax
 * @version 1.0
 */

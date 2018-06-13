@@ -5,9 +5,9 @@ import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
 import innovimax.mixthem.io.DefaultCharReader;
 import innovimax.mixthem.io.DefaultCharWriter;
-import innovimax.mixthem.io.ICharInput;
-import innovimax.mixthem.io.ICharOutput;
 import innovimax.mixthem.io.InputResource;
+import innovimax.mixthem.io.ITokenInput;
+import innovimax.mixthem.io.ITokenOutput;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -34,12 +34,10 @@ public class DefaultCharCopy extends AbstractCopyOperation {
 	
 	@Override
 	public void process(InputResource input, OutputStream out) throws IOException {
-		char[] buffer = new char[BUFFER_SIZE];
-		ICharInput reader = new DefaultCharReader(input);
-		ICharOutput writer = new DefaultCharWriter(out);
-		while (reader.hasCharacter()) {
-			final int len = reader.nextCharacters(buffer, BUFFER_SIZE);
-			writer.writeCharacters(buffer, len);
+		ITokenInput reader = new DefaultCharReader(input, true, BUFFER_SIZE);
+		ITokenOutput writer = new DefaultCharWriter(out, true);
+		while (reader.hasMoreTokens()) {
+			writer.writeToken(reader.nextToken());
 		}
 		reader.close();
 		writer.close();

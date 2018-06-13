@@ -16,27 +16,37 @@ public interface IToken {
 	boolean isEmpty();
 	/**
 	* Returns the token value as a byte.
-	* @return The token value as a byte
+	* @return The byte value
 	*/
 	byte asByte();
 	/**
 	* Returns the token value as a character.
-	* @return The token value as a character
+	* @return The character value
 	*/
 	int asCharacter();
 	/**
+	* Returns the token value as a byte array.
+	* @return The byte array
+	*/
+	byte[] asByteArray();
+	/**
+	* Returns the token value as a character array.
+	* @return The character array
+	*/
+	char[] asCharacterArray();
+	/**
 	* Returns the token value as a string.
-	* @return The token value as a string
+	* @return The string value
 	*/
 	String asString();
 	/**
 	* Returns the parameter value as a file input stream.
-	* @return The parameter value as a file input stream
+	* @return The file input stream
 	*/
 	InputStream asInputStream();
 	/**
 	* Returns the parameter value as a file reader.
-	* @return The parameter value as a file reader
+	* @return The file reader
 	*/
 	Reader asReader();
 }
