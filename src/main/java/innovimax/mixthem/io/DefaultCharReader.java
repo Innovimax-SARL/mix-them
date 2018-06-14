@@ -5,14 +5,28 @@ import java.io.IOException;
 
 /**
 * <p>Reads characters from a character-input file.</p>
-* <p>This is the default implementation of ICharInput.</p>
-* @see ICharInput
+* @see ITokenInput
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultCharReader implements ICharInput {
+public class DefaultCharReader implements ITokenInput {
 
 	private final BufferedReader reader;
+	private final boolean buffering;
+	private final int bufferSize;
+
+	/**
+ 	* Creates a character reader from an input resource.
+ 	* @param input The input resource to be read
+ 	* @param buffering The buffering indicator
+ 	* @param bufferSize The input buffer size
+ 	* @throws IOException - If an I/O error occurs
+ 	*/
+	public DefaultCharReader(final InputResource input, final boolean buffering, final int bufferSize) throws IOException {		
+		this.reader = input.newBufferedReader();
+		this.buffering = buffering;
+		this.bufferSize = bufferSize;
+	}
 
 	/**
  	* Creates a character reader from an input resource.
@@ -20,29 +34,7 @@ public class DefaultCharReader implements ICharInput {
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultCharReader(final InputResource input) throws IOException {		
-		this.reader = input.newBufferedReader();
-	}
-
-	// Will be deprecated in future version !!!
-	@Override
-	public boolean hasCharacter() throws IOException {
-		return this.reader.ready();
-	}
-
-	// Will be deprecated in future version !!!
-	@Override
-	public int nextCharacter() throws IOException {		
-		int c = -1;
-		if (hasCharacter()) {
-			c = this.reader.read();
-		}
-		return c;
-	}
-
-	// Will be deprecated in future version !!!
-	@Override
-	public int nextCharacters(final char[] buffer, final int len) throws IOException {
-		return this.reader.read(buffer, 0, len);		
+		this(input, false, 1);
 	}
 
 	@Override
@@ -51,8 +43,16 @@ public class DefaultCharReader implements ICharInput {
 	}
 	
 	@Override
-	public Token nextToken() throws IOException {
-		return Token.createCharToken(hasMoreTokens() ? this.reader.read() : -1);		
+	public IToken nextToken() throws IOException {
+		if (this.buffering) {
+			if (hasMoreTokens()) {
+				final char[] buffer = new char[this.bufferSize];
+				final int len = this.reader.read(buffer, 0, this.bufferSize);
+				return Token.createCharArrayToken(buffer, len);
+			}	
+			return Token.createCharArrayToken(null, 0);
+		}
+		return Token.createCharToken(hasMoreTokens() ? this.reader.read() : -1);
 	}
 
 	@Override

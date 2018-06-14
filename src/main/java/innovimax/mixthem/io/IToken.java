@@ -1,28 +1,52 @@
 package innovimax.mixthem.io;
 
-import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 
 /**
-* This interface provides for reading tokens from an input.
+* This interface provides for any token representation.
 * @author Innovimax
 * @version 1.0
 */
 public interface IToken {
 	/**
-	* Returns true if there is more tokens.
-	* @return Returns true if there is more tokens
-	* @throws IOException - If an I/O error occurs
+	* Indicates if token is empty.
+	* @return True if token is empty
 	*/
-	boolean hasMoreTokens() throws IOException;
+	boolean isEmpty();
 	/**
- 	* Reads next token.
- 	* @return The input token or null if no more tokens
- 	* @throws IOException - If an I/O error occurs
- 	*/
-	Token nextToken() throws IOException;
-	/**
-	* Closes this input and releases any system resources associated with it.
-	* @throws IOException - If an I/O error occurs
+	* Returns the token value as a byte.
+	* @return The byte value
 	*/
-	void close() throws IOException;
+	byte asByte();
+	/**
+	* Returns the token value as a character.
+	* @return The character value
+	*/
+	int asCharacter();
+	/**
+	* Returns the token value as a byte array.
+	* @return The byte array
+	*/
+	byte[] asByteArray();
+	/**
+	* Returns the token value as a character array.
+	* @return The character array
+	*/
+	char[] asCharacterArray();
+	/**
+	* Returns the token value as a string.
+	* @return The string value
+	*/
+	String asString();
+	/**
+	* Returns the parameter value as a file input stream.
+	* @return The file input stream
+	*/
+	InputStream asInputStream();
+	/**
+	* Returns the parameter value as a file reader.
+	* @return The file reader
+	*/
+	Reader asReader();
 }

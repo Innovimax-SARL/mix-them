@@ -9,13 +9,15 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
-* This is the implementation of ITokenRange interface.
+* This is the implementation of ITokenRangeInput interface.
+* @see ITokenRangeInput
 * @author Innovimax
 * @version 1.0
 */
-public class TokenRangeReader implements ITokenRange {
+public class TokenRangeReader implements ITokenRangeInput {
 
-	private final List<IToken> readers;
+	private final List<ITokenInput> readers;
+	private TokenRange lastTokenRange;
 	
 	/**
 	* Constructor
@@ -39,6 +41,7 @@ public class TokenRangeReader implements ITokenRange {
 				}
 			}))
 			.collect(Collectors.toList());
+		this.lastTokenRange = null;
 	}
 
 	@Override
@@ -48,11 +51,13 @@ public class TokenRangeReader implements ITokenRange {
 	}
 
 	@Override
-	public List<Token> nextTokenRange(List<Boolean> readingRange) {
-		return IntStream.range(0, readers.size())
-			.mapToObj(StreamUtils.applyToInt(index -> 
-				readingRange.get(index).booleanValue() ? readers.get(index).nextToken() : null))
+	public TokenRange nextTokenRange(ITokenStatusRange tokenStatusRange) {
+		final List<IToken> tokenRange = IntStream.range(0, readers.size())
+			.mapToObj(StreamUtils.applyToInt(channel -> 
+				tokenStatusRange.readingToken(channel) ? readers.get(channel).nextToken() : this.lastTokenRange.getToken(channel)))
 			.collect(Collectors.toList());
+		this.lastTokenRange = new TokenRange(tokenRange);
+		return this.lastTokenRange;
 	}
 	
 	@Override

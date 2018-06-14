@@ -3,24 +3,37 @@ package innovimax.mixthem.io;
 import java.util.List;
 
 /**
-* This interface provides for reading tokens from a multi-channel input.
+* <p>This interface provides for token range representation.</p>
+* <p>A range represents the list of tokens read for each input channel.</p>
 * @author Innovimax
 * @version 1.0
 */
 public interface ITokenRange {
-    /**
-	* Returns true if there is more tokens in one of the channels.
-	* @return Returns true if there is more tokens in one of the channels
+    	/**
+	* Indicates the count of channels in the range.
+	* @return Returns the range size
 	*/
-	boolean hasMoreTokens();
+	int size();
 	/**
- 	* Reads next token range (one by channel, <code>null</code> if no more token in channel)
- 	* @param readingRange indicates wich channel has to be effectivly read
- 	* @return The list of tokens (may contains <code>null</code> values)
+ 	* Get the list of tokens. 	
+ 	* @return The list of tokens
  	*/
-	List<Token> nextTokenRange(List<Boolean> readingRange);
+	List<IToken> asList();
 	/**
-	* Closes this input channels and releases any system resources associated with them.
-	*/
-	void close();
+ 	* Get a token at the given position.
+ 	* @param channel The channel of the token
+ 	* @return The token or <code>null</code> if none
+ 	*/
+	IToken getToken(int channel);
+	/**
+ 	* Set a token at the given position.
+ 	* @param channel The channel of the token
+ 	* @param token The token
+ 	*/
+	void setToken(int channel, IToken token);
+	/**
+ 	* Add a token in the range. 	
+ 	* @param token The token
+ 	*/
+	void addToken(IToken token);
 }

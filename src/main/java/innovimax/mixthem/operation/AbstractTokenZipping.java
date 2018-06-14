@@ -8,28 +8,24 @@ import java.util.Map;
 import java.util.Set;
 
 /**
-* <p>Abstract class for all operation.</p>
+* <p>Abstract class for token zipping.</p>
 * @author Innovimax
 * @version 1.0
 */
-abstract class AbstractOperation {
+abstract class AbstractTokenZipping extends AbstractTokenOperation {
 	
-	protected final Set<Integer> selection;
-	protected final TokenType tokenType;
-	protected final Map<RuleParam, ParamValue> params;
+	protected final String sep;
 	
 	/**
 	* Constructor
 	* @param selection The file index selection (maybe empty)
-	* @param tokenType The input tokenization type
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractOperation(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
-		this.selection = selection;
-		this.tokenType = tokenType;
-		this.params = params;
+	public AbstractTokenZipping(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+		super(selection, tokenType, params);
+		this.sep = params.getOrDefault(RuleParam.ZIP_SEP, ZipOperation.DEFAULT_ZIP_SEPARATOR.getValue()).asString();
 	}
 
 }

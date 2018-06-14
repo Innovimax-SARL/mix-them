@@ -99,48 +99,48 @@ public class MixThem {
         try {
             LOGGER.info("Started mixing for [" +  fileMode.getName() + "] rule '" + rule.getName() + "'...");
             switch(rule) {
-                case ADD:                    
+                case ADD:
                     final IOperation copyAddOp = CopyFactory.newInstance(fileMode, selection, params);
                     copyAddOp.processFiles(this.inputs, this.output);          
                     break;
                 case ALT_CHAR:
-                    final IOperation altCharOp = new DefaultCharAlternation(AltMode.NORMAL, selection, params);
+                    final IOperation altCharOp = new DefaultCharAlternation(AltMode.NORMAL, selection, TokenType.CHAR, params);
                     altCharOp.processFiles(this.inputs, this.output); 
                     break;
                 case ALT_BYTE:
-                    final IOperation altByteOp = new DefaultByteAlternation(AltMode.NORMAL, selection, params);
+                    final IOperation altByteOp = new DefaultByteAlternation(AltMode.NORMAL, selection, TokenType.BYTE, params);
                     altByteOp.processFiles(this.inputs, this.output); 
                     break;
                 case ALT_LINE:
-                    final IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, selection, params);
+                    final IOperation altLineOp = new DefaultLineAlternation(AltMode.NORMAL, selection, TokenType.LINE, params);
                     altLineOp.processFiles(this.inputs, this.output);
                     break;
                 case RANDOM_ALT_BYTE:
-                    final IOperation randomAltByteOp = new DefaultByteAlternation(AltMode.RANDOM, selection, params);
+                    final IOperation randomAltByteOp = new DefaultByteAlternation(AltMode.RANDOM, selection, TokenType.BYTE, params);
                     randomAltByteOp.processFiles(this.inputs, this.output); 
                     break;
                 case RANDOM_ALT_CHAR:
-                    final IOperation randomAltCharOp = new DefaultCharAlternation(AltMode.RANDOM, selection, params);
+                    final IOperation randomAltCharOp = new DefaultCharAlternation(AltMode.RANDOM, selection, TokenType.CHAR, params);
                     randomAltCharOp.processFiles(this.inputs, this.output); 
                     break;
                 case RANDOM_ALT_LINE:
-                    final IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, selection, params);
+                    final IOperation randomAltLineOp = new DefaultLineAlternation(AltMode.RANDOM, selection, TokenType.LINE, params);
                     randomAltLineOp.processFiles(this.inputs, this.output); 
                     break;
                 case JOIN:
-                    final IOperation joinLineOp = new DefaultLineJoining(selection, params);
+                    final IOperation joinLineOp = new DefaultLineJoining(selection, TokenType.LINE, params);
                     joinLineOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_LINE:
-                    final IOperation zipLineOp = new DefaultLineZipping(selection, params);
+                    final IOperation zipLineOp = new DefaultLineZipping(selection, TokenType.LINE, params);
                     zipLineOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_CELL:
-                    final IOperation zipCellOp = new DefaultCellZipping(selection, params);
+                    final IOperation zipCellOp = new DefaultCellZipping(selection, TokenType.LINE, params);
                     zipCellOp.processFiles(this.inputs, this.output);
                     break;
                 case ZIP_CHAR:
-                    final IOperation zipCharOp = new DefaultCharZipping(selection, params);
+                    final IOperation zipCharOp = new DefaultCharZipping(selection, TokenType.CHAR, params);
                     zipCharOp.processFiles(this.inputs, this.output);
                     /*break;
                 default:    

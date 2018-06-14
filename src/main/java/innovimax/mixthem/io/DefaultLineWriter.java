@@ -7,12 +7,11 @@ import java.io.OutputStreamWriter;
 
 /**
 * <p>Writes characters into an output stream.</p>
-* <p>This is the default implementation of ILineOutput.</p>
-* @see ILineOutput
+* @see ITokenOutput
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultLineWriter implements ILineOutput {
+public class DefaultLineWriter implements ITokenOutput {
 
 	private final BufferedWriter writer;
 
@@ -25,16 +24,10 @@ public class DefaultLineWriter implements ILineOutput {
 		this.writer = new BufferedWriter(new OutputStreamWriter(output));
 	}
 
-	// Will be deprecated in future version !!!
 	@Override
-	public void writeLine(final String line) throws IOException {
-		this.writer.write(line);
-		this.writer.newLine();
-	}
-
-	@Override
-	public void writeToken(Token token) throws IOException {		
+	public void writeToken(IToken token) throws IOException {
 		this.writer.write(token.asString());
+		this.writer.newLine();
 	}
 
 	@Override

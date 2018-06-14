@@ -6,14 +6,25 @@ import java.io.OutputStream;
 
 /**
 * <p>Writes bytes into an output stream.</p>
-* <p>This is the default implementation of IByteOutput.</p>
-* @see IByteOutput
+* @see ITokenOutput
 * @author Innovimax
 * @version 1.0
 */
-public class DefaultByteWriter implements IByteOutput {
+public class DefaultByteWriter implements ITokenOutput {
 
 	private final BufferedOutputStream writer;
+	private final boolean buffering;
+
+	/**
+ 	* Creates a byte writer.
+ 	* @param output The output stream for bytes to be written.
+ 	* @param buffering The buffering indicator
+ 	* @throws IOException - If an I/O error occurs
+ 	*/
+	public DefaultByteWriter(final OutputStream output, final boolean buffering) throws IOException {
+		this.writer = new BufferedOutputStream(output);
+		this.buffering = buffering;
+	}
 
 	/**
  	* Creates a byte writer.
@@ -21,26 +32,16 @@ public class DefaultByteWriter implements IByteOutput {
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultByteWriter(final OutputStream output) throws IOException {
-		this.writer = new BufferedOutputStream(output);
-	}
-
-	// Will be deprecated in future version !!!
-	@Override
-	public void writeByte(final byte b) throws IOException {		
-		this.writer.write(b);
-	}
-
-	// Will be deprecated in future version !!!
-	@Override
-	public void writeBytes(final byte[] buffer, final int len) throws IOException {      
-		this.writer.write(buffer, 0, len);
-		this.writer.flush(); // WHY ?	
+		this(output, false);
 	}
 
 	@Override
-	public void writeToken(Token token) throws IOException {
-		//TODO: think about a bufferisation before writing
-		this.writer.write(token.asByte());
+	public void writeToken(IToken token) throws IOException {
+		if (this.buffering) {
+			this.writer.write(token.asByteArray(), 0, token.asByteArray().length);
+		} else {
+			this.writer.write(token.asByte());
+		}
 	}
 
 	@Override

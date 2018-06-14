@@ -5,6 +5,7 @@ import innovimax.mixthem.utils.StreamUtils;
 import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
+import innovimax.mixthem.arguments.TokenType;
 import innovimax.mixthem.io.InputResource;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.Set;
 import java.util.stream.IntStream;
 
 /**
+* Will be deprecated in future version !!!
 * <p>Abstract class for all character operation.</p>
 * @see ICopyOperation
 * @author Innovimax
@@ -28,12 +30,13 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 	/**
 	* Constructor
 	* @param selection The file index selection (maybe empty)
+	* @param tokenType The input tokenization type
  	* @param params The list of parameters (maybe empty)
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractCopyOperation(final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
-		super(selection, params);
+	public AbstractCopyOperation(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+		super(selection, tokenType, params);
 	}
 
 	@Override

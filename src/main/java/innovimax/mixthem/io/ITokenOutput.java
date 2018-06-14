@@ -7,13 +7,13 @@ import java.io.IOException;
 * @author Innovimax
 * @version 1.0
 */
-public interface ISerialize {
+public interface ITokenOutput {
 	/**
  	* Writes a token.
  	* @param token The token to be written
  	* @throws IOException - If an I/O error occurs
  	*/	
-	void writeToken(Token token) throws IOException;
+	void writeToken(IToken token) throws IOException;
 	/**
 	* Closes this output and releases any system resources associated with it.
  	* @throws IOException - If an I/O error occurs	

@@ -5,10 +5,15 @@ import innovimax.mixthem.arguments.TokenType;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+* This is the implementation of ITokenOutput interface.
+* @see ITokenOutput
+* @author Innovimax
+* @version 1.0
+*/
+public class TokenSerializer implements ITokenOutput {
 
-public class TokenSerializer implements ISerialize {
-
-	private final ISerialize writer;
+	private final ITokenOutput writer;
 	
 	/**
 	* Constructor
@@ -28,7 +33,7 @@ public class TokenSerializer implements ISerialize {
 	}
 
 	@Override
-	public void writeToken(Token token) throws IOException {		
+	public void writeToken(IToken token) throws IOException {		
 		this.writer.writeToken(token);
 	}
 	
