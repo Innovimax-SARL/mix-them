@@ -8,6 +8,10 @@ jdk:
   - openjdk11
   - openjdk-ea
 
+matrix:
+  allow_failures:
+    - jdk: openjdk-ea
+
 script:
   - echo PATH = ${PATH}
   - echo JAVA_HOME = ${JAVA_HOME}
