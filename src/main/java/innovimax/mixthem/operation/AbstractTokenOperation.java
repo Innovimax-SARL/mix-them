@@ -34,7 +34,7 @@ abstract class AbstractTokenOperation extends AbstractOperation implements IToke
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractTokenOperation(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+	AbstractTokenOperation(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
 		super(selection, tokenType, params);
 	}
 
@@ -47,9 +47,9 @@ abstract class AbstractTokenOperation extends AbstractOperation implements IToke
 			// read next token range (depends on last result indicators)
 			final ITokenRange tokenRange = reader.nextTokenRange(result.getTokenStatusRange());
 			result.reset();
-			if (mixable(tokenRange)) {
+			if (this.mixable(tokenRange)) {
 				// process mixing
-				process(tokenRange, result);
+				this.process(tokenRange, result);
 				// write mixing result if it has one
 				//System.out.println("RESULT="+result.getResult().toString());
 				if (result.hasResult()) {

@@ -1,5 +1,6 @@
 package innovimax.mixthem;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,7 +28,7 @@ import java.util.stream.Stream;
 * @author Innovimax
 * @version 1.0
 */
-public class RuleRuns {
+class RuleRuns {
 
   	/**
   	* Returns a list of test runs for the rule.
@@ -40,7 +41,7 @@ public class RuleRuns {
 		if (url != null) {
 			final File file = new File(url.getFile());
 			final Stream<String> entries;
-			try (BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8)) {
+			try (final BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8)) {
 				entries = reader.lines();
 			}
 			entries.forEach(entry -> {
@@ -95,7 +96,7 @@ public class RuleRuns {
 					if (!selection.isEmpty() || !params.isEmpty()) {
 						runs.add(new RuleRun(runs.size()+1, selection, params));
 					}					
-				} catch (IOException e) {
+				} catch (JsonProcessingException e) {
 					throw new RuntimeException(e);
 				}
 			});

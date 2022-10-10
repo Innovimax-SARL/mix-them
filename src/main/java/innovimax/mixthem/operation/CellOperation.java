@@ -8,7 +8,7 @@ public enum CellOperation {
 
   private final ParamValue value;
 
-  CellOperation(String s) {
+  CellOperation(final String s) {
     this.value = ParamValue.createString(s);
   }
 

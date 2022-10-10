@@ -22,7 +22,8 @@ public class DefaultCharReader implements ITokenInput {
  	* @param bufferSize The input buffer size
  	* @throws IOException - If an I/O error occurs
  	*/
-	public DefaultCharReader(final InputResource input, final boolean buffering, final int bufferSize) throws IOException {		
+	public DefaultCharReader(final InputResource input, final boolean buffering, final int bufferSize) throws IOException {
+		super();
 		this.reader = input.newBufferedReader();
 		this.buffering = buffering;
 		this.bufferSize = bufferSize;
@@ -45,14 +46,14 @@ public class DefaultCharReader implements ITokenInput {
 	@Override
 	public IToken nextToken() throws IOException {
 		if (this.buffering) {
-			if (hasMoreTokens()) {
+			if (this.hasMoreTokens()) {
 				final char[] buffer = new char[this.bufferSize];
 				final int len = this.reader.read(buffer, 0, this.bufferSize);
 				return Token.createCharArrayToken(buffer, len);
 			}	
 			return Token.createCharArrayToken(null, 0);
 		}
-		return Token.createCharToken(hasMoreTokens() ? this.reader.read() : -1);
+		return Token.createCharToken(this.hasMoreTokens() ? this.reader.read() : -1);
 	}
 
 	@Override

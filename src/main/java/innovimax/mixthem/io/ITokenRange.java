@@ -22,7 +22,7 @@ public interface ITokenRange {
 	/**
  	* Get a token at the given position.
  	* @param channel The channel of the token
- 	* @return The token or <code>null</code> if none
+ 	* @return The token or {@code null} if none
  	*/
 	IToken getToken(int channel);
 	/**

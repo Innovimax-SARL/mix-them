@@ -13,7 +13,8 @@ public class TokenRange implements ITokenRange {
 
 	final private List<IToken> range;
 
-	public TokenRange(List<IToken> range) {
+	public TokenRange(final List<IToken> range) {
+		super();
 		this.range = range;
 	}
 
@@ -23,7 +24,7 @@ public class TokenRange implements ITokenRange {
 
 	@Override
 	public String toString() {
-		return range.toString();
+		return this.range.toString();
 	}
 	
 	public int size(){

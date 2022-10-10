@@ -14,12 +14,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 
 import org.junit.Assert;
@@ -32,20 +27,20 @@ import org.junit.Test;
 public class GenericTest {
 
    @Test
-   public final void testCharRules() throws MixException, IOException, NumberFormatException {
-	   testRules(FileMode.CHAR);
+   public final void testCharRules() throws Exception {
+	   this.testRules(FileMode.CHAR);
    }
 
    @Test
-   public final void testBytesRules() throws MixException, IOException, NumberFormatException {
-	   testRules(FileMode.BYTE);
+   public final void testBytesRules() throws Exception {
+	   this.testRules(FileMode.BYTE);
    }
 
    private void testRules(final FileMode fileMode) throws MixException, IOException, NumberFormatException {
 	   MixThem.setLogging(Level.FINE);
 	   int testId = 0;
-	   final List<String> failed = new ArrayList<>();
-	   final Set<Integer> locks = getTestLocks();	   
+	   final Collection<String> failed = new ArrayList<>();
+	   final Set<Integer> locks = this.getTestLocks();
 	   boolean result = true;
 	   while (true) {
 		   testId++;
@@ -54,7 +49,7 @@ public class GenericTest {
 		   final List<URL> urlF = new ArrayList<>();
 		   int index = 1;
 		   while (true) {
-			   final URL url = getClass().getResource(prefix + "file" + index + ".txt");
+			   final URL url = this.getClass().getResource(prefix + "file" + index + ".txt");
 			   if (url != null) {
 				   urlF.add(url);
 				   index++;
@@ -70,21 +65,21 @@ public class GenericTest {
 		   for (int i=0; i < urlF.size(); i++) {
 			   MixThem.LOGGER.info("File " + (i+1) + ": " + urlF.get(i));
 		   }
-		   for(Rule rule : Rule.values()) {
+		   for(final Rule rule : Rule.values()) {
 			   if (rule.isImplemented() && rule.acceptFileMode(fileMode)) {
-				   String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
-				   URL urlP = getClass().getResource(paramsFile);
-				   List<RuleRun> runs = RuleRuns.getRuns(rule, urlP);
-				   for (RuleRun run : runs) {
+				   final String paramsFile = prefix + "params-" + rule.getExtension() + ".txt";
+				   final URL urlP = this.getClass().getResource(paramsFile);
+				   final List<RuleRun> runs = RuleRuns.getRuns(rule, urlP);
+				   for (final RuleRun run : runs) {
 					   String resultFile = prefix + "output-" + rule.getExtension();
 					   if (run.hasSuffix()) {
 						   resultFile += "-" + run.getSuffix();
 					   }
 					   resultFile += ".txt";
-					   URL urlR = getClass().getResource(resultFile);
+					   URL urlR = this.getClass().getResource(resultFile);
 					   if (urlR == null && run.hasSuffix()) {
 						   resultFile = prefix + "output-" + rule.getExtension() + ".txt";
-						   urlR = getClass().getResource(resultFile);
+						   urlR = this.getClass().getResource(resultFile);
 					   }
 					   if (urlR != null) {
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
@@ -93,7 +88,7 @@ public class GenericTest {
 						   }
 						   MixThem.LOGGER.info("Result file : " + urlR);
 						   MixThem.LOGGER.info("--------------------------------------------------------------------");
-						   boolean res = check(urlF, urlR, fileMode, run.getSelection(), rule, run.getParams());
+						   final boolean res = check(urlF, urlR, fileMode, run.getSelection(), rule, run.getParams());
 						   MixThem.LOGGER.info("Run " + (res ? "pass" : "FAIL") + " with params " + run.getParams() + " on selection " + run.getSelection());
 						   result &= res;
 						   if (!res) {
@@ -105,16 +100,16 @@ public class GenericTest {
 		   }
 	   }
 	   MixThem.LOGGER.info("*********************************************************************");
-	   MixThem.LOGGER.info("FAILED [" + fileMode.getName().toUpperCase() + "] TESTS : " + (failed.size() > 0 ? failed.toString() : "None"));
+	   MixThem.LOGGER.info("FAILED [" + fileMode.getName().toUpperCase() + "] TESTS : " + (!failed.isEmpty() ? failed.toString() : "None"));
 	   MixThem.LOGGER.info("LOCKED [" + fileMode.getName().toUpperCase() + "] TESTS : " + locks);
 	   MixThem.LOGGER.info("*********************************************************************");
 	   Assert.assertTrue(result);
    }	   
 
-   private static boolean check(final List<URL> filesURL, final URL resultURL, final FileMode fileMode, final Set<Integer> selection, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, IOException  {
+   private static boolean check(final Iterable<URL> filesURL, final URL resultURL, final FileMode fileMode, final Set<Integer> selection, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, IOException  {
 	   MixThem.LOGGER.info("Run and check result...");	   
 	   final List<InputResource> inputs = new ArrayList<>();
-	   for (URL url : filesURL) {
+	   for (final URL url : filesURL) {
 	   	inputs.add(InputResource.createFile(new File(url.getFile())));
 	   }
 	   final ByteArrayOutputStream baos_rule = new ByteArrayOutputStream();
@@ -130,7 +125,7 @@ public class GenericTest {
    private static boolean checkFileEquals(final File fileExpected, final byte[] result) throws IOException {
 	   int last;
 	   int offset;
-	   try (FileInputStream fisExpected = new FileInputStream(fileExpected)) {
+	   try (final FileInputStream fisExpected = new FileInputStream(fileExpected)) {
 		   int c;
 		   last = -1;
 		   offset = 0;
@@ -140,7 +135,7 @@ public class GenericTest {
 				   offset++;
 				   continue;
 			   }
-			   int d = result[offset++];
+			   final int d = result[offset++];
 			   if (c != d) return false;
 		   }
 	   }
@@ -160,20 +155,20 @@ public class GenericTest {
    private Set<Integer> getTestLocks() {
 	   final Set<Integer> locks = new HashSet<>();
 	   try {
-	   	final URL url = getClass().getResource("test_locks.txt");
+	   	final URL url = this.getClass().getResource("test_locks.txt");
 	   	if (url != null) {
 			final File file = new File(url.getFile());
 			final List<String> ids;
-			try (BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8)) {
+			try (final BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8)) {
 				ids = Arrays.asList(reader.readLine().split(" "));
 			}
-			for (String id : ids) {
+			for (final String id : ids) {
 				   try {
 			   		locks.add(Integer.valueOf(id));
-			   	} catch (NumberFormatException ignored) {}
+			   	} catch (final NumberFormatException ignored) {}
 		   	}
 	   	}
-	   } catch (IOException ignored) {}
+	   } catch (final IOException ignored) {}
 	   return locks;
    }
 

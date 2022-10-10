@@ -36,7 +36,7 @@ public class DefaultLineAlternation extends AbstractTokenAlternation  {
 		//System.out.println("RANGE="+tokenRange.toString());
 		//System.out.println("CHANNEL="+channel+" LINE="+line);
 		if (line == null) {					
-			channel = nextChannel(tokenRange, channel);
+			channel = this.nextChannel(tokenRange, channel);
 			line = tokenRange.getToken(channel).asString();
 			//System.out.println("NEW_CHANNEL="+channel+" LINE="+line);
 		}		

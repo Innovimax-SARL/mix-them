@@ -93,7 +93,7 @@ public enum Rule {
     * @return True if the rule accept the file mode
     */ 
     public boolean acceptFileMode(final FileMode fileMode) {
-        return fileModes.contains(fileMode);
+        return this.fileModes.contains(fileMode);
     }
     
     /**
@@ -103,7 +103,7 @@ public enum Rule {
     * @return The {@link Rule} object
     */    
     public static Rule findByName(final String name, final FileMode fileMode) {
-        for(Rule rule : values()){
+        for(final Rule rule : values()){
             if (rule.getName().equals(name) && rule.acceptFileMode(fileMode)) {
                 return rule;
             }

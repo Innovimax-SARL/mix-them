@@ -12,7 +12,7 @@ import java.util.Set;
 * @author Innovimax
 * @version 1.0
 */
-public class RuleRun {
+class RuleRun {
 
   final private int index;
   final private Set<Integer> selection;
@@ -24,10 +24,11 @@ public class RuleRun {
   * @param The file index selection for this run (maybe empty)
   * @param params The list of parameter values for this run (maybe empty)
   */
-  public RuleRun(final int index, final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {    
-    this.index = index;
-    this.selection = selection;
-    this.params = params;    
+  public RuleRun(final int index, final Set<Integer> selection, final Map<RuleParam, ParamValue> params) {
+      super();
+      this.index = index;
+      this.selection = selection;
+      this.params = params;
   }
   
   /*

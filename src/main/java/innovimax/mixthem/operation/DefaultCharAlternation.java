@@ -35,7 +35,7 @@ public class DefaultCharAlternation extends AbstractTokenAlternation {
 		int c = tokenRange.getToken(channel).asCharacter();
 		//System.out.println("RANGE="+tokenRange.toString()+" CHANNEL="+channel+" CHAR="+c);
 		if (c == -1) {					
-			channel = nextChannel(tokenRange, channel);
+			channel = this.nextChannel(tokenRange, channel);
 			c = tokenRange.getToken(channel).asCharacter();
 			//System.out.println("NEW_CHANNEL="+channel+" CHAR="+c);
 		}		

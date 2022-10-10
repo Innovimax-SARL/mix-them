@@ -21,6 +21,7 @@ public class DefaultByteWriter implements ITokenOutput {
  	* @param buffering The buffering indicator
 	 */
 	public DefaultByteWriter(final OutputStream output, final boolean buffering) {
+		super();
 		this.writer = new BufferedOutputStream(output);
 		this.buffering = buffering;
 	}
@@ -34,7 +35,7 @@ public class DefaultByteWriter implements ITokenOutput {
 	}
 
 	@Override
-	public void writeToken(IToken token) throws IOException {
+	public void writeToken(final IToken token) throws IOException {
 		if (this.buffering) {
 			this.writer.write(token.asByteArray(), 0, token.asByteArray().length);
 		} else {

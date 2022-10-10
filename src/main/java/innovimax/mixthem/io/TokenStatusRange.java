@@ -14,6 +14,7 @@ public class TokenStatusRange implements ITokenStatusRange {
 	final private List<Boolean> range;
 
 	public TokenStatusRange() {
+		super();
 		this.range = new ArrayList<>();
 	}
 	
@@ -29,7 +30,7 @@ public class TokenStatusRange implements ITokenStatusRange {
 		this.range.set(channel, reading);
 	}
 
-	public boolean readingToken(int channel) {
+	public boolean readingToken(final int channel) {
 		return this.range.get(channel);
 	}
 

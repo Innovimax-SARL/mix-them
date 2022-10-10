@@ -12,9 +12,9 @@ public interface ITokenRangeInput {
 	*/
 	boolean hasMoreTokens();
 	/**
- 	* Reads next token range (one token by channel, <code>null</code> if no more token in channel)
+ 	* Reads next token range (one token by channel, {@code null} if no more token in channel)
  	* @param tokenStatusRange indicates which channel has to be effectively read
- 	* @return The list of tokens (may contain <code>null</code> values)
+ 	* @return The list of tokens (may contain {@code null} values)
  	*/
 	TokenRange nextTokenRange(ITokenStatusRange tokenStatusRange);
 	/**

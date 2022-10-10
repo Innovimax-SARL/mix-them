@@ -5,9 +5,9 @@ package innovimax.mixthem;
 * @author Innovimax
 * @version 1.0
 */
-public class MixException extends Exception {
+class MixException extends Exception {
 
-	public MixException(String message, Throwable cause) {
+	public MixException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
 

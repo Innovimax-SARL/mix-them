@@ -19,6 +19,7 @@ public class DefaultLineReader implements ITokenInput {
  	* @throws IOException - If an I/O error occurs
  	*/
 	public DefaultLineReader(final InputResource input) throws IOException {
+		super();
 		this.reader = input.newBufferedReader();
 	}
 
@@ -29,7 +30,7 @@ public class DefaultLineReader implements ITokenInput {
 	
 	@Override
 	public IToken nextToken() throws IOException {
-		return Token.createLineToken(hasMoreTokens() ? this.reader.readLine() : null);		
+		return Token.createLineToken(this.hasMoreTokens() ? this.reader.readLine() : null);
 	}
 
 	@Override

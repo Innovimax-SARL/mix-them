@@ -23,7 +23,7 @@ import java.util.stream.IntStream;
 */
 public abstract class AbstractCopyOperation extends AbstractOperation implements ICopyOperation {
 	
-	protected final static int BUFFER_SIZE = 1024;	
+	final static int BUFFER_SIZE = 1024;
 
 	/**
 	* Constructor
@@ -33,7 +33,7 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractCopyOperation(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+    AbstractCopyOperation(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
 		super(selection, tokenType, params);
 	}
 
@@ -48,7 +48,7 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 					.toArray());
 		}				
                 indexes.mapToObj(i -> inputs.get(i-1))
-                	.forEach(StreamUtils.consume(input -> process(input, output)));
+                	.forEach(StreamUtils.consume(input -> this.process(input, output)));
 	}
 
 }

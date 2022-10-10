@@ -13,6 +13,7 @@ public abstract class ParamValue {
 	private static class ParamStringValue extends ParamValue {
 		private final String text;
 		private ParamStringValue(final String text) {
+			super();
 			this.text = text;
 		}
 		@Override
@@ -37,6 +38,7 @@ public abstract class ParamValue {
 	private static class ParamIntValue extends ParamValue {
 		private final int i;
 		private ParamIntValue(final int i) {
+			super();
 			this.i = i;
 		}			
 		@Override
@@ -53,13 +55,14 @@ public abstract class ParamValue {
 		}
 		@Override
 		public String toString() {
-			return Integer.toString(i);
+			return Integer.toString(this.i);
 		}
 	}
 	
 	private static class ParamIntArrayValue extends ParamValue {
 		private final int[] array;
 		private ParamIntArrayValue(final int[] array) {
+			super();
 			this.array = array;
 		}			
 		@Override
@@ -76,14 +79,16 @@ public abstract class ParamValue {
 		}
 		@Override
 		public String toString() {
-			return Arrays.toString(array);
+			return Arrays.toString(this.array);
 		}
 	}
 	
 	/**
 	* private Constructor
-	*/ 	
-	public ParamValue() {}
+	*/
+    ParamValue() {
+		super();
+	}
 	
 	public static ParamValue createString(final String str) {
 		return new ParamStringValue(str);

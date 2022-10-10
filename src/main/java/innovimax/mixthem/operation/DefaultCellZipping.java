@@ -37,14 +37,14 @@ public class DefaultCellZipping extends AbstractTokenZipping {
 	@Override
 	public void process(final ITokenRange tokenRange, final ITokenResult result) {
 		//System.out.println("RANGE="+tokenRange.toString());
-		StringBuilder zip = new StringBuilder();
+		final StringBuilder zip = new StringBuilder();
 		final List<Iterator<String>> cellIterators = 
 			tokenRange.asList().stream()
 				.map(token -> Arrays.asList(token.asString().split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString()))
 						.iterator())
 				.collect(Collectors.toList());
 		while (cellIterators.stream().allMatch(Iterator::hasNext)) {
-			if (zip.length() > 0) {
+			if (!zip.isEmpty()) {
 				zip.append(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
 			}
 			final List<String> cellRange = cellIterators.stream()

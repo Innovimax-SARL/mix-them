@@ -26,10 +26,10 @@ public enum FileMode {
     /**
     * Finds the FileMode object correponding to a name
     * @param name The name of the file mode in command line
-    * @return The {@link FileMode} object
+    * @return The  object
     */    
     public static FileMode findByName(final String name) {
-        for (FileMode fileMode : values()) {
+        for (final FileMode fileMode : values()) {
             if (fileMode.getName().equals(name)) {
                 return fileMode;
             }

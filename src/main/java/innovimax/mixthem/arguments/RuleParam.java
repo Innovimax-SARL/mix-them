@@ -56,7 +56,7 @@ public enum RuleParam {
  	* @return The {@link ParamValue} representation of the parameter value
  	*/
 	public ParamValue createValue(final String value) throws NumberFormatException {
-		ParamValue pv;
+		final ParamValue pv;
 		switch (this.type) {
 			case INTEGER:				
             			pv = ParamValue.createInt(Integer.parseInt(value));
@@ -66,7 +66,7 @@ public enum RuleParam {
 				final int len = value.endsWith(",") ? stringArray.length+1 : stringArray.length;
 				final int[] intArray = new int[len];
 				for (int i=0; i < stringArray.length; i++) {
-					if (stringArray[i].equals("")) {
+					if (stringArray[i].isEmpty()) {
 						intArray[i] = -1;
 					} else {
 						intArray[i] = Integer.parseInt(stringArray[i]);

@@ -7,7 +7,7 @@ public enum AltOperation {
 
   private final ParamValue value;
 
-  AltOperation(int i) {
+  AltOperation(final int i) {
     this.value = ParamValue.createInt(i);
   }
 

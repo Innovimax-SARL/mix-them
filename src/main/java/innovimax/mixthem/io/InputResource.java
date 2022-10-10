@@ -19,37 +19,41 @@ public abstract class InputResource {
   private static class FileResource extends InputResource {
     private final File file;
     private FileResource(final File file) {
+      super();
       this.file = file;
     }
     @Override
     public BufferedReader newBufferedReader() throws IOException {
-      return Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);  
+      return Files.newBufferedReader(this.file.toPath(), StandardCharsets.UTF_8);
     }
     @Override
     public BufferedInputStream newBufferedInputStream() throws IOException {
-      return new BufferedInputStream(Files.newInputStream(file.toPath()));
+      return new BufferedInputStream(Files.newInputStream(this.file.toPath()));
     }
   }
 
   private static class InputStreamResource extends InputResource {
     private final InputStream input;
     private InputStreamResource(final InputStream input) {
+      super();
       this.input = input;
     }
     @Override
     public BufferedReader newBufferedReader() {
-      return new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
+      return new BufferedReader(new InputStreamReader(this.input, StandardCharsets.UTF_8));
     }
     @Override
     public BufferedInputStream newBufferedInputStream() {
-      return new BufferedInputStream(input);
+      return new BufferedInputStream(this.input);
     }
   }
   
   /**
   * private Constructor
-  */  
-  public InputResource() {}
+  */
+  InputResource() {
+    super();
+  }
   
   public static InputResource createFile(final File file) {
     return new FileResource(file);

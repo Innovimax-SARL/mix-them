@@ -30,12 +30,12 @@ public class DefaultByteAlternation extends AbstractTokenAlternation {
 	}
 
 	@Override
-	public void process(ITokenRange tokenRange, ITokenResult result) {
+	public void process(final ITokenRange tokenRange, final ITokenResult result) {
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(tokenRange.size());
 		byte b = tokenRange.getToken(channel).asByte();
 		//System.out.println("RANGE="+tokenRange.toString()+" CHANNEL="+channel+" BYTE="+b);
 		if (b == -1) {					
-			channel = nextChannel(tokenRange, channel);
+			channel = this.nextChannel(tokenRange, channel);
 			b = tokenRange.getToken(channel).asByte();
 			//System.out.println("NEW_CHANNEL="+channel+" BYTE="+b);
 		}		

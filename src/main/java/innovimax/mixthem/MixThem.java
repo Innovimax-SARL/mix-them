@@ -30,22 +30,23 @@ public class MixThem {
      * @param inputs The list of input resource to be mixed     
      * @param output The output stream to write mixing result
      */ 
-    public MixThem(List<InputResource> inputs, OutputStream output) {
-        this.inputs = inputs;        
+    public MixThem(final List<InputResource> inputs, final OutputStream output) {
+        super();
+        this.inputs = inputs;
         this.output = output;
     }
     
-    static void setLogging(Level level) {
+    static void setLogging(final Level level) {
         if (LOGGER.getHandlers().length == 0) {
             //System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s [%1$tc]%n");
             System.setProperty("java.util.logging.SimpleFormatter.format", "[%4$s] MixThem: %5$s%n");
             LOGGER.setUseParentHandlers(false);
             LOGGER.setLevel(Level.ALL);
-            Handler handler = new ConsoleHandler();
+            final Handler handler = new ConsoleHandler();
             LOGGER.addHandler(handler);
             handler.setLevel(Level.OFF);
-            String prop = System.getProperty("mixthem.logging");
-            if (prop == null || prop.equals("true")) {
+            final String prop = System.getProperty("mixthem.logging");
+            if (prop == null || "true".equals(prop)) {
                 handler.setLevel(level);            
             }
         }
@@ -55,28 +56,30 @@ public class MixThem {
     * Main entry.
     * @param args The command line arguments
     */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         run(args);  
     }
 
-    private static void run(String[] args) {
+    private static void run(final String[] args) {
         try {
             setLogging(Level.INFO);
             LOGGER.info("Started application");   
-            Arguments mixArgs = Arguments.checkArguments(args);        
-            MixThem mixThem = new MixThem(mixArgs.getInputs(), System.out);
+            final Arguments mixArgs = Arguments.checkArguments(args);
+            final MixThem mixThem = new MixThem(mixArgs.getInputs(), System.out);
             mixThem.process(mixArgs.getFileMode(), mixArgs.getSelection(), mixArgs.getRule(), mixArgs.getRuleParameters());
             LOGGER.info("Exited application with no errors");
-        } catch (ArgumentException e) {
+        } catch (final ArgumentException e) {
             LOGGER.severe("Exited application with errors...");
             LOGGER.severe("Files mixing can't be run due to following reason:"); 
             LOGGER.severe(e.getMessage());
             Arguments.printUsage(); 
-        } catch (MixException e) {
+        } catch (final MixException e) {
             LOGGER.severe("Exited application with errors...");
             LOGGER.severe("Files mixing has been aborted due to following reason:"); 
             LOGGER.severe(e.getMessage());
-        } catch (Exception e) {
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (final Exception e) {
             LOGGER.severe("Exited application with errors...");
             LOGGER.severe("An unexpected error occurs:");
             e.printStackTrace();
@@ -95,7 +98,7 @@ public class MixThem {
     * @see innovimax.mixthem.arguments.RuleParam
     * @see innovimax.mixthem.arguments.ParamValue
     */  
-    public void process(FileMode fileMode, Set<Integer> selection,  Rule rule, Map<RuleParam, ParamValue> params) throws MixException {
+    public void process(final FileMode fileMode, final Set<Integer> selection, final Rule rule, final Map<RuleParam, ParamValue> params) throws MixException {
         try {
             LOGGER.info("Started mixing for [" +  fileMode.getName() + "] rule '" + rule.getName() + "'...");
             switch(rule) {
@@ -147,7 +150,7 @@ public class MixThem {
                    System.out.println("This rule has not been implemented yet.");*/
             }
             LOGGER.info("Ended mixing for [" +  fileMode.getName() + "] rule '" + rule.getName() + "'.");
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new MixException("Unexpected file error", e);
         }
 

@@ -20,11 +20,12 @@ public class DefaultLineWriter implements ITokenOutput {
  	* @param output The output stream for lines to be written.
      */
 	public DefaultLineWriter(final OutputStream output) {
+		super();
 		this.writer = new BufferedWriter(new OutputStreamWriter(output));
 	}
 
 	@Override
-	public void writeToken(IToken token) throws IOException {
+	public void writeToken(final IToken token) throws IOException {
 		this.writer.write(token.asString());
 		this.writer.newLine();
 	}

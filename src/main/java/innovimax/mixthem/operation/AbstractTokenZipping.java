@@ -14,7 +14,7 @@ import java.util.Set;
 */
 abstract class AbstractTokenZipping extends AbstractTokenOperation {
 	
-	protected final String sep;
+	final String sep;
 	
 	/**
 	* Constructor
@@ -23,7 +23,7 @@ abstract class AbstractTokenZipping extends AbstractTokenOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractTokenZipping(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+    AbstractTokenZipping(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
 		super(selection, tokenType, params);
 		this.sep = params.getOrDefault(RuleParam.ZIP_SEP, ZipOperation.DEFAULT_ZIP_SEPARATOR.getValue()).asString();
 	}

@@ -14,9 +14,9 @@ import java.util.Set;
 */
 abstract class AbstractOperation {
 	
-	protected final Set<Integer> selection;
-	protected final TokenType tokenType;
-	protected final Map<RuleParam, ParamValue> params;
+	final Set<Integer> selection;
+	final TokenType tokenType;
+	final Map<RuleParam, ParamValue> params;
 	
 	/**
 	* Constructor
@@ -26,10 +26,11 @@ abstract class AbstractOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractOperation(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
-		this.selection = selection;
-		this.tokenType = tokenType;
-		this.params = params;
-	}
+    AbstractOperation(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+        super();
+        this.selection = selection;
+        this.tokenType = tokenType;
+        this.params = params;
+    }
 
 }

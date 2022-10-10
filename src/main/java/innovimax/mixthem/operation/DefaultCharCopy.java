@@ -33,9 +33,9 @@ public class DefaultCharCopy extends AbstractCopyOperation {
 	}
 	
 	@Override
-	public void process(InputResource input, OutputStream out) throws IOException {
-		ITokenInput reader = new DefaultCharReader(input, true, BUFFER_SIZE);
-		ITokenOutput writer = new DefaultCharWriter(out, true);
+	public void process(final InputResource input, final OutputStream output) throws IOException {
+		final ITokenInput reader = new DefaultCharReader(input, true, BUFFER_SIZE);
+		final ITokenOutput writer = new DefaultCharWriter(output, true);
 		while (reader.hasMoreTokens()) {
 			writer.writeToken(reader.nextToken());
 		}

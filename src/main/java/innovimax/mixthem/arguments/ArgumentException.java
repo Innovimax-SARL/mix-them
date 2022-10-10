@@ -7,7 +7,7 @@ package innovimax.mixthem.arguments;
 */
 public class ArgumentException extends Exception {
 
-	public ArgumentException(String message) { 
+	public ArgumentException(final String message) {
 		super(message); 
 	}
 	

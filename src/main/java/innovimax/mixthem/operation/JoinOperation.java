@@ -7,7 +7,7 @@ public enum JoinOperation {
 
   private final ParamValue value;
 
-  JoinOperation(int i) {
+  JoinOperation(final int i) {
     this.value = ParamValue.createInt(i);
   }
 

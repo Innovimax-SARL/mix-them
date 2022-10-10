@@ -15,8 +15,9 @@ public abstract class Token implements IToken {
 	private static class ByteToken extends Token {
 		private final byte b;
 		private ByteToken(final byte b) {
-			this.b = b;
-		}
+            super();
+            this.b = b;
+        }
 		@Override
 		public String toString() {
 			return Byte.toString(this.b);
@@ -58,8 +59,9 @@ public abstract class Token implements IToken {
 	private static class CharToken extends Token {
 		private final int c;
 		private CharToken(final int c) {
-			this.c = c;
-		}
+            super();
+            this.c = c;
+        }
 		@Override
 		public String toString() {
 			return Integer.toString(this.c);
@@ -102,9 +104,10 @@ public abstract class Token implements IToken {
 		private final byte[] array;
 		private final int len;
 		private ByteArrayToken(final byte[] array, final int len) {
-			this.array = array;
-			this.len = len;
-		}
+            super();
+            this.array = array;
+            this.len = len;
+        }
 		@Override
 		public String toString() {
 			return Arrays.toString(this.array);
@@ -147,9 +150,10 @@ public abstract class Token implements IToken {
 		private final char[] array;
 		private final int len;
 		private CharArrayToken(final char[] array, final int len) {
-			this.array = array;
-			this.len = len;
-		}
+            super();
+            this.array = array;
+            this.len = len;
+        }
 		@Override
 		public String toString() {
 			return Arrays.toString(this.array);
@@ -191,8 +195,9 @@ public abstract class Token implements IToken {
 	private static class LineToken extends Token {
 		private final String line;
 		private LineToken(final String line) {
-			this.line = line;
-		}
+            super();
+            this.line = line;
+        }
 		@Override
 		public String toString() {
 			return this.line;
@@ -234,8 +239,9 @@ public abstract class Token implements IToken {
 	private static class FileByteToken extends Token {
 		private final InputStream file;
 		private FileByteToken(final InputStream file) {
-			this.file = file;
-		}
+            super();
+            this.file = file;
+        }
 		@Override
 		public boolean isEmpty() {
 			return this.file == null;
@@ -273,8 +279,9 @@ public abstract class Token implements IToken {
 	private static class FileCharToken extends Token {
 		private final Reader file;
 		private FileCharToken(final Reader file) {
-			this.file = file;
-		}
+            super();
+            this.file = file;
+        }
 		@Override
 		public boolean isEmpty() {
 			return this.file == null;
@@ -311,8 +318,10 @@ public abstract class Token implements IToken {
 
 	/**
 	* private Constructor
-	*/ 	
-	public Token() {}
+	*/
+    Token() {
+        super();
+    }
 	
 	public static IToken createByteToken(final byte b) {
 		return new ByteToken(b);

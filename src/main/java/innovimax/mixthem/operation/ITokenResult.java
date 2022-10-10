@@ -10,7 +10,7 @@ import java.util.List;
 * @author Innovimax
 * @version 1.0
 */
-public interface ITokenResult {
+interface ITokenResult {
     /**
     * Reset the result.
     */

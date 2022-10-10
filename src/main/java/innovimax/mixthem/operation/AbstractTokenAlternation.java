@@ -16,9 +16,9 @@ import java.util.Set;
 */
 abstract class AbstractTokenAlternation extends AbstractTokenOperation {
 	
-	protected final AltMode mode;
-	protected int channel;
-	protected final Random random;
+	final AltMode mode;
+	int channel;
+	final Random random;
 	
 	/**
 	* Constructor
@@ -28,14 +28,14 @@ abstract class AbstractTokenAlternation extends AbstractTokenOperation {
 	* @see innovimax.mixthem.arguments.RuleParam
 	* @see innovimax.mixthem.arguments.ParamValue
 	*/
-	public AbstractTokenAlternation(final AltMode mode, final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
+	AbstractTokenAlternation(final AltMode mode, final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
 		super(selection, tokenType, params);
 		this.mode = mode;
 		this.channel = 0;
 		this.random = new Random(params.getOrDefault(RuleParam.RANDOM_SEED, AltOperation.DEFAULT_RANDOM_SEED.getValue()).asInt());
 	}
 	
-	protected int nextChannel(ITokenRange tokenRange, final int curChannel) {
+	int nextChannel(final ITokenRange tokenRange, final int curChannel) {
 		int channel = curChannel+1;
 		while (channel != curChannel) {
 			if (channel < tokenRange.size()) {				

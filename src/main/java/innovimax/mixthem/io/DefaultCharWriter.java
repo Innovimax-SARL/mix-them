@@ -22,6 +22,7 @@ public class DefaultCharWriter implements ITokenOutput {
  	* @param buffering The buffering indicator
      */
 	public DefaultCharWriter(final OutputStream output, final boolean buffering) {
+		super();
 		this.writer = new BufferedWriter(new OutputStreamWriter(output));
 		this.buffering = buffering;
 	}
@@ -35,7 +36,7 @@ public class DefaultCharWriter implements ITokenOutput {
 	}
 
 	@Override
-	public void writeToken(IToken token) throws IOException {
+	public void writeToken(final IToken token) throws IOException {
 		if (this.buffering) {
 			this.writer.write(token.asCharacterArray(), 0, token.asCharacterArray().length);
 		} else {

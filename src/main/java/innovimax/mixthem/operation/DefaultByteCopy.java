@@ -33,9 +33,9 @@ public class DefaultByteCopy extends AbstractCopyOperation {
 	}
 	
 	@Override
-	public void process(InputResource input, OutputStream out) throws IOException {
-		ITokenInput reader = new DefaultByteReader(input, true, BUFFER_SIZE);
-		ITokenOutput writer = new DefaultByteWriter(out, true);
+	public void process(final InputResource input, final OutputStream output) throws IOException {
+		final ITokenInput reader = new DefaultByteReader(input, true, BUFFER_SIZE);
+		final ITokenOutput writer = new DefaultByteWriter(output, true);
 		while (reader.hasMoreTokens()) {
 			writer.writeToken(reader.nextToken());
 		}

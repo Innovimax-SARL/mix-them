@@ -27,10 +27,10 @@ import java.util.zip.ZipFile;
 */
 public class Arguments {
     
-    private FileMode fileMode = null;
-    private Rule rule = null;
-    private Map<RuleParam, ParamValue> ruleParams = null;
-    private Set<Integer> selection = null;
+    private FileMode fileMode;
+    private Rule rule;
+    private Map<RuleParam, ParamValue> ruleParams;
+    private Set<Integer> selection;
     private final List<InputResource> inputs = new ArrayList<>();
     
     private void setFileMode(final FileMode fileMode) {
@@ -49,7 +49,7 @@ public class Arguments {
         return this.rule;
     }
 
-    void setRuleParameters(final Map<RuleParam, ParamValue> ruleParams) {
+    private void setRuleParameters(final Map<RuleParam, ParamValue> ruleParams) {
         this.ruleParams = ruleParams;
     }
 
@@ -57,7 +57,7 @@ public class Arguments {
         return this.ruleParams;
     }
     
-     public void setSelection(final Set<Integer> selection) {
+     private void setSelection(final Set<Integer> selection) {
         this.selection = selection;
     }
     
@@ -65,7 +65,7 @@ public class Arguments {
         return this.selection;
     }
 
-    void addInput(final InputResource input) {
+    private void addInput(final InputResource input) {
         this.inputs.add(input);
     }
 
@@ -73,7 +73,7 @@ public class Arguments {
         return this.inputs;
     }
     
-    public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException {
+    public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException, java.util.zip.ZipException {
         final Arguments mixArgs = new Arguments();
         int index = 0;
         // get file mode [char|byte]
@@ -92,7 +92,7 @@ public class Arguments {
         }
         // get rule & parameters
         Rule rule = findRuleArgument(args, index, fileMode);
-        Map<RuleParam, ParamValue> ruleParams;
+        final Map<RuleParam, ParamValue> ruleParams;
         if (rule != null) {
             index++;
             ruleParams = findRuleParameters(args, index, rule);
@@ -126,16 +126,17 @@ public class Arguments {
     }
     
     private static Set<Integer> findSelectionArgument(final String[] args, int index) throws ArgumentException {
+        int index1 = index;
         final Set<Integer> selection = new LinkedHashSet<>();
-        while (args.length > index) {
+        while (args.length > index1) {
             final int fileIndex;
             try { 
-                fileIndex = Integer.parseInt(args[index++]); 
-                if (index <= 0) {
+                fileIndex = Integer.parseInt(args[index1++]);
+                if (index1 <= 0) {
                     throw new ArgumentException("Selection index is not valid: " + fileIndex);
                 }
                 selection.add(fileIndex);
-            } catch(NumberFormatException e) { 
+            } catch(final NumberFormatException e) {
                 break;
             }
         }
@@ -168,7 +169,7 @@ public class Arguments {
                     try {
                         final ParamValue value = param.createValue(paramString);
                         map.put(param, value);                        
-                    } catch (NumberFormatException e) {
+                    } catch (final NumberFormatException e) {
                         throw new ArgumentException("#" + param.getName() + " parameter is incorrect: " + paramString);                        
                     }
                 }
@@ -181,9 +182,10 @@ public class Arguments {
     }
     
     private static List<File> findFilesArgument(final String[] args, int index) throws ArgumentException {
+        int index1 = index;
         final List<File> files = new ArrayList<>();
-        while (args.length > index) {
-            final String filepath = args[index++];
+        while (args.length > index1) {
+            final String filepath = args[index1++];
             final File file = new File(filepath);
             final Path path = file.toPath();
             if (Files.exists(path, LinkOption.NOFOLLOW_LINKS)) {
@@ -206,14 +208,14 @@ public class Arguments {
     }
     
     private static String findZipOptionArgument(final String[] args, final int index) {        
-        if (args.length > index && (args[index].equals("--zip") || args[index].equals("--jar"))) {
+        if (args.length > index && ("--zip".equals(args[index]) || "--jar".equals(args[index]))) {
             return args[index].substring(2);
         }
         return null;
     }
     
     private static File findZipFileArgument(final String[] args, final int index) throws ArgumentException {
-        File file;
+        final File file;
         if (args.length > index) {
             final String filepath = args[index];
             file = new File(filepath);
@@ -235,7 +237,7 @@ public class Arguments {
         final List<InputStream> inputs = new ArrayList<>();
         final Enumeration<? extends ZipEntry> entries = zipFile.entries();
         while (entries.hasMoreElements()) {
-            ZipEntry entry = entries.nextElement();
+            final ZipEntry entry = entries.nextElement();
             if (entry.getName().toUpperCase().startsWith("META-INF")) {
                 continue;        
             }           
@@ -250,8 +252,8 @@ public class Arguments {
         return inputs;
     }
     
-    private static void checkSelection(Arguments mixArgs) throws ArgumentException {
-        for (Integer index : mixArgs.getSelection()) {
+    private static void checkSelection(final Arguments mixArgs) throws ArgumentException {
+        for (final Integer index : mixArgs.getSelection()) {
             if (index > mixArgs.getInputs().size()) {
                 throw new ArgumentException("Selection index is greater than file count: " + index);
             }
@@ -286,9 +288,9 @@ public class Arguments {
         System.out.println("  (will generate on standard out a file based on the rule and a selection of entries designed by their index)");
         System.out.println("  ");
         System.out.println("Here are the list of rules:");
-        for(Rule rule : Rule.values()) {
+        for(final Rule rule : Rule.values()) {
             System.out.print("  -" + rule.getName());
-            for(RuleParam param : rule.getParams()) {
+            for(final RuleParam param : rule.getParams()) {
                 if (param.isMandatory()) {
                     System.out.print(" #" +  param.getName());
                 } else {
@@ -296,7 +298,7 @@ public class Arguments {
                 }
             }
             System.out.println(": " + rule.getDescription());            
-            for(RuleParam param : rule.getParams()) {                                
+            for(final RuleParam param : rule.getParams()) {
                 System.out.println("    (#" +param.getName() + " " + param.getComment() + ")");
             }            
         }

@@ -49,7 +49,7 @@ public class DefaultCharZipping extends AbstractTokenZipping {
 					Stream.of(tokenRange.getToken(channel)))
 				.flatMap(stream -> stream)
 				.collect(Collectors.toList());
-		if (tokens.size() > 0) {
+		if (!tokens.isEmpty()) {
 			result.setResult(tokens);
 		}
 	}

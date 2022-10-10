@@ -22,12 +22,13 @@ public class TokenResult implements ITokenResult {
     /**
     * Creates a token result.    
     */
-    public TokenResult(final int rangeSize) {        
+    public TokenResult(final int rangeSize) {
+        super();
         this.rangeSize = rangeSize;
         this.result = null;
         this.tokenStatusRange = new TokenStatusRange();
         IntStream.range(0, this.rangeSize)
-            .forEach(channel -> this.tokenStatusRange.addTokenStatus(true));
+                .forEach(channel -> this.tokenStatusRange.addTokenStatus(true));
     }
 
     @Override

@@ -7,7 +7,7 @@ public enum ZipOperation {
 
   private final ParamValue value;
 
-  ZipOperation(String s) {
+  ZipOperation(final String s) {
     this.value = ParamValue.createString(s);
   }
 
