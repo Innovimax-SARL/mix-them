@@ -30,7 +30,7 @@
     <properties>
         <jdk.version>15</jdk.version>
         <junit.version>4.13.2</junit.version>
-        <pmd.version>3.7</pmd.version>
+        <pmd.version>3.19.0</pmd.version>
         <jackson.version>2.14.0-rc1</jackson.version>
     </properties>
     <dependencies>
