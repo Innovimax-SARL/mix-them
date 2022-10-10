@@ -14,7 +14,7 @@ public enum TokenType {
 
 	private final String name, alias, description;
 
-	private TokenType(final String name, final String alias, final String description) {
+	TokenType(final String name, final String alias, final String description) {
 		this.name = name;
 		this.alias = alias;
 		this.description = description;

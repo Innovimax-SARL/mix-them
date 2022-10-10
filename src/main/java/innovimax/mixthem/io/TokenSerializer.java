@@ -19,9 +19,8 @@ public class TokenSerializer implements ITokenOutput {
 	* Constructor
 	* @param output The output stream for tokens to be written.	
 	* @param tokenType The output tokenization type
-	* @throws IOException - If an I/O error occurs
-	*/
-	public TokenSerializer(final OutputStream output, final TokenType tokenType) throws IOException {		
+	 */
+	public TokenSerializer(final OutputStream output, final TokenType tokenType) {
 		switch(tokenType) {
 			case BYTE: this.writer = new DefaultByteWriter(output); break;
 			case CHAR: this.writer = new DefaultCharWriter(output); break;

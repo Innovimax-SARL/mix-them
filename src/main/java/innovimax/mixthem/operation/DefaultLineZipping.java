@@ -1,6 +1,5 @@
 package innovimax.mixthem.operation;
 
-import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
@@ -32,7 +31,7 @@ public class DefaultLineZipping extends AbstractTokenZipping {
 	}
 	
 	@Override	
-	public void process(final ITokenRange tokenRange, final ITokenResult result) throws MixException {
+	public void process(final ITokenRange tokenRange, final ITokenResult result) {
 		//System.out.println("RANGE="+tokenRange.toString())
 		final String zip = IntStream.range(0, tokenRange.size())
 				.mapToObj(channel -> channel > 0 ? 

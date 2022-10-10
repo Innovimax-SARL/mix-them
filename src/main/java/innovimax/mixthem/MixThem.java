@@ -28,7 +28,7 @@ public class MixThem {
     /**
      * Constructor
      * @param inputs The list of input resource to be mixed     
-     * @param out The output stream to write mixing result
+     * @param output The output stream to write mixing result
      */ 
     public MixThem(List<InputResource> inputs, OutputStream output) {
         this.inputs = inputs;        
@@ -90,10 +90,10 @@ public class MixThem {
     * @param rule The rule to be used for mixing
     * @param params The rule parameters to be used for mixing
     * @throws MixException - If any error occurs during mixing
-    * @see innovimax.mixthem.FileMode
-    * @see innovimax.mixthem.Rule
-    * @see innovimax.mixthem.RuleParam
-    * @see innovimax.mixthem.ParamValue
+    * @see innovimax.mixthem.arguments.FileMode
+    * @see innovimax.mixthem.arguments.Rule
+    * @see innovimax.mixthem.arguments.RuleParam
+    * @see innovimax.mixthem.arguments.ParamValue
     */  
     public void process(FileMode fileMode, Set<Integer> selection,  Rule rule, Map<RuleParam, ParamValue> params) throws MixException {
         try {

@@ -1,6 +1,5 @@
 package innovimax.mixthem.operation;
 
-import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
@@ -31,7 +30,7 @@ public class DefaultByteAlternation extends AbstractTokenAlternation {
 	}
 
 	@Override
-	public void process(ITokenRange tokenRange, ITokenResult result) throws MixException {		
+	public void process(ITokenRange tokenRange, ITokenResult result) {
 		int channel = this.mode == AltMode.NORMAL ? this.channel : this.random.nextInt(tokenRange.size());
 		byte b = tokenRange.getToken(channel).asByte();
 		//System.out.println("RANGE="+tokenRange.toString()+" CHANNEL="+channel+" BYTE="+b);

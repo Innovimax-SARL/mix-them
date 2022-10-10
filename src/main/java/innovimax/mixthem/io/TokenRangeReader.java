@@ -28,7 +28,7 @@ public class TokenRangeReader implements ITokenRangeInput {
 	*/
 	public TokenRangeReader(final List<InputResource> inputs, final Set<Integer> selection, final TokenType tokenType) {
 		this.readers = IntStream.rangeClosed(1, inputs.size())
-			.filter(index -> selection.isEmpty() || selection.contains(Integer.valueOf(index)))
+			.filter(index -> selection.isEmpty() || selection.contains(index))
 			.mapToObj(index -> inputs.get(index-1))
 			.map(StreamUtils.apply(input -> {
 				switch(tokenType) {
@@ -47,7 +47,7 @@ public class TokenRangeReader implements ITokenRangeInput {
 	@Override
 	public boolean hasMoreTokens() {		
 		return this.readers.stream()
-			.anyMatch(StreamUtils.test(reader -> reader.hasMoreTokens()));
+			.anyMatch(StreamUtils.test(ITokenInput::hasMoreTokens));
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class TokenRangeReader implements ITokenRangeInput {
 	@Override
 	public void close() {
 		this.readers
-			.forEach(StreamUtils.consume(reader -> reader.close()));
+			.forEach(StreamUtils.consume(ITokenInput::close));
 	}
 
 }

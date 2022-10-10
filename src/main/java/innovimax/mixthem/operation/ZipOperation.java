@@ -5,9 +5,9 @@ import innovimax.mixthem.arguments.ParamValue;
 public enum ZipOperation { 
   DEFAULT_ZIP_SEPARATOR("");
 
-  private ParamValue value;
+  private final ParamValue value;
 
-  private ZipOperation(String s) {
+  ZipOperation(String s) {
     this.value = ParamValue.createString(s);
   }
 

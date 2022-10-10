@@ -12,5 +12,5 @@ package innovimax.mixthem.operation;
 */
 public enum AltMode {	
 	NORMAL,
-	RANDOM;
+	RANDOM
 }

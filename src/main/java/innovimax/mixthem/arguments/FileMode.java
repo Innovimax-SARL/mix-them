@@ -11,7 +11,7 @@ public enum FileMode {
     
     private final String name;
     
-    private FileMode(final String name) {
+    FileMode(final String name) {
         this.name = name;
     }
     

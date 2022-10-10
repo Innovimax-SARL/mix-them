@@ -6,9 +6,9 @@ public enum CellOperation {
   DEFAULT_SPLIT_CELL_REGEX("\\s"),
   DEFAULT_CELL_SEPARATOR(" ");
 
-  private ParamValue value;
+  private final ParamValue value;
 
-  private CellOperation(String s) {
+  CellOperation(String s) {
     this.value = ParamValue.createString(s);
   }
 

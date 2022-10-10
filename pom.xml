@@ -86,7 +86,7 @@
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
 					<compilerArgs>
-						<arg>-deprecation</arg>
+						<!--arg>-deprecation</arg-->
 					</compilerArgs>						
 				</configuration>
 		  	</plugin>

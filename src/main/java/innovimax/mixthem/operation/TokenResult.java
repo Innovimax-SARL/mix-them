@@ -44,7 +44,7 @@ public class TokenResult implements ITokenResult {
 
     @Override
     public void setResult(final IToken token) {
-        this.result = new ArrayList<IToken>();
+        this.result = new ArrayList<>();
         this.result.add(token);
     }
 

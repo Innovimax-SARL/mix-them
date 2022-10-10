@@ -1,6 +1,5 @@
 package innovimax.mixthem.operation;
 
-import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
@@ -17,8 +16,8 @@ import java.util.stream.IntStream;
 /**
 * <p>Joins two or more lines on a common field.</p>
 * <p>Joining doesn't operate when no common field is found for all lines.</p>
-* <p>In this case, we prevent bigger join field file(s) from beeing read, keeping current line(s).</p>
-* @see ILineOperation
+* <p>In this case, we prevent bigger join field file(s) from being read, keeping current line(s).</p>
+* @see ITokenOperation
 * @author Innovimax
 * @version 1.0
 */
@@ -29,8 +28,8 @@ public class DefaultLineJoining extends AbstractTokenOperation {
 	/**
 	* @param selection The file index selection (maybe empty)
 	* @param params The list of parameters (maybe empty)
-	* @see innovimax.mixthem.operation.RuleParam
-	* @see innovimax.mixthem.operation.ParamValue
+	* @see innovimax.mixthem.arguments.RuleParam
+	* @see innovimax.mixthem.arguments.ParamValue
 	*/
 	public DefaultLineJoining(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
 		super(selection, tokenType, params);		
@@ -44,7 +43,7 @@ public class DefaultLineJoining extends AbstractTokenOperation {
 	} 
 
 	@Override
-	public void process(final ITokenRange tokenRange, final ITokenResult result) throws MixException {				
+	public void process(final ITokenRange tokenRange, final ITokenResult result) {
 		//System.out.println("LINES="+tokenRange.toString());		
 		//System.out.println("READING="+result.getTokenStatusRange().toString());			
 		final List<List<String>> lineCellsRange =

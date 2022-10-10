@@ -18,11 +18,11 @@ public enum Rule {
                 EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.CHAR)),
     ALT_BYTE("alt-byte", "altbyte", "will output one byte of each starting with first byte of file1", true, 
                 EnumSet.noneOf(RuleParam.class), EnumSet.of(FileMode.BYTE)),
-    RANDOM_ALT_LINE("random-alt-line", "random-altline", "will output one line of each code randomly based on a seed for reproducability", true, 
+    RANDOM_ALT_LINE("random-alt-line", "random-altline", "will output one line of each code randomly based on a seed for reproducibility", true,
                 EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(FileMode.CHAR)),
-    RANDOM_ALT_CHAR("random-alt-char", "random-altchar", "will output one char of each code randomly based on a seed for reproducability", true, 
+    RANDOM_ALT_CHAR("random-alt-char", "random-altchar", "will output one char of each code randomly based on a seed for reproducibility", true,
                 EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(FileMode.CHAR)),
-    RANDOM_ALT_BYTE("random-alt-byte", "random-altbyte", "will output one byte of each code randomly based on a seed for reproducability", true, 
+    RANDOM_ALT_BYTE("random-alt-byte", "random-altbyte", "will output one byte of each code randomly based on a seed for reproducibility", true,
                 EnumSet.of(RuleParam.RANDOM_SEED), EnumSet.of(FileMode.BYTE)),
     JOIN("join", "join", "will output merging of lines that have common occurrence determined by a column index or first column by default", true,
                 EnumSet.of(RuleParam.JOIN_COLS), EnumSet.of(FileMode.CHAR)),
@@ -38,7 +38,7 @@ public enum Rule {
     private final EnumSet<RuleParam> params;
     private final EnumSet<FileMode> fileModes;
 
-    private Rule(final String name, final String extension, final String description, final boolean implemented, 
+    Rule(final String name, final String extension, final String description, final boolean implemented,
                  final EnumSet<RuleParam> params, final EnumSet<FileMode> fileModes) {
         this.name = name;
         this.extension = extension;
@@ -99,7 +99,7 @@ public enum Rule {
     /**
     * Finds the Rule object correponding to a name
     * @param name The name of the rule in command line
-    * @param mode The running {@link Mode) 
+    * @param fileMode The running {@link FileMode)
     * @return The {@link Rule} object
     */    
     public static Rule findByName(final String name, final FileMode fileMode) {

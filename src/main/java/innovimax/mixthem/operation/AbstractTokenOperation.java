@@ -1,6 +1,5 @@
 package innovimax.mixthem.operation;
 
-import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
@@ -40,7 +39,7 @@ abstract class AbstractTokenOperation extends AbstractOperation implements IToke
 	}
 
 	@Override
-	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {
+	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws IOException {
 		final ITokenRangeInput reader = new TokenRangeReader(inputs, this.selection, this.tokenType);
 		final ITokenOutput writer = new TokenSerializer(output, this.tokenType);
 		final ITokenResult result = new TokenResult(inputs.size());		
@@ -51,11 +50,11 @@ abstract class AbstractTokenOperation extends AbstractOperation implements IToke
 			if (mixable(tokenRange)) {
 				// process mixing
 				process(tokenRange, result);
-				// write mixing result if has one
+				// write mixing result if it has one
 				//System.out.println("RESULT="+result.getResult().toString());
 				if (result.hasResult()) {
 					result.getResult()
-						.forEach(StreamUtils.consume(token -> writer.writeToken(token)));
+						.forEach(StreamUtils.consume(writer::writeToken));
 				}			
 			}			
 		}
@@ -66,7 +65,7 @@ abstract class AbstractTokenOperation extends AbstractOperation implements IToke
 	@Override
 	public boolean mixable(final ITokenRange tokenRange) {
 		return IntStream.range(0, tokenRange.size())
-			.allMatch(index -> !tokenRange.getToken(index).isEmpty());
+			.noneMatch(index -> tokenRange.getToken(index).isEmpty());
 	}
 
 }

@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 /**
@@ -32,7 +31,7 @@ public class Arguments {
     private Rule rule = null;
     private Map<RuleParam, ParamValue> ruleParams = null;
     private Set<Integer> selection = null;
-    private final List<InputResource> inputs = new ArrayList<InputResource>();    
+    private final List<InputResource> inputs = new ArrayList<>();
     
     private void setFileMode(final FileMode fileMode) {
         this.fileMode = fileMode;
@@ -74,7 +73,7 @@ public class Arguments {
         return this.inputs;
     }
     
-    public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException, ZipException { 
+    public static Arguments checkArguments(final String[] args) throws ArgumentException, IOException {
         final Arguments mixArgs = new Arguments();
         int index = 0;
         // get file mode [char|byte]
@@ -93,7 +92,7 @@ public class Arguments {
         }
         // get rule & parameters
         Rule rule = findRuleArgument(args, index, fileMode);
-        Map<RuleParam, ParamValue> ruleParams = null;
+        Map<RuleParam, ParamValue> ruleParams;
         if (rule != null) {
             index++;
             ruleParams = findRuleParameters(args, index, rule);
@@ -108,18 +107,18 @@ public class Arguments {
         final String zipOption = findZipOptionArgument(args, index);
         if (zipOption == null) {
             final List<File> files = findFilesArgument(args, index);
-            files.stream().forEach(file -> mixArgs.addInput(InputResource.createFile(file)));
+            files.forEach(file -> mixArgs.addInput(InputResource.createFile(file)));
         } else {
             final ZipFile zipFile = new ZipFile(findZipFileArgument(args, ++index));
             final List<InputStream> inputs = extractZipEntries(zipFile);
-            inputs.stream().forEach(input -> mixArgs.addInput(InputResource.createInputStream(input)));
+            inputs.forEach(input -> mixArgs.addInput(InputResource.createInputStream(input)));
         }        
         // check selection vs input file count
         checkSelection(mixArgs);
         return mixArgs;
     }
 
-    private static FileMode findFileModeArgument(final String[] args, final int index) throws ArgumentException {        
+    private static FileMode findFileModeArgument(final String[] args, final int index) {
         if (args.length > index) {            
             return FileMode.findByName(args[index]);
         }
@@ -127,7 +126,7 @@ public class Arguments {
     }
     
     private static Set<Integer> findSelectionArgument(final String[] args, int index) throws ArgumentException {
-        final Set<Integer> selection = new LinkedHashSet<Integer>();        
+        final Set<Integer> selection = new LinkedHashSet<>();
         while (args.length > index) {
             final int fileIndex;
             try { 
@@ -135,7 +134,7 @@ public class Arguments {
                 if (index <= 0) {
                     throw new ArgumentException("Selection index is not valid: " + fileIndex);
                 }
-                selection.add(Integer.valueOf(fileIndex));
+                selection.add(fileIndex);
             } catch(NumberFormatException e) { 
                 break;
             }
@@ -158,7 +157,7 @@ public class Arguments {
     }
    
     private static Map<RuleParam, ParamValue> findRuleParameters(final String[] args, final int index, final Rule rule) throws ArgumentException {
-        final Map<RuleParam, ParamValue> map = new EnumMap<RuleParam, ParamValue>(RuleParam.class);
+        final Map<RuleParam, ParamValue> map = new EnumMap<>(RuleParam.class);
         final Iterator<RuleParam> iterator = rule.getParams().iterator();
         if (iterator.hasNext()) {
             final RuleParam param = iterator.next();
@@ -182,7 +181,7 @@ public class Arguments {
     }
     
     private static List<File> findFilesArgument(final String[] args, int index) throws ArgumentException {
-        final List<File> files = new ArrayList<File>();
+        final List<File> files = new ArrayList<>();
         while (args.length > index) {
             final String filepath = args[index++];
             final File file = new File(filepath);
@@ -214,7 +213,7 @@ public class Arguments {
     }
     
     private static File findZipFileArgument(final String[] args, final int index) throws ArgumentException {
-        File file = null;
+        File file;
         if (args.length > index) {
             final String filepath = args[index];
             file = new File(filepath);
@@ -232,11 +231,11 @@ public class Arguments {
         return file;
     }
 
-    private static List<InputStream> extractZipEntries(final ZipFile zipFile) throws ArgumentException, IOException, ZipException {
-        final List<InputStream> inputs = new ArrayList<InputStream>();        
-        final Enumeration entries = zipFile.entries();        
+    private static List<InputStream> extractZipEntries(final ZipFile zipFile) throws ArgumentException, IOException {
+        final List<InputStream> inputs = new ArrayList<>();
+        final Enumeration<? extends ZipEntry> entries = zipFile.entries();
         while (entries.hasMoreElements()) {
-            ZipEntry entry = (ZipEntry) entries.nextElement();
+            ZipEntry entry = entries.nextElement();
             if (entry.getName().toUpperCase().startsWith("META-INF")) {
                 continue;        
             }           
@@ -252,11 +251,9 @@ public class Arguments {
     }
     
     private static void checkSelection(Arguments mixArgs) throws ArgumentException {
-        Iterator<Integer> iterator = mixArgs.getSelection().iterator();
-        while (iterator.hasNext()) {
-            Integer index = iterator.next();            
-            if (index.intValue() > mixArgs.getInputs().size()) {
-                throw new ArgumentException("Selection index is greater than file count: " + index.intValue());
+        for (Integer index : mixArgs.getSelection()) {
+            if (index > mixArgs.getInputs().size()) {
+                throw new ArgumentException("Selection index is greater than file count: " + index);
             }
         }
     }

@@ -1,7 +1,6 @@
 package innovimax.mixthem;
 
 import innovimax.mixthem.arguments.ParamValue;
-import innovimax.mixthem.arguments.Rule;
 import innovimax.mixthem.arguments.RuleParam;
 
 import java.util.Map;

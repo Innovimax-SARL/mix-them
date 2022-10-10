@@ -37,11 +37,11 @@ public abstract class InputResource {
       this.input = input;
     }
     @Override
-    public BufferedReader newBufferedReader() throws IOException {
+    public BufferedReader newBufferedReader() {
       return new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
     }
     @Override
-    public BufferedInputStream newBufferedInputStream() throws IOException {
+    public BufferedInputStream newBufferedInputStream() {
       return new BufferedInputStream(input);
     }
   }

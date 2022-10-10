@@ -19,9 +19,8 @@ public class DefaultByteWriter implements ITokenOutput {
  	* Creates a byte writer.
  	* @param output The output stream for bytes to be written.
  	* @param buffering The buffering indicator
- 	* @throws IOException - If an I/O error occurs
- 	*/
-	public DefaultByteWriter(final OutputStream output, final boolean buffering) throws IOException {
+	 */
+	public DefaultByteWriter(final OutputStream output, final boolean buffering) {
 		this.writer = new BufferedOutputStream(output);
 		this.buffering = buffering;
 	}
@@ -29,9 +28,8 @@ public class DefaultByteWriter implements ITokenOutput {
 	/**
  	* Creates a byte writer.
  	* @param output The output stream for bytes to be written.
- 	* @throws IOException - If an I/O error occurs
- 	*/
-	public DefaultByteWriter(final OutputStream output) throws IOException {
+	 */
+	public DefaultByteWriter(final OutputStream output) {
 		this(output, false);
 	}
 

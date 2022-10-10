@@ -2,13 +2,11 @@ package innovimax.mixthem.operation;
 
 import innovimax.mixthem.utils.StreamUtils;
 
-import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.TokenType;
 import innovimax.mixthem.io.InputResource;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Map;
@@ -40,7 +38,7 @@ public abstract class AbstractCopyOperation extends AbstractOperation implements
 	}
 
 	@Override
-	public void processFiles(final List<InputResource> inputs, final OutputStream output) throws MixException, IOException {		
+	public void processFiles(final List<InputResource> inputs, final OutputStream output) {
 		final IntStream indexes; 		
 		if (this.selection.isEmpty()) {
 			indexes = IntStream.range(1, inputs.size()+1);			

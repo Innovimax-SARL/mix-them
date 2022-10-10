@@ -14,7 +14,7 @@ public enum RuleParam {
 	private final ParamType type;
 	private final boolean mandatory;
 
-	private RuleParam(final String name, final ParamType type, final boolean mandatory) {
+	RuleParam(final String name, final ParamType type, final boolean mandatory) {
 		this.name = name;
 		this.type = type;
 		this.mandatory = mandatory;
@@ -37,7 +37,7 @@ public enum RuleParam {
 			case INTEGER:
             			return "is an integer value";
 			case INTEGER_ARRAY:
-				return "is a list of integer separated by a comma; starting by a comma or 2 consecutives commas mean a default value";
+				return "is a list of integer separated by a comma; starting by a comma or 2 consecutive commas mean a default value";
             		default:
             			return "is a string value";
 		}		
@@ -56,7 +56,7 @@ public enum RuleParam {
  	* @return The {@link ParamValue} representation of the parameter value
  	*/
 	public ParamValue createValue(final String value) throws NumberFormatException {
-		ParamValue pv = null;
+		ParamValue pv;
 		switch (this.type) {
 			case INTEGER:				
             			pv = ParamValue.createInt(Integer.parseInt(value));

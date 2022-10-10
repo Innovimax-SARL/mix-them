@@ -4,7 +4,7 @@ import innovimax.mixthem.arguments.Arguments;
 import innovimax.mixthem.arguments.ArgumentException;
 
 import java.io.IOException;
-import java.util.zip.ZipException;
+import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -22,9 +22,9 @@ public class BasicTest {
     }
     
     @Test(expected=ArgumentException.class)
-    public final void testEmptyArgs() throws ArgumentException, IOException, ZipException {
+    public final void testEmptyArgs() throws ArgumentException, IOException {
         try {
-            final String args[] = {};
+            final String[] args = {};
             final Arguments mixArgs = Arguments.checkArguments(args);
         } catch (ArgumentException e) {
             System.out.println("testEmptyArgs: " + e.getMessage());
@@ -33,9 +33,9 @@ public class BasicTest {
     }
 
     @Test(expected=ArgumentException.class)
-    public final void testWrongArgs() throws ArgumentException, IOException, ZipException {
+    public final void testWrongArgs() throws ArgumentException, IOException {
         try {
-            final String args[] = { "ghost1", "ghost2" };
+            final String[] args = { "ghost1", "ghost2" };
             final Arguments mixArgs = Arguments.checkArguments(args);
         } catch (ArgumentException e) {
             System.out.println("testWrongArgs: " + e.getMessage());
@@ -44,23 +44,23 @@ public class BasicTest {
     }
 
     @Test
-    public final void testNoRule() throws ArgumentException, IOException, ZipException {
-        final String args[] = { getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+    public final void testNoRule() throws ArgumentException, IOException {
+        final String[] args = { Objects.requireNonNull(getClass().getResource("test001_file1.txt")).getFile(), Objects.requireNonNull(getClass().getResource("test001_file2.txt")).getFile() };
         final Arguments mixArgs = Arguments.checkArguments(args);
         Assert.assertTrue(true);
     }
     
     @Test
-    public final void testAltRule() throws ArgumentException, IOException, ZipException {
-        final String args[] = { "-alt-line", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+    public final void testAltRule() throws ArgumentException, IOException {
+        final String[] args = { "-alt-line", Objects.requireNonNull(getClass().getResource("test001_file1.txt")).getFile(), Objects.requireNonNull(getClass().getResource("test001_file2.txt")).getFile() };
         final Arguments mixArgs = Arguments.checkArguments(args);
         Assert.assertTrue(true);
     }
     
     @Test(expected=ArgumentException.class)
-    public final void testUnknownRule() throws ArgumentException, IOException, ZipException {
+    public final void testUnknownRule() throws ArgumentException, IOException {
         try {
-            final String args[] = { "-x", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+            final String[] args = { "-x", Objects.requireNonNull(getClass().getResource("test001_file1.txt")).getFile(), Objects.requireNonNull(getClass().getResource("test001_file2.txt")).getFile() };
             final Arguments mixArgs = Arguments.checkArguments(args);
         } catch (ArgumentException e) {
             System.out.println("testUnknownRule: " + e.getMessage());
@@ -69,9 +69,9 @@ public class BasicTest {
     }
 
     @Test(expected=ArgumentException.class)
-    public final void testUnexpectedParam() throws ArgumentException, IOException, ZipException {
+    public final void testUnexpectedParam() throws ArgumentException, IOException {
         try {
-            final String args[] = { "alt-line", "#val", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+            final String[] args = { "alt-line", "#val", Objects.requireNonNull(getClass().getResource("test001_file1.txt")).getFile(), Objects.requireNonNull(getClass().getResource("test001_file2.txt")).getFile() };
             final Arguments mixArgs = Arguments.checkArguments(args);
         } catch (ArgumentException e) {
             System.out.println("testUnexpectedParam: " + e.getMessage());
@@ -80,9 +80,9 @@ public class BasicTest {
     }
 
     @Test(expected=ArgumentException.class)
-    public final void testWrongSeedParam() throws ArgumentException, IOException, ZipException {
+    public final void testWrongSeedParam() throws ArgumentException, IOException {
         try {
-            final String args[] = { "-random-alt-line", "#val", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+            final String[] args = { "-random-alt-line", "#val", Objects.requireNonNull(getClass().getResource("test001_file1.txt")).getFile(), Objects.requireNonNull(getClass().getResource("test001_file2.txt")).getFile() };
             final Arguments mixArgs = Arguments.checkArguments(args);
         } catch (ArgumentException e) {
             System.out.println("testWrongSeedParam: " + e.getMessage());
@@ -91,16 +91,16 @@ public class BasicTest {
     }
 
     @Test
-    public final void testValidSeedParam() throws ArgumentException, IOException, ZipException {
-        final String args[] = { "-random-alt-line", "#1789", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+    public final void testValidSeedParam() throws ArgumentException, IOException {
+        final String[] args = { "-random-alt-line", "#1789", Objects.requireNonNull(getClass().getResource("test001_file1.txt")).getFile(), Objects.requireNonNull(getClass().getResource("test001_file2.txt")).getFile() };
         Arguments mixArgs = Arguments.checkArguments(args);
         Assert.assertTrue(true);        
     }
     
     @Test(expected=ArgumentException.class)
-    public final void testNotAParam() throws ArgumentException, IOException, ZipException {
+    public final void testNotAParam() throws ArgumentException, IOException {
         try {
-            final String args[] = { "-random-alt-line", "1789", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+            final String[] args = { "-random-alt-line", "1789", Objects.requireNonNull(getClass().getResource("test001_file1.txt")).getFile(), Objects.requireNonNull(getClass().getResource("test001_file2.txt")).getFile() };
             final Arguments mixArgs = Arguments.checkArguments(args);
         } catch (ArgumentException e) {
             System.out.println("testNotAParam: " + e.getMessage());
@@ -109,16 +109,16 @@ public class BasicTest {
     }
 
     @Test
-    public final void testOptionalParam() throws ArgumentException, IOException, ZipException {
-        final String args[] = { "-random-alt-line", getClass().getResource("test001_file1.txt").getFile(), getClass().getResource("test001_file2.txt").getFile() };
+    public final void testOptionalParam() throws ArgumentException, IOException {
+        final String[] args = { "-random-alt-line", Objects.requireNonNull(getClass().getResource("test001_file1.txt")).getFile(), Objects.requireNonNull(getClass().getResource("test001_file2.txt")).getFile() };
         final Arguments mixArgs = Arguments.checkArguments(args);
         Assert.assertTrue(true);        
     }
 
     @Test(expected=ArgumentException.class)
-    public final void testZipEmptyArgs() throws ArgumentException, IOException, ZipException {
+    public final void testZipEmptyArgs() throws ArgumentException, IOException {
         try {
-            final String args[] = { "--zip" };
+            final String[] args = { "--zip" };
             Arguments mixArgs = Arguments.checkArguments(args);
         } catch (ArgumentException e) {
             System.out.println("testZipEmptyArgs: " + e.getMessage());
@@ -127,9 +127,9 @@ public class BasicTest {
     }
     
     @Test(expected=ArgumentException.class)
-    public final void testZipWrongArgs() throws ArgumentException, IOException, ZipException {
+    public final void testZipWrongArgs() throws ArgumentException, IOException {
         try {
-            final String args[] = { "--zip", "zip/ghost1" };
+            final String[] args = { "--zip", "zip/ghost1" };
             final Arguments mixArgs = Arguments.checkArguments(args);
         } catch (ArgumentException e) {
             System.out.println("testZipWrongArgs: " + e.getMessage());
@@ -138,23 +138,23 @@ public class BasicTest {
     }
     
     @Test
-    public final void testZipNoRule() throws ArgumentException, IOException, ZipException {
-        final String args[] = { "--zip", getClass().getResource("zip/test001.zip").getFile() };
+    public final void testZipNoRule() throws ArgumentException, IOException {
+        final String[] args = { "--zip", Objects.requireNonNull(getClass().getResource("zip/test001.zip")).getFile() };
         final Arguments mixArgs = Arguments.checkArguments(args);
         Assert.assertTrue(true);
     }
     
     @Test
-    public final void testJarAltRule() throws ArgumentException, IOException, ZipException {
-        final String args[] = { "-alt-line", "--jar", getClass().getResource("zip/test001.jar").getFile() };
+    public final void testJarAltRule() throws ArgumentException, IOException {
+        final String[] args = { "-alt-line", "--jar", Objects.requireNonNull(getClass().getResource("zip/test001.jar")).getFile() };
         final Arguments mixArgs = Arguments.checkArguments(args);
         Assert.assertTrue(true);
     }
     
     @Test(expected=ArgumentException.class)
-    public final void testZipOneFile() throws ArgumentException, IOException, ZipException {
+    public final void testZipOneFile() throws ArgumentException, IOException {
         try {
-            final String args[] = { "--zip", getClass().getResource("zip/wrong.zip").getFile() };
+            final String[] args = { "--zip", Objects.requireNonNull(getClass().getResource("zip/wrong.zip")).getFile() };
             final Arguments mixArgs = Arguments.checkArguments(args);
         } catch (ArgumentException e) {
             System.out.println("testZipOneFile: " + e.getMessage());
@@ -163,9 +163,9 @@ public class BasicTest {
     }
     
     @Test(expected=ArgumentException.class)
-    public final void testJarEmpty() throws ArgumentException, IOException, ZipException {
+    public final void testJarEmpty() throws ArgumentException, IOException {
         try {
-            final String args[] = { "--jar", getClass().getResource("zip/empty.jar").getFile() };
+            final String[] args = { "--jar", Objects.requireNonNull(getClass().getResource("zip/empty.jar")).getFile() };
             final Arguments mixArgs = Arguments.checkArguments(args);
         } catch (ArgumentException e) {
             System.out.println("testJarEmpty: " + e.getMessage());

@@ -79,8 +79,8 @@ public class StreamUtils {
 
 	static public Collector<Byte, ?, ByteArrayOutputStream> byteCollector() {
 		return Collector.of(
-			ByteArrayOutputStream::new, 
-			(baos, b) -> baos.write(b.byteValue()), 
+			ByteArrayOutputStream::new,
+				ByteArrayOutputStream::write,
 			(baos1, baos2) -> { 
 				baos1.write(baos2.toByteArray(), 0, baos2.size());
 				return baos1;

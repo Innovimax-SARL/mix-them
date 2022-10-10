@@ -1,6 +1,5 @@
 package innovimax.mixthem.operation;
 
-import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
@@ -36,7 +35,7 @@ public class DefaultCellZipping extends AbstractTokenZipping {
 	}
 	
 	@Override
-	public void process(final ITokenRange tokenRange, final ITokenResult result) throws MixException {
+	public void process(final ITokenRange tokenRange, final ITokenResult result) {
 		//System.out.println("RANGE="+tokenRange.toString());
 		StringBuilder zip = new StringBuilder();
 		final List<Iterator<String>> cellIterators = 
@@ -44,12 +43,12 @@ public class DefaultCellZipping extends AbstractTokenZipping {
 				.map(token -> Arrays.asList(token.asString().split(CellOperation.DEFAULT_SPLIT_CELL_REGEX.getValue().asString()))
 						.iterator())
 				.collect(Collectors.toList());
-		while (cellIterators.stream().allMatch(iterator -> iterator.hasNext())) {
+		while (cellIterators.stream().allMatch(Iterator::hasNext)) {
 			if (zip.length() > 0) {
 				zip.append(CellOperation.DEFAULT_CELL_SEPARATOR.getValue().asString());
 			}
 			final List<String> cellRange = cellIterators.stream()
-				.map(iterator -> iterator.next())
+				.map(Iterator::next)
 				.collect(Collectors.toList());
 			//System.out.println("CELLS="+cellRange);
 			IntStream.range(0, cellRange.size())
@@ -57,7 +56,7 @@ public class DefaultCellZipping extends AbstractTokenZipping {
 					Stream.of(this.sep, cellRange.get(index)) : 
 					Stream.of(cellRange.get(index)))					
 				.flatMap(stream -> stream)
-				.forEach(token -> zip.append(token));
+				.forEach(zip::append);
 		}			
 		result.setResult(Token.createLineToken(zip.toString()));
 	}

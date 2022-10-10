@@ -10,14 +10,12 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +24,6 @@ import java.util.logging.Level;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.experimental.theories.*;
-import org.junit.runner.RunWith;
 
 /*
 	Created by innovimax
@@ -36,26 +32,26 @@ import org.junit.runner.RunWith;
 public class GenericTest {
 
    @Test
-   public final void testCharRules() throws MixException, FileNotFoundException, IOException, NumberFormatException {
+   public final void testCharRules() throws MixException, IOException, NumberFormatException {
 	   testRules(FileMode.CHAR);
    }
 
    @Test
-   public final void testBytesRules() throws MixException, FileNotFoundException, IOException, NumberFormatException {
+   public final void testBytesRules() throws MixException, IOException, NumberFormatException {
 	   testRules(FileMode.BYTE);
    }
 
-   private final void testRules(final FileMode fileMode) throws MixException, FileNotFoundException, IOException, NumberFormatException {
+   private void testRules(final FileMode fileMode) throws MixException, IOException, NumberFormatException {
 	   MixThem.setLogging(Level.FINE);
 	   int testId = 0;
-	   final List<String> failed = new ArrayList<String>();
+	   final List<String> failed = new ArrayList<>();
 	   final Set<Integer> locks = getTestLocks();	   
 	   boolean result = true;
 	   while (true) {
 		   testId++;
 		   MixThem.LOGGER.info("TEST [" + fileMode.getName().toUpperCase() + "] N° " + testId + "***********************************************************");
 		   final String prefix = "test" + String.format("%03d", testId) +"_";
-		   final List<URL> urlF = new ArrayList<URL>();
+		   final List<URL> urlF = new ArrayList<>();
 		   int index = 1;
 		   while (true) {
 			   final URL url = getClass().getResource(prefix + "file" + index + ".txt");
@@ -67,7 +63,7 @@ public class GenericTest {
 			   }
 		   }		   		   
 		   if( urlF.size() < 2) break;
-		   if (locks.contains(Integer.valueOf(testId))) {
+		   if (locks.contains(testId)) {
 			   MixThem.LOGGER.info("Locked!!!");
 			   continue;
 		   }
@@ -110,14 +106,14 @@ public class GenericTest {
 	   }
 	   MixThem.LOGGER.info("*********************************************************************");
 	   MixThem.LOGGER.info("FAILED [" + fileMode.getName().toUpperCase() + "] TESTS : " + (failed.size() > 0 ? failed.toString() : "None"));
-	   MixThem.LOGGER.info("LOCKED [" + fileMode.getName().toUpperCase() + "] TESTS : " + locks.toString());	   
+	   MixThem.LOGGER.info("LOCKED [" + fileMode.getName().toUpperCase() + "] TESTS : " + locks);
 	   MixThem.LOGGER.info("*********************************************************************");
 	   Assert.assertTrue(result);
    }	   
 
-   private final static boolean check(final List<URL> filesURL, final URL resultURL, final FileMode fileMode, final Set<Integer> selection, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, FileNotFoundException, IOException  {
+   private static boolean check(final List<URL> filesURL, final URL resultURL, final FileMode fileMode, final Set<Integer> selection, final Rule rule, final Map<RuleParam, ParamValue> params)  throws MixException, IOException  {
 	   MixThem.LOGGER.info("Run and check result...");	   
-	   final List<InputResource> inputs = new ArrayList<InputResource>();
+	   final List<InputResource> inputs = new ArrayList<>();
 	   for (URL url : filesURL) {
 	   	inputs.add(InputResource.createFile(new File(url.getFile())));
 	   }
@@ -131,19 +127,22 @@ public class GenericTest {
 	   return checkFileEquals(result, baos_rule.toByteArray());
    }
 
-   private static boolean checkFileEquals(final File fileExpected, final byte[] result) throws FileNotFoundException, IOException {
-	   FileInputStream fisExpected = new FileInputStream(fileExpected);
-	   int c;
-	   int last = -1;
-	   int offset = 0;
-	   while ((c = fisExpected.read()) != -1) {
-		   last = c;
-		   if (offset >= result.length) {
-			   offset++;
-			   continue;		   
+   private static boolean checkFileEquals(final File fileExpected, final byte[] result) throws IOException {
+	   int last;
+	   int offset;
+	   try (FileInputStream fisExpected = new FileInputStream(fileExpected)) {
+		   int c;
+		   last = -1;
+		   offset = 0;
+		   while ((c = fisExpected.read()) != -1) {
+			   last = c;
+			   if (offset >= result.length) {
+				   offset++;
+				   continue;
+			   }
+			   int d = result[offset++];
+			   if (c != d) return false;
 		   }
-		   int d = result[offset++];		   
-		   if (c != d) return false;
 	   }
 	   if (offset < result.length) {
 		   // result is longer than expected
@@ -159,14 +158,16 @@ public class GenericTest {
    }
 	
    private Set<Integer> getTestLocks() {
-	   final Set<Integer> locks = new HashSet<Integer>();
+	   final Set<Integer> locks = new HashSet<>();
 	   try {
 	   	final URL url = getClass().getResource("test_locks.txt");
 	   	if (url != null) {
 			final File file = new File(url.getFile());
-		  	final BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8);
-		  	final  List<String> ids = Arrays.asList(reader.readLine().split(" "));
-		   	for (String id : ids) {
+			final List<String> ids;
+			try (BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8)) {
+				ids = Arrays.asList(reader.readLine().split(" "));
+			}
+			for (String id : ids) {
 				   try {
 			   		locks.add(Integer.valueOf(id));
 			   	} catch (NumberFormatException ignored) {}

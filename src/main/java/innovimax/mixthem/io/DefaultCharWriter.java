@@ -20,9 +20,8 @@ public class DefaultCharWriter implements ITokenOutput {
  	* Creates a character writer.
  	* @param output The output stream for characters to be written.
  	* @param buffering The buffering indicator
- 	* @throws IOException - If an I/O error occurs
- 	*/
-	public DefaultCharWriter(final OutputStream output, final boolean buffering) throws IOException {
+     */
+	public DefaultCharWriter(final OutputStream output, final boolean buffering) {
 		this.writer = new BufferedWriter(new OutputStreamWriter(output));
 		this.buffering = buffering;
 	}
@@ -30,9 +29,8 @@ public class DefaultCharWriter implements ITokenOutput {
 	/**
  	* Creates a character writer.
  	* @param output The output stream for characters to be written.
- 	* @throws IOException - If an I/O error occurs
- 	*/
-	public DefaultCharWriter(final OutputStream output) throws IOException {
+	 */
+	public DefaultCharWriter(final OutputStream output) {
 		this(output, false);
 	}
 

@@ -18,7 +18,7 @@ public class TokenRange implements ITokenRange {
 	}
 
 	public TokenRange() {
-		this(new ArrayList<IToken>());
+		this(new ArrayList<>());
 	}
 
 	@Override

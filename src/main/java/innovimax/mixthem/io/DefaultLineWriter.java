@@ -18,9 +18,8 @@ public class DefaultLineWriter implements ITokenOutput {
 	/**
  	* Creates a line writer.
  	* @param output The output stream for lines to be written.
- 	* @throws IOException - If an I/O error occurs
- 	*/
-	public DefaultLineWriter(final OutputStream output) throws IOException {
+     */
+	public DefaultLineWriter(final OutputStream output) {
 		this.writer = new BufferedWriter(new OutputStreamWriter(output));
 	}
 

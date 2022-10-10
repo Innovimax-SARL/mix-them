@@ -1,7 +1,7 @@
 package innovimax.mixthem.io;
 
 /**
-* This interface provides for reading tokens from a multi-channel input.
+* This interface provides for reading tokens from a multichannel input.
 * @author Innovimax
 * @version 1.0
 */
@@ -13,8 +13,8 @@ public interface ITokenRangeInput {
 	boolean hasMoreTokens();
 	/**
  	* Reads next token range (one token by channel, <code>null</code> if no more token in channel)
- 	* @param tokenStatusRange indicates wich channel has to be effectivly read
- 	* @return The list of tokens (may contains <code>null</code> values)
+ 	* @param tokenStatusRange indicates which channel has to be effectively read
+ 	* @return The list of tokens (may contain <code>null</code> values)
  	*/
 	TokenRange nextTokenRange(ITokenStatusRange tokenStatusRange);
 	/**

@@ -1,6 +1,5 @@
 package innovimax.mixthem.operation;
 
-import innovimax.mixthem.MixException;
 import innovimax.mixthem.arguments.ParamValue;
 import innovimax.mixthem.arguments.RuleParam;
 import innovimax.mixthem.arguments.TokenType;
@@ -35,15 +34,13 @@ public class DefaultCharZipping extends AbstractTokenZipping {
 	*/
 	public DefaultCharZipping(final Set<Integer> selection, final TokenType tokenType, final Map<RuleParam, ParamValue> params) {
 		super(selection, tokenType, params);
-		this.sepTokens = new ArrayList<IToken>();
+		this.sepTokens = new ArrayList<>();
 		IntStream.range(0, this.sep.length())
-			.forEach(index -> {
-				this.sepTokens.add(Token.createCharToken((int) this.sep.charAt(index)));
-			});		
+			.forEach(index -> this.sepTokens.add(Token.createCharToken(this.sep.charAt(index))));
 	}
 	
 	@Override
-	public void process(final ITokenRange tokenRange, final ITokenResult result) throws MixException {
+	public void process(final ITokenRange tokenRange, final ITokenResult result) {
 		//System.out.println("RANGE="+tokenRange.toString());
 		final List<IToken> tokens = 
 			IntStream.range(0, tokenRange.size())
